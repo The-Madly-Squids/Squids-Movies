@@ -11,7 +11,7 @@ Team-8 DB Project for Telerik Alpha Academy
    
 | Feature             | Feature owner | Estimated time | Actual time | Estimated time to unit test | Actual time to unit test |
 | ------------------- | ------------- | -------------- | ----------- | --------------------------- | ------------------------ |
-| Models/DB           | Lubomir       | 2d             |             | 2d                          |                          |
+| Models/DB           | Lubomir, Plamen, Anton       | 2d             |             | 2d                          |                          |
 | Core/Engine         | Plamen        | 2d             |             | 4d                          |                          |
 | WPF                 | Plamen        | 5d             |             | 4d                          |                          |
 | User add money logic| Anton         | 2d             |             | 1d                          |                          |
