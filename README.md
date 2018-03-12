@@ -8,13 +8,6 @@ Team-8 DB Project for Telerik Alpha Academy
 - Fetures:
     - The user can create account, add money in the account, search for movies, buy movies, feedback for movie.
     - The administrator can execute CRUD operations on DB.
-- Write a table with the following columns and fill it: (Some of those columns you will have to fill as go)
-   - Name of Feature
-   - Name of Feature Owner (who will write it?)
-   - Estimated time it would take (in hours, **don't overthink it**)
-   - Actual time it took (in hours)
-   - Estimated time it would take to unit test (in hours)
-   - Actual time it took to unit test (in hours)
    
 | Feature             | Feature owner | Estimated time | Actual time | Estimated time to unit test | Actual time to unit test |
 | ------------------- | ------------- | -------------- | ----------- | --------------------------- | ------------------------ |
