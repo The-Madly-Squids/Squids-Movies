@@ -1,13 +1,13 @@
-# Squids-Movies
+# Squids-Movies-App
 Team-8 DB Project for Telerik Alpha Academy
 
-- Team name: The madly squids
+- Team name: The Madly Squids
 - Team leader: Lyubomir Yonchev
 - Team members: Plamen Atanasov, Lyubomir Yonchev, Anton Simeonov
 - The project is going to be about: Online movie store
 - Features:
-    - The user can create account, add money in the account, search for movies, buy movies, feedback for movie.
-    - The administrator can execute CRUD operations on DB.
+    - The user can create an account, add money to his/her account, search for movies/actors/directors/etc., buy/add to favourites movies, rate a movie, give feedback for a movie, follow or be followed by other users.
+    - The administrator can execute CRUD operations on the DB.
    
 | Feature             | Feature owner | Estimated time | Actual time | Estimated time to unit test | Actual time to unit test |
 | ------------------- | ------------- | -------------- | ----------- | --------------------------- | ------------------------ |
