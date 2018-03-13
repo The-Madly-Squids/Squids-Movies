@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SquidsMovieApp.Data.Contracts
+namespace SquidsMovieApp.Data.Models
 {
-    interface Interface1
+    public class User
     {
     }
 }

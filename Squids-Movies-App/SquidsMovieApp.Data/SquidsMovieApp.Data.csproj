@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Bytes2you.Validation, Version=2.0.0.0, Culture=neutral, PublicKeyToken=a7d501dd757e0442, processorArchitecture=MSIL">
+      <HintPath>..\packages\Bytes2you.Validation.2.0.0.0\lib\portable-win+net40+sl40+wp+Xbox40\Bytes2you.Validation.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -42,9 +45,18 @@
   <ItemGroup>
     <Compile Include="Class1.cs" />
     <Compile Include="Common\Class1.cs" />
-    <Compile Include="Contracts\Interface1.cs" />
-    <Compile Include="Models\Class1.cs" />
+    <Compile Include="Contracts\IMovie.cs" />
+    <Compile Include="Contracts\IParticipant.cs" />
+    <Compile Include="Contracts\IUser.cs" />
+    <Compile Include="Models\Abstract\Participant.cs" />
+    <Compile Include="Models\Actor.cs" />
+    <Compile Include="Models\Director.cs" />
+    <Compile Include="Models\Movie.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
