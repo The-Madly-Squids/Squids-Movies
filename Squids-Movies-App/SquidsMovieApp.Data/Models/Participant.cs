@@ -14,7 +14,7 @@ namespace SquidsMovieApp.Data.Models
             this.Movies = new HashSet<Movie>();
         }
 
-        public int UserId { get; set; }
+        public int ParticipantId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public int Age { get; set; }
