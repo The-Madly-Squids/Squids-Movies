@@ -5,11 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Bytes2you.Validation;
-using SquidsMovieApp.Data.Contracts;
 
 namespace SquidsMovieApp.Data.Models
 {
-    public class Movie : IMovie
+    public class Movie
     {
         private string name;
         private string description;
@@ -33,8 +32,8 @@ namespace SquidsMovieApp.Data.Models
             this.RunningTime = runningTime;
 
             // db initialization - possible add more
-            this.Аctors = new HashSet<Participant>();
-            this.Directors = new HashSet<Director>();
+            this.Participants = new HashSet<Participant>();
+          
 
         }
 
@@ -116,8 +115,7 @@ namespace SquidsMovieApp.Data.Models
         }
 
         // many-to-many
-        public virtual ICollection<Participant> Аctors { get; set; }
-        public virtual ICollection<Director> Directors { get; set; }
+        public virtual ICollection<Participant> Participants { get; set; }
         public int MovieId { get; set; } // PK
 
     }

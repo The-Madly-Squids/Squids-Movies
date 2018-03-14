@@ -52,11 +52,6 @@
   <ItemGroup>
     <Compile Include="Common\Class1.cs" />
     <Compile Include="Context\DBContext.cs" />
-    <Compile Include="Contracts\IMovie.cs" />
-    <Compile Include="Contracts\IParticipant.cs" />
-    <Compile Include="Contracts\IPerson.cs" />
-    <Compile Include="Contracts\IUser.cs" />
-    <Compile Include="Models\Abstract\Person.cs" />
     <Compile Include="Models\Participant.cs" />
     <Compile Include="Models\Review.cs" />
     <Compile Include="Models\Movie.cs" />
