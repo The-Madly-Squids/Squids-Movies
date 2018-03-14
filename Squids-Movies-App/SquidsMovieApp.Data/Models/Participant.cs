@@ -8,9 +8,9 @@ using SquidsMovieApp.Data.Models.Abstract;
 
 namespace SquidsMovieApp.Data.Models
 {
-    public class Actor : Person, IParticipant
+    public class Participant : Person, IParticipant
     {
-        public Actor(string firstName, string lastName, int age, int rating) :
+        public Participant(string firstName, string lastName, int age, int rating) :
             base(firstName, lastName, age)
         {
             this.Movies = new HashSet<Movie>();
@@ -19,4 +19,6 @@ namespace SquidsMovieApp.Data.Models
         public ICollection<Movie> Movies { get; set; }
 
     }
+
+
 }

@@ -13,8 +13,8 @@ namespace SquidsMovieApp.Data.Contracts
         string Email { get; set; }
         string Password { get; set; }
         int MoneyBalance { get; set; }
-        ICollection<Actor> LikedActors { get; set; }
-        ICollection<Director> LikedDirectors { get; set; }
+        ICollection<Participant> LikedActors { get; set; }
+        ICollection<Participant> LikedDirectors { get; set; }
         ICollection<Movie> LikedMovies { get; set; }
         ICollection<Movie> BoughtMovies { get; set; }
         ICollection<User> Following { get; set; }

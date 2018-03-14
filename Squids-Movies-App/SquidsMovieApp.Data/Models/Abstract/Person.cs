@@ -14,12 +14,15 @@ namespace SquidsMovieApp.Data.Models.Abstract
         private string lastName;
         private int age;
 
+
         protected Person(string firstName, string lastName, int age)
         {
             this.FirstName = firstName;
             this.LastName = lastName;
             this.Age = age;
         }
+
+        public string Role { get; set; }
 
         public string FirstName
         {
