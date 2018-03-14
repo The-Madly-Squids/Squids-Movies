@@ -33,7 +33,7 @@ namespace SquidsMovieApp.Data.Models
             this.RunningTime = runningTime;
 
             // db initialization - possible add more
-            this.Аctors = new HashSet<Actor>();
+            this.Аctors = new HashSet<Participant>();
             this.Directors = new HashSet<Director>();
 
         }
@@ -116,7 +116,7 @@ namespace SquidsMovieApp.Data.Models
         }
 
         // many-to-many
-        public virtual ICollection<Actor> Аctors { get; set; }
+        public virtual ICollection<Participant> Аctors { get; set; }
         public virtual ICollection<Director> Directors { get; set; }
         public int MovieId { get; set; } // PK
 
