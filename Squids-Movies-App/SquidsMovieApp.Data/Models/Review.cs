@@ -9,5 +9,6 @@ namespace SquidsMovieApp.Data.Models
     public class Review
     {
         public int ReviewId { get; set; }
+
     }
 }
