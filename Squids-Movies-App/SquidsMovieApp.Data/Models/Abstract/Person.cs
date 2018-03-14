@@ -8,14 +8,13 @@ using SquidsMovieApp.Data.Contracts;
 
 namespace SquidsMovieApp.Data.Models.Abstract
 {
-    public abstract class Participant : IParticipant
+    public abstract class Person : IPerson
     {
         private string firstName;
         private string lastName;
         private int age;
-        private int rating;
 
-        public Participant(string firstName, string lastName, int age, int rating)
+        protected Person(string firstName, string lastName, int age)
         {
             this.FirstName = firstName;
             this.LastName = lastName;

@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SquidsMovieApp.Data
+namespace SquidsMovieApp.Data.Models
 {
-    public class Class1
+    public class Review
     {
+
     }
 }

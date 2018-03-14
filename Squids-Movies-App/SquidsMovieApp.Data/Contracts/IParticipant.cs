@@ -3,15 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SquidsMovieApp.Data.Models;
 
 namespace SquidsMovieApp.Data.Contracts
 {
-    interface IParticipant
+    public interface IParticipant
     {
-        string FirstName { get; set; }
-        string LastName { get; set; }
-        int Age { get; set; }
-        //int Rating { get; set; }
-
+        ICollection<Movie> Movies { get; set; }
     }
 }

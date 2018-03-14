@@ -43,13 +43,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="Common\Class1.cs" />
     <Compile Include="Contracts\IMovie.cs" />
     <Compile Include="Contracts\IParticipant.cs" />
+    <Compile Include="Contracts\IPerson.cs" />
     <Compile Include="Contracts\IUser.cs" />
-    <Compile Include="Models\Abstract\Participant.cs" />
+    <Compile Include="Models\Abstract\Person.cs" />
     <Compile Include="Models\Actor.cs" />
+    <Compile Include="Models\Review.cs" />
     <Compile Include="Models\Director.cs" />
     <Compile Include="Models\Movie.cs" />
     <Compile Include="Models\User.cs" />
