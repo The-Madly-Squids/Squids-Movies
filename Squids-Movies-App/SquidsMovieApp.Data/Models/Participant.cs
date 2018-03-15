@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,9 +18,14 @@ namespace SquidsMovieApp.Data.Models
         }
 
         public int ParticipantId { get; set; }
+        [Required]
+        [StringLength(30, MinimumLength = 2)]
         public string FirstName { get; set; }
+
+        [Required]
+        [StringLength(30, MinimumLength = 2)]
         public string LastName { get; set; }
-        public int Age { get; set; }
+        public int? Age { get; set; }
 
         public virtual ICollection<Movie> Movies { get; set; }
         public virtual ICollection<User> ActorLikedBy { get; set; }
