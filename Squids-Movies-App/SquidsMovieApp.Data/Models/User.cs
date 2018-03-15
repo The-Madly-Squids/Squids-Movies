@@ -28,6 +28,7 @@ namespace SquidsMovieApp.Data.Models
         public string Nickname { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
+        public bool IsAdmin { get; set; }
         public int MoneyBalance { get; set; }
         
         public virtual ICollection<Participant> LikedActors { get; set; }

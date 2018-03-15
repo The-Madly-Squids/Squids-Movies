@@ -23,7 +23,6 @@ namespace SquidsMovieApp.Data.Models
         public virtual string Name { get; set; }
         public virtual string Description { get; set; }
         public virtual int Year { get; set; }
-        public virtual int Rating { get; set; }
         public int RunningTime { get; set; }
 
 
@@ -33,6 +32,6 @@ namespace SquidsMovieApp.Data.Models
         // many-to-many
         public virtual ICollection<Participant> Participants { get; set; }
       
-
+        public virtual ICollection<Genre> Genres { get; set; }
     }
 }

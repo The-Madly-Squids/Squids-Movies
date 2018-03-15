@@ -60,7 +60,16 @@
     <Compile Include="Migrations\201803151313222_UsersToLikedAndBoughtMoviesAndUsersToLikedActorsAndDirectorsLinks.Designer.cs">
       <DependentUpon>201803151313222_UsersToLikedAndBoughtMoviesAndUsersToLikedActorsAndDirectorsLinks.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201803151426051_GenresAdded.cs" />
+    <Compile Include="Migrations\201803151426051_GenresAdded.Designer.cs">
+      <DependentUpon>201803151426051_GenresAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803151429554_GenresToMovies.cs" />
+    <Compile Include="Migrations\201803151429554_GenresToMovies.Designer.cs">
+      <DependentUpon>201803151429554_GenresToMovies.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Genre.cs" />
     <Compile Include="Models\Participant.cs" />
     <Compile Include="Models\Review.cs" />
     <Compile Include="Models\Movie.cs" />
@@ -77,6 +86,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201803151313222_UsersToLikedAndBoughtMoviesAndUsersToLikedActorsAndDirectorsLinks.resx">
       <DependentUpon>201803151313222_UsersToLikedAndBoughtMoviesAndUsersToLikedActorsAndDirectorsLinks.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803151426051_GenresAdded.resx">
+      <DependentUpon>201803151426051_GenresAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803151429554_GenresToMovies.resx">
+      <DependentUpon>201803151429554_GenresToMovies.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
