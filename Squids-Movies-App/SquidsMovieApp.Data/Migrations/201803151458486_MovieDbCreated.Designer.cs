@@ -7,13 +7,13 @@ namespace SquidsMovieApp.Data.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class GenresToMovies : IMigrationMetadata
+    public sealed partial class MovieDbCreated : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(GenresToMovies));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(MovieDbCreated));
         
         string IMigrationMetadata.Id
         {
-            get { return "201803151429554_GenresToMovies"; }
+            get { return "201803151458486_MovieDbCreated"; }
         }
         
         string IMigrationMetadata.Source

@@ -8,6 +8,11 @@ namespace SquidsMovieApp.Data.Models
 {
     public class Genre
     {
+        public Genre()
+        {
+            this.Movies = new HashSet<Movie>();
+        }
+
         public int Id { get; set; }
 
         public string GenreType { get; set; }
