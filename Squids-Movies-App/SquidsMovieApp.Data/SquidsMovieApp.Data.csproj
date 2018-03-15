@@ -60,6 +60,14 @@
     <Compile Include="Migrations\201803151313222_UsersToLikedAndBoughtMoviesAndUsersToLikedActorsAndDirectorsLinks.Designer.cs">
       <DependentUpon>201803151313222_UsersToLikedAndBoughtMoviesAndUsersToLikedActorsAndDirectorsLinks.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201803151404034_added review table.cs" />
+    <Compile Include="Migrations\201803151404034_added review table.Designer.cs">
+      <DependentUpon>201803151404034_added review table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803151425185_fluent api user-review-movie.cs" />
+    <Compile Include="Migrations\201803151425185_fluent api user-review-movie.Designer.cs">
+      <DependentUpon>201803151425185_fluent api user-review-movie.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Participant.cs" />
     <Compile Include="Models\Review.cs" />
@@ -77,6 +85,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201803151313222_UsersToLikedAndBoughtMoviesAndUsersToLikedActorsAndDirectorsLinks.resx">
       <DependentUpon>201803151313222_UsersToLikedAndBoughtMoviesAndUsersToLikedActorsAndDirectorsLinks.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803151404034_added review table.resx">
+      <DependentUpon>201803151404034_added review table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803151425185_fluent api user-review-movie.resx">
+      <DependentUpon>201803151425185_fluent api user-review-movie.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

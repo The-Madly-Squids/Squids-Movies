@@ -17,6 +17,7 @@ namespace SquidsMovieApp.Data.Models
             this.Participants = new HashSet<Participant>();
             this.LikedBy = new HashSet<User>();
             this.BoughtBy = new HashSet<User>();
+            this.Reviews = new HashSet<Review>();
         }
 
         public int MovieId { get; set; } // PK
@@ -29,6 +30,7 @@ namespace SquidsMovieApp.Data.Models
 
         public virtual ICollection<User> LikedBy { get; set; }
         public virtual ICollection<User> BoughtBy { get; set; }
+        public virtual ICollection<Review> Reviews { get; set; }
 
         // many-to-many
         public virtual ICollection<Participant> Participants { get; set; }

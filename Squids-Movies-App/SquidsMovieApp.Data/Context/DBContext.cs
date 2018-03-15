@@ -11,18 +11,19 @@ namespace SquidsMovieApp.Data.Context
     public class DBContext : DbContext
     {
         public DBContext()
-            :base("name=MovieAppContext")
+            : base("name=MovieAppContext")
         {
 
         }
 
         public DbSet<Movie> Movies { get; set; }
-        public DbSet<Participant> Participants  { get; set; }
-        public DbSet<Review> Reviews  { get; set; }
-        public DbSet<User> Users  { get; set; }
+        public DbSet<Participant> Participants { get; set; }
+        public DbSet<Review> Reviews { get; set; }
+        public DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+
             modelBuilder.Entity<User>()
                .HasMany(u => u.BoughtMovies)
                .WithMany(m => m.BoughtBy)
@@ -63,24 +64,14 @@ namespace SquidsMovieApp.Data.Context
                    mc.ToTable("DirectorsLikedBy");
                });
 
-            //modelBuilder.Entity<User>()
-            //  .HasMany(u => u.Followers)
-            //  .Map(mc =>
-            //  {
-            //      mc.MapLeftKey("UserId");
-            //      mc.MapRightKey("FollowingId");
-            //      mc.ToTable("Following");
-            //  });
 
-            //modelBuilder.Entity<User>()
-            //   .HasMany(u => u.LikedDirectors)
-            //   .WithMany(d => d.DirectorLikedBy)
-            //   .Map(mc =>
-            //   {
-            //       mc.MapLeftKey("UserId");
-            //       mc.MapRightKey("ParticipantId");
-            //       mc.ToTable("DirectorsLikedBy");
-            //   });
+            modelBuilder.Entity<Review>()
+                .HasRequired(r => r.User)
+                .WithMany(u => u.Reviews);
+
+            modelBuilder.Entity<Review>()
+                .HasRequired(r => r.Movie)
+                .WithMany(u => u.Reviews);
         }
     }
 }
