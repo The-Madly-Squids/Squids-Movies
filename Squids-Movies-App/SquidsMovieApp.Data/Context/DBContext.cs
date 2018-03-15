@@ -13,7 +13,7 @@ namespace SquidsMovieApp.Data.Context
         public DBContext()
             : base("name=MovieAppContext")
         {
-
+            Database.SetInitializer<DBContext>(new CreateDatabaseIfNotExists<DBContext>());
         }
 
         public DbSet<Movie> Movies { get; set; }
