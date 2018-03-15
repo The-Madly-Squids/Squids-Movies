@@ -47,7 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="MovieAppEngine.cs" />
     <Compile Include="Commands\Class1.cs" />
     <Compile Include="Contracts\Interface1.cs" />
     <Compile Include="Dependency\AutofacConfig.cs" />

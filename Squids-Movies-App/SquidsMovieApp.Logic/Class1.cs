@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SquidsMovieApp.Core
+namespace SquidsMovieApp.Logic
 {
     public class Class1
     {

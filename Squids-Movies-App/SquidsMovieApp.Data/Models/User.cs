@@ -19,6 +19,7 @@ namespace SquidsMovieApp.Data.Models
             this.BoughtMovies = new HashSet<Movie>();
             this.Following = new HashSet<User>();
             this.Followers = new HashSet<User>();
+            this.Reviews = new HashSet<Review>();
         }
 
         public int UserId { get; set; }
@@ -30,12 +31,14 @@ namespace SquidsMovieApp.Data.Models
         public string Password { get; set; }
         public bool IsAdmin { get; set; }
         public int MoneyBalance { get; set; }
-        
+
         public virtual ICollection<Participant> LikedActors { get; set; }
         public virtual ICollection<Participant> LikedDirectors { get; set; }
-        
+
         public virtual ICollection<Movie> LikedMovies { get; set; }
         public virtual ICollection<Movie> BoughtMovies { get; set; }
+
+        public virtual ICollection<Review> Reviews { get; set; }
 
         public virtual ICollection<User> Following { get; set; }
         public virtual ICollection<User> Followers { get; set; }

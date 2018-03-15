@@ -17,21 +17,24 @@ namespace SquidsMovieApp.Data.Models
             this.Participants = new HashSet<Participant>();
             this.LikedBy = new HashSet<User>();
             this.BoughtBy = new HashSet<User>();
+            this.Reviews = new HashSet<Review>();
         }
 
         public int MovieId { get; set; } // PK
         public virtual string Name { get; set; }
         public virtual string Description { get; set; }
         public virtual int Year { get; set; }
+        public virtual int Rating { get; set; }
         public int RunningTime { get; set; }
 
 
         public virtual ICollection<User> LikedBy { get; set; }
         public virtual ICollection<User> BoughtBy { get; set; }
+        public virtual ICollection<Review> Reviews { get; set; }
 
         // many-to-many
         public virtual ICollection<Participant> Participants { get; set; }
-      
-        public virtual ICollection<Genre> Genres { get; set; }
+
+
     }
 }
