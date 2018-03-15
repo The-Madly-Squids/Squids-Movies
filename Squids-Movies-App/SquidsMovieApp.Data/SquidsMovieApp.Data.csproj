@@ -52,6 +52,11 @@
   <ItemGroup>
     <Compile Include="Common\Class1.cs" />
     <Compile Include="Context\DBContext.cs" />
+    <Compile Include="Migrations\201803150917249_InitialCreate.cs" />
+    <Compile Include="Migrations\201803150917249_InitialCreate.Designer.cs">
+      <DependentUpon>201803150917249_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Participant.cs" />
     <Compile Include="Models\Review.cs" />
     <Compile Include="Models\Movie.cs" />
@@ -61,6 +66,11 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201803150917249_InitialCreate.resx">
+      <DependentUpon>201803150917249_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

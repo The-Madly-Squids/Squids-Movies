@@ -24,7 +24,7 @@ namespace SquidsMovieApp.Data.Models
         public int RunningTime { get; set; }
         // many-to-many
         public virtual ICollection<Participant> Participants { get; set; }
-      
+
 
     }
 }
