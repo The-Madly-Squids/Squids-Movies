@@ -20,6 +20,12 @@ namespace SquidsMovieApp.Program
                     Description = "Fantastic future movie"
                 };
 
+                var movie2 = new Movie()
+                {
+                    Name = "Terminator II",
+                    Description = "Fantastic future movie"
+                };
+
 
                 var actor = new Participant()
                 {
@@ -31,12 +37,22 @@ namespace SquidsMovieApp.Program
                     FirstName = "Pesho"
                 };
 
-                user.LikedMovies.Add(movie);
+                var user2 = new User()
+                {
+                    FirstName = "Pesho2"
+                };
+
+                //user.LikedMovies.Add(movie);
+                //user.LikedMovies.Add(movie2);
+                //user2.LikedMovies.Add(movie);
+                //user2.LikedMovies.Add(movie2);
                 user.LikedActors.Add(actor);
                 movie.Participants.Add(actor);
 
                 ctx.Movies.Add(movie);
+                ctx.Movies.Add(movie2);
                 ctx.Users.Add(user);
+                ctx.Users.Add(user2);
                 ctx.Participants.Add(actor);
 
                 ctx.SaveChanges();

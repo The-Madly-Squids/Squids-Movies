@@ -52,6 +52,15 @@
   <ItemGroup>
     <Compile Include="Common\Class1.cs" />
     <Compile Include="Context\DBContext.cs" />
+    <Compile Include="Migrations\201803150939264_InitialCreate.cs" />
+    <Compile Include="Migrations\201803150939264_InitialCreate.Designer.cs">
+      <DependentUpon>201803150939264_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803151313222_UsersToLikedAndBoughtMoviesAndUsersToLikedActorsAndDirectorsLinks.cs" />
+    <Compile Include="Migrations\201803151313222_UsersToLikedAndBoughtMoviesAndUsersToLikedActorsAndDirectorsLinks.Designer.cs">
+      <DependentUpon>201803151313222_UsersToLikedAndBoughtMoviesAndUsersToLikedActorsAndDirectorsLinks.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Participant.cs" />
     <Compile Include="Models\Review.cs" />
     <Compile Include="Models\Movie.cs" />
@@ -61,6 +70,14 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201803150939264_InitialCreate.resx">
+      <DependentUpon>201803150939264_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803151313222_UsersToLikedAndBoughtMoviesAndUsersToLikedActorsAndDirectorsLinks.resx">
+      <DependentUpon>201803151313222_UsersToLikedAndBoughtMoviesAndUsersToLikedActorsAndDirectorsLinks.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
