@@ -12,7 +12,7 @@ namespace SquidsMovieApp.Program
     {
         static void Main()
         {
-            using (var ctx = new DBContext())
+            using (var ctx = new MovieAppDBContext())
             {
                 var movie = new Movie()
                 {

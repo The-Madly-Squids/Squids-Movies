@@ -51,7 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\Class1.cs" />
-    <Compile Include="Context\DBContext.cs" />
+    <Compile Include="Context\MovieAppDBContext.cs" />
     <Compile Include="Models\Genre.cs" />
     <Compile Include="Models\Participant.cs" />
     <Compile Include="Models\Review.cs" />

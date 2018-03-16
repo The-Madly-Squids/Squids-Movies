@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SquidsMovieApp.Core
+namespace SquidsMovieApp.DTO
 {
-    public class MovieAppEngine
+    public class Class1
     {
-
     }
 }

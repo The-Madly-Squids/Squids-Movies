@@ -8,6 +8,8 @@ namespace SquidsMovieApp.Data.Models
 {
     public class Review
     {
+        // a user can submit more then one review
+        // must use a composite primary key
         public int ReviewId { get; set; }
         public string Description { get; set; }
 

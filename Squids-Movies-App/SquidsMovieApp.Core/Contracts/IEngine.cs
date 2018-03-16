@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace SquidsMovieApp.Core.Contracts
 {
-    interface Interface1
+    interface IEngine
     {
+        void Start();
     }
 }

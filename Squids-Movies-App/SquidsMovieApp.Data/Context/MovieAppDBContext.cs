@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace SquidsMovieApp.Data.Context
 {
-    public class DBContext : DbContext
+    public class MovieAppDBContext : DbContext
     {
-        public DBContext()
+        public MovieAppDBContext()
             : base("name=MovieAppContext")
         {
-            Database.SetInitializer<DBContext>(new CreateDatabaseIfNotExists<DBContext>());
+            Database.SetInitializer<MovieAppDBContext>(new CreateDatabaseIfNotExists<MovieAppDBContext>());
         }
 
         public DbSet<Movie> Movies { get; set; }

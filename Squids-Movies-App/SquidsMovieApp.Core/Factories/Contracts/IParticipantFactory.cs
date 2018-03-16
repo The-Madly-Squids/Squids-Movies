@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SquidsMovieApp.Core.Factories.Contracts
 {
-    interface Interface1
+    public interface IParticipantFactory
     {
     }
 }

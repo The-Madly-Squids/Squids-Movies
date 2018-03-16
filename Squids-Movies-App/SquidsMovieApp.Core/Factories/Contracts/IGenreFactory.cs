@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SquidsMovieApp.Core
+namespace SquidsMovieApp.Core.Factories.Contracts
 {
-    public class MovieAppEngine
+    public interface IGenreFactory
     {
-
+        
     }
 }
