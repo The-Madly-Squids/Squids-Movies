@@ -1,8 +1,13 @@
-﻿using SquidsMovieApp.Data.Context;
+﻿using Autofac;
+using AutoMapper;
+using SquidsMovieApp.Data.Context;
 using SquidsMovieApp.Data.Models;
+using SquidsMovieApp.DTO;
+using SquidsMovieApp.Logic;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -12,51 +17,44 @@ namespace SquidsMovieApp.Program
     {
         static void Main()
         {
-            using (var ctx = new MovieAppDBContext())
+            AutomapperConfig.Initialzie();
+
+            var builder = new ContainerBuilder();
+            builder.RegisterAssemblyModules(Assembly.GetExecutingAssembly());
+            var container = builder.Build();
+            var service = container.Resolve<MovieService>();
+            var posts = service.GetAllMovies();
+
+            foreach (var item in posts)
             {
-                var movie = new Movie()
-                {
-                    Name = "Terminator I",
-                    Description = "Fantastic future movie"
-                };
-
-                var movie2 = new Movie()
-                {
-                    Name = "Terminator II",
-                    Description = "Fantastic future movie"
-                };
-
-
-                var actor = new Participant()
-                {
-                    FirstName = "Arnold Schawarzenegger"
-                };
-
-                var user = new User()
-                {
-                    FirstName = "Pesho"
-                };
-
-                var user2 = new User()
-                {
-                    FirstName = "Pesho2"
-                };
-
-                //user.LikedMovies.Add(movie);
-                //user.LikedMovies.Add(movie2);
-                //user2.LikedMovies.Add(movie);
-                //user2.LikedMovies.Add(movie2);
-                user.LikedActors.Add(actor);
-                movie.Participants.Add(actor);
-
-                ctx.Movies.Add(movie);
-                ctx.Movies.Add(movie2);
-                ctx.Users.Add(user);
-                ctx.Users.Add(user2);
-                ctx.Participants.Add(actor);
-
-                ctx.SaveChanges();
+                Console.WriteLine(item.Description);
             }
+
+
+            //using (var ctx = new MovieAppDBContext())
+            //{
+            //    //var movieService = new MovieService(ctx);
+            //    //var allMovies = movieService.GetAllMovies(ctx);
+            //    //foreach (var item in allMovies)
+            //    //{
+            //    //    Console.WriteLine(item.Description);
+            //    //}
+
+            //    var movie = ctx.Movies.FirstOrDefault();
+
+            //    // this is what actually automapper does in the below map
+            //    // it maps according to name and type
+            //    //MovieModel movie1 = new MovieModel()
+            //    //{
+            //    //    Description = movie.Description
+            //    //};
+
+
+            //    AutomapperConfig.Initialzie();
+            //    MovieModel movieModel = Mapper.Map<MovieModel>(movie);
+            //    Console.WriteLine(movieModel);
+
+            //}
         }
     }
 }

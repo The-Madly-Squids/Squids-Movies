@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SquidsMovieApp.Data.Context
 {
-    public class MovieAppDBContext : DbContext
+    public class MovieAppDBContext : DbContext, IMovieAppDBContext
     {
         public MovieAppDBContext()
             : base("name=MovieAppContext")
@@ -20,6 +20,7 @@ namespace SquidsMovieApp.Data.Context
         public DbSet<Participant> Participants { get; set; }
         public DbSet<Review> Reviews { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<Genre> Genres { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

@@ -51,7 +51,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\Class1.cs" />
-    <Compile Include="Context\DBContext.cs" />
+    <Compile Include="Context\IMovieAppDBContext.cs" />
+    <Compile Include="Context\MovieAppDBContext.cs" />
     <Compile Include="Migrations\201803151523146_Initial.cs" />
     <Compile Include="Migrations\201803151523146_Initial.Designer.cs">
       <DependentUpon>201803151523146_Initial.cs</DependentUpon>
