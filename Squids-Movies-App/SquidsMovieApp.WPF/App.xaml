@@ -1,0 +1,34 @@
+﻿<Application x:Class="SquidsMovieApp.WPF.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:SquidsMovieApp.WPF"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <Style TargetType="Grid">
+            <Setter Property="Background" Value="GhostWhite"/>
+        </Style>
+        <DataTemplate x:Key="NavigationGrid">
+            <Grid Grid.Column="0" Grid.Row="0" Background="CornflowerBlue">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <TextBlock Margin="10" HorizontalAlignment="Left" Grid.Column="0" Grid.Row="0">Logo and some welcome message</TextBlock>
+                <TextBlock Margin="10" HorizontalAlignment="Right" Grid.Column="1" Grid.Row="0">Hello, *name*!</TextBlock>
+                <StackPanel Margin="10" Grid.Column="0" Grid.Row="1" Orientation="Horizontal">
+                    <TextBox Margin="0,0,15,0" HorizontalAlignment="Left" Width="250"></TextBox>
+                    <Button Margin="0,0,15,0" HorizontalAlignment="Left" Width="125" Height="25" Content="Search"/>
+                </StackPanel>
+                <StackPanel Margin="10" Grid.Column="1" Grid.Row="1" FlowDirection="RightToLeft" Orientation="Horizontal">
+                    <TextBlock>$Balance</TextBlock>
+                    <Button Margin="15,0,0,0" Width="50" Height="25" Content="Cart"/>
+                    <Button Margin="15,0,0,0" Width="50" Height="25" Content="Profile"/>
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
+    </Application.Resources>
+</Application>
