@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SquidsMovieApp.Logic.Validations
+namespace SquidsMovieApp.Common.Mapping
 {
-    public class MovieInfoValidator
+    public interface IMapFrom<T> where T : class
     {
-
     }
 }

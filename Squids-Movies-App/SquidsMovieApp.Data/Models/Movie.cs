@@ -30,9 +30,7 @@ namespace SquidsMovieApp.Data.Models
         [StringLength(200, MinimumLength = 10)]
         public string Description { get; set; }
         public int? Year { get; set; }
-        public int? Rating { get; set; }
         public int? RunningTime { get; set; }
-
 
         public virtual ICollection<User> LikedBy { get; set; }
         public virtual ICollection<User> BoughtBy { get; set; }
