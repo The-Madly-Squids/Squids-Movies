@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SquidsMovieApp.DTO", "Squid
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SquidsMovieApp.Common", "SquidsMovieApp.Common\SquidsMovieApp.Common.csproj", "{46BB2366-5C29-4CBC-AC99-E794310C942B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SquidsMovieApp.WPF", "SquidsMovieApp.WPF\SquidsMovieApp.WPF.csproj", "{0719251B-549A-43C5-83E0-9B3C8C933582}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +59,10 @@ Global
 		{46BB2366-5C29-4CBC-AC99-E794310C942B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{46BB2366-5C29-4CBC-AC99-E794310C942B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{46BB2366-5C29-4CBC-AC99-E794310C942B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0719251B-549A-43C5-83E0-9B3C8C933582}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0719251B-549A-43C5-83E0-9B3C8C933582}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0719251B-549A-43C5-83E0-9B3C8C933582}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0719251B-549A-43C5-83E0-9B3C8C933582}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
