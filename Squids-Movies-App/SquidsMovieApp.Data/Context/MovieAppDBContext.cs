@@ -8,18 +8,19 @@ using System.Threading.Tasks;
 
 namespace SquidsMovieApp.Data.Context
 {
-    public class DBContext : DbContext
+    public class MovieAppDBContext : DbContext, IMovieAppDBContext
     {
-        public DBContext()
+        public MovieAppDBContext()
             : base("name=MovieAppContext")
         {
-            Database.SetInitializer<DBContext>(new CreateDatabaseIfNotExists<DBContext>());
+            Database.SetInitializer<MovieAppDBContext>(new CreateDatabaseIfNotExists<MovieAppDBContext>());
         }
 
         public DbSet<Movie> Movies { get; set; }
         public DbSet<Participant> Participants { get; set; }
         public DbSet<Review> Reviews { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<Genre> Genres { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

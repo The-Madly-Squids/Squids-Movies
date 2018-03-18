@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SquidsMovieApp.Logic
+namespace SquidsMovieApp.Core.Contracts
 {
-    public class Class1
+    interface IEngine
     {
+        void Start();
     }
 }

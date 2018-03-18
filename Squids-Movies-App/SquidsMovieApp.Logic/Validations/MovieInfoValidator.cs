@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SquidsMovieApp.Core.Factories.Contracts
+namespace SquidsMovieApp.Logic.Validations
 {
-    interface Interface1
+    public class MovieInfoValidator
     {
+
     }
 }

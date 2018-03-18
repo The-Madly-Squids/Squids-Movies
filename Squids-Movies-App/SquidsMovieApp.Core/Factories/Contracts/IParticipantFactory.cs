@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SquidsMovieApp.Core.Contracts
+namespace SquidsMovieApp.Core.Factories.Contracts
 {
-    interface Interface1
+    public interface IParticipantFactory
     {
     }
 }
