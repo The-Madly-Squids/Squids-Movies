@@ -13,10 +13,11 @@ namespace SquidsMovieApp.Program
     {
         public static void Initialzie()
         {
-            Mapper.Initialize(cfg =>
-            {
-                cfg.CreateMap<MovieModel, Movie>().ReverseMap();
-            });
+            // old - without reflection 
+            //Mapper.Initialize(cfg =>
+            //{
+            //    cfg.CreateMap<MovieModel, Movie>().ReverseMap();
+            //});
         }
     }
 }

@@ -3,21 +3,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Bytes2you.Validation;
 using SquidsMovieApp.Data.Context;
 using SquidsMovieApp.Data.Models;
 using SquidsMovieApp.DTO;
+using SquidsMovieApp.Logic.Contracts;
 
 namespace SquidsMovieApp.Logic
 {
-    public class MovieService
+    public class MovieService : IMovieService
     {
         private readonly IMovieAppDBContext movieAppDbContext;
+        private readonly IMapper mapper;
 
-        public MovieService(IMovieAppDBContext movieAppDbContext)
+        public MovieService(IMovieAppDBContext movieAppDbContext, IMapper mapper)
         {
             this.movieAppDbContext = movieAppDbContext;
+            this.mapper = mapper;
         }
 
         public IEnumerable<MovieModel> GetAllMovies()
@@ -43,24 +47,14 @@ namespace SquidsMovieApp.Logic
             return movies;
         }
 
-
-        public void AddMovie(string name, string description, int year, int runningTime)
+        public void AddMovie(MovieModel movie)
         {
-            // validation and construction should not happen in this method
-            // you should pass a ready IMovie object to this and method
-            // and it should only add ?? 
-            Guard.WhenArgument(name, "movie name")
-                .IsNotNullOrEmpty()
-                .Throw();
-            // more validations.. 
-            // call factory here
-            var movieToAdd = new Movie()
+            if (movie == null)
             {
-                Name = name,
-                Description = description,
-                Year = year,
-                RunningTime = runningTime
-            };
+                throw new ArgumentException();
+            }
+
+            var movieToAdd = this.mapper.Map<Movie>(movie);
 
             this.movieAppDbContext.Movies.Add(movieToAdd);
             this.movieAppDbContext.SaveChanges();

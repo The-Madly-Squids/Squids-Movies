@@ -38,6 +38,9 @@
     <Reference Include="AutoMapper, Version=6.2.2.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
       <HintPath>..\packages\AutoMapper.6.2.2\lib\net45\AutoMapper.dll</HintPath>
     </Reference>
+    <Reference Include="Bytes2you.Validation, Version=2.0.0.0, Culture=neutral, PublicKeyToken=a7d501dd757e0442, processorArchitecture=MSIL">
+      <HintPath>..\packages\Bytes2you.Validation.2.0.0.0\lib\portable-win+net40+sl40+wp+Xbox40\Bytes2you.Validation.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -59,8 +62,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AutofacModule.cs" />
+    <Compile Include="AutofacModules\AutofacModule.cs" />
     <Compile Include="AutomapperConfig.cs" />
+    <Compile Include="Controllers\MovieController.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -69,6 +73,14 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SquidsMovieApp.Common\SquidsMovieApp.Common.csproj">
+      <Project>{46BB2366-5C29-4CBC-AC99-E794310C942B}</Project>
+      <Name>SquidsMovieApp.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SquidsMovieApp.Core\SquidsMovieApp.Core.csproj">
+      <Project>{168B02CD-9CB0-4393-8C54-024E8FF5BD8A}</Project>
+      <Name>SquidsMovieApp.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SquidsMovieApp.Data\SquidsMovieApp.Data.csproj">
       <Project>{4BBB6B73-E52A-4B9D-843D-46D10AF8FD62}</Project>
       <Name>SquidsMovieApp.Data</Name>

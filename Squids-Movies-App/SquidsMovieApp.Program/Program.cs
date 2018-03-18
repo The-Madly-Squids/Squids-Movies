@@ -1,11 +1,14 @@
 ﻿using Autofac;
 using AutoMapper;
+using SquidsMovieApp.Common;
 using SquidsMovieApp.Data.Context;
 using SquidsMovieApp.Data.Models;
 using SquidsMovieApp.DTO;
 using SquidsMovieApp.Logic;
+using SquidsMovieApp.Program.Controllers;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -17,18 +20,18 @@ namespace SquidsMovieApp.Program
     {
         static void Main()
         {
-            AutomapperConfig.Initialzie();
+            //AutomapperConfig.Initialzie();
 
-            var builder = new ContainerBuilder();
-            builder.RegisterAssemblyModules(Assembly.GetExecutingAssembly());
-            var container = builder.Build();
-            var service = container.Resolve<MovieService>();
-            var posts = service.GetAllMovies();
+            //var builder = new ContainerBuilder();
+            //builder.RegisterAssemblyModules(Assembly.GetExecutingAssembly());
+            //var container = builder.Build();
+            //var service = container.Resolve<MovieService>();
+            //var posts = service.GetAllMovies();
 
-            foreach (var item in posts)
-            {
-                Console.WriteLine(item.Description);
-            }
+            //foreach (var item in posts)
+            //{
+            //    Console.WriteLine(item.Description);
+            //}
 
 
             //using (var ctx = new MovieAppDBContext())
@@ -55,6 +58,25 @@ namespace SquidsMovieApp.Program
             //    Console.WriteLine(movieModel);
 
             //}
+
+            Init();
+            var builder = new ContainerBuilder();
+            builder.RegisterAssemblyModules(Assembly.GetExecutingAssembly());
+            var container = builder.Build();
+            var controller = container.Resolve<MovieController>();
+            controller.CreateMovie("terminator 3", "not as good", 2007, 180);
+            var movies = controller.GetAllMovies();
+
+            foreach (var movie in movies)
+            {
+                Console.WriteLine(movie.Name);
+            }
+
+        }
+
+        private static void Init()
+        {
+            AutomapperConfiguration.Initialize();
         }
     }
 }
