@@ -17,6 +17,7 @@
             <RowDefinition />
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <ContentPresenter ContentTemplate="{StaticResource NavigationGrid}" />
+        <ContentPresenter Grid.Row="0" ContentTemplate="{StaticResource NavigationGrid}" />
+        <ContentPresenter Grid.Row="2" ContentTemplate="{StaticResource Footer}" />
     </Grid>
 </Page>

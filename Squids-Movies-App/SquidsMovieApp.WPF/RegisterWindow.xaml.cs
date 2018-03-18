@@ -16,23 +16,23 @@ using System.Windows.Shapes;
 namespace SquidsMovieApp.WPF
 {
     /// <summary>
-    /// Interaction logic for Home.xaml
+    /// Interaction logic for RegisterWindow.xaml
     /// </summary>
-    public partial class HomeWindow : Page
+    public partial class RegisterWindow : Page
     {
-        public HomeWindow()
+        public RegisterWindow()
         {
             InitializeComponent();
-        }
-        
-        private void LoginBtnClicked(object sender, RoutedEventArgs e)
-        {
-            this.NavigationService.Navigate(new ProfileWindow());
+            EmailRegisterTB.Focus();
         }
 
-        private void ExitBtnClicked(object sender, RoutedEventArgs e)
+        private void GoBackBtnClicked(object sender, RoutedEventArgs e)
         {
-            Application.Current.Shutdown();
+            this.NavigationService.Navigate(new LoginWindow());
+        }
+        private void RegisterBtnClicked(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new ProfileWindow());
         }
     }
 }

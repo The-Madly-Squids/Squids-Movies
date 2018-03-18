@@ -13,5 +13,9 @@ namespace SquidsMovieApp.WPF
     /// </summary>
     public partial class App : Application
     {
+        private void ExitBtnClicked(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
     }
 }

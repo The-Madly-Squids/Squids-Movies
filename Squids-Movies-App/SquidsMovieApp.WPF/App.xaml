@@ -30,5 +30,10 @@
                 </StackPanel>
             </Grid>
         </DataTemplate>
+        <DataTemplate x:Key="Footer">
+            <DockPanel LastChildFill="False" Background="CadetBlue" Height="55">
+                <Button Width="125" Height="25" Content="Exit" DockPanel.Dock="Right" Margin="0,0,15,0" Click="ExitBtnClicked"/>
+            </DockPanel>
+        </DataTemplate>
     </Application.Resources>
 </Application>
