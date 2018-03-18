@@ -11,10 +11,13 @@ namespace SquidsMovieApp.DTO
 {
     public class MovieModel : IMapFrom<Movie>, IHaveCustomMapping
     {
+        public int MovieId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public int? Year { get; set; }
         public int? RunningTime { get; set; }
+        public virtual ICollection<Participant> Participants { get; set; }
+
 
         public void CreateMappings(IMapperConfigurationExpression configuration)
         {

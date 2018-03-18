@@ -14,7 +14,7 @@ namespace SquidsMovieApp.Data.Models
         public int ReviewId { get; set; }
         [StringLength(200, MinimumLength = 10)]
         public string Description { get; set; }
-
+        public int Rating { get; set; }
         public virtual User User { get; set; }
         public virtual Movie Movie { get; set; }
     }

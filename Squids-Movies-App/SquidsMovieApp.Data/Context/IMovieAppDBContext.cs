@@ -15,6 +15,7 @@ namespace SquidsMovieApp.Data.Context
         DbSet<User> Users { get; set; }
         DbSet<Review> Reviews { get; set; }
         DbSet<Genre> Genres { get; set; }
+        DbSet<Role> Roles { get; set; }
         int SaveChanges();
     }
 }

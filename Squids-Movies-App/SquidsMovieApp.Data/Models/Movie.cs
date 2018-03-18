@@ -40,5 +40,6 @@ namespace SquidsMovieApp.Data.Models
         public virtual ICollection<Participant> Participants { get; set; }
 
         public virtual ICollection<Genre> Genres { get; set; }
+
     }
 }
