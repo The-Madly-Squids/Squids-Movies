@@ -28,7 +28,7 @@
                 <TextBlock Margin="0,0,0,5" FontSize="17">Email:</TextBlock>
                 <TextBox Name="EmailLoginTB" Margin="0,0,0,5" FontSize="14"></TextBox>
                 <TextBlock Margin="0,0,0,5" FontSize="17">Password:</TextBlock>
-                <PasswordBox Margin="0,0,0,15" FontSize="14"/>
+                <PasswordBox Name="PasswordLoginTB" Margin="0,0,0,15" FontSize="14"/>
                 <Button  FontSize="15" Width="50" Margin="0,0,0,15" Content="Login" Click="LoginBtnClicked"/>
                 <TextBlock FontSize="12"><Hyperlink Click="RegisterLinkClick">Don't have an account? Register.</Hyperlink></TextBlock>
             </StackPanel>

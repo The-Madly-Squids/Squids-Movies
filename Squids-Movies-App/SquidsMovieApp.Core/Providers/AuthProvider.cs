@@ -16,6 +16,7 @@ namespace SquidsMovieApp.Core.Providers
         public AuthProvider(IMovieAppDBContext movieAppDbContext)
         {
             this.movieAppDbContext = movieAppDbContext;
+            this.loggedUser = null;
         }
 
         public User GetCurrentUser()
@@ -35,6 +36,7 @@ namespace SquidsMovieApp.Core.Providers
             else
             {
                 this.loggedUser = null;
+                throw new ArgumentException();
             }
         }
 

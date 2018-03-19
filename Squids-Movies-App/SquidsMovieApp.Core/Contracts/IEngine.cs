@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace SquidsMovieApp.Core.Contracts
 {
-    interface IEngine
+    public interface IEngine
     {
-        void Start();
+        void Start(string email, string password);
     }
 }

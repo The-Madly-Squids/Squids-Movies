@@ -19,14 +19,11 @@ namespace SquidsMovieApp.Core
             this.authentication = authentication;
         }
 
-        public void Start()
+        public void Start(string email, string password)
         {
-            while (true)
+            if (this.userController.CurrentUser == null)
             {
-                if (this.userController.CurrentUser == null)
-                {
-                    //this.authentication.Login(username, password);
-                }
+                this.authentication.Login(email, password);
             }
         }
     }
