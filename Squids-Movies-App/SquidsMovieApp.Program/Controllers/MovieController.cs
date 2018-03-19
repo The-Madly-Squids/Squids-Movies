@@ -15,13 +15,15 @@ namespace SquidsMovieApp.Program.Controllers
     public class MovieController
     {
         private readonly IMovieService movieService;
+        private readonly IRoleService roleService;
         private readonly IMapper mapper;
         private readonly IMovieModelFactory factory;
 
-        public MovieController(IMovieService movieService, IMapper mapper,
-            IMovieModelFactory factory)
+        public MovieController(IMovieService movieService, IRoleService roleService,
+            IMapper mapper, IMovieModelFactory factory)
         {
             this.movieService = movieService;
+            this.roleService = roleService;
             this.mapper = mapper;
             this.factory = factory;
         }
@@ -101,32 +103,20 @@ namespace SquidsMovieApp.Program.Controllers
                     "Add it first!");
             }
 
-            var partRole = participant.Roles
-                .Where(x => x.ParticipantId == participant.ParticipantId
-                && movie.MovieId == x.MovieId)
-                .FirstOrDefault().RoleName;
 
-            if (partRole == role)
+            var pRoles = this.roleService.ParticipantRolesPerMovie(participant, movie);
+            foreach (var r in pRoles)
             {
-                throw new ArgumentException("Participant with same name and role already in " +
-                    "the DB");
+                if (r.RoleName == role)
+                {
+                    throw new ArgumentException("Participant with same name and role" +
+                        " already in the DB");
+                }
             }
 
-            // move to AddRole() in  controller layer( RoleController)
-            // AddRole(MovieModel movie, Participant participant, string roleName);
-            // return objects in role to old properties;
-            var roleObject = new Role()
-            {
-                MovieId = movie.MovieId,
-                ParticipantId = participant.ParticipantId,
-                RoleName = role
-            };
+            //roleService.AddRole(movie, participant);
 
-            // TO-DO must finish Partcipant class and DTO first 
-            // need to check if name && role are already existin
-            // if not break;
-
-            throw new NotImplementedException();
+            this.movieService.AddMovieParticipant(movie, participant, role);
         }
 
         public IEnumerable<MovieModel> GetAllMovies()
@@ -134,6 +124,5 @@ namespace SquidsMovieApp.Program.Controllers
             var movies = this.movieService.GetAllMovies();
             return movies;
         }
-
     }
 }

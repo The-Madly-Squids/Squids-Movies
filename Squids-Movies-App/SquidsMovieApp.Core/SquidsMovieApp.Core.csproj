@@ -47,25 +47,29 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Contracts\IUserContext.cs" />
     <Compile Include="Factories\Contracts\IGenreFactory.cs" />
     <Compile Include="Factories\Contracts\IParticipantFactory.cs" />
     <Compile Include="Factories\Contracts\IReviewFactory.cs" />
     <Compile Include="Factories\Contracts\IUserFactory.cs" />
     <Compile Include="Factories\UserModelFactory.cs" />
     <Compile Include="MovieAppEngine.cs" />
-    <Compile Include="Commands\Class1.cs" />
     <Compile Include="Contracts\IEngine.cs" />
     <Compile Include="Dependency\AutofacConfig.cs" />
     <Compile Include="Factories\MovieModelFactory.cs" />
     <Compile Include="Factories\Contracts\IMovieFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Providers\Class1.cs" />
+    <Compile Include="Providers\AuthProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SquidsMovieApp.Data\SquidsMovieApp.Data.csproj">
+      <Project>{4BBB6B73-E52A-4B9D-843D-46D10AF8FD62}</Project>
+      <Name>SquidsMovieApp.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SquidsMovieApp.DTO\SquidsMovieApp.DTO.csproj">
       <Project>{22E0CAC0-3E8F-4DA3-9B90-86545D78C3C8}</Project>
       <Name>SquidsMovieApp.DTO</Name>

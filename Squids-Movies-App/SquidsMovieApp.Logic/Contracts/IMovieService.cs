@@ -14,5 +14,7 @@ namespace SquidsMovieApp.Logic.Contracts
         void AddMovie(MovieModel movie);
         void RemoveMovie(MovieModel movie);
         IEnumerable<ParticipantModel> GetAllParticipantsPerMovie(MovieModel movie);
+        void AddMovieParticipant(MovieModel movie, ParticipantModel participant, string roleName);
+
     }
 }

@@ -96,9 +96,28 @@ namespace SquidsMovieApp.Logic
 
         }
 
-        public void AddMovieParticipant(MovieModel movie, Participant participant)
+        public void AddMovieParticipant(MovieModel movie, ParticipantModel participant,
+            string roleName)
         {
-        }
+            Guard.WhenArgument(movie, "movie")
+                .IsNull()
+                .Throw();
 
+            Guard.WhenArgument(participant, "participant")
+                .IsNull()
+                .Throw();
+
+            Guard.WhenArgument(roleName, "role name")
+                .IsNullOrEmpty()
+                .Throw();
+
+            var actorRole = new Role()
+            {
+                MovieId = movie.MovieId,
+                ParticipantId = participant.ParticipantId,
+                RoleName = roleName
+            };
+            this.movieAppDbContext.Roles.Add(actorRole);
+        }
     }
 }

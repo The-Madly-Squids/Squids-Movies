@@ -23,7 +23,6 @@ namespace SquidsMovieApp.DTO
 
         public void CreateMappings(IMapperConfigurationExpression configuration)
         {
-            throw new NotImplementedException();
         }
     }
 }
