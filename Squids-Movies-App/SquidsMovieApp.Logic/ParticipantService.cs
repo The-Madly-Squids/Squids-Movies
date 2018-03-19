@@ -34,5 +34,15 @@ namespace SquidsMovieApp.Logic
 
             this.movieAppDbContext.Participants.Add(participant);
         }
+
+        public decimal ParticipantRating(ParticipantModel participantModel)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RemoveParticipant(ParticipantModel participantModel)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

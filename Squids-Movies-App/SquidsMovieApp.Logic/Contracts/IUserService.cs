@@ -9,9 +9,22 @@ namespace SquidsMovieApp.Logic.Contracts
 {
     public interface IUserService
     {
-        IEnumerable<UserModel> GetAllUsers();
+        // possible GetLikedActors/Directors ?
+        IEnumerable<ParticipantModel> GetLikedParticipants();
+        IEnumerable<MovieModel> GetLikeddMovies();
+        IEnumerable<MovieModel> GetBoughtMovies();
+        //IEnumerable<ReviewModel> GetAllReviews();
+        IEnumerable<UserModel> GetFollowers();
+        IEnumerable<UserModel> GetFollowed();
+        decimal GetMoneyBalance();
+        void AddMoneyToBalance(decimal amount);
+        void LikeParticipant(ParticipantModel participant);
+        void FollowUser(UserModel user);
+        void BuyMovie(MovieModel movie);
+        void GiveReview(MovieModel movie);
+        // admin methods
         void AddUser(UserModel user);
         void RemoveUser(UserModel user);
-
+        IEnumerable<UserModel> GetAllUsers();
     }
 }

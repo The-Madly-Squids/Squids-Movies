@@ -10,5 +10,7 @@ namespace SquidsMovieApp.Logic.Contracts
     public interface IParticipantService
     {
         void AddParticipant(ParticipantModel participantModel);
+        void RemoveParticipant(ParticipantModel participantModel);
+        decimal ParticipantRating(ParticipantModel participantModel);
     }
 }

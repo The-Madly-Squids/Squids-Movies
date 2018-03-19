@@ -119,5 +119,35 @@ namespace SquidsMovieApp.Logic
             };
             this.movieAppDbContext.Roles.Add(actorRole);
         }
+
+        public float GetRating(MovieModel movie)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<ParticipantModel> GetActors(MovieModel movie)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<ParticipantModel> GetDirectors(MovieModel movie)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<string> GetMovieGenres(MovieModel movie)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<UserModel> GetUsersWhoBoughtIt(MovieModel movie)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<UserModel> GetUsersWhoLikedtIt(MovieModel movie)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
