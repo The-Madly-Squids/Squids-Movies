@@ -65,11 +65,8 @@
     <Compile Include="AutofacModules\AutofacModule.cs" />
     <Compile Include="AutomapperConfig.cs" />
     <Compile Include="Controllers\MovieController.cs" />
-<<<<<<< HEAD
-    <Compile Include="Controllers\UserController.cs" />
-=======
     <Compile Include="Controllers\RoleController.cs" />
->>>>>>> 5e6e41bc6d508a0b6d424e862a2bf703cc06bcfa
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

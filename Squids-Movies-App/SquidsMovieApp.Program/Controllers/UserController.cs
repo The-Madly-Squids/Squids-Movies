@@ -16,3 +16,4 @@ namespace SquidsMovieApp.Program.Controllers
         private readonly IUserFactory factory;
     }
 }
+
