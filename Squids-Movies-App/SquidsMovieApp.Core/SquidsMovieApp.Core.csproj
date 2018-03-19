@@ -51,6 +51,7 @@
     <Compile Include="Factories\Contracts\IParticipantFactory.cs" />
     <Compile Include="Factories\Contracts\IReviewFactory.cs" />
     <Compile Include="Factories\Contracts\IUserFactory.cs" />
+    <Compile Include="Factories\UserModelFactory.cs" />
     <Compile Include="MovieAppEngine.cs" />
     <Compile Include="Commands\Class1.cs" />
     <Compile Include="Contracts\IEngine.cs" />
