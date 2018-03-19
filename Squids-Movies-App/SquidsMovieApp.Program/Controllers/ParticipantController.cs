@@ -39,9 +39,9 @@ namespace SquidsMovieApp.Program.Controllers
                 .IsGreaterThan(120)
                 .Throw();
 
-            var participant = this.factory.CreateParticipantModel(
+            var participantModel = this.factory.CreateParticipantModel(
                 firstName, lastName, age);
-            this.participantService.
+            this.participantService.AddParticipant(participantModel);
         }
     }
 }
