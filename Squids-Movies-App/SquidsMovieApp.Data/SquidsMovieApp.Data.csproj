@@ -57,6 +57,10 @@
     <Compile Include="Migrations\201803151523146_Initial.Designer.cs">
       <DependentUpon>201803151523146_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201803191125098_Role table added. Other changes.cs" />
+    <Compile Include="Migrations\201803191125098_Role table added. Other changes.Designer.cs">
+      <DependentUpon>201803191125098_Role table added. Other changes.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Genre.cs" />
     <Compile Include="Models\Participant.cs" />
@@ -73,6 +77,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201803151523146_Initial.resx">
       <DependentUpon>201803151523146_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803191125098_Role table added. Other changes.resx">
+      <DependentUpon>201803191125098_Role table added. Other changes.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

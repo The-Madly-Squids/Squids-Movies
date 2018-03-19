@@ -119,6 +119,5 @@ namespace SquidsMovieApp.Logic
             };
             this.movieAppDbContext.Roles.Add(actorRole);
         }
-
     }
 }

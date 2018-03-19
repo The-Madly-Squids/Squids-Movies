@@ -23,15 +23,25 @@ namespace SquidsMovieApp.Program
                 .As<IMovieAppDBContext>()
                 .InstancePerDependency();
 
-
+            // services 
             builder.RegisterType<MovieService>()
                 .As<IMovieService>()
                 .InstancePerDependency();
 
+            builder.RegisterType<RoleService>()
+                .As<IRoleService>()
+                .InstancePerDependency();
+
+            // controllers
             builder.RegisterType<MovieController>()
                 .AsSelf()
                 .InstancePerDependency();
 
+            builder.RegisterType<RoleController>()
+                .AsSelf()
+                .InstancePerDependency();
+
+            // factories
             builder.RegisterType<MovieModelFactory>()
                 .As<IMovieModelFactory>()
                 .InstancePerDependency();
