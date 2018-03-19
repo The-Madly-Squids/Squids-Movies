@@ -65,6 +65,7 @@
     <Compile Include="AutofacModules\AutofacModule.cs" />
     <Compile Include="AutomapperConfig.cs" />
     <Compile Include="Controllers\MovieController.cs" />
+    <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
