@@ -90,9 +90,10 @@ namespace SquidsMovieApp.Logic
                 participantsModelsList.Add(participantModel);
             }
 
+            //var movies = this.movieAppDbContext.Movies.ProjectTo<MovieModel>();
+
             return participantsModelsList;
 
-            //var movies = this.movieAppDbContext.Movies.ProjectTo<MovieModel>();
 
         }
 
@@ -111,6 +112,7 @@ namespace SquidsMovieApp.Logic
                 .IsNullOrEmpty()
                 .Throw();
 
+            // object from DTO - possible? will it be in the DB?
             var movieObject = this.mapper.Map<Movie>(movie);
             var participantObject = this.mapper.Map<Participant>(participant);
 
@@ -158,7 +160,18 @@ namespace SquidsMovieApp.Logic
         }
         public IEnumerable<ParticipantModel> GetDirectors(MovieModel movie)
         {
-            throw new NotImplementedException();
+            if (movie == null)
+            {
+                throw new ArgumentNullException("No such movie!");
+            }
+
+            var actorsRoles = this.movieAppDbContext.Roles
+                .Where(x => x.Movie.MovieId == movie.MovieId &&
+                        x.RoleName == "Director")
+                        .Select(a => a.Participant).ProjectTo<ParticipantModel>()
+                        .ToList();
+
+            return actorsRoles;
         }
 
         public IEnumerable<string> GetMovieGenres(MovieModel movie)
@@ -168,12 +181,50 @@ namespace SquidsMovieApp.Logic
 
         public IEnumerable<UserModel> GetUsersWhoBoughtIt(MovieModel movie)
         {
-            throw new NotImplementedException();
+            if (movie == null)
+            {
+                throw new ArgumentNullException("Movie cannot be null!");
+            }
+
+            var userModelsList = new List<UserModel>();
+            var users = movie.BoughtBy;
+
+            foreach (var user in users)
+            {
+                var userModel = new UserModel()
+                {
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    Age = user.Age
+                };
+                userModelsList.Add(userModel);
+            }
+
+            return userModelsList;
         }
 
         public IEnumerable<UserModel> GetUsersWhoLikedtIt(MovieModel movie)
         {
-            throw new NotImplementedException();
+            if (movie == null)
+            {
+                throw new ArgumentNullException("Movie cannot be null!");
+            }
+
+            var userModelsList = new List<UserModel>();
+            var users = movie.LikedBy;
+
+            foreach (var user in users)
+            {
+                var userModel = new UserModel()
+                {
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    Age = user.Age
+                };
+                userModelsList.Add(userModel);
+            }
+
+            return userModelsList;
         }
     }
 }
