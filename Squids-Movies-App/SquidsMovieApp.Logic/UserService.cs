@@ -37,7 +37,13 @@ namespace SquidsMovieApp.Logic
         }
         public void RemoveUser(UserModel user)
         {
-            throw new NotImplementedException();
+            if (user == null)
+            {
+                throw new ArgumentException();
+            }
+
+            var userToRemove = Mapper.Map<User>(user);
+            movieAppDbContext.Users.Remove(userToRemove);
         }
 
         public IEnumerable<UserModel> GetAllUsers()
@@ -46,29 +52,70 @@ namespace SquidsMovieApp.Logic
             return users;
         }
 
-        public IEnumerable<ParticipantModel> GetLikedParticipants()
+        public IEnumerable<ParticipantModel> GetLikedDirectors(UserModel user)
         {
-            throw new NotImplementedException();
+            var likedDirectors = new List<ParticipantModel>();
+            foreach(Participant director in user.LikedDirectors)
+            {
+                var directorModel = mapper.Map<ParticipantModel>(director);
+                likedDirectors.Add(directorModel);
+            }
+            return likedDirectors;
         }
 
-        public IEnumerable<MovieModel> GetLikeddMovies()
+        public IEnumerable<ParticipantModel> GetLikedActors(UserModel user)
         {
-            throw new NotImplementedException();
+            var likedActors = new List<ParticipantModel>();
+            foreach (Participant actor in user.LikedActors)
+            {
+                var actorModel = mapper.Map<ParticipantModel>(actor);
+                likedActors.Add(actorModel);
+            }
+            return likedActors;
         }
 
-        public IEnumerable<MovieModel> GetBoughtMovies()
+        public IEnumerable<MovieModel> GetLikeddMovies(UserModel user)
         {
-            throw new NotImplementedException();
+            var likedMovies = new List<MovieModel>();
+            foreach (Movie movie in user.LikedMovies)
+            {
+                var movieModel = mapper.Map<MovieModel>(movie);
+                likedMovies.Add(movieModel);
+            }
+            return likedMovies;
         }
 
-        public IEnumerable<UserModel> GetFollowers()
+        public IEnumerable<MovieModel> GetBoughtMovies(UserModel user)
         {
-            throw new NotImplementedException();
+            var boughtMovies = new List<MovieModel>();
+            foreach (Movie movie in user.BoughtMovies)
+            {
+                var movieModel = mapper.Map<MovieModel>(movie);
+                boughtMovies.Add(movieModel);
+            }
+            return boughtMovies;
         }
 
-        public IEnumerable<UserModel> GetFollowed()
+        public IEnumerable<UserModel> GetFollowers(UserModel user)
         {
-            throw new NotImplementedException();
+            var followers = new List<UserModel>();
+            foreach (User follower in user.Followers)
+            {
+                var followerModel = mapper.Map<UserModel>(follower);
+                followers.Add(followerModel);
+            }
+            return followers;
+        }
+
+        public IEnumerable<UserModel> GetFollowed(UserModel user)
+        {
+            var followed = new List<UserModel>();
+            foreach (User followedOne in user.Following)
+            {
+                var followerModel = mapper.Map<UserModel>(followedOne);
+                followed.Add(followerModel);
+            }
+            return followed;
         }
 
         public decimal GetMoneyBalance()
@@ -97,6 +144,11 @@ namespace SquidsMovieApp.Logic
         }
 
         public void GiveReview(MovieModel movie)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<ParticipantModel> GetLikedParticipants()
         {
             throw new NotImplementedException();
         }
