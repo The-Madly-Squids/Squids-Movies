@@ -1,4 +1,8 @@
-﻿using SquidsMovieApp.DTO;
+﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using SquidsMovieApp.Data.Context;
+using SquidsMovieApp.Data.Models;
+using SquidsMovieApp.DTO;
 using SquidsMovieApp.Logic.Contracts;
 using System;
 using System.Collections.Generic;
@@ -10,11 +14,27 @@ namespace SquidsMovieApp.Logic
 {
     class UserService : IUserService
     {
+        private readonly IMovieAppDBContext movieAppDbContext;
+        private readonly IMapper mapper;
+
+        public UserService(IMovieAppDBContext movieAppDbContext, IMapper mapper)
+        {
+            this.movieAppDbContext = movieAppDbContext;
+            this.mapper = mapper;
+        }
         public void AddUser(UserModel user)
         {
+            if (user == null)
+            {
+                throw new ArgumentException();
+            }
+
+            var userToAdd = this.mapper.Map<User>(user);
+
+            this.movieAppDbContext.Users.Add(userToAdd);
+            this.movieAppDbContext.SaveChanges();
 
         }
-
         public void RemoveUser(UserModel user)
         {
             throw new NotImplementedException();
@@ -22,7 +42,8 @@ namespace SquidsMovieApp.Logic
 
         public IEnumerable<UserModel> GetAllUsers()
         {
-            throw new NotImplementedException();
+            var users = this.movieAppDbContext.Users.ProjectTo<UserModel>();
+            return users;
         }
 
         public IEnumerable<ParticipantModel> GetLikedParticipants()
