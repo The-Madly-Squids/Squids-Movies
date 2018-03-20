@@ -167,23 +167,27 @@ namespace SquidsMovieApp.Logic
                 {
                     throw new ArgumentException("Unsufficient money ballance to buy this movie!");
                 }
-
+                user.MoneyBalance -= price;
+                Movie movieToAdd = mapper.Map<Movie>(movie);
+                user.BoughtMovies.Add(movieToAdd);
+                movieAppDbContext.SaveChanges();
             }
             catch (Exception)
             {
-
-                throw;
+                Console.WriteLine("Sorry pich!");
             }
         }
 
-        public void GiveReview(MovieModel movie)
+        public void GiveReview(UserModel user, ReviewModel review, MovieModel movie)
         {
-            throw new NotImplementedException();
-        }
 
-        public IEnumerable<ParticipantModel> GetLikedParticipants()
-        {
-            throw new NotImplementedException();
+            Movie movieToReview = mapper.Map<Movie>(movie);
+            review.Movie = movieToReview;
+
+            var reviewToAdd = mapper.Map<Review>(review);
+            user.Reviews.Add(reviewToAdd);
+
+            movieAppDbContext.SaveChanges();
         }
     }
 }
