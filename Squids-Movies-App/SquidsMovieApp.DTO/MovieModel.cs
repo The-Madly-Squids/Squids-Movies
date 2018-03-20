@@ -17,7 +17,8 @@ namespace SquidsMovieApp.DTO
         public int? Year { get; set; }
         public int? RunningTime { get; set; }
         public virtual ICollection<Participant> Participants { get; set; }
-
+        public virtual ICollection<User> BoughtBy { get; set; }
+        public virtual ICollection<User> LikedBy { get; set; }
 
         public void CreateMappings(IMapperConfigurationExpression configuration)
         {

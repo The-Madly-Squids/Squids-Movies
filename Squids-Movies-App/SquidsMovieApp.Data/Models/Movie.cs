@@ -25,12 +25,17 @@ namespace SquidsMovieApp.Data.Models
 
         [Required]
         [StringLength(30, MinimumLength = 2)]
-        public virtual string Name { get; set; }
+        public virtual string Title { get; set; }
 
         [StringLength(200, MinimumLength = 10)]
-        public string Description { get; set; }
+        public string Plot { get; set; }
         public int? Year { get; set; }
-        public int? RunningTime { get; set; }
+        public int? Runtime { get; set; }
+        public string Rated { get; set; }
+        public double Price { get; set; }
+        public double ImdbRating { get; set; }
+
+        public MoviePoster Poster { get; set; }
 
         public virtual ICollection<User> LikedBy { get; set; }
         public virtual ICollection<User> BoughtBy { get; set; }
