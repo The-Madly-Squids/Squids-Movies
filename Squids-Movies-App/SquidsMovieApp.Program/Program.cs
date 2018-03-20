@@ -6,6 +6,7 @@ using SquidsMovieApp.Data.Models;
 using SquidsMovieApp.DTO;
 using SquidsMovieApp.Logic;
 using SquidsMovieApp.Program.Controllers;
+using SquidsMovieApp.Utilities.Parsers;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -59,24 +60,31 @@ namespace SquidsMovieApp.Program
 
             //}
 
-            Init();
-            var builder = new ContainerBuilder();
-            builder.RegisterAssemblyModules(Assembly.GetExecutingAssembly());
-            var container = builder.Build();
-            var controller = container.Resolve<MovieController>();
-            controller.CreateMovie("terminator 3", "not as good", 2007, 180);
-            var movies = controller.GetAllMovies();
+            //Init();
+            //var builder = new ContainerBuilder();
+            //builder.RegisterAssemblyModules(Assembly.GetExecutingAssembly());
+            //var container = builder.Build();
+            //var controller = container.Resolve<MovieController>();
+            //controller.CreateMovie("terminator 3", "not as good", 2007, 180);
+            //var movies = controller.GetAllMovies();
 
-            foreach (var movie in movies)
-            {
-                Console.WriteLine(movie.Name);
-            }
+            //foreach (var movie in movies)
+            //{
+            //    Console.WriteLine(movie.Name);
+            //}
+
+            string moviesPath = @"..\..\..\SquidsMovieApp.Utilities\JsonData\moviesTest.json";
+            var parser = new Parser();
+            var movies = parser.ParseMovies(moviesPath);
+
+            var ctx = new MovieAppDBContext();
+
 
         }
 
-        private static void Init()
-        {
-            AutomapperConfiguration.Initialize();
-        }
+        //private static void Init()
+        //{
+        //    AutomapperConfiguration.Initialize();
+        //}
     }
 }
