@@ -111,25 +111,51 @@ namespace SquidsMovieApp.Logic
                 .IsNullOrEmpty()
                 .Throw();
 
+            var movieObject = this.mapper.Map<Movie>(movie);
+            var participantObject = this.mapper.Map<Participant>(participant);
+
             var actorRole = new Role()
             {
-                MovieId = movie.MovieId,
-                ParticipantId = participant.ParticipantId,
+                Movie = movieObject,
+                Participant = participantObject,
                 RoleName = roleName
             };
             this.movieAppDbContext.Roles.Add(actorRole);
         }
 
-        public float GetRating(MovieModel movie)
+        public double GetRating(MovieModel movie)
         {
-            throw new NotImplementedException();
+            if (movie == null)
+            {
+                throw new ArgumentNullException("Movie not found!");
+            }
+
+            var ratingCollection = this.movieAppDbContext.Reviews
+                .Where(x => x.Movie.MovieId == movie.MovieId);
+
+            var averageRating = ratingCollection.Count() > 0 ?
+                 ratingCollection.Average(x => x.Rating) : 0.0;
+
+
+            return averageRating;
         }
 
         public IEnumerable<ParticipantModel> GetActors(MovieModel movie)
         {
-            throw new NotImplementedException();
-        }
+            if (movie == null)
+            {
+                throw new ArgumentNullException("No such movie!");
+            }
 
+            var actorsRoles = this.movieAppDbContext.Roles
+                .Where(x => x.Movie.MovieId == movie.MovieId &&
+                        x.RoleName == "Actor")
+                        .Select(a => a.Participant).ProjectTo<ParticipantModel>()
+                        .ToList();
+
+            return actorsRoles;
+
+        }
         public IEnumerable<ParticipantModel> GetDirectors(MovieModel movie)
         {
             throw new NotImplementedException();

@@ -16,7 +16,7 @@ namespace SquidsMovieApp.Logic.Contracts
         IEnumerable<ParticipantModel> GetAllParticipantsPerMovie(MovieModel movie);
         void AddMovieParticipant(MovieModel movie, ParticipantModel participant,
             string roleName);
-        float GetRating(MovieModel movie);
+        double GetRating(MovieModel movie);
         //IEnumerable<ReviewModel> GetReviews(MovieModel movie);
         IEnumerable<ParticipantModel> GetActors(MovieModel movie);
         IEnumerable<ParticipantModel> GetDirectors(MovieModel movie);
