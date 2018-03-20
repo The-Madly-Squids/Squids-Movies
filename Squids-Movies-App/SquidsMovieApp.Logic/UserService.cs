@@ -22,6 +22,7 @@ namespace SquidsMovieApp.Logic
             this.movieAppDbContext = movieAppDbContext;
             this.mapper = mapper;
         }
+
         public void AddUser(UserModel user)
         {
             if (user == null)
@@ -44,6 +45,7 @@ namespace SquidsMovieApp.Logic
 
             var userToRemove = Mapper.Map<User>(user);
             movieAppDbContext.Users.Remove(userToRemove);
+            movieAppDbContext.SaveChanges();
         }
 
         public IEnumerable<UserModel> GetAllUsers()
@@ -55,7 +57,7 @@ namespace SquidsMovieApp.Logic
         public IEnumerable<ParticipantModel> GetLikedDirectors(UserModel user)
         {
             var likedDirectors = new List<ParticipantModel>();
-            foreach(Participant director in user.LikedDirectors)
+            foreach (Participant director in user.LikedDirectors)
             {
                 var directorModel = mapper.Map<ParticipantModel>(director);
                 likedDirectors.Add(directorModel);
@@ -74,7 +76,7 @@ namespace SquidsMovieApp.Logic
             return likedActors;
         }
 
-        public IEnumerable<MovieModel> GetLikeddMovies(UserModel user)
+        public IEnumerable<MovieModel> GetLikedMovies(UserModel user)
         {
             var likedMovies = new List<MovieModel>();
             foreach (Movie movie in user.LikedMovies)
@@ -118,29 +120,60 @@ namespace SquidsMovieApp.Logic
             return followed;
         }
 
-        public decimal GetMoneyBalance()
+        public decimal GetMoneyBalance(UserModel user)
         {
-            throw new NotImplementedException();
+            decimal moneyBallance = user.MoneyBalance;
+            return moneyBallance;
         }
 
-        public void AddMoneyToBalance(decimal amount)
+        public void AddMoneyToBalance(UserModel user, decimal amount)
         {
-            throw new NotImplementedException();
+                if (amount == 0)
+                {
+                    throw new ArgumentException();
+                }
+                decimal moneyBalance = user.MoneyBalance;
+                moneyBalance += amount;
+                movieAppDbContext.SaveChanges();
         }
 
-        public void LikeParticipant(ParticipantModel participant)
+        public void LikeActor(UserModel user, ParticipantModel actor)
         {
-            throw new NotImplementedException();
+            var actorToAdd = mapper.Map<Participant>(actor);
+            user.LikedActors.Add(actorToAdd);
+            movieAppDbContext.SaveChanges();
         }
 
-        public void FollowUser(UserModel user)
+        public void LikeDirector(UserModel user, ParticipantModel director)
         {
-            throw new NotImplementedException();
+            var directorToAdd = mapper.Map<Participant>(director);
+            user.LikedDirectors.Add(directorToAdd);
+            movieAppDbContext.SaveChanges();
         }
 
-        public void BuyMovie(MovieModel movie)
+        public void FollowUser(UserModel user, UserModel userToFollow)
         {
-            throw new NotImplementedException();
+            var userToBeFollowed = mapper.Map<User>(userToFollow);
+            user.Following.Add(userToBeFollowed);
+            movieAppDbContext.SaveChanges();
+        }
+
+        public void BuyMovie(UserModel user, MovieModel movie, decimal price)
+        {
+            //In this case we should use transaction-like pattern
+            try
+            {
+                if (user.MoneyBalance < price)
+                {
+                    throw new ArgumentException("Unsufficient money ballance to buy this movie!");
+                }
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         public void GiveReview(MovieModel movie)
