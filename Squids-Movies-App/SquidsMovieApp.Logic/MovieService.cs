@@ -117,6 +117,7 @@ namespace SquidsMovieApp.Logic
                 ParticipantId = participant.ParticipantId,
                 RoleName = roleName
             };
+
             this.movieAppDbContext.Roles.Add(actorRole);
         }
 

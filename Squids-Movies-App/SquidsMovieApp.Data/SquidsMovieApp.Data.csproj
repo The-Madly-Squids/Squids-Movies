@@ -57,8 +57,13 @@
     <Compile Include="Migrations\201803151523146_Initial.Designer.cs">
       <DependentUpon>201803151523146_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201803191147108_MoviesTableAddedRatedAndPoster.cs" />
+    <Compile Include="Migrations\201803191147108_MoviesTableAddedRatedAndPoster.Designer.cs">
+      <DependentUpon>201803191147108_MoviesTableAddedRatedAndPoster.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Genre.cs" />
+    <Compile Include="Models\MoviePoster.cs" />
     <Compile Include="Models\Participant.cs" />
     <Compile Include="Models\Review.cs" />
     <Compile Include="Models\Movie.cs" />
@@ -73,6 +78,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201803151523146_Initial.resx">
       <DependentUpon>201803151523146_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803191147108_MoviesTableAddedRatedAndPoster.resx">
+      <DependentUpon>201803191147108_MoviesTableAddedRatedAndPoster.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
