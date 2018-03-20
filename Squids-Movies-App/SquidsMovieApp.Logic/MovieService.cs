@@ -80,21 +80,16 @@ namespace SquidsMovieApp.Logic
             var participantsModelsList = new List<ParticipantModel>();
             var participants = movie.Participants;
 
-            foreach (var particpant in participants)
+            foreach (var participant in participants)
             {
-                var participantModel = new ParticipantModel()
-                {
-                    FirstName = particpant.FirstName
-                    // add more properties to DTO
-                };
+                var participantModel = this.mapper.Map<ParticipantModel>(participant);
+
                 participantsModelsList.Add(participantModel);
             }
 
             //var movies = this.movieAppDbContext.Movies.ProjectTo<MovieModel>();
 
             return participantsModelsList;
-
-
         }
 
         public void AddMovieParticipant(MovieModel movie, ParticipantModel participant,
@@ -191,12 +186,7 @@ namespace SquidsMovieApp.Logic
 
             foreach (var user in users)
             {
-                var userModel = new UserModel()
-                {
-                    FirstName = user.FirstName,
-                    LastName = user.LastName,
-                    Age = user.Age
-                };
+                var userModel = this.mapper.Map<UserModel>(user);
                 userModelsList.Add(userModel);
             }
 
@@ -215,12 +205,8 @@ namespace SquidsMovieApp.Logic
 
             foreach (var user in users)
             {
-                var userModel = new UserModel()
-                {
-                    FirstName = user.FirstName,
-                    LastName = user.LastName,
-                    Age = user.Age
-                };
+
+                var userModel = this.mapper.Map<UserModel>(user);
                 userModelsList.Add(userModel);
             }
 
