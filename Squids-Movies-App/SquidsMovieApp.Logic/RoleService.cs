@@ -22,13 +22,16 @@ namespace SquidsMovieApp.Logic
             this.mapper = mapper;
         }
 
-        public void AddRole(MovieModel movie, ParticipantModel participant, string roleName)
+        public void AddRole(MovieModel movieModel, ParticipantModel participantModel,
+            string roleName)
         {
             // use a factory?
+            var movie = this.mapper.Map<Movie>(movieModel);
+            var participant = this.mapper.Map<Participant>(participantModel);
             var actorRole = new Role()
             {
-                MovieId = movie.MovieId,
-                ParticipantId = participant.ParticipantId,
+                Movie = movie,
+                Participant = participant,
                 RoleName = roleName
             };
             this.movieAppDbContext.Roles.Add(actorRole);
@@ -38,8 +41,8 @@ namespace SquidsMovieApp.Logic
             MovieModel movie)
         {
             var pRoles = this.movieAppDbContext.Roles
-                .Where(x => x.ParticipantId == participant.ParticipantId &&
-                       x.MovieId == movie.MovieId);
+                .Where(x => x.Participant.ParticipantId == participant.ParticipantId &&
+                       x.Movie.MovieId == movie.MovieId);
 
             return pRoles;
         }

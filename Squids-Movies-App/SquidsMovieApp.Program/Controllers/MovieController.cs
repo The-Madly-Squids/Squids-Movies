@@ -124,5 +124,65 @@ namespace SquidsMovieApp.Program.Controllers
             var movies = this.movieService.GetAllMovies();
             return movies;
         }
+
+        public double GetRating(string movieName)
+        {
+            Guard.WhenArgument(movieName, "movie name")
+                .IsNotNullOrEmpty()
+                .Throw();
+
+            var movie = this.movieService.GetAllMovies()
+                .Where(x => x.Name == movieName).FirstOrDefault();
+
+            return this.movieService.GetRating(movie);
+        }
+
+        public IEnumerable<ParticipantModel> GetActors(string movieName)
+        {
+            Guard.WhenArgument(movieName, "movie name")
+                .IsNullOrEmpty()
+                .Throw();
+
+            var movieModel = this.movieService.GetAllMovies()
+                .Where(x => x.Name == movieName).FirstOrDefault();
+
+            return this.movieService.GetActors(movieModel);
+        }
+
+        public IEnumerable<ParticipantModel> GetDirectors(string movieName)
+        {
+            Guard.WhenArgument(movieName, "movie name")
+              .IsNullOrEmpty()
+              .Throw();
+
+            var movieModel = this.movieService.GetAllMovies()
+                .Where(x => x.Name == movieName).FirstOrDefault();
+
+            return this.movieService.GetDirectors(movieModel);
+        }
+
+        public IEnumerable<UserModel> GetUsersWhoBoughtIt(string movieName)
+        {
+            Guard.WhenArgument(movieName, "movie name")
+            .IsNullOrEmpty()
+            .Throw();
+
+            var movieModel = this.movieService.GetAllMovies()
+                .Where(x => x.Name == movieName).FirstOrDefault();
+
+            return this.movieService.GetUsersWhoBoughtIt(movieModel);
+        }
+
+        public IEnumerable<UserModel> GetUsersWhoLikedIt(string movieName)
+        {
+            Guard.WhenArgument(movieName, "movie name")
+            .IsNullOrEmpty()
+            .Throw();
+
+            var movieModel = this.movieService.GetAllMovies()
+                .Where(x => x.Name == movieName).FirstOrDefault();
+
+            return this.movieService.GetUsersWhoLikedtIt(movieModel);
+        }
     }
 }

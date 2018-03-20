@@ -34,6 +34,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac, Version=4.6.2.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.4.6.2\lib\net45\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper, Version=6.2.2.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.6.2.2\lib\net45\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -43,6 +49,10 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -61,6 +71,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AutofacModules\AutofacModule.cs" />
     <Compile Include="RegisterWindow.xaml.cs">
       <DependentUpon>RegisterWindow.xaml</DependentUpon>
     </Compile>
@@ -128,6 +139,28 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SquidsMovieApp.Common\SquidsMovieApp.Common.csproj">
+      <Project>{46BB2366-5C29-4CBC-AC99-E794310C942B}</Project>
+      <Name>SquidsMovieApp.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SquidsMovieApp.Core\SquidsMovieApp.Core.csproj">
+      <Project>{168b02cd-9cb0-4393-8c54-024e8ff5bd8a}</Project>
+      <Name>SquidsMovieApp.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SquidsMovieApp.Data\SquidsMovieApp.Data.csproj">
+      <Project>{4bbb6b73-e52a-4b9d-843d-46d10af8fd62}</Project>
+      <Name>SquidsMovieApp.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SquidsMovieApp.Logic\SquidsMovieApp.Logic.csproj">
+      <Project>{40e7702e-c900-40b2-95e5-fdf9c8d22e5c}</Project>
+      <Name>SquidsMovieApp.Logic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SquidsMovieApp.Program\SquidsMovieApp.Program.csproj">
+      <Project>{8f488eda-603b-4e58-8248-537bc65aad82}</Project>
+      <Name>SquidsMovieApp.Program</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -9,8 +9,8 @@ namespace SquidsMovieApp.Data.Models
     public class Role
     {
         public int RoleId { get; set; }
-        public int ParticipantId { get; set; }
-        public int MovieId { get; set; }
+        public virtual Participant Participant { get; set; }
+        public virtual Movie Movie { get; set; }
         public string RoleName { get; set; }
     }
 }

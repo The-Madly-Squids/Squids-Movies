@@ -28,7 +28,7 @@ namespace SquidsMovieApp.WPF
 
         private void GoBackBtnClicked(object sender, RoutedEventArgs e)
         {
-            this.NavigationService.Navigate(new LoginWindow());
+            //this.NavigationService.Navigate(new LoginWindow());
         }
         private void RegisterBtnClicked(object sender, RoutedEventArgs e)
         {
