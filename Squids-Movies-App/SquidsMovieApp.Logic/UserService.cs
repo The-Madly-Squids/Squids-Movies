@@ -31,11 +31,10 @@ namespace SquidsMovieApp.Logic
             }
 
             var userToAdd = this.mapper.Map<User>(user);
-
             this.movieAppDbContext.Users.Add(userToAdd);
             this.movieAppDbContext.SaveChanges();
-
         }
+
         public void RemoveUser(UserModel user)
         {
             if (user == null)
