@@ -36,7 +36,7 @@ namespace SquidsMovieApp.Program.Controllers
 
             Guard.WhenArgument(age, "participant age")
                 .IsLessThan(0)
-                .IsGreaterThan(120)
+                .IsGreaterThan(1200) // Yoda jedi was 900, so 1200 is good :)
                 .Throw();
 
             var participantModel = this.factory.CreateParticipantModel(
