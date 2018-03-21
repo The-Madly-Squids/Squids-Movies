@@ -82,12 +82,12 @@ namespace SquidsMovieApp.Logic
 
             foreach (var participant in participants)
             {
+                // another solution to testing problem(see test in ServiceTest)
+                // would be to avoid using mapper here and to do it manually
                 var participantModel = this.mapper.Map<ParticipantModel>(participant);
 
                 participantsModelsList.Add(participantModel);
             }
-
-            //var movies = this.movieAppDbContext.Movies.ProjectTo<MovieModel>();
 
             return participantsModelsList;
         }

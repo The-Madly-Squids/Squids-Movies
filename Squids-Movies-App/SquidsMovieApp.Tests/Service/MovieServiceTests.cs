@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
@@ -120,6 +121,51 @@ namespace SquidsMovieApp.Tests.Service
                 bool exists = expectedResult.Any(x => x.MovieId == movieModel.MovieId);
                 Assert.IsTrue(exists);
             }
+        }
+
+        [TestMethod]
+        public void GetAllParticipantsPerMovieShould_ReturnCorrectParticipants()
+        {
+            // Arrange
+            var effortContext = new MovieAppDBContext(
+                Effort.DbConnectionFactory.CreateTransient());
+
+            var mapperMock = new Mock<IMapper>();
+
+            var movieObjectToTest = new Movie()
+            {
+                Title = "test title",
+                Runtime = 120
+            };
+
+            var participantsList = new List<Participant>();
+
+            for (int i = 0; i < 10; i++)
+            {
+                var participant = new Participant()
+                {
+                    FirstName = "TestObject" + i,
+                    LastName = "TestObject" + i
+                };
+                participantsList.Add(participant);
+            }
+
+            movieObjectToTest.Participants = participantsList;
+
+            //var calls = 0;
+            //var participantListModels = new List<ParticipantModel>()
+            //// Currently returns only one value. How to make it return all values
+            //// from the list above?
+            //// this would work if the the list was passed as a dependency
+            //// but its not - what to do?
+            //mapperMock.Setup(x => x.Map<ParticipantModel>(It.IsAny<Participant>()))
+            //    .Returns(() => participantListModels[calls])
+            //    .Callback(() => calls++);
+
+            //https://stackoverflow.com/questions/29605470/how-to-mock-a-list-transformation-using-automapper
+
+            throw new NotImplementedException("How to make it work? :)");
+
         }
     }
 }

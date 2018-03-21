@@ -184,5 +184,17 @@ namespace SquidsMovieApp.Program.Controllers
 
             return this.movieService.GetUsersWhoLikedtIt(movieModel);
         }
+
+        public IEnumerable<ParticipantModel> GetAllParticipants(string movieName)
+        {
+            Guard.WhenArgument(movieName, "movie name")
+            .IsNullOrEmpty()
+            .Throw();
+
+            var movieModel = this.movieService.GetAllMovies()
+                .Where(x => x.Title == movieName).FirstOrDefault();
+
+            throw new NotImplementedException();
+        }
     }
 }
