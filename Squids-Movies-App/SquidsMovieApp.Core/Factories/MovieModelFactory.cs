@@ -15,10 +15,10 @@ namespace SquidsMovieApp.Core.Factories
         {
             return new MovieModel()
             {
-                Name = name,
-                Description = description,
+                Title = name,
+                Plot = description,
                 Year = year,
-                RunningTime = runningTime
+                Runtime = runningTime
             };
         }
     }

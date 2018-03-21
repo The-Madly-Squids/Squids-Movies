@@ -71,7 +71,7 @@ namespace SquidsMovieApp.Program
             //foreach (var movie in movies)
             //{
             //    Console.WriteLine(movie.Name);
-            //}
+            //    //}
 
             string moviesPath = @"..\..\..\SquidsMovieApp.Utilities\JsonData\moviesTest.json";
             var parser = new Parser();

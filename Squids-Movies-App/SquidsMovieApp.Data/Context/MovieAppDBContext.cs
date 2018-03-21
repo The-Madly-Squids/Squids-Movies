@@ -1,6 +1,7 @@
 ﻿using SquidsMovieApp.Data.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Data.Entity;
 using System.Linq;
 using System.Text;
@@ -16,12 +17,17 @@ namespace SquidsMovieApp.Data.Context
             Database.SetInitializer<MovieAppDBContext>(new CreateDatabaseIfNotExists<MovieAppDBContext>());
         }
 
-        public DbSet<Movie> Movies { get; set; }
-        public DbSet<Participant> Participants { get; set; }
-        public DbSet<Review> Reviews { get; set; }
-        public DbSet<User> Users { get; set; }
-        public DbSet<Genre> Genres { get; set; }
-        public DbSet<Role> Roles { get; set; }
+        public MovieAppDBContext(DbConnection connection)
+           : base(connection, true)
+        {
+        }
+
+        public IDbSet<Movie> Movies { get; set; }
+        public IDbSet<Participant> Participants { get; set; }
+        public IDbSet<Review> Reviews { get; set; }
+        public IDbSet<User> Users { get; set; }
+        public IDbSet<Genre> Genres { get; set; }
+        public IDbSet<Role> Roles { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

@@ -60,7 +60,7 @@ namespace SquidsMovieApp.Program.Controllers
                 .Throw();
 
             var movieToDelete = this.movieService.GetAllMovies().FirstOrDefault(
-                x => x.Name == movieName);
+                x => x.Title == movieName);
 
             this.movieService.RemoveMovie(movieToDelete);
         }
@@ -85,7 +85,7 @@ namespace SquidsMovieApp.Program.Controllers
                .Throw();
 
             var movie = this.movieService.GetAllMovies()
-                .FirstOrDefault(x => x.Name == movieName);
+                .FirstOrDefault(x => x.Title == movieName);
 
             if (movie == null)
             {
@@ -132,7 +132,7 @@ namespace SquidsMovieApp.Program.Controllers
                 .Throw();
 
             var movie = this.movieService.GetAllMovies()
-                .Where(x => x.Name == movieName).FirstOrDefault();
+                .Where(x => x.Title == movieName).FirstOrDefault();
 
             return this.movieService.GetRating(movie);
         }
@@ -144,7 +144,7 @@ namespace SquidsMovieApp.Program.Controllers
                 .Throw();
 
             var movieModel = this.movieService.GetAllMovies()
-                .Where(x => x.Name == movieName).FirstOrDefault();
+                .Where(x => x.Title == movieName).FirstOrDefault();
 
             return this.movieService.GetActors(movieModel);
         }
@@ -156,7 +156,7 @@ namespace SquidsMovieApp.Program.Controllers
               .Throw();
 
             var movieModel = this.movieService.GetAllMovies()
-                .Where(x => x.Name == movieName).FirstOrDefault();
+                .Where(x => x.Title == movieName).FirstOrDefault();
 
             return this.movieService.GetDirectors(movieModel);
         }
@@ -168,7 +168,7 @@ namespace SquidsMovieApp.Program.Controllers
             .Throw();
 
             var movieModel = this.movieService.GetAllMovies()
-                .Where(x => x.Name == movieName).FirstOrDefault();
+                .Where(x => x.Title == movieName).FirstOrDefault();
 
             return this.movieService.GetUsersWhoBoughtIt(movieModel);
         }
@@ -180,7 +180,7 @@ namespace SquidsMovieApp.Program.Controllers
             .Throw();
 
             var movieModel = this.movieService.GetAllMovies()
-                .Where(x => x.Name == movieName).FirstOrDefault();
+                .Where(x => x.Title == movieName).FirstOrDefault();
 
             return this.movieService.GetUsersWhoLikedtIt(movieModel);
         }
