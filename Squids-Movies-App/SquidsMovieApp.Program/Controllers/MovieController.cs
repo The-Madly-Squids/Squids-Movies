@@ -28,7 +28,13 @@ namespace SquidsMovieApp.Program.Controllers
             this.factory = factory;
         }
 
-        public void CreateMovie(string name, string description, int year,
+        public IEnumerable<MovieModel> GetAllMovies()
+        {
+            var movies = this.movieService.GetAllMovies();
+            return movies;
+        }
+
+        public void AddMovie(string name, string description, int year,
             int runningTime)
         {
             Guard.WhenArgument(name, "movie name")
@@ -49,11 +55,12 @@ namespace SquidsMovieApp.Program.Controllers
                 .IsGreaterThan(3600)
                 .Throw();
 
+            // create MovieModel(DTO) or Movie(Table) here?
             var movie = this.factory.CreateMovieModel(name, description, year, runningTime);
             this.movieService.AddMovie(movie);
         }
 
-        public void DeleteMovie(string movieName)
+        public void RemoveMovie(string movieName)
         {
             Guard.WhenArgument(movieName, "movie name")
                 .IsNullOrEmpty()
@@ -117,12 +124,6 @@ namespace SquidsMovieApp.Program.Controllers
             //roleService.AddRole(movie, participant);
 
             this.movieService.AddMovieParticipant(movie, participant, role);
-        }
-
-        public IEnumerable<MovieModel> GetAllMovies()
-        {
-            var movies = this.movieService.GetAllMovies();
-            return movies;
         }
 
         public double GetRating(string movieName)
@@ -194,7 +195,7 @@ namespace SquidsMovieApp.Program.Controllers
             var movieModel = this.movieService.GetAllMovies()
                 .Where(x => x.Title == movieName).FirstOrDefault();
 
-            throw new NotImplementedException();
+            return this.movieService.GetAllParticipantsPerMovie(movieModel);
         }
     }
 }

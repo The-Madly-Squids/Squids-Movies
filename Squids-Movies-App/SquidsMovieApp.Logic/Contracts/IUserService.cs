@@ -9,7 +9,7 @@ namespace SquidsMovieApp.Logic.Contracts
 {
     public interface IUserService
     {
-       
+
         IEnumerable<ParticipantModel> GetLikedDirectors(UserModel user); //Done
         IEnumerable<ParticipantModel> GetLikedActors(UserModel user); //Done
         IEnumerable<MovieModel> GetLikedMovies(UserModel user); //Done
@@ -19,11 +19,11 @@ namespace SquidsMovieApp.Logic.Contracts
         IEnumerable<UserModel> GetFollowed(UserModel user); //Done
         decimal GetMoneyBalance(UserModel user); //Done
         void AddMoneyToBalance(UserModel user, decimal amount); //Done
-        void LikeActor(UserModel user, ParticipantModel actor); //Done
-        void LikeDirector(UserModel user, ParticipantModel director); //Done
+        void LikeParticipant(UserModel user, ParticipantModel participant); //Done
         void FollowUser(UserModel user, UserModel userToFollow); //Done
         void BuyMovie(UserModel user, MovieModel movie, decimal price); //Done
-        void GiveReview(UserModel user, ReviewModel review, MovieModel movie); //Done
+        void GiveReview(UserModel user, MovieModel movie, int reviewRating,
+                            string reviewDescription); //Done
         // admin methods
         void AddUser(UserModel user); //Done
         void RemoveUser(UserModel user); //Done

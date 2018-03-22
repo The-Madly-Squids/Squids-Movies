@@ -15,7 +15,9 @@ namespace SquidsMovieApp.Data.Models
         [StringLength(200, MinimumLength = 10)]
         public string Description { get; set; }
         public int Rating { get; set; }
+        public int UserId { get; set; }
         public virtual User User { get; set; }
+        public int MovieId { get; set; }
         public virtual Movie Movie { get; set; }
     }
 }

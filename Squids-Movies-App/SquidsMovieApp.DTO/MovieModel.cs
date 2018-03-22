@@ -15,11 +15,11 @@ namespace SquidsMovieApp.DTO
         public string Rated { get; set; }
         public double Price { get; set; }
         public double ImdbRating { get; set; }
-        public MoviePoster Poster { get; set; }
+        public MoviePosterModel Poster { get; set; }
 
-        public virtual ICollection<Participant> Participants { get; set; }
-        public virtual ICollection<User> BoughtBy { get; set; }
-        public virtual ICollection<User> LikedBy { get; set; }
+        public virtual ICollection<ParticipantModel> Participants { get; set; }
+        public virtual ICollection<UserModel> BoughtBy { get; set; }
+        public virtual ICollection<UserModel> LikedBy { get; set; }
 
         public void CreateMappings(IMapperConfigurationExpression configuration)
         {

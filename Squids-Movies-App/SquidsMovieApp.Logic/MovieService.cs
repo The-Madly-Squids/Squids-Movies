@@ -75,21 +75,11 @@ namespace SquidsMovieApp.Logic
 
         public IEnumerable<ParticipantModel> GetAllParticipantsPerMovie(MovieModel movie)
         {
-            // how to do it with AutoMapper - cant use ProjecTo<> because it is not a
-            // DbSet object - but an inner table(ICollection) between movie and partcipant 
-            var participantsModelsList = new List<ParticipantModel>();
-            var participants = movie.Participants;
+            //var p = this.movieAppDbContext.Roles
+            //        .Where(x => x.Movie.MovieId == movie.MovieId)
+            //        .Select(x => x.Participant);
+            return movie.Participants;
 
-            foreach (var participant in participants)
-            {
-                // another solution to testing problem(see test in ServiceTest)
-                // would be to avoid using mapper here and to do it manually
-                var participantModel = this.mapper.Map<ParticipantModel>(participant);
-
-                participantsModelsList.Add(participantModel);
-            }
-
-            return participantsModelsList;
         }
 
         public void AddMovieParticipant(MovieModel movie, ParticipantModel participant,

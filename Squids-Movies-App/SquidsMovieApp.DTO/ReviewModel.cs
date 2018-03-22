@@ -14,8 +14,8 @@ namespace SquidsMovieApp.DTO
         public int ReviewId { get; set; }
         public string Description { get; set; }
         public int Rating { get; set; }
-        public virtual User User { get; set; }
-        public virtual Movie Movie { get; set; }
+        public virtual UserModel User { get; set; }
+        public virtual MovieModel Movie { get; set; }
 
         public void CreateMappings(IMapperConfigurationExpression configuration)
         {

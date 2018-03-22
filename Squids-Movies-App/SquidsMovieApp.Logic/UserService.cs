@@ -55,68 +55,38 @@ namespace SquidsMovieApp.Logic
 
         public IEnumerable<ParticipantModel> GetLikedDirectors(UserModel user)
         {
-            var likedDirectors = new List<ParticipantModel>();
-            foreach (Participant director in user.LikedDirectors)
-            {
-                var directorModel = mapper.Map<ParticipantModel>(director);
-                likedDirectors.Add(directorModel);
-            }
+            var likedDirectors = user.LikedDirectors;
             return likedDirectors;
         }
 
         public IEnumerable<ParticipantModel> GetLikedActors(UserModel user)
         {
-            var likedActors = new List<ParticipantModel>();
-            foreach (Participant actor in user.LikedActors)
-            {
-                var actorModel = mapper.Map<ParticipantModel>(actor);
-                likedActors.Add(actorModel);
-            }
+            var likedActors = user.LikedActors;
             return likedActors;
         }
 
         public IEnumerable<MovieModel> GetLikedMovies(UserModel user)
         {
-            var likedMovies = new List<MovieModel>();
-            foreach (Movie movie in user.LikedMovies)
-            {
-                var movieModel = mapper.Map<MovieModel>(movie);
-                likedMovies.Add(movieModel);
-            }
+            var likedMovies = user.LikedMovies;
             return likedMovies;
         }
 
         public IEnumerable<MovieModel> GetBoughtMovies(UserModel user)
         {
-            var boughtMovies = new List<MovieModel>();
-            foreach (Movie movie in user.BoughtMovies)
-            {
-                var movieModel = mapper.Map<MovieModel>(movie);
-                boughtMovies.Add(movieModel);
-            }
+            var boughtMovies = user.BoughtMovies;
             return boughtMovies;
         }
 
         public IEnumerable<UserModel> GetFollowers(UserModel user)
         {
-            var followers = new List<UserModel>();
-            foreach (User follower in user.Followers)
-            {
-                var followerModel = mapper.Map<UserModel>(follower);
-                followers.Add(followerModel);
-            }
+            var followers = user.Followers;
             return followers;
         }
 
         public IEnumerable<UserModel> GetFollowed(UserModel user)
         {
-            var followed = new List<UserModel>();
-            foreach (User followedOne in user.Following)
-            {
-                var followerModel = mapper.Map<UserModel>(followedOne);
-                followed.Add(followerModel);
-            }
-            return followed;
+            var followedUsers = user.Following;
+            return followedUsers;
         }
 
         public decimal GetMoneyBalance(UserModel user)
@@ -127,48 +97,109 @@ namespace SquidsMovieApp.Logic
 
         public void AddMoneyToBalance(UserModel user, decimal amount)
         {
-                if (amount == 0)
-                {
-                    throw new ArgumentException();
-                }
-                decimal moneyBalance = user.MoneyBalance;
-                moneyBalance += amount;
-                movieAppDbContext.SaveChanges();
-        }
+            if (amount < 1)
+            {
+                throw new ArgumentException("Amount cannot be less then 1!");
+            }
+            var userObject = this.movieAppDbContext.Users
+                                .Where(x => x.UserId == user.UserId)
+                                .FirstOrDefault();
 
-        public void LikeActor(UserModel user, ParticipantModel actor)
-        {
-            var actorToAdd = mapper.Map<Participant>(actor);
-            user.LikedActors.Add(actorToAdd);
+            if (userObject == null)
+            {
+                throw new ArgumentNullException("User not found!");
+            }
+
+            decimal moneyBalance = userObject.MoneyBalance;
+            moneyBalance += amount;
             movieAppDbContext.SaveChanges();
         }
 
-        public void LikeDirector(UserModel user, ParticipantModel director)
+        public void LikeParticipant(UserModel user, ParticipantModel participant)
         {
-            var directorToAdd = mapper.Map<Participant>(director);
-            user.LikedDirectors.Add(directorToAdd);
-            movieAppDbContext.SaveChanges();
+            //var actorToAdd = mapper.Map<Participant>(actor);
+            //user.LikedActors.Add(actorToAdd);
+            //movieAppDbContext.SaveChanges();
+
+            var userObject = this.movieAppDbContext.Users
+                            .Where(x => x.UserId == user.UserId)
+                            .FirstOrDefault();
+
+            var participantObject = this.movieAppDbContext.Participants
+                              .Where(x => x.ParticipantId == participant.ParticipantId)
+                              .FirstOrDefault();
+
+            if (userObject == null)
+            {
+                throw new ArgumentNullException("User not found!");
+            }
+
+            if (participantObject == null)
+            {
+                throw new ArgumentNullException("Participant not found!");
+            }
+
+            userObject.LikedParticipants.Add(participantObject);
+            participantObject.ParticipantLikedByUser.Add(userObject);
+            this.movieAppDbContext.SaveChanges();
         }
 
         public void FollowUser(UserModel user, UserModel userToFollow)
         {
-            var userToBeFollowed = mapper.Map<User>(userToFollow);
-            user.Following.Add(userToBeFollowed);
-            movieAppDbContext.SaveChanges();
+            var userObject = this.movieAppDbContext.Users
+                             .Where(x => x.UserId == user.UserId)
+                             .FirstOrDefault();
+
+            var userToFollowObject = this.movieAppDbContext.Users
+                                     .Where(x => x.UserId == userToFollow.UserId)
+                                     .FirstOrDefault();
+
+            if (userObject == null)
+            {
+                throw new ArgumentNullException("User that wants to follow not found!");
+            }
+
+            if (userToFollowObject == null)
+            {
+                throw new ArgumentNullException("User that will be followed not found!");
+            }
+
+            userObject.Following.Add(userToFollowObject);
+            userToFollowObject.Followers.Add(userObject);
+            this.movieAppDbContext.SaveChanges();
         }
 
         public void BuyMovie(UserModel user, MovieModel movie, decimal price)
         {
+
+            var userObject = this.movieAppDbContext.Users
+                            .Where(x => x.UserId == user.UserId)
+                            .FirstOrDefault();
+
+            var movieObject = this.movieAppDbContext.Movies
+                              .Where(x => x.MovieId == movie.MovieId)
+                              .FirstOrDefault();
+
+            if (userObject == null)
+            {
+                throw new ArgumentNullException("User not found!");
+            }
+
+            if (movieObject == null)
+            {
+                throw new ArgumentNullException("Movie not found!");
+            }
+
             //In this case we should use transaction-like pattern
             try
             {
-                if (user.MoneyBalance < price)
+                if (userObject.MoneyBalance < price)
                 {
                     throw new ArgumentException("Unsufficient money ballance to buy this movie!");
                 }
-                user.MoneyBalance -= price;
-                Movie movieToAdd = mapper.Map<Movie>(movie);
-                user.BoughtMovies.Add(movieToAdd);
+                userObject.MoneyBalance -= price;
+                userObject.BoughtMovies.Add(movieObject);
+                movieObject.BoughtBy.Add(userObject);
                 movieAppDbContext.SaveChanges();
             }
             catch (Exception)
@@ -177,16 +208,48 @@ namespace SquidsMovieApp.Logic
             }
         }
 
-        public void GiveReview(UserModel user, ReviewModel review, MovieModel movie)
+        public void GiveReview(UserModel user, MovieModel movie, int reviewRating,
+            string reviewDescription)
         {
 
-            Movie movieToReview = mapper.Map<Movie>(movie);
-            review.Movie = movieToReview;
+            var userObject = this.movieAppDbContext.Users
+                                .Where(x => x.UserId == user.UserId)
+                                .FirstOrDefault();
 
-            var reviewToAdd = mapper.Map<Review>(review);
-            user.Reviews.Add(reviewToAdd);
+            var movieObject = this.movieAppDbContext.Movies
+                                .Where(x => x.MovieId == movie.MovieId)
+                                .FirstOrDefault();
 
-            movieAppDbContext.SaveChanges();
+            if (userObject == null)
+            {
+                throw new ArgumentNullException("user not found!");
+            }
+
+            if (movieObject == null)
+            {
+                throw new ArgumentNullException("movie not found!");
+            }
+
+            var reviewObject = new Review()
+            {
+                Movie = movieObject,
+                MovieId = movieObject.MovieId,
+                Rating = reviewRating,
+                Description = reviewDescription,
+                User = userObject,
+                UserId = userObject.UserId
+            };
+
+            this.movieAppDbContext.Reviews.Add(reviewObject);
+            this.movieAppDbContext.SaveChanges();
+
+            //Movie movieToReview = mapper.Map<Movie>(movie);
+            //review.Movie = movieToReview;
+
+            //var reviewToAdd = mapper.Map<Review>(review);
+            //user.Reviews.Add(reviewToAdd);
+
+            //movieAppDbContext.SaveChanges();
         }
     }
 }

@@ -16,10 +16,10 @@ namespace SquidsMovieApp.DTO
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public int? Age { get; set; }
-        public virtual ICollection<Movie> Movies { get; set; }
-        public virtual ICollection<User> ActorLikedBy { get; set; }
-        public virtual ICollection<User> DirectorLikedBy { get; set; }
-        public virtual ICollection<Role> Roles { get; set; }
+        public virtual ICollection<MovieModel> Movies { get; set; }
+        public virtual ICollection<UserModel> ActorLikedBy { get; set; }
+        public virtual ICollection<UserModel> DirectorLikedBy { get; set; }
+        public virtual ICollection<RoleModel> Roles { get; set; }
 
         public void CreateMappings(IMapperConfigurationExpression configuration)
         {

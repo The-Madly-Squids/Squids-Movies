@@ -12,8 +12,9 @@ namespace SquidsMovieApp.Data.Models
     {
         public User()
         {
-            this.LikedActors = new HashSet<Participant>();
-            this.LikedDirectors = new HashSet<Participant>();
+            // doesn't work
+            //this.LikedActors = new HashSet<Participant>();
+            //this.LikedDirectors = new HashSet<Participant>();
             this.LikedMovies = new HashSet<Movie>();
             this.BoughtMovies = new HashSet<Movie>();
             this.Following = new HashSet<User>();
@@ -47,8 +48,9 @@ namespace SquidsMovieApp.Data.Models
 
         public decimal MoneyBalance { get; set; }
 
-        public virtual ICollection<Participant> LikedActors { get; set; }
-        public virtual ICollection<Participant> LikedDirectors { get; set; }
+        //public virtual ICollection<Participant> LikedActors { get; set; }
+        //public virtual ICollection<Participant> LikedDirectors { get; set; }
+        public virtual ICollection<Participant> LikedParticipants { get; set; }
 
         public virtual ICollection<Movie> LikedMovies { get; set; }
         public virtual ICollection<Movie> BoughtMovies { get; set; }

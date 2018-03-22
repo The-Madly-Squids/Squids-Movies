@@ -20,13 +20,13 @@ namespace SquidsMovieApp.DTO
         public string Password { get; set; }
         public bool IsAdmin { get; set; }
         public decimal MoneyBalance { get; set; }
-        public ICollection<Participant> LikedActors { get; set; }
-        public ICollection<Participant> LikedDirectors { get; set; }
-        public ICollection<Movie> LikedMovies { get; set; }
-        public ICollection<Movie> BoughtMovies { get; set; }
-        public ICollection<Review> Reviews { get; set; }
-        public ICollection<User> Following { get; set; }
-        public ICollection<User> Followers { get; set; }
+        public ICollection<ParticipantModel> LikedActors { get; set; }
+        public ICollection<ParticipantModel> LikedDirectors { get; set; }
+        public ICollection<MovieModel> LikedMovies { get; set; }
+        public ICollection<MovieModel> BoughtMovies { get; set; }
+        public ICollection<ReviewModel> Reviews { get; set; }
+        public ICollection<UserModel> Following { get; set; }
+        public ICollection<UserModel> Followers { get; set; }
 
         public void CreateMappings(IMapperConfigurationExpression configuration)
         {
