@@ -45,7 +45,6 @@
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
   </ItemGroup>
@@ -65,9 +64,9 @@
     <Folder Include="JsonData\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SquidsMovieApp.Data\SquidsMovieApp.Data.csproj">
-      <Project>{4BBB6B73-E52A-4B9D-843D-46D10AF8FD62}</Project>
-      <Name>SquidsMovieApp.Data</Name>
+    <ProjectReference Include="..\SquidsMovieApp.Models\SquidsMovieApp.Models.csproj">
+      <Project>{2EDD6303-C743-43FD-AD01-19F623ABDF5A}</Project>
+      <Name>SquidsMovieApp.Models</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

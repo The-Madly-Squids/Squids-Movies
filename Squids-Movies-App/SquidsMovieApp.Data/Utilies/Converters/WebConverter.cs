@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 
-namespace SquidsMovieApp.Utilities.Converters
+namespace SquidsMovieApp.Data.Utilities.Converters
 {
     /// <summary>
     /// Gets a resource from an url and converts it to a c# object.

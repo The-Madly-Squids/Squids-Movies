@@ -97,9 +97,9 @@
       <Project>{40E7702E-C900-40B2-95E5-FDF9C8D22E5C}</Project>
       <Name>SquidsMovieApp.Logic</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SquidsMovieApp.Utilities\SquidsMovieApp.Utilities.csproj">
-      <Project>{B9FC391F-EF57-4844-ABFD-78D9DFC8B495}</Project>
-      <Name>SquidsMovieApp.Utilities</Name>
+    <ProjectReference Include="..\SquidsMovieApp.Models\SquidsMovieApp.Models.csproj">
+      <Project>{2EDD6303-C743-43FD-AD01-19F623ABDF5A}</Project>
+      <Name>SquidsMovieApp.Models</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

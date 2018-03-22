@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SquidsMovieApp.Data.Context;
+﻿using SquidsMovieApp.Data.Context;
 using SquidsMovieApp.Data.Models;
+using System;
+using System.Linq;
 
 namespace SquidsMovieApp.Core.Providers
 {

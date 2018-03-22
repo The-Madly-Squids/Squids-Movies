@@ -1,14 +1,14 @@
 ﻿using SquidsMovieApp.Data.Context;
 using SquidsMovieApp.Data.Models;
-using SquidsMovieApp.Utilities.Parsers;
-using SquidsMovieApp.Utilities.Parsers.Models;
+using SquidsMovieApp.Data.Utilities.Parsers;
+using SquidsMovieApp.Data.Utilities.Parsers.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SquidsMovieApp.Utilities.Converters
+namespace SquidsMovieApp.Data.Utilities.Converters
 {
     /// <summary>
     /// Converts parsed models from json to DbContext model.

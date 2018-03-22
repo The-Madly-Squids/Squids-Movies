@@ -91,6 +91,10 @@
       <Project>{22E0CAC0-3E8F-4DA3-9B90-86545D78C3C8}</Project>
       <Name>SquidsMovieApp.DTO</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SquidsMovieApp.Models\SquidsMovieApp.Models.csproj">
+      <Project>{2EDD6303-C743-43FD-AD01-19F623ABDF5A}</Project>
+      <Name>SquidsMovieApp.Models</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
