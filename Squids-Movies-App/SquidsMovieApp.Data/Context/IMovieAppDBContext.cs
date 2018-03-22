@@ -10,12 +10,12 @@ namespace SquidsMovieApp.Data.Context
 {
     public interface IMovieAppDBContext
     {
-        DbSet<Movie> Movies { get; set; }
-        DbSet<Participant> Participants { get; set; }
-        DbSet<User> Users { get; set; }
-        DbSet<Review> Reviews { get; set; }
-        DbSet<Genre> Genres { get; set; }
-        DbSet<Role> Roles { get; set; }
+        IDbSet<Movie> Movies { get; set; }
+        IDbSet<Participant> Participants { get; set; }
+        IDbSet<User> Users { get; set; }
+        IDbSet<Review> Reviews { get; set; }
+        IDbSet<Genre> Genres { get; set; }
+        IDbSet<Role> Roles { get; set; }
         int SaveChanges();
     }
 }

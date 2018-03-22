@@ -45,7 +45,7 @@ namespace SquidsMovieApp.Data.Models
 
         public bool IsAdmin { get; set; }
 
-        public int MoneyBalance { get; set; }
+        public decimal MoneyBalance { get; set; }
 
         public virtual ICollection<Participant> LikedActors { get; set; }
         public virtual ICollection<Participant> LikedDirectors { get; set; }

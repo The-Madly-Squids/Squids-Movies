@@ -80,21 +80,16 @@ namespace SquidsMovieApp.Logic
             var participantsModelsList = new List<ParticipantModel>();
             var participants = movie.Participants;
 
-            foreach (var particpant in participants)
+            foreach (var participant in participants)
             {
-                var participantModel = new ParticipantModel()
-                {
-                    FirstName = particpant.FirstName
-                    // add more properties to DTO
-                };
+                // another solution to testing problem(see test in ServiceTest)
+                // would be to avoid using mapper here and to do it manually
+                var participantModel = this.mapper.Map<ParticipantModel>(participant);
+
                 participantsModelsList.Add(participantModel);
             }
 
-            //var movies = this.movieAppDbContext.Movies.ProjectTo<MovieModel>();
-
             return participantsModelsList;
-
-
         }
 
         public void AddMovieParticipant(MovieModel movie, ParticipantModel participant,
@@ -192,12 +187,7 @@ namespace SquidsMovieApp.Logic
 
             foreach (var user in users)
             {
-                var userModel = new UserModel()
-                {
-                    FirstName = user.FirstName,
-                    LastName = user.LastName,
-                    Age = user.Age
-                };
+                var userModel = this.mapper.Map<UserModel>(user);
                 userModelsList.Add(userModel);
             }
 
@@ -216,12 +206,8 @@ namespace SquidsMovieApp.Logic
 
             foreach (var user in users)
             {
-                var userModel = new UserModel()
-                {
-                    FirstName = user.FirstName,
-                    LastName = user.LastName,
-                    Age = user.Age
-                };
+
+                var userModel = this.mapper.Map<UserModel>(user);
                 userModelsList.Add(userModel);
             }
 
