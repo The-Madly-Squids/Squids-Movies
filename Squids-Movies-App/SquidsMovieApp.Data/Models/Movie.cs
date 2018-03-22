@@ -14,14 +14,14 @@ namespace SquidsMovieApp.Data.Models
 
         public Movie()
         {
-            this.Participants = new HashSet<Participant>();
+            //this.Participants = new HashSet<Participant>();
             this.LikedBy = new HashSet<User>();
             this.BoughtBy = new HashSet<User>();
             this.Reviews = new HashSet<Review>();
             this.Genres = new HashSet<Genre>();
         }
 
-        public int MovieId { get; set; } // PK
+        public int MovieId { get; set; }
 
         [Required]
         [StringLength(30, MinimumLength = 2)]
@@ -35,14 +35,13 @@ namespace SquidsMovieApp.Data.Models
         public double Price { get; set; }
         public double ImdbRating { get; set; }
 
-        public MoviePoster Poster { get; set; }
+        public virtual MoviePoster Poster { get; set; }
 
         public virtual ICollection<User> LikedBy { get; set; }
         public virtual ICollection<User> BoughtBy { get; set; }
         public virtual ICollection<Review> Reviews { get; set; }
-
-        // many-to-many
-        public virtual ICollection<Participant> Participants { get; set; }
+        
+        //public virtual ICollection<Participant> Participants { get; set; }
 
         public virtual ICollection<Genre> Genres { get; set; }
 

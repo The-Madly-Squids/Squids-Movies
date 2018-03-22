@@ -61,6 +61,26 @@
     <Compile Include="Migrations\201803191147108_MoviesTableAddedRatedAndPoster.Designer.cs">
       <DependentUpon>201803191147108_MoviesTableAddedRatedAndPoster.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201803201255285_RoleAndMovieChanged.cs" />
+    <Compile Include="Migrations\201803201255285_RoleAndMovieChanged.Designer.cs">
+      <DependentUpon>201803201255285_RoleAndMovieChanged.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803201259490_RoleAndMovieChangedx2.cs" />
+    <Compile Include="Migrations\201803201259490_RoleAndMovieChangedx2.Designer.cs">
+      <DependentUpon>201803201259490_RoleAndMovieChangedx2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803201306256_RemovedRolesFromParticipants.cs" />
+    <Compile Include="Migrations\201803201306256_RemovedRolesFromParticipants.Designer.cs">
+      <DependentUpon>201803201306256_RemovedRolesFromParticipants.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803202303500_UpdatedParticipantAndMovie.cs" />
+    <Compile Include="Migrations\201803202303500_UpdatedParticipantAndMovie.Designer.cs">
+      <DependentUpon>201803202303500_UpdatedParticipantAndMovie.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803202304251_MovieToMoviePoster.cs" />
+    <Compile Include="Migrations\201803202304251_MovieToMoviePoster.Designer.cs">
+      <DependentUpon>201803202304251_MovieToMoviePoster.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Genre.cs" />
     <Compile Include="Models\MoviePoster.cs" />
@@ -81,6 +101,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201803191147108_MoviesTableAddedRatedAndPoster.resx">
       <DependentUpon>201803191147108_MoviesTableAddedRatedAndPoster.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803201255285_RoleAndMovieChanged.resx">
+      <DependentUpon>201803201255285_RoleAndMovieChanged.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803201259490_RoleAndMovieChangedx2.resx">
+      <DependentUpon>201803201259490_RoleAndMovieChangedx2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803201306256_RemovedRolesFromParticipants.resx">
+      <DependentUpon>201803201306256_RemovedRolesFromParticipants.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803202303500_UpdatedParticipantAndMovie.resx">
+      <DependentUpon>201803202303500_UpdatedParticipantAndMovie.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803202304251_MovieToMoviePoster.resx">
+      <DependentUpon>201803202304251_MovieToMoviePoster.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

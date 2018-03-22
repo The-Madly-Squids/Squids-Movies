@@ -2,6 +2,7 @@
 using SquidsMovieApp.Utilities.Parsers.Models;
 using System.Collections.Generic;
 using System.IO;
+using System.Net;
 
 namespace SquidsMovieApp.Utilities.Parsers
 {
@@ -12,9 +13,9 @@ namespace SquidsMovieApp.Utilities.Parsers
             return JsonConvert.DeserializeObject<List<MovieParsedModel>>(File.ReadAllText(path));
         }
 
-        //public ICollection<PersonParser> ParsePersons(string path)
-        //{
-        //    return JsonConvert.DeserializeObject<List<PersonParser>>(File.ReadAllText(path));
-        //}
+        public ActorParsedModel ParseParticipantBio(string participant)
+        {
+            return JsonConvert.DeserializeObject<ActorParsedModel>(participant);
+        }
     }
 }

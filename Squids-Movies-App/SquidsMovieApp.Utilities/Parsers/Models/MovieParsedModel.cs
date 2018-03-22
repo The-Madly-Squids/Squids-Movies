@@ -37,6 +37,6 @@ namespace SquidsMovieApp.Utilities.Parsers.Models
         public string Genres { get; set; }
         
         [JsonProperty("Poster")]
-        public string Poster { get; set; }
+        public string PosterUrl { get; set; }
     }
 }

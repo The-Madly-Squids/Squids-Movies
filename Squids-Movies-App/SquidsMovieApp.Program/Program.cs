@@ -6,6 +6,7 @@ using SquidsMovieApp.Data.Models;
 using SquidsMovieApp.DTO;
 using SquidsMovieApp.Logic;
 using SquidsMovieApp.Program.Controllers;
+using SquidsMovieApp.Utilities.Converters;
 using SquidsMovieApp.Utilities.Parsers;
 using System;
 using System.Collections.Generic;
@@ -76,10 +77,11 @@ namespace SquidsMovieApp.Program
             string moviesPath = @"..\..\..\SquidsMovieApp.Utilities\JsonData\moviesTest.json";
             var parser = new Parser();
             var movies = parser.ParseMovies(moviesPath);
+            
 
-            var ctx = new MovieAppDBContext();
-
-
+            //var ctx = new MovieAppDBContext();
+            //var converter = new MovieConverter(ctx);
+            //converter.AddOrUpdateMovies(movies);
         }
 
         //private static void Init()

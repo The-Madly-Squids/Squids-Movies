@@ -12,10 +12,10 @@ namespace SquidsMovieApp.Data.Models
         public Participant()
 
         {
-            this.Movies = new HashSet<Movie>();
+            //this.Movies = new HashSet<Movie>();
             this.ActorLikedBy = new HashSet<User>();
             this.DirectorLikedBy = new HashSet<User>();
-            this.Roles = new HashSet<Role>();
+            //this.Roles = new HashSet<Role>();
         }
 
         public int ParticipantId { get; set; }
@@ -28,10 +28,14 @@ namespace SquidsMovieApp.Data.Models
         public string LastName { get; set; }
         public int? Age { get; set; }
 
-        public virtual ICollection<Movie> Movies { get; set; }
+        [StringLength(250, MinimumLength = 2)]
+        public string Bio { get; set; }
+
+        //public virtual ICollection<Movie> Movies { get; set; }
         public virtual ICollection<User> ActorLikedBy { get; set; }
         public virtual ICollection<User> DirectorLikedBy { get; set; }
-        public virtual ICollection<Role> Roles { get; set; }
+
+        //public virtual ICollection<Role> Roles { get; set; }
     }
 
 

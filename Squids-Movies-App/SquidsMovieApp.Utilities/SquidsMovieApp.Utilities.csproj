@@ -51,9 +51,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Converters\MovieConverter.cs" />
+    <Compile Include="Parsers\Models\ActorParsedModel.cs" />
     <Compile Include="Parsers\Models\MovieParsedModel.cs" />
     <Compile Include="Parsers\Parser.cs" />
-    <Compile Include="Converters\ImageConverter.cs" />
+    <Compile Include="Converters\WebConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
