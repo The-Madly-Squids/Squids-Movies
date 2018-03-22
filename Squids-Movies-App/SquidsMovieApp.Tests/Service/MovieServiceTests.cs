@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using AutoMapper;
+﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -10,6 +7,9 @@ using SquidsMovieApp.Data.Context;
 using SquidsMovieApp.Data.Models;
 using SquidsMovieApp.DTO;
 using SquidsMovieApp.Logic;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace SquidsMovieApp.Tests.Service
 {
@@ -150,7 +150,8 @@ namespace SquidsMovieApp.Tests.Service
                 participantsList.Add(participant);
             }
 
-            movieObjectToTest.Participants = participantsList;
+            // USE ROLE
+            // movieObjectToTest.Participants = participantsList;
 
             //var calls = 0;
             //var participantListModels = new List<ParticipantModel>()
