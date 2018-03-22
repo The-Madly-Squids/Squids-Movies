@@ -18,10 +18,10 @@ namespace SquidsMovieApp.Data.Models
         public int MovieId { get; set; }
 
         [Required]
-        [StringLength(30, MinimumLength = 2)]
+        [StringLength(100, MinimumLength = 1)]
         public virtual string Title { get; set; }
 
-        [StringLength(200, MinimumLength = 10)]
+        [StringLength(1000, MinimumLength = 1)]
         public string Plot { get; set; }
         public int? Year { get; set; }
         public int? Runtime { get; set; }

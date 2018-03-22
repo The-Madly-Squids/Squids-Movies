@@ -15,16 +15,7 @@ namespace SquidsMovieApp.Data.Migrations
 
         protected override void Seed(MovieAppDBContext context)
         {
-            if (!context.Movies.Any())
-            {
-                string moviesPath = @"..\..\..\SquidsMovieApp.Utilities\JsonData\movies.json";
-                var parser = new Parser();
-                var webConverter = new WebConverter();
-                var movies = parser.ParseMovies(moviesPath);
-
-                var converter = new MovieConverter(context, webConverter, parser);
-                converter.AddOrUpdateMovies(movies);
-            }
+            
         }
     }
 }

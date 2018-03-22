@@ -160,7 +160,15 @@ namespace SquidsMovieApp.Data.Utilities.Converters
 
         private int ParseRuntime(string runtime)
         {
-            int time = int.Parse(runtime.Split(' ')[0]);
+            int time = 0;
+            try
+            {
+                time = int.Parse(runtime.Split(' ')[0]);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
 
             return time;
         }

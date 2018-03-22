@@ -84,6 +84,14 @@
     <Compile Include="Migrations\201803202304251_MovieToMoviePoster.Designer.cs">
       <DependentUpon>201803202304251_MovieToMoviePoster.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201803221322142_Changes.cs" />
+    <Compile Include="Migrations\201803221322142_Changes.Designer.cs">
+      <DependentUpon>201803221322142_Changes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803221346031_FixedMovieRestrictions.cs" />
+    <Compile Include="Migrations\201803221346031_FixedMovieRestrictions.Designer.cs">
+      <DependentUpon>201803221346031_FixedMovieRestrictions.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilies\Converters\MovieConverter.cs" />
@@ -117,6 +125,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201803202304251_MovieToMoviePoster.resx">
       <DependentUpon>201803202304251_MovieToMoviePoster.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803221322142_Changes.resx">
+      <DependentUpon>201803221322142_Changes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803221346031_FixedMovieRestrictions.resx">
+      <DependentUpon>201803221346031_FixedMovieRestrictions.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
