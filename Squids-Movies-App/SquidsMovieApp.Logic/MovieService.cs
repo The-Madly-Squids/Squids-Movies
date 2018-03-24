@@ -166,7 +166,7 @@ namespace SquidsMovieApp.Logic
 
             var actorsRoles = this.movieAppDbContext.Roles
                 .Where(x => x.Movie.MovieId == movie.MovieId &&
-                        x.RoleName == "Actor")
+                                                    x.RoleName == "Actor")
                 .Select(a => a.Participant).ProjectTo<ParticipantModel>()
                 .ToList();
 

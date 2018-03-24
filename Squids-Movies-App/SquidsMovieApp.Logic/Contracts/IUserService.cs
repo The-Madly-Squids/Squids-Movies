@@ -10,8 +10,7 @@ namespace SquidsMovieApp.Logic.Contracts
     public interface IUserService
     {
 
-        IEnumerable<ParticipantModel> GetLikedDirectors(UserModel user); //Done
-        IEnumerable<ParticipantModel> GetLikedActors(UserModel user); //Done
+        IEnumerable<ParticipantModel> GetLikedParticipants(UserModel user); //Done
         IEnumerable<MovieModel> GetLikedMovies(UserModel user); //Done
         IEnumerable<MovieModel> GetBoughtMovies(UserModel user); //Done
         //IEnumerable<ReviewModel> GetAllReviews();

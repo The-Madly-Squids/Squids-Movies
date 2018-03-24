@@ -140,6 +140,7 @@ namespace SquidsMovieApp.Tests.Service
 
             // rethrows https://github.com/AutoMapper/AutoMapper/issues/2090
             // why?
+            // because of ProjectTo() - how to fix?
             Assert.IsTrue(result.FirstOrDefault().Title == movieToAdd.Title);
         }
 
@@ -263,7 +264,8 @@ namespace SquidsMovieApp.Tests.Service
             var result = sut.GetActors(movieDtoArgument).FirstOrDefault();
 
             // Assert
-            // Again : The type 'SquidsMovieApp.DTO.ParticipantModel' appears in two structurally
+            // Again ProjecTo leads to 
+            // : The type 'SquidsMovieApp.DTO.ParticipantModel' appears in two structurally
             // incompatible initializations within a single LINQ to Entities query
             Assert.AreEqual(result.FirstName, participantObject.FirstName);
         }

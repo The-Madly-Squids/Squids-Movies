@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace SquidsMovieApp.Logic
 {
-    class UserService : IUserService
+    public class UserService : IUserService
     {
         private readonly IMovieAppDBContext movieAppDbContext;
         private readonly IMapper mapper;
@@ -53,16 +53,24 @@ namespace SquidsMovieApp.Logic
             return users;
         }
 
-        public IEnumerable<ParticipantModel> GetLikedDirectors(UserModel user)
+        public IEnumerable<ParticipantModel> GetLikedParticipants(UserModel user)
         {
-            var likedDirectors = user.LikedDirectors;
-            return likedDirectors;
-        }
+            // this was valid before but now when DTO holds DTO collections
+            // you must first find the user in the DB 
+            // and then project his collecition to DTO object and return it
 
-        public IEnumerable<ParticipantModel> GetLikedActors(UserModel user)
-        {
-            var likedActors = user.LikedActors;
-            return likedActors;
+            var userObject = this.movieAppDbContext.Users
+                .Where(x => x.UserId == user.UserId)
+                .FirstOrDefault();
+
+            if (userObject == null)
+            {
+                throw new ArgumentNullException("User not found!");
+            }
+
+            var likedDirectors = userObject.LikedParticipants;
+
+            throw new NotImplementedException();
         }
 
         public IEnumerable<MovieModel> GetLikedMovies(UserModel user)

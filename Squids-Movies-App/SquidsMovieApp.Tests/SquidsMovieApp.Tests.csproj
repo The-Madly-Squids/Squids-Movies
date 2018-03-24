@@ -86,6 +86,7 @@
     <Compile Include="Core\UnitTest1.cs" />
     <Compile Include="Models\UnitTest1.cs" />
     <Compile Include="Service\MovieServiceTests.cs" />
+    <Compile Include="Service\UserServiceTests.cs" />
     <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
