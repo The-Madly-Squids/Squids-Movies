@@ -53,6 +53,13 @@ namespace SquidsMovieApp.Tests.Service
         }
 
         [TestMethod]
+        public void AddMovieShould_ThrowWhenCalledWithInvalidData()
+        {
+            // For Plamen
+            throw new NotImplementedException();
+        }
+
+        [TestMethod]
         public void RemoveMovieShould_CorrectlyRemoveMovieFromDB()
         {
             // Arrange
@@ -89,6 +96,20 @@ namespace SquidsMovieApp.Tests.Service
         }
 
         [TestMethod]
+        public void RemoveMovieShould_ThrowWhenCalledWithInvalidData()
+        {
+            // For Plamen
+            throw new NotImplementedException();
+        }
+
+        [TestMethod]
+        public void RemoveMovieShould_ThrowWhenMovieToRemoveNotFoundInDataBase()
+        {
+            // For Toni
+            throw new NotImplementedException();
+        }
+
+        [TestMethod]
         public void GetAllMoviesShould_ReturnCorrectDataWhenCalled()
         {
             // Arrange
@@ -98,75 +119,183 @@ namespace SquidsMovieApp.Tests.Service
             var mapperMock = new Mock<IMapper>();
 
 
-            // Fill DB with movies that will be returned
-            for (int i = 0; i < 10; i++)
+            var movieToAdd = new Movie()
             {
-                var movieToReturn = new Movie()
-                {
-                    Title = "Test title" + i,
-                    Runtime = 120 + i
-                };
-                effortContext.Movies.Add(movieToReturn);
-            }
+                Title = "Test title",
+                Runtime = 120
+            };
+
+            effortContext.Movies.Add(movieToAdd);
+
             effortContext.SaveChanges();
 
             // Act
             var sut = new MovieService(effortContext, mapperMock.Object);
             var result = sut.GetAllMovies();
-            // is this correct? Can you use ProjectTo in test method?
-            var expectedResult = effortContext.Movies.ProjectTo<MovieModel>();
 
-            foreach (var movieModel in result)
-            {
-                bool exists = expectedResult.Any(x => x.MovieId == movieModel.MovieId);
-                Assert.IsTrue(exists);
-            }
+            // [OLD]
+            // is this correct? Can you use ProjectTo in test method?
+            // you cant: throws https://github.com/AutoMapper/AutoMapper/issues/2090
+            //var expectedResult = effortContext.Movies.ProjectTo<MovieModel>();
+
+            // rethrows https://github.com/AutoMapper/AutoMapper/issues/2090
+            // why?
+            Assert.IsTrue(result.FirstOrDefault().Title == movieToAdd.Title);
         }
 
         [TestMethod]
         public void GetAllParticipantsPerMovieShould_ReturnCorrectParticipants()
         {
-            // Arrange
-            var effortContext = new MovieAppDBContext(
+            // For Plamen
+            throw new NotImplementedException();
+        }
+
+        [TestMethod]
+        public void AddMovieParticipantShouldCorrectlyAddParticipantToMovie_WhenCalledWithValidData()
+        {
+            // Assert
+            var effort = new MovieAppDBContext(
                 Effort.DbConnectionFactory.CreateTransient());
 
             var mapperMock = new Mock<IMapper>();
 
-            var movieObjectToTest = new Movie()
+            var movieObject = new Movie()
             {
-                Title = "test title",
-                Runtime = 120
+                Title = "Test Movie",
+                Year = 1990
             };
 
-            var participantsList = new List<Participant>();
-
-            for (int i = 0; i < 10; i++)
+            var participantObject = new Participant()
             {
-                var participant = new Participant()
-                {
-                    FirstName = "TestObject" + i,
-                    LastName = "TestObject" + i
-                };
-                participantsList.Add(participant);
-            }
+                FirstName = "Arnold",
+                LastName = "Ivanov"
+            };
 
-            // USE ROLE
-            // movieObjectToTest.Participants = participantsList;
+            effort.Movies.Add(movieObject);
+            effort.Participants.Add(participantObject);
+            effort.SaveChanges();
 
-            //var calls = 0;
-            //var participantListModels = new List<ParticipantModel>()
-            //// Currently returns only one value. How to make it return all values
-            //// from the list above?
-            //// this would work if the the list was passed as a dependency
-            //// but its not - what to do?
-            //mapperMock.Setup(x => x.Map<ParticipantModel>(It.IsAny<Participant>()))
-            //    .Returns(() => participantListModels[calls])
-            //    .Callback(() => calls++);
+            // how to isolate mapper ?
+            // map here is broken - participantModel id is 0 
+            var participantModel = Mapper.Map<ParticipantModel>(participantObject);
+            var movieModel = Mapper.Map<MovieModel>(movieObject);
+            var roleName = "Actor";
 
-            //https://stackoverflow.com/questions/29605470/how-to-mock-a-list-transformation-using-automapper
+            // Act
+            var sut = new MovieService(effort, mapperMock.Object);
+            // once passed the participantModel/Object whatever loses its existance
+            // becomes null. Debug to see;
+            // Note: only happens for participantObject, movie is unaffected
+            // nvm forget { set;} on ParticipantModel 
+            sut.AddMovieParticipant(movieModel, participantModel, roleName);
 
-            throw new NotImplementedException("How to make it work? :)");
+            // Assert
+            var participantAddedToMovie = movieObject.Participants.FirstOrDefault();
+            var movieAddedToParticipant = participantObject.Movies.FirstOrDefault();
+            var roleIsCorrect = effort.Roles.FirstOrDefault().RoleName == "Actor";
 
+            // Unit test should fail for only one reason
+            // either change the method to be SRP or separate the test into 3 parts
+            Assert.IsTrue(participantAddedToMovie == participantObject);
+            Assert.IsTrue(movieAddedToParticipant == movieObject);
+            Assert.IsTrue(roleIsCorrect);
+        }
+
+        [TestMethod]
+        public void AddMovieParticipantShould_ThrowWhenMovieNotFoundInDataBase()
+        {
+            // For Paco
+            throw new NotImplementedException();
+        }
+
+        [TestMethod]
+        public void AddMovieParticipantShould_ThrowWhenParticipantNotFoundInDataBase()
+        {
+            // For Toni
+            throw new NotImplementedException();
+        }
+
+        [TestMethod]
+        public void GetRatingShould_ReturnCorrectValueWhenCalled()
+        {
+            // for Paco
+            throw new NotImplementedException();
+        }
+
+        [TestMethod]
+        public void GetActorsShould_ReturnCorrectValueWhenCalled()
+        {
+            // currently does not work - see end of test for details
+            // Act
+            var effort = new MovieAppDBContext(
+                Effort.DbConnectionFactory.CreateTransient());
+
+            var mapperMock = new Mock<IMapper>();
+
+            // should these objects be mocks?
+            var movieObject = new Movie()
+            {
+                Title = "Test Movie",
+                Year = 1990
+            };
+
+            var participantObject = new Participant()
+            {
+                FirstName = "Test",
+                LastName = "Testov"
+            };
+
+            var roleObject = new Role()
+            {
+                Movie = movieObject,
+                MovieId = movieObject.MovieId,
+                Participant = participantObject,
+                ParticipantId = participantObject.ParticipantId,
+                RoleName = "Actor"
+            };
+
+            effort.Roles.Add(roleObject);
+
+            var movieDtoArgument = Mapper.Map<MovieModel>(movieObject);
+
+            // Act
+            var sut = new MovieService(effort, mapperMock.Object);
+            var result = sut.GetActors(movieDtoArgument).FirstOrDefault();
+
+            // Assert
+            // Again : The type 'SquidsMovieApp.DTO.ParticipantModel' appears in two structurally
+            // incompatible initializations within a single LINQ to Entities query
+            Assert.AreEqual(result.FirstName, participantObject.FirstName);
+        }
+
+        [TestMethod]
+        public void GetDirectorsShould_ReturnCorrectValueWhenCalled()
+        {
+            // For Paco - look above test this one will be the same with minor changes
+            // above doesnt work - wait until we ask for help from the Trainers
+
+            throw new NotImplementedException();
+        }
+
+        [TestMethod]
+        public void GetMovieGenresShould_ReturnCorrectValueWhenCalled()
+        {
+            // for Toni
+            throw new NotImplementedException();
+        }
+
+        [TestMethod]
+        public void GetUsersWhoBoughtMovieShould_ReturnCorrectValueWhenCalled()
+        {
+            // for Paco
+            throw new NotImplementedException();
+        }
+
+        [TestMethod]
+        public void GetUsersWhoLikedMovieShould_ReturnCorrectValueWhenCalled()
+        {
+            // for Toni
+            throw new NotImplementedException();
         }
     }
 }

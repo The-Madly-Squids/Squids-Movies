@@ -15,6 +15,7 @@ namespace SquidsMovieApp.Data.Models
             // doesn't work
             //this.LikedActors = new HashSet<Participant>();
             //this.LikedDirectors = new HashSet<Participant>();
+            this.LikedParticipants = new HashSet<Participant>();
             this.LikedMovies = new HashSet<Movie>();
             this.BoughtMovies = new HashSet<Movie>();
             this.Following = new HashSet<User>();

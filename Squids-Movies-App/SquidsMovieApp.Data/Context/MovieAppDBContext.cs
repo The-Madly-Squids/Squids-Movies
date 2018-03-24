@@ -53,24 +53,24 @@ namespace SquidsMovieApp.Data.Context
                });
 
             modelBuilder.Entity<User>()
-               .HasMany(u => u.LikedActors)
-               .WithMany(a => a.ActorLikedBy)
+               .HasMany(u => u.LikedParticipants)
+               .WithMany(a => a.ParticipantLikedByUser)
                .Map(mc =>
                {
                    mc.MapLeftKey("UserId");
                    mc.MapRightKey("ParticipantId");
-                   mc.ToTable("ActorsLikedBy");
+                   mc.ToTable("ParticipantsLikedBy");
                });
 
-            modelBuilder.Entity<User>()
-               .HasMany(u => u.LikedDirectors)
-               .WithMany(d => d.DirectorLikedBy)
-               .Map(mc =>
-               {
-                   mc.MapLeftKey("UserId");
-                   mc.MapRightKey("ParticipantId");
-                   mc.ToTable("DirectorsLikedBy");
-               });
+            //modelBuilder.Entity<User>()
+            //   .HasMany(u => u.LikedDirectors)
+            //   .WithMany(d => d.DirectorLikedBy)
+            //   .Map(mc =>
+            //   {
+            //       mc.MapLeftKey("UserId");
+            //       mc.MapRightKey("ParticipantId");
+            //       mc.ToTable("DirectorsLikedBy");
+            //   });
 
 
             modelBuilder.Entity<Review>()

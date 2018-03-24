@@ -98,17 +98,46 @@ namespace SquidsMovieApp.Logic
                 .Throw();
 
             // object from DTO - possible? will it be in the DB?
-            var movieObject = this.mapper.Map<Movie>(movie);
-            var participantObject = this.mapper.Map<Participant>(participant);
+            //var movieObject = this.mapper.Map<Movie>(movie);
+            //var participantObject = this.mapper.Map<Participant>(participant);
 
+            var movieObject = this.movieAppDbContext.Movies
+                              .Where(x => x.MovieId == movie.MovieId)
+                              .FirstOrDefault();
+
+            if (movieObject == null)
+            {
+                throw new ArgumentNullException("Movie not found!");
+            }
+
+            var participantObject = this.movieAppDbContext.Participants
+                                    .Where(x => x.ParticipantId == participant.ParticipantId)
+                                    .FirstOrDefault();
+
+            if (participantObject == null)
+            {
+                throw new ArgumentNullException("Participant not found!");
+            }
+
+            // currently the int FK is redundant
             var actorRole = new Role()
             {
                 Movie = movieObject,
+                MovieId = movie.MovieId,
                 Participant = participantObject,
+                ParticipantId = participantObject.ParticipantId,
                 RoleName = roleName
             };
 
+            // is this single responsability?
+            // method adds participant to movie
+            // movie to participant
+            // creates a role
+            // create only role and use it to find movies-to-participants? 
+            movieObject.Participants.Add(participantObject);
+            participantObject.Movies.Add(movieObject);
             this.movieAppDbContext.Roles.Add(actorRole);
+            this.movieAppDbContext.SaveChanges();
         }
 
         public double GetRating(MovieModel movie)
@@ -138,12 +167,13 @@ namespace SquidsMovieApp.Logic
             var actorsRoles = this.movieAppDbContext.Roles
                 .Where(x => x.Movie.MovieId == movie.MovieId &&
                         x.RoleName == "Actor")
-                        .Select(a => a.Participant).ProjectTo<ParticipantModel>()
-                        .ToList();
+                .Select(a => a.Participant).ProjectTo<ParticipantModel>()
+                .ToList();
 
             return actorsRoles;
 
         }
+
         public IEnumerable<ParticipantModel> GetDirectors(MovieModel movie)
         {
             if (movie == null)
@@ -153,15 +183,23 @@ namespace SquidsMovieApp.Logic
 
             var actorsRoles = this.movieAppDbContext.Roles
                 .Where(x => x.Movie.MovieId == movie.MovieId &&
-                        x.RoleName == "Director")
-                        .Select(a => a.Participant).ProjectTo<ParticipantModel>()
-                        .ToList();
+                                x.RoleName == "Director")
+                .Select(a => a.Participant).ProjectTo<ParticipantModel>()
+                .ToList();
 
             return actorsRoles;
         }
 
         public IEnumerable<string> GetMovieGenres(MovieModel movie)
         {
+            if (movie == null)
+            {
+                throw new ArgumentNullException("Movie cannot be null!");
+            }
+
+            // doesnt exist yet - implement it
+            //var movieGenres = movie.Genres;
+
             throw new NotImplementedException();
         }
 
@@ -172,16 +210,9 @@ namespace SquidsMovieApp.Logic
                 throw new ArgumentNullException("Movie cannot be null!");
             }
 
-            var userModelsList = new List<UserModel>();
-            var users = movie.BoughtBy;
+            var usersThatBoughtMovieList = movie.BoughtBy;
 
-            foreach (var user in users)
-            {
-                var userModel = this.mapper.Map<UserModel>(user);
-                userModelsList.Add(userModel);
-            }
-
-            return userModelsList;
+            return usersThatBoughtMovieList;
         }
 
         public IEnumerable<UserModel> GetUsersWhoLikedtIt(MovieModel movie)
@@ -191,17 +222,9 @@ namespace SquidsMovieApp.Logic
                 throw new ArgumentNullException("Movie cannot be null!");
             }
 
-            var userModelsList = new List<UserModel>();
             var users = movie.LikedBy;
 
-            foreach (var user in users)
-            {
-
-                var userModel = this.mapper.Map<UserModel>(user);
-                userModelsList.Add(userModel);
-            }
-
-            return userModelsList;
+            return users;
         }
     }
 }

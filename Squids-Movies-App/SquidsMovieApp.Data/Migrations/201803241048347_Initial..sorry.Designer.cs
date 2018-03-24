@@ -7,13 +7,13 @@ namespace SquidsMovieApp.Data.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class UpdatedParticipantAndMovie : IMigrationMetadata
+    public sealed partial class Initialsorry : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(UpdatedParticipantAndMovie));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Initialsorry));
         
         string IMigrationMetadata.Id
         {
-            get { return "201803202303500_UpdatedParticipantAndMovie"; }
+            get { return "201803241048347_Initial..sorry"; }
         }
         
         string IMigrationMetadata.Source

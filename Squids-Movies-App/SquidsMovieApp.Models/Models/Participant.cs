@@ -12,7 +12,7 @@ namespace SquidsMovieApp.Data.Models
         public Participant()
 
         {
-            //this.Movies = new HashSet<Movie>();
+            this.Movies = new HashSet<Movie>();
             this.ParticipantLikedByUser = new HashSet<User>();
             //this.Roles = new HashSet<Role>();
         }
@@ -30,7 +30,7 @@ namespace SquidsMovieApp.Data.Models
         [StringLength(250, MinimumLength = 2)]
         public string Bio { get; set; }
 
-        //public virtual ICollection<Movie> Movies { get; set; }
+        public virtual ICollection<Movie> Movies { get; set; }
         public virtual ICollection<User> ParticipantLikedByUser { get; set; }
 
         //public virtual ICollection<Role> Roles { get; set; }
