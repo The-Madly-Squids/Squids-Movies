@@ -69,7 +69,7 @@ namespace SquidsMovieApp.Logic
         public UserModel GetUser(string userName)
         {
             var user = this.movieAppDbContext.Users
-                .Where(x => x.Nickname == userName)
+                .Where(x => x.Username == userName)
                 .FirstOrDefault();
 
             if (user == null)
