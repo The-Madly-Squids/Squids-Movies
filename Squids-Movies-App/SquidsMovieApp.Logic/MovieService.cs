@@ -167,11 +167,11 @@ namespace SquidsMovieApp.Logic
             var actorsRoles = this.movieAppDbContext.Roles
                 .Where(x => x.Movie.MovieId == movie.MovieId &&
                                                     x.RoleName == "Actor")
-                .Select(a => a.Participant).ProjectTo<ParticipantModel>()
+                .Select(a => a.Participant)
+                .ProjectTo<ParticipantModel>()
                 .ToList();
 
             return actorsRoles;
-
         }
 
         public IEnumerable<ParticipantModel> GetDirectors(MovieModel movie)
