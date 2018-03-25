@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,20 +10,23 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace SquidsMovieApp.WPF
 {
     /// <summary>
-    /// Interaction logic for MovieDisplayWindow.xaml
+    /// Interaction logic for ErrorWindow.xaml
     /// </summary>
-    public partial class MovieDisplayWindow : Page
+    public partial class ErrorWindow : Window
     {
-        public MovieDisplayWindow()
+        private StackPanel stackPanel;
+
+        public ErrorWindow(StackPanel stackPanel)
         {
             InitializeComponent();
-            
+            this.stackPanel = stackPanel;
+
+            this.ErrorContainer.Children.Add(stackPanel);
         }
     }
 }

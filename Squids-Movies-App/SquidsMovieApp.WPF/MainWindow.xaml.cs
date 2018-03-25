@@ -1,6 +1,10 @@
-﻿using System;
+﻿using Autofac;
+using SquidsMovieApp.Common;
+using SquidsMovieApp.Core.Contracts;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -23,6 +27,18 @@ namespace SquidsMovieApp.WPF
         public MainWindow()
         {
             InitializeComponent();
+            Initialize();
         }
+
+        private void Initialize()
+        {
+            AutomapperConfiguration.Initialize();
+            var builder = new ContainerBuilder();
+            builder.RegisterAssemblyModules(Assembly.GetExecutingAssembly());
+            var container = builder.Build();
+            this.Engine = container.Resolve<IEngine>();
+        }
+
+        public IEngine Engine { get; set; }
     }
 }

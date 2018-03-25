@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Bytes2you.Validation;
+using SquidsMovieApp.Core.Contracts;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -33,20 +35,80 @@ namespace SquidsMovieApp.WPF
 
         private void RegisterBtnClicked(object sender, RoutedEventArgs e)
         {
-            ValidateFields();
-            this.NavigationService.Navigate(new ProfileWindow());
+            var stackPanel = new StackPanel();
+
+            if (ValidateFields(stackPanel))
+            {
+                this.NavigationService.Navigate(new ProfileWindow());
+            }
+            else
+            {
+                var errorWindow = new ErrorWindow(stackPanel);
+                errorWindow.Owner = Application.Current.MainWindow;
+                errorWindow.ShowDialog();
+            }
         }
 
-        private void ValidateFields()
+        private bool ValidateFields(StackPanel stackPanel)
         {
+            bool isValid = true;
             var email = this.EmailRegisterTB.Text;
             var username = this.UsernameRegisterTB.Text;
             var firstName = this.FirstNamelRegisterTB.Text;
             var lastName = this.LastNameRegisterTB.Text;
-            var password = this.PasswordRegisterPB.Password;
-            var repeatedPassword = this.PasswordRepeatRegisterPB.Password;
+            var password = this.PasswordRegisterPB.Password.ToString();
+            var repeatedPassword = this.PasswordRepeatRegisterPB.Password.ToString();
 
-            
+
+
+            if (string.IsNullOrEmpty(email))
+            {
+                stackPanel.Children.Add(CreateEmptyFieldErrorTextBlock("Email"));
+                isValid = false;
+            }
+
+            if (string.IsNullOrEmpty(username))
+            {
+                stackPanel.Children.Add(CreateEmptyFieldErrorTextBlock("Username"));
+                isValid = false;
+            }
+
+            if (string.IsNullOrEmpty(password))
+            {
+                stackPanel.Children.Add(CreateEmptyFieldErrorTextBlock("Password"));
+                isValid = false;
+            }
+
+            if (string.IsNullOrEmpty(repeatedPassword))
+            {
+                stackPanel.Children.Add(CreateEmptyFieldErrorTextBlock("Repeated password"));
+                isValid = false;
+            }
+
+            if (password != repeatedPassword)
+            {
+                var errorTextBlock = new TextBlock();
+                errorTextBlock.Foreground = new SolidColorBrush(Colors.Red);
+                errorTextBlock.HorizontalAlignment = HorizontalAlignment.Center;
+                errorTextBlock.FontWeight = FontWeights.Bold;
+                errorTextBlock.Text = $"Passwords missmatch.";
+
+                stackPanel.Children.Add(errorTextBlock);
+                isValid = false;
+            }
+
+            return isValid;
+        }
+
+        private TextBlock CreateEmptyFieldErrorTextBlock(string errorElementName)
+        {
+            var errorTextBlock = new TextBlock();
+            errorTextBlock.Foreground = new SolidColorBrush(Colors.Red);
+            errorTextBlock.HorizontalAlignment = HorizontalAlignment.Center;
+            errorTextBlock.FontWeight = FontWeights.Bold;
+            errorTextBlock.Text = $"{errorElementName} cannot be empty.";
+
+            return errorTextBlock;
         }
     }
 }

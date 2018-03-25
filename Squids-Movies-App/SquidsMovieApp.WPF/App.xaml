@@ -35,5 +35,10 @@
                 <Button Width="125" Height="25" Content="Exit" DockPanel.Dock="Right" Margin="0,0,15,0" Click="ExitBtnClicked"/>
             </DockPanel>
         </DataTemplate>
+        <DataTemplate x:Key="LogoHeader">
+            <Border Height="55" Padding="10" Background="CornflowerBlue">
+                <Label VerticalAlignment="Center" Foreground="White">Squids Logo</Label>
+            </Border>
+        </DataTemplate>
     </Application.Resources>
 </Application>

@@ -26,40 +26,24 @@ namespace SquidsMovieApp.WPF
     /// </summary>
     public partial class LoginWindow : Page
     {
-        private IEngine engine;
         public LoginWindow()
         {
             InitializeComponent();
             EmailLoginTB.Focus();
-            Initialize();
+            this.Engine = ((MainWindow)Application.Current.MainWindow).Engine;
         }
 
-        private void Initialize()
-        {
-
-            Init();
-            var builder = new ContainerBuilder();
-            builder.RegisterAssemblyModules(Assembly.GetExecutingAssembly());
-            var container = builder.Build();
-            this.engine = container.Resolve<IEngine>();
-
-        }
-
-        private static void Init()
-        {
-            AutomapperConfiguration.Initialize();
-        }
+        public IEngine Engine { get; private set; }
 
         private void LoginBtnClicked(object sender, RoutedEventArgs e)
         {
             var email = this.EmailLoginTB.Text;
             var password = this.PasswordLoginTB.Password.ToString();
-            this.engine.Start(email, password);
 
             this.NavigationService.Navigate(new ProfileWindow());
         }
 
-        private void RegisterLinkClick(object sender, RoutedEventArgs e)
+        private void RegisterLinkClicked(object sender, RoutedEventArgs e)
         {
             this.NavigationService.Navigate(new RegisterWindow());
         }

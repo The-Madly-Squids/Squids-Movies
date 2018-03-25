@@ -1,12 +1,18 @@
-﻿<NavigationWindow x:Class="SquidsMovieApp.WPF.MainWindow"
+﻿<Window x:Class="SquidsMovieApp.WPF.ErrorWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SquidsMovieApp.WPF"
         mc:Ignorable="d"
-        Title="SquidFlix" Height="800" Width="1200"
-        ShowsNavigationUI="False"
-        Source="LoginWindow.xaml"
-        WindowStyle="ToolWindow">
-</NavigationWindow>
+        Title="Registration failed"
+        Width="300"
+        Height="200"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize"
+        Background="GhostWhite"
+        >
+    <Grid Name="ErrorContainer" Margin="20">
+        
+    </Grid>
+</Window>

@@ -17,9 +17,7 @@
             <RowDefinition />
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <Border Grid.Column="0" Grid.Row="0" Height="55" Padding="10" Background="CornflowerBlue">
-            <Label VerticalAlignment="Center" Foreground="White">Squids Logo And Navigation</Label>
-        </Border>
+        <ContentPresenter Grid.Column="0" Grid.Row="0" ContentTemplate="{StaticResource LogoHeader}" />
         <Grid Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
