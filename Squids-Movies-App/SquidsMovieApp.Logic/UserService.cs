@@ -43,9 +43,21 @@ namespace SquidsMovieApp.Logic
                 throw new ArgumentException();
             }
 
-            var userToRemove = Mapper.Map<User>(user);
-            movieAppDbContext.Users.Remove(userToRemove);
-            movieAppDbContext.SaveChanges();
+            //var userToRemove = Mapper.Map<User>(user);
+            //movieAppDbContext.Users.Remove(userToRemove);
+            //movieAppDbContext.SaveChanges();
+
+            var userObject = this.movieAppDbContext.Users
+                .Where(x => x.UserId == user.UserId)
+                .FirstOrDefault();
+
+            if (userObject == null)
+            {
+                throw new ArgumentNullException("No such user!");
+            }
+
+            this.movieAppDbContext.Users.Remove(userObject);
+            this.movieAppDbContext.SaveChanges();
         }
 
         public IEnumerable<UserModel> GetAllUsers()
@@ -69,9 +81,16 @@ namespace SquidsMovieApp.Logic
                 throw new ArgumentNullException("User not found!");
             }
 
-            var likedDirectors = userObject.LikedParticipants;
+            var likedParticipantsObjects = userObject.LikedParticipants;
+            var likedParticipantsDTOs = new List<ParticipantModel>();
 
-            throw new NotImplementedException();
+            foreach (var p in likedParticipantsObjects)
+            {
+                var pDTO = mapper.Map<ParticipantModel>(p);
+                likedParticipantsDTOs.Add(pDTO);
+            }
+
+            return likedParticipantsDTOs;
         }
 
         public IEnumerable<MovieModel> GetLikedMovies(UserModel user)

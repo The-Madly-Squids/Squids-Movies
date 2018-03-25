@@ -34,6 +34,16 @@ namespace SquidsMovieApp.Program.Controllers
             return movies;
         }
 
+        public MovieModel GetMovie(string movieTitle)
+        {
+            Guard.WhenArgument(movieTitle, "movie name")
+                .IsNullOrEmpty()
+                .Throw();
+
+            var movie = this.movieService.GetMovie(movieTitle);
+            return movie;
+        }
+
         public void AddMovie(string name, string description, int year,
             int runningTime)
         {
@@ -66,8 +76,7 @@ namespace SquidsMovieApp.Program.Controllers
                 .IsNullOrEmpty()
                 .Throw();
 
-            var movieToDelete = this.movieService.GetAllMovies().FirstOrDefault(
-                x => x.Title == movieName);
+            var movieToDelete = this.movieService.GetMovie(movieName);
 
             this.movieService.RemoveMovie(movieToDelete);
         }
@@ -91,13 +100,7 @@ namespace SquidsMovieApp.Program.Controllers
                .IsNullOrEmpty()
                .Throw();
 
-            var movie = this.movieService.GetAllMovies()
-                .FirstOrDefault(x => x.Title == movieName);
-
-            if (movie == null)
-            {
-                throw new ArgumentNullException("Movie not found! Add it to DB first!");
-            }
+            var movie = this.movieService.GetMovie(movieName);
 
             var movieParticipants = this.movieService.GetAllParticipantsPerMovie(movie);
 
@@ -110,7 +113,6 @@ namespace SquidsMovieApp.Program.Controllers
                     "Add it first!");
             }
 
-
             var pRoles = this.roleService.ParticipantRolesPerMovie(participant, movie);
             foreach (var r in pRoles)
             {
@@ -121,7 +123,6 @@ namespace SquidsMovieApp.Program.Controllers
                 }
             }
 
-            //roleService.AddRole(movie, participant);
 
             this.movieService.AddMovieParticipant(movie, participant, role);
         }
@@ -132,8 +133,7 @@ namespace SquidsMovieApp.Program.Controllers
                 .IsNotNullOrEmpty()
                 .Throw();
 
-            var movie = this.movieService.GetAllMovies()
-                .Where(x => x.Title == movieName).FirstOrDefault();
+            var movie = this.movieService.GetMovie(movieName);
 
             return this.movieService.GetRating(movie);
         }
@@ -144,8 +144,7 @@ namespace SquidsMovieApp.Program.Controllers
                 .IsNullOrEmpty()
                 .Throw();
 
-            var movieModel = this.movieService.GetAllMovies()
-                .Where(x => x.Title == movieName).FirstOrDefault();
+            var movieModel = this.movieService.GetMovie(movieName);
 
             return this.movieService.GetActors(movieModel);
         }
@@ -156,8 +155,7 @@ namespace SquidsMovieApp.Program.Controllers
               .IsNullOrEmpty()
               .Throw();
 
-            var movieModel = this.movieService.GetAllMovies()
-                .Where(x => x.Title == movieName).FirstOrDefault();
+            var movieModel = this.movieService.GetMovie(movieName);
 
             return this.movieService.GetDirectors(movieModel);
         }
@@ -168,8 +166,7 @@ namespace SquidsMovieApp.Program.Controllers
             .IsNullOrEmpty()
             .Throw();
 
-            var movieModel = this.movieService.GetAllMovies()
-                .Where(x => x.Title == movieName).FirstOrDefault();
+            var movieModel = this.movieService.GetMovie(movieName);
 
             return this.movieService.GetUsersWhoBoughtIt(movieModel);
         }
@@ -180,8 +177,7 @@ namespace SquidsMovieApp.Program.Controllers
             .IsNullOrEmpty()
             .Throw();
 
-            var movieModel = this.movieService.GetAllMovies()
-                .Where(x => x.Title == movieName).FirstOrDefault();
+            var movieModel = this.movieService.GetMovie(movieName);
 
             return this.movieService.GetUsersWhoLikedtIt(movieModel);
         }
@@ -192,8 +188,7 @@ namespace SquidsMovieApp.Program.Controllers
             .IsNullOrEmpty()
             .Throw();
 
-            var movieModel = this.movieService.GetAllMovies()
-                .Where(x => x.Title == movieName).FirstOrDefault();
+            var movieModel = this.movieService.GetMovie(movieName);
 
             return this.movieService.GetAllParticipantsPerMovie(movieModel);
         }

@@ -233,7 +233,6 @@ namespace SquidsMovieApp.Tests.Service
 
             var mapperMock = new Mock<IMapper>();
 
-            // should these objects be mocks?
             var movieObject = new Movie()
             {
                 Title = "Test Movie",
@@ -246,6 +245,9 @@ namespace SquidsMovieApp.Tests.Service
                 LastName = "Testov"
             };
 
+            effort.Movies.Add(movieObject);
+            effort.Participants.Add(participantObject);
+
             var roleObject = new Role()
             {
                 Movie = movieObject,
@@ -256,6 +258,7 @@ namespace SquidsMovieApp.Tests.Service
             };
 
             effort.Roles.Add(roleObject);
+            effort.SaveChanges();
 
             var movieDtoArgument = Mapper.Map<MovieModel>(movieObject);
 
