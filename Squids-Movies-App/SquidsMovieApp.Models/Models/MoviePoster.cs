@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
@@ -11,7 +12,10 @@ namespace SquidsMovieApp.Data.Models
     {
         [ForeignKey("Movie")]
         public int Id { get; set; }
+
+        [Required]
         public byte[] Poster { get; set; }
+
         public virtual Movie Movie { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SquidsMovieApp.Common.Constants;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -12,9 +13,13 @@ namespace SquidsMovieApp.Data.Models
         // a user can submit more then one review
         // must use a composite primary key
         public int ReviewId { get; set; }
-        [StringLength(200, MinimumLength = 10)]
+
+        [StringLength(GlobalConstants.MaxReviewLength, MinimumLength = GlobalConstants.MinReviewLength)]
         public string Description { get; set; }
+
+        [Range(GlobalConstants.MinReviewScore, GlobalConstants.MaxReviewScore)]
         public int Rating { get; set; }
+
         public int UserId { get; set; }
         public virtual User User { get; set; }
         public int MovieId { get; set; }

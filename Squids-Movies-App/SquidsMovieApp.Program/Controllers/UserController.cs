@@ -23,50 +23,62 @@ namespace SquidsMovieApp.Program.Controllers
             this.factory = factory;
         }
 
-        public void CreateUser(string firstName, string lastName, int? age,
-            string nickName, string email, string password, bool isAdmin, int moneyBalance)
+        public void CreateUser(string firstName, string lastName,
+            string userName, string email, string password, int? age = 0, int moneyBalance = 0, bool isAdmin = false)
         {
             Guard.WhenArgument(firstName, "user firstName")
                 .IsNullOrEmpty()
                 .Throw();
+
             Guard.WhenArgument(firstName.Length, "user firstName")
                 .IsGreaterThan(20)
                 .Throw();
+
             Guard.WhenArgument(lastName, "user firstName")
                .IsNullOrEmpty()
                .Throw();
+
             Guard.WhenArgument(lastName.Length, "user firstName")
                 .IsGreaterThan(20)
                 .Throw();
-            if (age > 1200)
+
+            if (age != null && age > 1200)
             {
                 throw new ArgumentException("Age is over 1200 years!");
             }
-            Guard.WhenArgument(nickName, "user firstName")
+
+            Guard.WhenArgument(userName, "user firstName")
                .IsNullOrEmpty()
                .Throw();
-            Guard.WhenArgument(nickName.Length, "user firstName")
+
+            Guard.WhenArgument(userName.Length, "user firstName")
                 .IsGreaterThan(20)
                 .Throw();
+            
             if (email.IndexOf('@') == -1 || email.IndexOf('.') == -1)
             {
                 throw new ArgumentException("Incorrect email!");
             }
+
             Guard.WhenArgument(password.Length, "Too short password")
                 .IsLessThan(2)
                 .Throw();
+
             Guard.WhenArgument(password.Length, "Too short password")
            .IsLessThan(2)
            .Throw();
+
             Guard.WhenArgument(password.Length, "Too long password")
            .IsGreaterThan(30)
            .Throw();
+
             Guard.WhenArgument(moneyBalance, "Incorrect money ballance")
             .IsLessThan(0)
             .Throw();
 
             var user = this.factory.CreateUserModel(firstName, lastName, age,
-             nickName, email, password, isAdmin, moneyBalance);
+             userName, email, password, isAdmin, moneyBalance);
+
             userService.AddUser(user);
         }
     }
