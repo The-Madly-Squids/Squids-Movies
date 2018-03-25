@@ -30,14 +30,23 @@ namespace SquidsMovieApp.WPF
         {
             this.NavigationService.Navigate(new LoginWindow());
         }
+
         private void RegisterBtnClicked(object sender, RoutedEventArgs e)
         {
+            ValidateFields();
             this.NavigationService.Navigate(new ProfileWindow());
         }
 
-        private bool ValidateFields()
+        private void ValidateFields()
         {
+            var email = this.EmailRegisterTB.Text;
+            var username = this.UsernameRegisterTB.Text;
+            var firstName = this.FirstNamelRegisterTB.Text;
+            var lastName = this.LastNameRegisterTB.Text;
+            var password = this.PasswordRegisterPB.Password;
+            var repeatedPassword = this.PasswordRepeatRegisterPB.Password;
 
+            
         }
     }
 }

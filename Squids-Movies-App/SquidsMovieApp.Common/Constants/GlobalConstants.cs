@@ -23,6 +23,10 @@ namespace SquidsMovieApp.Common.Constants
 
         public const int MinUserPasswordLength = 5;
 
+        // User money
+        public const decimal MinAmount = 0m;
+        public const decimal MinAmountToAdd = 0.1m;
+
         // Review
         public const int MaxReviewLength = 200;
         public const int MinReviewLength = 10;
@@ -30,7 +34,7 @@ namespace SquidsMovieApp.Common.Constants
         public const int MaxReviewScore = 10;
         public const int MinReviewScore = 0;
 
-        //Participant
+        // Participant
         public const int MaxParticipantFirstNameLength = 30;
         public const int MinParticipantFirstNameLength = 2;
 

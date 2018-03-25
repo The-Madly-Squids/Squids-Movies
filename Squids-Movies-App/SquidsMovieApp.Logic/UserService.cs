@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using SquidsMovieApp.Common.Constants;
 using SquidsMovieApp.Data.Context;
 using SquidsMovieApp.Data.Models;
 using SquidsMovieApp.DTO;
@@ -105,7 +106,7 @@ namespace SquidsMovieApp.Logic
 
         public void AddMoneyToBalance(UserModel user, decimal amount)
         {
-            if (amount < 1)
+            if (amount < GlobalConstants.MinAmountToAdd)
             {
                 throw new ArgumentException("Amount cannot be less then 1!");
             }

@@ -28,17 +28,15 @@
                 <TextBlock  Margin="0,0,0,5" FontSize="17">Email*:</TextBlock>
                 <TextBox Name="EmailRegisterTB" Margin="0,0,0,5" FontSize="14"></TextBox>
                 <TextBlock Margin="0,0,0,5" FontSize="17">Username*:</TextBlock>
-                <TextBox Margin="0,0,0,5" FontSize="14"></TextBox>
+                <TextBox Name="UsernameRegisterTB" Margin="0,0,0,5" FontSize="14"></TextBox>
                 <TextBlock Margin="0,0,0,5" FontSize="17">First name:</TextBlock>
-                <TextBox Margin="0,0,0,5" FontSize="14"></TextBox>
+                <TextBox Name="FirstNamelRegisterTB" Margin="0,0,0,5" FontSize="14"></TextBox>
                 <TextBlock Margin="0,0,0,5" FontSize="17">Last name:</TextBlock>
-                <TextBox Margin="0,0,0,5" FontSize="14"></TextBox>
-                <TextBlock Margin="0,0,0,5" FontSize="17">Age:</TextBlock>
-                <TextBox Margin="0,0,0,5" FontSize="14"></TextBox>
+                <TextBox Name="LastNameRegisterTB" Margin="0,0,0,5" FontSize="14"></TextBox>
                 <TextBlock Margin="0,0,0,5" FontSize="17">Password*:</TextBlock>
-                <PasswordBox Margin="0,0,0,5" FontSize="14"/>
+                <PasswordBox Name="PasswordRegisterPB" Margin="0,0,0,5" FontSize="14"/>
                 <TextBlock Margin="0,0,0,5" FontSize="17">Repeat password*:</TextBlock>
-                <PasswordBox Margin="0,0,0,15" FontSize="14"/>
+                <PasswordBox Name="PasswordRepeatRegisterPB" Margin="0,0,0,15" FontSize="14"/>
                 <StackPanel Orientation="Horizontal">
                     <Button  FontSize="15" Width="65" Margin="0,0,15,15" Content="Register" Click="RegisterBtnClicked"/>
                     <Button  FontSize="15" Width="65" Margin="0,0,15,15" Content="Go Back" Click="GoBackBtnClicked"/>

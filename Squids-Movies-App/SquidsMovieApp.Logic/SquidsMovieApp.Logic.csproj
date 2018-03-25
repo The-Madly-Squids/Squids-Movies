@@ -79,6 +79,10 @@
     <Compile Include="UserService.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SquidsMovieApp.Common\SquidsMovieApp.Common.csproj">
+      <Project>{46BB2366-5C29-4CBC-AC99-E794310C942B}</Project>
+      <Name>SquidsMovieApp.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SquidsMovieApp.Core\SquidsMovieApp.Core.csproj">
       <Project>{168B02CD-9CB0-4393-8C54-024E8FF5BD8A}</Project>
       <Name>SquidsMovieApp.Core</Name>
