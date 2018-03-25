@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using SquidsMovieApp.Common.Constants;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace SquidsMovieApp.Data.Models
@@ -18,15 +19,19 @@ namespace SquidsMovieApp.Data.Models
         public int MovieId { get; set; }
 
         [Required]
-        [StringLength(100, MinimumLength = 1)]
+        [StringLength(GlobalConstants.MaxMovieTitleLength, MinimumLength = GlobalConstants.MinMovieTitleLength)]
         public virtual string Title { get; set; }
 
-        [StringLength(1000, MinimumLength = 1)]
+        [StringLength(GlobalConstants.MaxMoviePlotLength, MinimumLength = GlobalConstants.MinMoviePlotLength)]
         public string Plot { get; set; }
+
         public int? Year { get; set; }
         public int? Runtime { get; set; }
         public string Rated { get; set; }
+
+        [Range(GlobalConstants.MinMoviePrice, GlobalConstants.MaxMoviePrice)]
         public double Price { get; set; }
+
         public double ImdbRating { get; set; }
 
         public virtual MoviePoster Poster { get; set; }

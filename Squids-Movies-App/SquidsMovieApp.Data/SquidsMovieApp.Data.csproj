@@ -60,17 +60,27 @@
     <Compile Include="Migrations\201803241048347_Initial..sorry.Designer.cs">
       <DependentUpon>201803241048347_Initial..sorry.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201803251004248_RenamedNicknameColumnAndRemovedRequiredFirstAndLastNamesRestrictions.cs" />
+    <Compile Include="Migrations\201803251004248_RenamedNicknameColumnAndRemovedRequiredFirstAndLastNamesRestrictions.Designer.cs">
+      <DependentUpon>201803251004248_RenamedNicknameColumnAndRemovedRequiredFirstAndLastNamesRestrictions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803251406449_AdjustedLengthRestrictions.cs" />
+    <Compile Include="Migrations\201803251406449_AdjustedLengthRestrictions.Designer.cs">
+      <DependentUpon>201803251406449_AdjustedLengthRestrictions.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utilies\Converters\MovieConverter.cs" />
-    <Compile Include="Utilies\Converters\WebConverter.cs" />
-    <Compile Include="Utilies\Parsers\Models\ActorParsedModel.cs" />
-    <Compile Include="Utilies\Parsers\Models\MovieParsedModel.cs" />
-    <Compile Include="Utilies\Parsers\Parser.cs" />
+    <Compile Include="Utilities\Converters\MovieConverter.cs" />
+    <Compile Include="Utilities\Converters\WebConverter.cs" />
+    <Compile Include="Utilities\Parsers\Models\ActorParsedModel.cs" />
+    <Compile Include="Utilities\Parsers\Models\MovieParsedModel.cs" />
+    <Compile Include="Utilities\Parsers\Parser.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+    <None Include="Utilities\JsonData\movies.json" />
+    <None Include="Utilities\JsonData\moviesTest.json" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SquidsMovieApp.Models\SquidsMovieApp.Models.csproj">
@@ -78,12 +88,16 @@
       <Name>SquidsMovieApp.Models</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Utilies\JsonData\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201803241048347_Initial..sorry.resx">
       <DependentUpon>201803241048347_Initial..sorry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803251004248_RenamedNicknameColumnAndRemovedRequiredFirstAndLastNamesRestrictions.resx">
+      <DependentUpon>201803251004248_RenamedNicknameColumnAndRemovedRequiredFirstAndLastNamesRestrictions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803251406449_AdjustedLengthRestrictions.resx">
+      <DependentUpon>201803251406449_AdjustedLengthRestrictions.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

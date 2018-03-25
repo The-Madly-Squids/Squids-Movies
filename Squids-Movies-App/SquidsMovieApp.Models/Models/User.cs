@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SquidsMovieApp.Common.Constants;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -12,9 +13,6 @@ namespace SquidsMovieApp.Data.Models
     {
         public User()
         {
-            // doesn't work
-            //this.LikedActors = new HashSet<Participant>();
-            //this.LikedDirectors = new HashSet<Participant>();
             this.LikedParticipants = new HashSet<Participant>();
             this.LikedMovies = new HashSet<Movie>();
             this.BoughtMovies = new HashSet<Movie>();
@@ -25,32 +23,31 @@ namespace SquidsMovieApp.Data.Models
 
         public int UserId { get; set; }
 
-        [Required]
-        [StringLength(30, MinimumLength = 2)]
+        [StringLength(GlobalConstants.MaxUserFirstNameLength, MinimumLength = GlobalConstants.MinUserFirstNameLength)]
         public string FirstName { get; set; }
-
-        [Required]
-        [StringLength(30, MinimumLength = 2)]
+        
+        [StringLength(GlobalConstants.MaxUserLastNameLength, MinimumLength = GlobalConstants.MinUserLastNameLength)]
         public string LastName { get; set; }
 
+        [Range(GlobalConstants.MinUserAge,GlobalConstants.MaxUserAge)]
         public int? Age { get; set; }
 
-        [StringLength(30, MinimumLength = 2)]
-        public string Nickname { get; set; }
+        [Required]
+        [StringLength(GlobalConstants.MaxUserUsernameLength, MinimumLength = GlobalConstants.MinUserUsernameLength)]
+        public string Username { get; set; }
 
         [Required]
+        [EmailAddress]
         public string Email { get; set; }
 
         [Required]
-        [MinLength(5)]
+        [MinLength(GlobalConstants.MinUserPasswordLength)]
         public string Password { get; set; }
 
         public bool IsAdmin { get; set; }
 
         public decimal MoneyBalance { get; set; }
-
-        //public virtual ICollection<Participant> LikedActors { get; set; }
-        //public virtual ICollection<Participant> LikedDirectors { get; set; }
+        
         public virtual ICollection<Participant> LikedParticipants { get; set; }
 
         public virtual ICollection<Movie> LikedMovies { get; set; }

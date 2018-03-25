@@ -8,6 +8,7 @@ using SquidsMovieApp.Logic.Contracts;
 using SquidsMovieApp.Core.Factories.Contracts;
 using Bytes2you.Validation;
 using SquidsMovieApp.DTO;
+using SquidsMovieApp.Common.Constants;
 
 namespace SquidsMovieApp.Program.Controllers
 {
@@ -27,50 +28,54 @@ namespace SquidsMovieApp.Program.Controllers
             this.factory = factory;
         }
 
-        public void CreateUser(string firstName, string lastName, int? age,
-            string nickName, string email, string password, bool isAdmin, int moneyBalance)
+        public void CreateUser(string firstName, string lastName,
+            string userName, string email, string password, int? age = GlobalConstants.MinUserAge, decimal moneyBalance = GlobalConstants.MinAmount, bool isAdmin = false)
         {
             Guard.WhenArgument(firstName, "user firstName")
                 .IsNullOrEmpty()
                 .Throw();
+
             Guard.WhenArgument(firstName.Length, "user firstName")
-                .IsGreaterThan(20)
+                .IsGreaterThan(GlobalConstants.MaxUserFirstNameLength)
                 .Throw();
+
             Guard.WhenArgument(lastName, "user firstName")
                .IsNullOrEmpty()
                .Throw();
+
             Guard.WhenArgument(lastName.Length, "user firstName")
-                .IsGreaterThan(20)
+                .IsGreaterThan(GlobalConstants.MaxUserLastNameLength)
                 .Throw();
-            if (age > 1200)
+
+            if (age != null && (age < GlobalConstants.MinUserAge || GlobalConstants.MaxUserAge < age))
             {
-                throw new ArgumentException("Age is over 1200 years!");
+                throw new ArgumentException($"Age must be between {GlobalConstants.MinUserAge} and {GlobalConstants.MaxUserAge} years!");
             }
-            Guard.WhenArgument(nickName, "user firstName")
+
+            Guard.WhenArgument(userName, "user firstName")
                .IsNullOrEmpty()
                .Throw();
-            Guard.WhenArgument(nickName.Length, "user firstName")
-                .IsGreaterThan(20)
+
+            Guard.WhenArgument(userName.Length, "user firstName")
+                .IsGreaterThan(GlobalConstants.MaxUserUsernameLength)
                 .Throw();
+            
             if (email.IndexOf('@') == -1 || email.IndexOf('.') == -1)
             {
                 throw new ArgumentException("Incorrect email!");
             }
+
             Guard.WhenArgument(password.Length, "Too short password")
-                .IsLessThan(2)
+                .IsLessThan(GlobalConstants.MinUserPasswordLength)
                 .Throw();
-            Guard.WhenArgument(password.Length, "Too short password")
-           .IsLessThan(2)
-           .Throw();
-            Guard.WhenArgument(password.Length, "Too long password")
-           .IsGreaterThan(30)
-           .Throw();
+            
             Guard.WhenArgument(moneyBalance, "Incorrect money ballance")
-            .IsLessThan(0)
+            .IsLessThan(GlobalConstants.MinAmount)
             .Throw();
 
             var user = this.factory.CreateUserModel(firstName, lastName, age,
-             nickName, email, password, isAdmin, moneyBalance);
+             userName, email, password, isAdmin, moneyBalance);
+
             userService.AddUser(user);
         }
 

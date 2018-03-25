@@ -24,10 +24,5 @@ namespace SquidsMovieApp.WPF
         {
             InitializeComponent();
         }
-
-        private void RegisterBtnClicked(object sender, RoutedEventArgs e)
-        {
-            Application.Current.Shutdown();
-        }
     }
 }

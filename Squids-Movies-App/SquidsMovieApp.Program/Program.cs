@@ -13,7 +13,7 @@ namespace SquidsMovieApp.Program
 
             if (!context.Movies.Any())
             {
-                string moviesPath = @"..\..\..\SquidsMovieApp.Data\Utilies\JsonData\movies.json";
+                string moviesPath = @"..\..\..\SquidsMovieApp.Data\Utilities\JsonData\movies.json";
                          var parser = new Parser();
                 var webConverter = new WebConverter();
                 var movies = parser.ParseMovies(moviesPath);
