@@ -7,18 +7,22 @@ using System.Threading.Tasks;
 using SquidsMovieApp.Logic.Contracts;
 using SquidsMovieApp.Core.Factories.Contracts;
 using Bytes2you.Validation;
+using SquidsMovieApp.DTO;
 
 namespace SquidsMovieApp.Program.Controllers
 {
     class UserController
     {
         private readonly IUserService userService;
+        private readonly IParticipantService participantService;
         private readonly IMapper mapper;
         private readonly IUserFactory factory;
 
-        public UserController(IUserService userService, IMapper mapper, IUserFactory factory)
+        public UserController(IUserService userService, IParticipantService participantService,
+            IMapper mapper, IUserFactory factory)
         {
             this.userService = userService;
+            this.participantService = participantService;
             this.mapper = mapper;
             this.factory = factory;
         }
@@ -75,15 +79,100 @@ namespace SquidsMovieApp.Program.Controllers
             throw new NotImplementedException();
         }
 
-        public void GetAllUsers()
+        public IEnumerable<UserModel> GetAllUsers()
+        {
+            return this.userService.GetAllUsers();
+        }
+
+        public UserModel GetUser(string userName)
+        {
+            Guard.WhenArgument(userName, "username")
+                .IsNullOrEmpty()
+                .Throw();
+
+            var userDto = this.userService.GetUser(userName);
+
+            return userDto;
+        }
+
+        public IEnumerable<ParticipantModel> GetLikedParticipants(string username)
+        {
+            Guard.WhenArgument(username, "username")
+                .IsNotNullOrEmpty()
+                .Throw();
+
+            var userDto = this.userService.GetUser(username);
+            var likedParticipants = userDto.LikedParticipants;
+
+            return likedParticipants;
+
+        }
+
+        public IEnumerable<MovieModel> GetLikedMovies(string username)
+        {
+            Guard.WhenArgument(username, "username")
+               .IsNotNullOrEmpty()
+               .Throw();
+
+            var userDto = this.userService.GetUser(username);
+            var likedMovies = userDto.LikedMovies;
+
+            return likedMovies;
+        }
+
+        public IEnumerable<MovieModel> GetBoughtMovies(string user)
         {
             throw new NotImplementedException();
         }
 
-        public void GetLikedParticipants(string username)
+        public IEnumerable<UserModel> GetFollowers(string user)
         {
-
+            throw new NotImplementedException();
         }
+
+        public IEnumerable<UserModel> GetFollowed(string user)
+        {
+            throw new NotImplementedException();
+        }
+
+        public decimal GetMoneyBalance(string user)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AddMoneyToBalance(string user, decimal amount)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void LikeParticipant(string userName, string participantFirstName,
+            string participantLastName)
+        {
+            Guard.WhenArgument(userName, "username")
+                .IsNullOrEmpty()
+                .Throw();
+
+            var userDto = this.userService.GetUser(userName);
+
+            Guard.WhenArgument(participantFirstName, "participant first name")
+                .IsNullOrEmpty()
+                .Throw();
+
+            Guard.WhenArgument(participantLastName, "participant last name")
+                .IsNullOrEmpty()
+                .Throw();
+
+            var participantDto = this.participantService.GetParticipant(
+                participantFirstName, participantLastName);
+
+            this.userService.LikeParticipant(userDto, participantDto);
+        }
+
+        public void FollowUser(string userName, string userToFollowUsername)
+        {
+            throw new NotImplementedException();
+        }
+
     }
 }
 

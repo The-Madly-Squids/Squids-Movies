@@ -13,5 +13,6 @@ namespace SquidsMovieApp.Logic.Contracts
         void RemoveParticipant(ParticipantModel participantModel);
         decimal ParticipantRating(ParticipantModel participantModel);
         IEnumerable<MovieModel> GetAllMoviesPerParticipant(ParticipantModel participant);
+        ParticipantModel GetParticipant(string firstName, string lastName);
     }
 }

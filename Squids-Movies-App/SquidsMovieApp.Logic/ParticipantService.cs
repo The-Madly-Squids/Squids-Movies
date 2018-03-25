@@ -40,6 +40,22 @@ namespace SquidsMovieApp.Logic
             throw new NotImplementedException();
         }
 
+        public ParticipantModel GetParticipant(string firstName, string lastName)
+        {
+            var participant = this.movieAppDbContext.Participants.
+                Where(x => x.FirstName == firstName && x.LastName == lastName)
+                .FirstOrDefault();
+
+            if (participant == null)
+            {
+                throw new ArgumentNullException("Participant not found!");
+            }
+
+            var participantDto = mapper.Map<ParticipantModel>(participant);
+
+            return participantDto;
+        }
+
         public decimal ParticipantRating(ParticipantModel participantModel)
         {
             throw new NotImplementedException();

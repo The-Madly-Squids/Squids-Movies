@@ -65,6 +65,22 @@ namespace SquidsMovieApp.Logic
             return users;
         }
 
+        public UserModel GetUser(string userName)
+        {
+            var user = this.movieAppDbContext.Users
+                .Where(x => x.Nickname == userName)
+                .FirstOrDefault();
+
+            if (user == null)
+            {
+                throw new ArgumentNullException("User not found!");
+            }
+
+            var userDto = this.mapper.Map<UserModel>(user);
+
+            return userDto;
+        }
+
         public IEnumerable<ParticipantModel> GetLikedParticipants(UserModel user)
         {
             // this was valid before but now when DTO holds DTO collections
@@ -144,10 +160,15 @@ namespace SquidsMovieApp.Logic
 
         public void LikeParticipant(UserModel user, ParticipantModel participant)
         {
+            //// [OLD]
             //var actorToAdd = mapper.Map<Participant>(actor);
             //user.LikedActors.Add(actorToAdd);
             //movieAppDbContext.SaveChanges();
 
+
+            // possibly pass in the argument directly user/participant object
+            // instead of going through GetX() method in controller which returns
+            // DTO and then by ID here?
             var userObject = this.movieAppDbContext.Users
                             .Where(x => x.UserId == user.UserId)
                             .FirstOrDefault();
@@ -156,15 +177,6 @@ namespace SquidsMovieApp.Logic
                               .Where(x => x.ParticipantId == participant.ParticipantId)
                               .FirstOrDefault();
 
-            if (userObject == null)
-            {
-                throw new ArgumentNullException("User not found!");
-            }
-
-            if (participantObject == null)
-            {
-                throw new ArgumentNullException("Participant not found!");
-            }
 
             userObject.LikedParticipants.Add(participantObject);
             participantObject.ParticipantLikedByUser.Add(userObject);

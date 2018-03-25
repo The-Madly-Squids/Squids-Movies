@@ -24,6 +24,7 @@ namespace SquidsMovieApp.Program.Controllers
             this.factory = factory;
 
         }
+
         public void AddParticipant(string firstName, string lastName, int age)
         {
             Guard.WhenArgument(firstName, "participant first name")
