@@ -47,6 +47,20 @@ namespace SquidsMovieApp.Logic
             return movies;
         }
 
+        public MovieModel GetMovie(string movieTitle)
+        {
+            var movie = this.movieAppDbContext.Movies
+                                .Where(x => x.Title == movieTitle)
+                                .FirstOrDefault();
+            if (movie == null)
+            {
+                throw new ArgumentNullException("Movie not found!");
+            }
+
+            var movieDto = mapper.Map<MovieModel>(movie);
+            return movieDto;
+        }
+
         public void AddMovie(MovieModel movie)
         {
             if (movie == null)
@@ -67,19 +81,17 @@ namespace SquidsMovieApp.Logic
                 throw new ArgumentException();
             }
 
-            var movieToRemove = this.mapper.Map<Movie>(movie);
+            var movieToRemoveObject = this.movieAppDbContext.Movies
+                .Where(x => x.MovieId == movie.MovieId)
+                .FirstOrDefault();
 
-            this.movieAppDbContext.Movies.Remove(movieToRemove);
+            this.movieAppDbContext.Movies.Remove(movieToRemoveObject);
             this.movieAppDbContext.SaveChanges();
         }
 
         public IEnumerable<ParticipantModel> GetAllParticipantsPerMovie(MovieModel movie)
         {
-            //var p = this.movieAppDbContext.Roles
-            //        .Where(x => x.Movie.MovieId == movie.MovieId)
-            //        .Select(x => x.Participant);
             return movie.Participants;
-
         }
 
         public void AddMovieParticipant(MovieModel movie, ParticipantModel participant,
@@ -96,10 +108,6 @@ namespace SquidsMovieApp.Logic
             Guard.WhenArgument(roleName, "role name")
                 .IsNullOrEmpty()
                 .Throw();
-
-            // object from DTO - possible? will it be in the DB?
-            //var movieObject = this.mapper.Map<Movie>(movie);
-            //var participantObject = this.mapper.Map<Participant>(participant);
 
             var movieObject = this.movieAppDbContext.Movies
                               .Where(x => x.MovieId == movie.MovieId)

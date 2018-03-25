@@ -69,6 +69,21 @@ namespace SquidsMovieApp.Program.Controllers
              nickName, email, password, isAdmin, moneyBalance);
             userService.AddUser(user);
         }
+
+        public void RemoveUser(string email)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void GetAllUsers()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void GetLikedParticipants(string username)
+        {
+
+        }
     }
 }
 
