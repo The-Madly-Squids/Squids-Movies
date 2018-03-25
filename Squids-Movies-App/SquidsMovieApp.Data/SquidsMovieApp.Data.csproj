@@ -64,6 +64,10 @@
     <Compile Include="Migrations\201803251004248_RenamedNicknameColumnAndRemovedRequiredFirstAndLastNamesRestrictions.Designer.cs">
       <DependentUpon>201803251004248_RenamedNicknameColumnAndRemovedRequiredFirstAndLastNamesRestrictions.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201803251406449_AdjustedLengthRestrictions.cs" />
+    <Compile Include="Migrations\201803251406449_AdjustedLengthRestrictions.Designer.cs">
+      <DependentUpon>201803251406449_AdjustedLengthRestrictions.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities\Converters\MovieConverter.cs" />
@@ -91,6 +95,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201803251004248_RenamedNicknameColumnAndRemovedRequiredFirstAndLastNamesRestrictions.resx">
       <DependentUpon>201803251004248_RenamedNicknameColumnAndRemovedRequiredFirstAndLastNamesRestrictions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803251406449_AdjustedLengthRestrictions.resx">
+      <DependentUpon>201803251406449_AdjustedLengthRestrictions.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
