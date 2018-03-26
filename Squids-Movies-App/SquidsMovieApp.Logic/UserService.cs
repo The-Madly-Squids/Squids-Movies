@@ -84,29 +84,8 @@ namespace SquidsMovieApp.Logic
 
         public IEnumerable<ParticipantModel> GetLikedParticipants(UserModel user)
         {
-            // this was valid before but now when DTO holds DTO collections
-            // you must first find the user in the DB 
-            // and then project his collecition to DTO object and return it
-
-            var userObject = this.movieAppDbContext.Users
-                .Where(x => x.UserId == user.UserId)
-                .FirstOrDefault();
-
-            if (userObject == null)
-            {
-                throw new ArgumentNullException("User not found!");
-            }
-
-            var likedParticipantsObjects = userObject.LikedParticipants;
-            var likedParticipantsDTOs = new List<ParticipantModel>();
-
-            foreach (var p in likedParticipantsObjects)
-            {
-                var pDTO = mapper.Map<ParticipantModel>(p);
-                likedParticipantsDTOs.Add(pDTO);
-            }
-
-            return likedParticipantsDTOs;
+            var likedParticipants = user.LikedParticipants;
+            return likedParticipants;
         }
 
         public IEnumerable<MovieModel> GetLikedMovies(UserModel user)
@@ -283,13 +262,6 @@ namespace SquidsMovieApp.Logic
             this.movieAppDbContext.Reviews.Add(reviewObject);
             this.movieAppDbContext.SaveChanges();
 
-            //Movie movieToReview = mapper.Map<Movie>(movie);
-            //review.Movie = movieToReview;
-
-            //var reviewToAdd = mapper.Map<Review>(review);
-            //user.Reviews.Add(reviewToAdd);
-
-            //movieAppDbContext.SaveChanges();
         }
     }
 }

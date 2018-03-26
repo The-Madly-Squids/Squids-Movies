@@ -113,19 +113,10 @@ namespace SquidsMovieApp.Logic
                               .Where(x => x.MovieId == movie.MovieId)
                               .FirstOrDefault();
 
-            if (movieObject == null)
-            {
-                throw new ArgumentNullException("Movie not found!");
-            }
-
             var participantObject = this.movieAppDbContext.Participants
                                     .Where(x => x.ParticipantId == participant.ParticipantId)
                                     .FirstOrDefault();
 
-            if (participantObject == null)
-            {
-                throw new ArgumentNullException("Participant not found!");
-            }
 
             // currently the int FK is redundant
             var actorRole = new Role()
@@ -160,7 +151,6 @@ namespace SquidsMovieApp.Logic
 
             var averageRating = ratingCollection.Count() > 0 ?
                  ratingCollection.Average(x => x.Rating) : 0.0;
-
 
             return averageRating;
         }

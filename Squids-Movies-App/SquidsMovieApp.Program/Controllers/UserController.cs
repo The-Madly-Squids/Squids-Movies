@@ -59,7 +59,7 @@ namespace SquidsMovieApp.Program.Controllers
             Guard.WhenArgument(userName.Length, "user firstName")
                 .IsGreaterThan(GlobalConstants.MaxUserUsernameLength)
                 .Throw();
-            
+
             if (email.IndexOf('@') == -1 || email.IndexOf('.') == -1)
             {
                 throw new ArgumentException("Incorrect email!");
@@ -68,13 +68,13 @@ namespace SquidsMovieApp.Program.Controllers
             Guard.WhenArgument(password.Length, "Too short password")
                 .IsLessThan(GlobalConstants.MinUserPasswordLength)
                 .Throw();
-            
+
             Guard.WhenArgument(moneyBalance, "Incorrect money ballance")
-            .IsLessThan(GlobalConstants.MinAmount)
-            .Throw();
+                .IsLessThan(GlobalConstants.MinAmount)
+                .Throw();
 
             var user = this.factory.CreateUserModel(firstName, lastName, age,
-             userName, email, password, isAdmin, moneyBalance);
+                                userName, email, password, isAdmin, moneyBalance);
 
             userService.AddUser(user);
         }

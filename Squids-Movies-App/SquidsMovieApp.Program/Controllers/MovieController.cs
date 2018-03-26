@@ -114,15 +114,16 @@ namespace SquidsMovieApp.Program.Controllers
             }
 
             var pRoles = this.roleService.ParticipantRolesPerMovie(participant, movie);
+            // possibly get this code out in a separate method that checks if
+            // participant already exisits
             foreach (var r in pRoles)
             {
                 if (r.RoleName == role)
                 {
-                    throw new ArgumentException("Participant with same name and role" +
+                    throw new ArgumentException("Participant with same name and role in the movie" +
                         " already in the DB");
                 }
             }
-
 
             this.movieService.AddMovieParticipant(movie, participant, role);
         }
