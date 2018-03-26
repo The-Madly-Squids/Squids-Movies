@@ -13,9 +13,9 @@ namespace SquidsMovieApp.DTO
     {
         public int RoleId { get; set; }
         public string RoleName { get; set; }
-        public int ParticipantId { get; set; }
+        //public int ParticipantId { get; set; }
         public virtual ParticipantModel Participant { get; set; }
-        public int MovieId { get; set; }
+        //public int MovieId { get; set; }
         public virtual MovieModel Movie { get; set; }
 
         public void CreateMappings(IMapperConfigurationExpression configuration)

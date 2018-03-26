@@ -122,9 +122,7 @@ namespace SquidsMovieApp.Logic
             var actorRole = new Role()
             {
                 Movie = movieObject,
-                MovieId = movie.MovieId,
                 Participant = participantObject,
-                ParticipantId = participantObject.ParticipantId,
                 RoleName = roleName
             };
 
@@ -165,11 +163,11 @@ namespace SquidsMovieApp.Logic
             var actorsRoles = this.movieAppDbContext.Roles
                 .Where(x => x.Movie.MovieId == movie.MovieId &&
                                                     x.RoleName == "Actor")
-                .Select(a => a.Participant)
-                .ProjectTo<ParticipantModel>()
-                .ToList();
+            .Select(a => a.Participant)
+            .ToList();
 
-            return actorsRoles;
+            var actorsDtos = this.mapper.Map<IList<ParticipantModel>>(actorsRoles);
+            return actorsDtos;
         }
 
         public IEnumerable<ParticipantModel> GetDirectors(MovieModel movie)
