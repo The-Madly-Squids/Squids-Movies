@@ -175,7 +175,17 @@ namespace SquidsMovieApp.Program.Controllers
 
         public void FollowUser(string userName, string userToFollowUsername)
         {
-            throw new NotImplementedException();
+            Guard.WhenArgument(userName, "User who follows")
+                .IsNotNullOrEmpty()
+                .Throw();
+            Guard.WhenArgument(userToFollowUsername, "User to be followed")
+            .IsNotNullOrEmpty()
+            .Throw();
+
+            UserModel userToBeFollowed = userService.GetUser(userName);
+            UserModel userWhoFollows = userService.GetUser(userToFollowUsername);
+            userService.FollowUser(userWhoFollows, userToBeFollowed);
+            
         }
 
     }
