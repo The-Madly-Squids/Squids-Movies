@@ -43,10 +43,6 @@ namespace SquidsMovieApp.Logic
                 throw new ArgumentException();
             }
 
-            //var userToRemove = Mapper.Map<User>(user);
-            //movieAppDbContext.Users.Remove(userToRemove);
-            //movieAppDbContext.SaveChanges();
-
             var userObject = this.movieAppDbContext.Users
                 .Where(x => x.UserId == user.UserId)
                 .FirstOrDefault();

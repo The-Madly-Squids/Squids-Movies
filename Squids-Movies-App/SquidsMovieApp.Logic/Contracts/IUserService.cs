@@ -25,6 +25,7 @@ namespace SquidsMovieApp.Logic.Contracts
                             string reviewDescription); //Done
         // admin methods
         void AddUser(UserModel user); //Done
+        //void RemoveUser(UserModel user); //Done
         void RemoveUser(UserModel user); //Done
         IEnumerable<UserModel> GetAllUsers(); //Done
         UserModel GetUser(string userName); // Done
