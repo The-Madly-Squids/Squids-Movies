@@ -11,6 +11,7 @@
         WindowStartupLocation="CenterOwner"
         ResizeMode="NoResize"
         Background="GhostWhite"
+        SizeToContent="Height"
         >
     <Grid Name="ErrorContainer" Margin="20">
         

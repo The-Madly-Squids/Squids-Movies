@@ -17,9 +17,9 @@ using System.Windows.Shapes;
 
 namespace SquidsMovieApp.WPF
 {
-    public partial class RegisterWindow : Page
+    public partial class RegisterPage : Page
     {
-        public RegisterWindow()
+        public RegisterPage()
         {
             InitializeComponent();
             EmailRegisterTB.Focus();
@@ -27,7 +27,7 @@ namespace SquidsMovieApp.WPF
 
         private void GoBackBtnClicked(object sender, RoutedEventArgs e)
         {
-            this.NavigationService.Navigate(new LoginWindow());
+            this.NavigationService.Navigate(new LoginPage());
         }
 
         private void RegisterBtnClicked(object sender, RoutedEventArgs e)
@@ -36,7 +36,7 @@ namespace SquidsMovieApp.WPF
 
             if (ValidateFields(stackPanel))
             {
-                this.NavigationService.Navigate(new ProfileWindow());
+                this.NavigationService.Navigate(new ProfilePage());
             }
             else
             {
@@ -97,6 +97,7 @@ namespace SquidsMovieApp.WPF
             errorTextBlock.Foreground = new SolidColorBrush(Colors.Red);
             errorTextBlock.HorizontalAlignment = HorizontalAlignment.Center;
             errorTextBlock.FontWeight = FontWeights.Bold;
+            errorTextBlock.FontSize = 14;
             errorTextBlock.Text = errorText;
 
             return errorTextBlock;

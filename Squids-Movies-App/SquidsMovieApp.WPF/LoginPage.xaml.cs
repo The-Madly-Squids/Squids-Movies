@@ -21,12 +21,9 @@ using SquidsMovieApp.Program.Controllers;
 
 namespace SquidsMovieApp.WPF
 {
-    /// <summary>
-    /// Interaction logic for Home.xaml
-    /// </summary>
-    public partial class LoginWindow : Page
+    public partial class LoginPage : Page
     {
-        public LoginWindow()
+        public LoginPage()
         {
             InitializeComponent();
             EmailLoginTB.Focus();
@@ -40,12 +37,12 @@ namespace SquidsMovieApp.WPF
             var email = this.EmailLoginTB.Text;
             var password = this.PasswordLoginTB.Password.ToString();
 
-            this.NavigationService.Navigate(new ProfileWindow());
+            this.NavigationService.Navigate(new ProfilePage());
         }
 
         private void RegisterLinkClicked(object sender, RoutedEventArgs e)
         {
-            this.NavigationService.Navigate(new RegisterWindow());
+            this.NavigationService.Navigate(new RegisterPage());
         }
 
 

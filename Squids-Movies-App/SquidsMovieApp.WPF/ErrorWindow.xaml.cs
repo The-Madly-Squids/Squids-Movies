@@ -14,9 +14,6 @@ using System.Windows.Shapes;
 
 namespace SquidsMovieApp.WPF
 {
-    /// <summary>
-    /// Interaction logic for ErrorWindow.xaml
-    /// </summary>
     public partial class ErrorWindow : Window
     {
         private StackPanel stackPanel;

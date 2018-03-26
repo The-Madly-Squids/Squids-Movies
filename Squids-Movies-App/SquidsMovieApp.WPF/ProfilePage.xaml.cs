@@ -15,12 +15,9 @@ using System.Windows.Shapes;
 
 namespace SquidsMovieApp.WPF
 {
-    /// <summary>
-    /// Interaction logic for Page1.xaml
-    /// </summary>
-    public partial class ProfileWindow : Page
+    public partial class ProfilePage : Page
     {
-        public ProfileWindow()
+        public ProfilePage()
         {
             InitializeComponent();
         }

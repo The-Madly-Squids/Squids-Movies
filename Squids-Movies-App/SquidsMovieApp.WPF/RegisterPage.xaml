@@ -1,4 +1,4 @@
-﻿<Page x:Class="SquidsMovieApp.WPF.RegisterWindow"
+﻿<Page x:Class="SquidsMovieApp.WPF.RegisterPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:SquidsMovieApp.WPF"
       mc:Ignorable="d" 
       d:DesignHeight="598" d:DesignWidth="867"
-      Title="RegisterWindow">
+      Title="RegisterPage">
 
     <Grid>
         <Grid.ColumnDefinitions>
