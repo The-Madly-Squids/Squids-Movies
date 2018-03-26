@@ -42,9 +42,17 @@ namespace SquidsMovieApp.Logic
 
             //return movieModels;
 
-            // with AutommaperEF6
-            var movies = this.movieAppDbContext.Movies.ProjectTo<MovieModel>();
-            return movies;
+
+            // with AutommaperEF6/AutoMapper.QueryableExtensions;
+            // cannot test ProjectTo<MovieModel>() method
+            // it emits a SELECT query which gives the dual initialization error
+            // ask for help
+            //var movies = this.movieAppDbContext.Movies.ProjectTo<MovieModel>();
+
+            var moviesPoco = this.movieAppDbContext.Movies.ToList();
+            var moviesDto = mapper.Map<IList<MovieModel>>(moviesPoco);
+
+            return moviesDto;
         }
 
         public MovieModel GetMovie(string movieTitle)

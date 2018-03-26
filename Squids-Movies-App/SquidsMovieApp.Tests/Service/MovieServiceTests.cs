@@ -122,21 +122,24 @@ namespace SquidsMovieApp.Tests.Service
             }
             effortContext.SaveChanges();
 
+            var moviesDTOsListToReturn = Mapper.Map<IList<MovieModel>>(
+                    effortContext.Movies);
+
+            mapperMock.Setup(x => x.Map<IList<MovieModel>>(
+                                                    It.IsAny<IList<Movie>>()))
+                .Returns(moviesDTOsListToReturn);
+
+
             // Act
             var sut = new MovieService(effortContext, mapperMock.Object);
             var result = sut.GetAllMovies();
 
-
-
-
-
-
-
-
-
-
-
-
+            // Assert
+            foreach (var movieDto in result)
+            {
+                var exists = effortContext.Movies.Any(x => x.MovieId == movieDto.MovieId);
+                Assert.IsTrue(exists);
+            }
 
             // [OLD]
             // is this correct? Can you use ProjectTo in test method?

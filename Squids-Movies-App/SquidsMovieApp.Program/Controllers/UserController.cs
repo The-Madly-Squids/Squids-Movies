@@ -94,7 +94,7 @@ namespace SquidsMovieApp.Program.Controllers
             UserModel userToRemove = this.userService.GetAllUsers()
             .Where(x => x.Email == email)
             .FirstOrDefault();
-            
+
             if (userToRemove == null)
             {
                 throw new ArgumentNullException("No such user by this e-mail!");
