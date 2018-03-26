@@ -53,7 +53,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Common\Class1.cs" />
     <Compile Include="Context\IMovieAppDBContext.cs" />
     <Compile Include="Context\MovieAppDBContext.cs" />
     <Compile Include="Migrations\201803241048347_Initial..sorry.cs" />

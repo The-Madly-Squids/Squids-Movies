@@ -87,7 +87,7 @@ namespace SquidsMovieApp.Program.Controllers
                 {
                     throw new ArgumentException("Invali e-mail!");
                 }
-                UserModel userToRemove = 
+                //UserModel userToRemove = 
             }
             catch (Exception)
             {

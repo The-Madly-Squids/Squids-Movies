@@ -63,7 +63,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AutofacModules\AutofacModule.cs" />
     <Compile Include="AutomapperConfig.cs" />
     <Compile Include="Controllers\MovieController.cs" />
     <Compile Include="Controllers\ParticipantController.cs" />

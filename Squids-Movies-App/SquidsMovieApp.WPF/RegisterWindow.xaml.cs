@@ -17,9 +17,6 @@ using System.Windows.Shapes;
 
 namespace SquidsMovieApp.WPF
 {
-    /// <summary>
-    /// Interaction logic for RegisterWindow.xaml
-    /// </summary>
     public partial class RegisterWindow : Page
     {
         public RegisterWindow()
@@ -63,50 +60,44 @@ namespace SquidsMovieApp.WPF
 
             if (string.IsNullOrEmpty(email))
             {
-                stackPanel.Children.Add(CreateEmptyFieldErrorTextBlock("Email"));
+                stackPanel.Children.Add(CreateErrorTextBlock("Email cannot be empty."));
                 isValid = false;
             }
 
             if (string.IsNullOrEmpty(username))
             {
-                stackPanel.Children.Add(CreateEmptyFieldErrorTextBlock("Username"));
+                stackPanel.Children.Add(CreateErrorTextBlock("Username cannot be empty."));
                 isValid = false;
             }
 
             if (string.IsNullOrEmpty(password))
             {
-                stackPanel.Children.Add(CreateEmptyFieldErrorTextBlock("Password"));
+                stackPanel.Children.Add(CreateErrorTextBlock("Password cannot be empty."));
                 isValid = false;
             }
 
             if (string.IsNullOrEmpty(repeatedPassword))
             {
-                stackPanel.Children.Add(CreateEmptyFieldErrorTextBlock("Repeated password"));
+                stackPanel.Children.Add(CreateErrorTextBlock("Repeated password cannot be empty."));
                 isValid = false;
             }
 
             if (password != repeatedPassword)
             {
-                var errorTextBlock = new TextBlock();
-                errorTextBlock.Foreground = new SolidColorBrush(Colors.Red);
-                errorTextBlock.HorizontalAlignment = HorizontalAlignment.Center;
-                errorTextBlock.FontWeight = FontWeights.Bold;
-                errorTextBlock.Text = $"Passwords missmatch.";
-
-                stackPanel.Children.Add(errorTextBlock);
+                stackPanel.Children.Add(CreateErrorTextBlock("Passwords missmatch."));                
                 isValid = false;
             }
 
             return isValid;
         }
 
-        private TextBlock CreateEmptyFieldErrorTextBlock(string errorElementName)
+        private TextBlock CreateErrorTextBlock(string errorText)
         {
             var errorTextBlock = new TextBlock();
             errorTextBlock.Foreground = new SolidColorBrush(Colors.Red);
             errorTextBlock.HorizontalAlignment = HorizontalAlignment.Center;
             errorTextBlock.FontWeight = FontWeights.Bold;
-            errorTextBlock.Text = $"{errorElementName} cannot be empty.";
+            errorTextBlock.Text = errorText;
 
             return errorTextBlock;
         }
