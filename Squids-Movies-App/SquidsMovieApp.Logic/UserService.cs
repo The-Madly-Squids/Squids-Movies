@@ -36,19 +36,15 @@ namespace SquidsMovieApp.Logic
             this.movieAppDbContext.SaveChanges();
         }
 
-        public void RemoveUser(string email)
+        public void RemoveUser(UserModel user)
         {
-            if (email == null)
+            if (user == null)
             {
                 throw new ArgumentException();
             }
 
-            //var userToRemove = Mapper.Map<User>(user);
-            //movieAppDbContext.Users.Remove(userToRemove);
-            //movieAppDbContext.SaveChanges();
-
             var userObject = this.movieAppDbContext.Users
-                .Where(x => x.Email == email)
+                .Where(x => x.UserId == user.UserId)
                 .FirstOrDefault();
 
             if (userObject == null)

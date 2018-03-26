@@ -100,7 +100,7 @@ namespace SquidsMovieApp.Program.Controllers
                 throw new ArgumentNullException("No such user by this e-mail!");
             }
 
-            this.userService.RemoveUser(email);
+            this.userService.RemoveUser(userToRemove);
         }
 
         public IEnumerable<UserModel> GetAllUsers()
