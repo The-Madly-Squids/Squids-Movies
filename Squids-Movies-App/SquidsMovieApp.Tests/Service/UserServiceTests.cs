@@ -104,5 +104,53 @@ namespace SquidsMovieApp.Tests.Service
             // Assert
             Assert.AreEqual(0, userDtoArgument);
         }
+
+        [TestMethod]
+        public void GetUserShould_ReturnCorrectDataWhenCalledWithValidParmeters()
+        {
+            throw new NotImplementedException();
+        }
+
+        [TestMethod]
+        public void GetUserShould_ThrowWhenCalledWithInvalidParmeters()
+        {
+            throw new NotImplementedException();
+        }
+
+        [TestMethod]
+        public void GetLikedParticipants_ShouldReturnCorrectDataWhenCaledWithValidParameters()
+        {
+            throw new NotImplementedException();
+        }
+
+        [TestMethod]
+        public void GetLikedMovies_ShouldReturnCorrectDataWhenCaledWithValidParameters()
+        {
+            throw new NotImplementedException();
+        }
+
+        [TestMethod]
+        public void GetBoughtMovies_ShouldReturnCorrectDataWhenCaledWithValidParameters()
+        {
+            throw new NotImplementedException();
+        }
+
+        [TestMethod]
+        public void GetFollowers_ShouldReturnCorrectDataWhenCaledWithValidParameters()
+        {
+            throw new NotImplementedException();
+        }
+
+        [TestMethod]
+        public void GetFollowed_ShouldReturnCorrectDataWhenCaledWithValidParameters()
+        {
+            throw new NotImplementedException();
+        }
+
+        [TestMethod]
+        public void GetMoneyBalance_ShouldReturnCorrectDataWhenCaledWithValidParameters()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
