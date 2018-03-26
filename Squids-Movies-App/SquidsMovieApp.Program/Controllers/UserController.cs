@@ -76,24 +76,31 @@ namespace SquidsMovieApp.Program.Controllers
             var user = this.factory.CreateUserModel(firstName, lastName, age,
                                 userName, email, password, isAdmin, moneyBalance);
 
-            userService.AddUser(user);
+            this.userService.AddUser(user);
         }
 
         public void RemoveUser(string email)
         {
-            try
+            if (email == null)
             {
-                if (email.IndexOf('@') == -1 || email.IndexOf('.') == -1)
-                {
-                    throw new ArgumentException("Invali e-mail!");
-                }
-                UserModel userToRemove = 
+                throw new ArgumentException("Invalid email!");
             }
-            catch (Exception)
-            {
 
-                throw;
+            if (email.IndexOf('@') == -1 || email.IndexOf('.') == -1)
+            {
+                throw new ArgumentException("Invali e-mail!");
             }
+
+            UserModel userToRemove = this.userService.GetAllUsers()
+            .Where(x => x.Email == email)
+            .FirstOrDefault();
+            
+            if (userToRemove == null)
+            {
+                throw new ArgumentNullException("No such user by this e-mail!");
+            }
+
+            this.userService.RemoveUser(userToRemove);
         }
 
         public IEnumerable<UserModel> GetAllUsers()
@@ -107,9 +114,7 @@ namespace SquidsMovieApp.Program.Controllers
                 .IsNullOrEmpty()
                 .Throw();
 
-            var userDto = this.userService.GetUser(userName);
-
-            return userDto;
+            return this.userService.GetUser(userName);
         }
 
         public IEnumerable<ParticipantModel> GetLikedParticipants(string username)
@@ -118,11 +123,7 @@ namespace SquidsMovieApp.Program.Controllers
                 .IsNotNullOrEmpty()
                 .Throw();
 
-            var userDto = this.userService.GetUser(username);
-            var likedParticipants = userDto.LikedParticipants;
-
-            return likedParticipants;
-
+            return this.userService.GetUser(username).LikedParticipants;
         }
 
         public IEnumerable<MovieModel> GetLikedMovies(string username)
@@ -132,9 +133,7 @@ namespace SquidsMovieApp.Program.Controllers
                .Throw();
 
             var userDto = this.userService.GetUser(username);
-            var likedMovies = userDto.LikedMovies;
-
-            return likedMovies;
+            return this.userService.GetLikedMovies(userDto);
         }
 
         public IEnumerable<MovieModel> GetBoughtMovies(string user)
@@ -143,8 +142,7 @@ namespace SquidsMovieApp.Program.Controllers
                 .IsNullOrEmpty()
                 .Throw();
 
-            UserModel userBoughtMovies = this.userService.GetUser(user);
-            return userBoughtMovies.BoughtMovies;
+            return this.userService.GetUser(user).BoughtMovies;
         }
 
         public IEnumerable<UserModel> GetFollowers(string user)
@@ -153,8 +151,7 @@ namespace SquidsMovieApp.Program.Controllers
                 .IsNullOrEmpty()
                 .Throw();
 
-            UserModel userGetFollowers = this.userService.GetUser(user);
-            return userGetFollowers.Followers;
+            return this.userService.GetUser(user).Followers;
         }
 
         public IEnumerable<UserModel> GetFollowed(string user)
@@ -163,8 +160,7 @@ namespace SquidsMovieApp.Program.Controllers
                 .IsNullOrEmpty()
                 .Throw();
 
-            UserModel userGetFollowed = this.userService.GetUser(user);
-            return userGetFollowed.Following;
+            return this.userService.GetUser(user).Following;
         }
 
         public decimal GetMoneyBalance(string user)
@@ -174,7 +170,7 @@ namespace SquidsMovieApp.Program.Controllers
                 .Throw();
 
             UserModel userToGetBalance = this.userService.GetUser(user);
-            return userService.GetMoneyBalance(userToGetBalance);
+            return this.userService.GetMoneyBalance(userToGetBalance);
         }
 
         public void AddMoneyToBalance(string user, decimal amount)
@@ -186,7 +182,7 @@ namespace SquidsMovieApp.Program.Controllers
                 .IsLessThanOrEqual(0)
                 .Throw();
             UserModel userToAddMonney = this.userService.GetUser(user);
-            userService.AddMoneyToBalance(userToAddMonney, amount);
+            this.userService.AddMoneyToBalance(userToAddMonney, amount);
         }
 
         public void LikeParticipant(string userName, string participantFirstName,
@@ -223,7 +219,7 @@ namespace SquidsMovieApp.Program.Controllers
 
             UserModel userToBeFollowed = this.userService.GetUser(userName);
             UserModel userWhoFollows = this.userService.GetUser(userToFollowUsername);
-            userService.FollowUser(userWhoFollows, userToBeFollowed);
+            this.userService.FollowUser(userWhoFollows, userToBeFollowed);
         }
     }
 }
