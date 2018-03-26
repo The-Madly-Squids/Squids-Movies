@@ -81,7 +81,19 @@ namespace SquidsMovieApp.Program.Controllers
 
         public void RemoveUser(string email)
         {
-            throw new NotImplementedException();
+            try
+            {
+                if (email.IndexOf('@') == -1 || email.IndexOf('.') == -1)
+                {
+                    throw new ArgumentException("Invali e-mail!");
+                }
+                UserModel userToRemove = 
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         public IEnumerable<UserModel> GetAllUsers()
@@ -127,27 +139,54 @@ namespace SquidsMovieApp.Program.Controllers
 
         public IEnumerable<MovieModel> GetBoughtMovies(string user)
         {
-            throw new NotImplementedException();
+            Guard.WhenArgument(user, "userName")
+                .IsNullOrEmpty()
+                .Throw();
+
+            UserModel userBoughtMovies = this.userService.GetUser(user);
+            return userBoughtMovies.BoughtMovies;
         }
 
         public IEnumerable<UserModel> GetFollowers(string user)
         {
-            throw new NotImplementedException();
+            Guard.WhenArgument(user, "userName")
+                .IsNullOrEmpty()
+                .Throw();
+
+            UserModel userGetFollowers = this.userService.GetUser(user);
+            return userGetFollowers.Followers;
         }
 
         public IEnumerable<UserModel> GetFollowed(string user)
         {
-            throw new NotImplementedException();
+            Guard.WhenArgument(user, "userName")
+                .IsNullOrEmpty()
+                .Throw();
+
+            UserModel userGetFollowed = this.userService.GetUser(user);
+            return userGetFollowed.Following;
         }
 
         public decimal GetMoneyBalance(string user)
         {
-            throw new NotImplementedException();
+            Guard.WhenArgument(user, "userName")
+                .IsNullOrEmpty()
+                .Throw();
+
+            UserModel userToGetBalance = this.userService.GetUser(user);
+            return userService.GetMoneyBalance(userToGetBalance);
         }
 
         public void AddMoneyToBalance(string user, decimal amount)
         {
-            throw new NotImplementedException();
+            Guard.WhenArgument(user, "user Name")
+                .IsNullOrEmpty()
+                .Throw();
+            Guard.WhenArgument(amount, "Money Problem!")
+                .IsLessThanOrEqual(0)
+                .Throw();
+            UserModel userToAddMonney = this.userService.GetUser(user);
+            userService.AddMoneyToBalance(userToAddMonney, amount);
         }
 
         public void LikeParticipant(string userName, string participantFirstName,
@@ -182,12 +221,10 @@ namespace SquidsMovieApp.Program.Controllers
             .IsNotNullOrEmpty()
             .Throw();
 
-            UserModel userToBeFollowed = userService.GetUser(userName);
-            UserModel userWhoFollows = userService.GetUser(userToFollowUsername);
+            UserModel userToBeFollowed = this.userService.GetUser(userName);
+            UserModel userWhoFollows = this.userService.GetUser(userToFollowUsername);
             userService.FollowUser(userWhoFollows, userToBeFollowed);
-            
         }
-
     }
 }
 
