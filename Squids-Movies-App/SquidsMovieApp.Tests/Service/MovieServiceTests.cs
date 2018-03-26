@@ -286,7 +286,6 @@ namespace SquidsMovieApp.Tests.Service
         public void GetDirectorsShould_ReturnCorrectValueWhenCalled()
         {
             // For Paco - look above test this one will be the same with minor changes
-            // above doesnt work - wait until we ask for help from the Trainers
 
             throw new NotImplementedException();
         }
