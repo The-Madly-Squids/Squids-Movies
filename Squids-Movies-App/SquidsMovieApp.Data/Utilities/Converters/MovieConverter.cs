@@ -1,7 +1,7 @@
 ﻿using SquidsMovieApp.Data.Context;
-using SquidsMovieApp.Data.Models;
 using SquidsMovieApp.Data.Utilities.Parsers;
 using SquidsMovieApp.Data.Utilities.Parsers.Models;
+using SquidsMovieApp.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

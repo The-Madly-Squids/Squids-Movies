@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Bytes2you.Validation;
 using SquidsMovieApp.Core.Factories.Contracts;
-using SquidsMovieApp.Data.Models;
+using SquidsMovieApp.Models;
 using SquidsMovieApp.DTO;
 using SquidsMovieApp.Logic.Contracts;
 

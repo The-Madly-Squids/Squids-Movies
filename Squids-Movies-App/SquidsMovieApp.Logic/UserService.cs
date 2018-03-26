@@ -2,7 +2,7 @@
 using AutoMapper.QueryableExtensions;
 using SquidsMovieApp.Common.Constants;
 using SquidsMovieApp.Data.Context;
-using SquidsMovieApp.Data.Models;
+using SquidsMovieApp.Models;
 using SquidsMovieApp.DTO;
 using SquidsMovieApp.Logic.Contracts;
 using System;

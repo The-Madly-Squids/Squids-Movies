@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace SquidsMovieApp.Data.Models
+namespace SquidsMovieApp.Models
 {
     public class Movie
     {

@@ -7,7 +7,7 @@ using Moq;
 using SquidsMovieApp.DTO;
 using SquidsMovieApp.Logic;
 using System.Linq;
-using SquidsMovieApp.Data.Models;
+using SquidsMovieApp.Models;
 
 namespace SquidsMovieApp.Tests.Service
 {

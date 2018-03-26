@@ -4,7 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using SquidsMovieApp.Common;
 using SquidsMovieApp.Data.Context;
-using SquidsMovieApp.Data.Models;
+using SquidsMovieApp.Models;
 using SquidsMovieApp.DTO;
 using SquidsMovieApp.Logic;
 using System;

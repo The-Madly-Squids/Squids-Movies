@@ -16,7 +16,6 @@ using System.Windows.Shapes;
 using Autofac;
 using SquidsMovieApp.Common;
 using SquidsMovieApp.Core;
-using SquidsMovieApp.Core.Contracts;
 using SquidsMovieApp.Program.Controllers;
 
 namespace SquidsMovieApp.WPF
@@ -27,10 +26,10 @@ namespace SquidsMovieApp.WPF
         {
             InitializeComponent();
             EmailLoginTB.Focus();
-            this.Engine = ((MainWindow)Application.Current.MainWindow).Engine;
+            //this.Engine = ((MainWindow)Application.Current.MainWindow).Engine;
         }
 
-        public IEngine Engine { get; private set; }
+        //public IEngine Engine { get; private set; }
 
         private void LoginBtnClicked(object sender, RoutedEventArgs e)
         {

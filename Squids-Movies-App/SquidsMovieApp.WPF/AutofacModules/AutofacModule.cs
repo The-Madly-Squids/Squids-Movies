@@ -7,7 +7,6 @@ using Autofac;
 using AutoMapper;
 using SquidsMovieApp.Core.Providers;
 using SquidsMovieApp.Core;
-using SquidsMovieApp.Core.Contracts;
 using SquidsMovieApp.Core.Factories;
 using SquidsMovieApp.Core.Factories.Contracts;
 using SquidsMovieApp.Data.Context;
@@ -24,11 +23,6 @@ namespace SquidsMovieApp.WPF.AutofacModules
             // cant be single instance - multiple users acces the DB at the same time
             builder.RegisterType<MovieAppDBContext>()
                 .As<IMovieAppDBContext>()
-                .InstancePerDependency();
-
-            // engine
-            builder.RegisterType<MovieAppEngine>()
-                .As<IEngine>()
                 .InstancePerDependency();
 
             // services 
@@ -55,12 +49,9 @@ namespace SquidsMovieApp.WPF.AutofacModules
                 .InstancePerDependency();
 
             // common
-            builder.RegisterType<UserContext>()
-                .As<IUserContext>().
-                InstancePerDependency();
-
             builder.RegisterType<AuthProvider>()
-                .AsSelf();
+                .AsSelf()
+                .SingleInstance();
 
             builder.Register(x => Mapper.Instance);
         }

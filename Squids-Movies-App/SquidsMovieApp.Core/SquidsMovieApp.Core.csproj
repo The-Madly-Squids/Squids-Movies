@@ -47,21 +47,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Contracts\IUserContext.cs" />
     <Compile Include="Factories\Contracts\IGenreFactory.cs" />
     <Compile Include="Factories\Contracts\IParticipantFactory.cs" />
     <Compile Include="Factories\Contracts\IReviewFactory.cs" />
     <Compile Include="Factories\Contracts\IUserFactory.cs" />
     <Compile Include="Factories\ParticipantModelFactory.cs" />
     <Compile Include="Factories\UserModelFactory.cs" />
-    <Compile Include="MovieAppEngine.cs" />
-    <Compile Include="Contracts\IEngine.cs" />
-    <Compile Include="Dependency\AutofacConfig.cs" />
     <Compile Include="Factories\MovieModelFactory.cs" />
     <Compile Include="Factories\Contracts\IMovieFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\AuthProvider.cs" />
-    <Compile Include="Providers\UserContext.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

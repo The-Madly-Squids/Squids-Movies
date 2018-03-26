@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using SquidsMovieApp.Data.Context;
-using SquidsMovieApp.Data.Models;
+using SquidsMovieApp.Models;
 using SquidsMovieApp.DTO;
 using SquidsMovieApp.Logic.Contracts;
 

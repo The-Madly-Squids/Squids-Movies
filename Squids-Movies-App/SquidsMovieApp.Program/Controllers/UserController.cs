@@ -12,7 +12,7 @@ using SquidsMovieApp.Common.Constants;
 
 namespace SquidsMovieApp.Program.Controllers
 {
-    class UserController
+    public class UserController
     {
         private readonly IUserService userService;
         private readonly IParticipantService participantService;

@@ -1,5 +1,5 @@
 ﻿using SquidsMovieApp.Data.Context;
-using SquidsMovieApp.Data.Models;
+using SquidsMovieApp.Models;
 using System;
 using System.Linq;
 
@@ -13,13 +13,10 @@ namespace SquidsMovieApp.Core.Providers
         public AuthProvider(IMovieAppDBContext movieAppDbContext)
         {
             this.movieAppDbContext = movieAppDbContext;
-            this.loggedUser = null;
+            this.LoggedUser = null;
         }
 
-        public User GetCurrentUser()
-        {
-            return this.loggedUser;
-        }
+        public User LoggedUser { get => loggedUser; private set => loggedUser = value; }
 
         public void Login(string email, string password)
         {
@@ -28,18 +25,18 @@ namespace SquidsMovieApp.Core.Providers
 
             if (user != null && user.Password.Equals(password))
             {
-                this.loggedUser = user;
+                this.LoggedUser = user;
             }
             else
             {
-                this.loggedUser = null;
+                this.LoggedUser = null;
                 throw new ArgumentException();
             }
         }
 
         public void Logout()
         {
-            this.loggedUser = null;
+            this.LoggedUser = null;
         }
     }
 }

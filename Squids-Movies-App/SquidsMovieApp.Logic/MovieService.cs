@@ -7,7 +7,7 @@ using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Bytes2you.Validation;
 using SquidsMovieApp.Data.Context;
-using SquidsMovieApp.Data.Models;
+using SquidsMovieApp.Models;
 using SquidsMovieApp.DTO;
 using SquidsMovieApp.Logic.Contracts;
 

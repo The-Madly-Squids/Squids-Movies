@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SquidsMovieApp.Data.Models
+namespace SquidsMovieApp.Models
 {
     public class Role
     {

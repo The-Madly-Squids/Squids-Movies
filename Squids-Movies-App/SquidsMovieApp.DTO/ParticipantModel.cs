@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using SquidsMovieApp.Common.Mapping;
-using SquidsMovieApp.Data.Models;
+using SquidsMovieApp.Models;
 
 namespace SquidsMovieApp.DTO
 {

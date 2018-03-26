@@ -4,7 +4,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SquidsMovieApp.Data.Models;
+using SquidsMovieApp.Models;
 
 namespace SquidsMovieApp.Data.Context
 {

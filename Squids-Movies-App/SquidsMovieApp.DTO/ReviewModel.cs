@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using SquidsMovieApp.Common.Mapping;
-using SquidsMovieApp.Data.Models;
+using SquidsMovieApp.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

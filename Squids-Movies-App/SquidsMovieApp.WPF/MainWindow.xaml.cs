@@ -1,6 +1,5 @@
 ﻿using Autofac;
 using SquidsMovieApp.Common;
-using SquidsMovieApp.Core.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,9 +18,6 @@ using System.Windows.Shapes;
 
 namespace SquidsMovieApp.WPF
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : NavigationWindow
     {
         public MainWindow()
@@ -36,9 +32,9 @@ namespace SquidsMovieApp.WPF
             var builder = new ContainerBuilder();
             builder.RegisterAssemblyModules(Assembly.GetExecutingAssembly());
             var container = builder.Build();
-            this.Engine = container.Resolve<IEngine>();
+            //this.Engine = container.Resolve<IEngine>();
         }
 
-        public IEngine Engine { get; set; }
+        //public IEngine Engine { get; set; }
     }
 }

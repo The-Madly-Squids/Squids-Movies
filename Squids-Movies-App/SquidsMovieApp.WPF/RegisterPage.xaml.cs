@@ -1,5 +1,4 @@
 ﻿using Bytes2you.Validation;
-using SquidsMovieApp.Core.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
