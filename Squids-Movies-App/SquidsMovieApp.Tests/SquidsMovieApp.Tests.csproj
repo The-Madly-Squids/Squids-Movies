@@ -82,7 +82,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controller\UnitTest1.cs" />
+    <Compile Include="Controller\MovieControllerTests.cs" />
+    <Compile Include="Controller\UserControllerTests.cs" />
     <Compile Include="Core\UnitTest1.cs" />
     <Compile Include="Models\UnitTest1.cs" />
     <Compile Include="Service\MovieServiceTests.cs" />
@@ -99,6 +100,10 @@
       <Project>{46BB2366-5C29-4CBC-AC99-E794310C942B}</Project>
       <Name>SquidsMovieApp.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SquidsMovieApp.Core\SquidsMovieApp.Core.csproj">
+      <Project>{168B02CD-9CB0-4393-8C54-024E8FF5BD8A}</Project>
+      <Name>SquidsMovieApp.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SquidsMovieApp.Data\SquidsMovieApp.Data.csproj">
       <Project>{4BBB6B73-E52A-4B9D-843D-46D10AF8FD62}</Project>
       <Name>SquidsMovieApp.Data</Name>
@@ -114,6 +119,10 @@
     <ProjectReference Include="..\SquidsMovieApp.Models\SquidsMovieApp.Models.csproj">
       <Project>{2EDD6303-C743-43FD-AD01-19F623ABDF5A}</Project>
       <Name>SquidsMovieApp.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SquidsMovieApp.WPF\SquidsMovieApp.WPF.csproj">
+      <Project>{0719251B-549A-43C5-83E0-9B3C8C933582}</Project>
+      <Name>SquidsMovieApp.WPF</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
