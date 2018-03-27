@@ -75,6 +75,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="AutofacModules\AutofacModule.cs" />
+    <Compile Include="Controllers\Contracts\IMainController.cs" />
+    <Compile Include="Controllers\MainController.cs" />
     <Compile Include="Controllers\MovieController.cs" />
     <Compile Include="Controllers\ParticipantController.cs" />
     <Compile Include="Controllers\RoleController.cs" />

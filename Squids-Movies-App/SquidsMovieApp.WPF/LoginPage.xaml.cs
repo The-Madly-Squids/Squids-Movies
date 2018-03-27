@@ -17,16 +17,29 @@ using Autofac;
 using SquidsMovieApp.Common;
 using SquidsMovieApp.Core;
 using SquidsMovieApp.Core.Providers;
-using SquidsMovieApp.Program.Controllers;
+using SquidsMovieApp.WPF.Controllers;
+using SquidsMovieApp.WPF.Controllers.Contracts;
 
 namespace SquidsMovieApp.WPF
 {
     public partial class LoginPage : Page
     {
-        public LoginPage(AuthProvider authProvider)
+        public LoginPage()
         {
             InitializeComponent();
             EmailLoginTB.Focus();
+            RegisterContainer();
+        }
+
+        public IMainController MainController { get; private set; }
+
+        private void RegisterContainer()
+        {
+            AutomapperConfiguration.Initialize();
+            var builder = new ContainerBuilder();
+            builder.RegisterAssemblyModules(Assembly.GetExecutingAssembly());
+            var container = builder.Build();
+            this.MainController = container.Resolve<IMainController>();
         }
 
         private void LoginBtnClicked(object sender, RoutedEventArgs e)
@@ -34,14 +47,12 @@ namespace SquidsMovieApp.WPF
             var email = this.EmailLoginTB.Text;
             var password = this.PasswordLoginTB.Password.ToString();
 
-            this.NavigationService.Navigate(new ProfilePage());
+            this.NavigationService.Navigate(new ProfilePage(this.MainController));
         }
 
         private void RegisterLinkClicked(object sender, RoutedEventArgs e)
         {
-            this.NavigationService.Navigate(new RegisterPage());
+            this.NavigationService.Navigate(new RegisterPage(this.MainController, this));
         }
-
-
     }
 }

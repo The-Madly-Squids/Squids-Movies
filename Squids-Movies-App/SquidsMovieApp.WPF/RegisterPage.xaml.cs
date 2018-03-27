@@ -1,5 +1,8 @@
-﻿using Bytes2you.Validation;
+﻿using Autofac;
+using Bytes2you.Validation;
 using SquidsMovieApp.Core.Providers;
+using SquidsMovieApp.WPF.Controllers;
+using SquidsMovieApp.WPF.Controllers.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,15 +22,20 @@ namespace SquidsMovieApp.WPF
 {
     public partial class RegisterPage : Page
     {
-        public RegisterPage(AuthProvider authProvider)
+        private readonly IMainController mainController;
+        private readonly Page loginPage;
+
+        public RegisterPage(IMainController mainController, Page loginPage)
         {
             InitializeComponent();
             EmailRegisterTB.Focus();
+            this.mainController = mainController;
+            this.loginPage = loginPage;
         }
 
         private void GoBackBtnClicked(object sender, RoutedEventArgs e)
         {
-            this.NavigationService.Navigate(new LoginPage());
+            this.NavigationService.Navigate(loginPage);
         }
 
         private void RegisterBtnClicked(object sender, RoutedEventArgs e)
@@ -36,7 +44,7 @@ namespace SquidsMovieApp.WPF
 
             if (ValidateFields(stackPanel))
             {
-                this.NavigationService.Navigate(new ProfilePage());
+                this.NavigationService.Navigate(new ProfilePage(this.mainController));
             }
             else
             {
