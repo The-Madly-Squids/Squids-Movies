@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using SquidsMovieApp.Common;
+using SquidsMovieApp.Core.Providers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,18 +24,6 @@ namespace SquidsMovieApp.WPF
         public MainWindow()
         {
             InitializeComponent();
-            Initialize();
         }
-
-        private void Initialize()
-        {
-            AutomapperConfiguration.Initialize();
-            var builder = new ContainerBuilder();
-            builder.RegisterAssemblyModules(Assembly.GetExecutingAssembly());
-            var container = builder.Build();
-            //this.Engine = container.Resolve<IEngine>();
-        }
-
-        //public IEngine Engine { get; set; }
     }
 }

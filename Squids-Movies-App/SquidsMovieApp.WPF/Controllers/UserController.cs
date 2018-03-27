@@ -1,16 +1,14 @@
 ﻿using AutoMapper;
+using Bytes2you.Validation;
+using SquidsMovieApp.Common.Constants;
+using SquidsMovieApp.Core.Factories.Contracts;
+using SquidsMovieApp.DTO;
+using SquidsMovieApp.Logic.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SquidsMovieApp.Logic.Contracts;
-using SquidsMovieApp.Core.Factories.Contracts;
-using Bytes2you.Validation;
-using SquidsMovieApp.DTO;
-using SquidsMovieApp.Common.Constants;
 
-namespace SquidsMovieApp.Program.Controllers
+namespace SquidsMovieApp.WPF.Controllers
 {
     public class UserController
     {

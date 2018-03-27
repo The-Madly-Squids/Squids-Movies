@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SquidsMovieApp.Core.Providers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,7 +18,7 @@ namespace SquidsMovieApp.WPF
 {
     public partial class ProfilePage : Page
     {
-        public ProfilePage()
+        public ProfilePage(AuthProvider authProvider)
         {
             InitializeComponent();
         }

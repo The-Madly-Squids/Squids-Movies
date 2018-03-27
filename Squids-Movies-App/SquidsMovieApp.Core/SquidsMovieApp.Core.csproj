@@ -63,6 +63,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SquidsMovieApp.Common\SquidsMovieApp.Common.csproj">
+      <Project>{46BB2366-5C29-4CBC-AC99-E794310C942B}</Project>
+      <Name>SquidsMovieApp.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SquidsMovieApp.Data\SquidsMovieApp.Data.csproj">
       <Project>{4BBB6B73-E52A-4B9D-843D-46D10AF8FD62}</Project>
       <Name>SquidsMovieApp.Data</Name>
@@ -70,6 +74,10 @@
     <ProjectReference Include="..\SquidsMovieApp.DTO\SquidsMovieApp.DTO.csproj">
       <Project>{22E0CAC0-3E8F-4DA3-9B90-86545D78C3C8}</Project>
       <Name>SquidsMovieApp.DTO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SquidsMovieApp.Logic\SquidsMovieApp.Logic.csproj">
+      <Project>{40E7702E-C900-40B2-95E5-FDF9C8D22E5C}</Project>
+      <Name>SquidsMovieApp.Logic</Name>
     </ProjectReference>
     <ProjectReference Include="..\SquidsMovieApp.Models\SquidsMovieApp.Models.csproj">
       <Project>{2EDD6303-C743-43FD-AD01-19F623ABDF5A}</Project>

@@ -75,6 +75,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="AutofacModules\AutofacModule.cs" />
+    <Compile Include="Controllers\MovieController.cs" />
+    <Compile Include="Controllers\ParticipantController.cs" />
+    <Compile Include="Controllers\RoleController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="ErrorWindow.xaml.cs">
       <DependentUpon>ErrorWindow.xaml</DependentUpon>
     </Compile>
@@ -156,9 +160,17 @@
       <Project>{4bbb6b73-e52a-4b9d-843d-46d10af8fd62}</Project>
       <Name>SquidsMovieApp.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SquidsMovieApp.DTO\SquidsMovieApp.DTO.csproj">
+      <Project>{22E0CAC0-3E8F-4DA3-9B90-86545D78C3C8}</Project>
+      <Name>SquidsMovieApp.DTO</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SquidsMovieApp.Logic\SquidsMovieApp.Logic.csproj">
       <Project>{40e7702e-c900-40b2-95e5-fdf9c8d22e5c}</Project>
       <Name>SquidsMovieApp.Logic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SquidsMovieApp.Models\SquidsMovieApp.Models.csproj">
+      <Project>{2EDD6303-C743-43FD-AD01-19F623ABDF5A}</Project>
+      <Name>SquidsMovieApp.Models</Name>
     </ProjectReference>
     <ProjectReference Include="..\SquidsMovieApp.Program\SquidsMovieApp.Program.csproj">
       <Project>{8f488eda-603b-4e58-8248-537bc65aad82}</Project>

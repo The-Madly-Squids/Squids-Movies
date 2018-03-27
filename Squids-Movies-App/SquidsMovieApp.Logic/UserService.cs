@@ -78,6 +78,22 @@ namespace SquidsMovieApp.Logic
             return userDto;
         }
 
+        public UserModel GetUserByEmail(string email)
+        {
+            var user = this.movieAppDbContext.Users
+                .Where(x => x.Email == email)
+                .FirstOrDefault();
+
+            if (user == null)
+            {
+                throw new ArgumentNullException("User not found!");
+            }
+
+            var userDto = this.mapper.Map<UserModel>(user);
+
+            return userDto;
+        }
+
         public IEnumerable<ParticipantModel> GetLikedParticipants(UserModel user)
         {
             var likedParticipants = user.LikedParticipants;

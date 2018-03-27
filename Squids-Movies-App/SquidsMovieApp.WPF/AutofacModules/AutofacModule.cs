@@ -54,6 +54,13 @@ namespace SquidsMovieApp.WPF.AutofacModules
                 .SingleInstance();
 
             builder.Register(x => Mapper.Instance);
+
+            // wpf
+            builder.RegisterType<MainWindow>().AsSelf();
+            builder.RegisterType<RegisterPage>().AsSelf();
+            builder.RegisterType<LoginPage>().AsSelf();
+            builder.RegisterType<ErrorWindow>().AsSelf();
+            builder.RegisterType<ProfilePage>().AsSelf();
         }
     }
 }

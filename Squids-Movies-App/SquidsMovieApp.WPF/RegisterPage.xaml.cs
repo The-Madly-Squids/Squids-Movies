@@ -1,4 +1,5 @@
 ﻿using Bytes2you.Validation;
+using SquidsMovieApp.Core.Providers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +19,7 @@ namespace SquidsMovieApp.WPF
 {
     public partial class RegisterPage : Page
     {
-        public RegisterPage()
+        public RegisterPage(AuthProvider authProvider)
         {
             InitializeComponent();
             EmailRegisterTB.Focus();

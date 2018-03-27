@@ -16,20 +16,18 @@ using System.Windows.Shapes;
 using Autofac;
 using SquidsMovieApp.Common;
 using SquidsMovieApp.Core;
+using SquidsMovieApp.Core.Providers;
 using SquidsMovieApp.Program.Controllers;
 
 namespace SquidsMovieApp.WPF
 {
     public partial class LoginPage : Page
     {
-        public LoginPage()
+        public LoginPage(AuthProvider authProvider)
         {
             InitializeComponent();
             EmailLoginTB.Focus();
-            //this.Engine = ((MainWindow)Application.Current.MainWindow).Engine;
         }
-
-        //public IEngine Engine { get; private set; }
 
         private void LoginBtnClicked(object sender, RoutedEventArgs e)
         {

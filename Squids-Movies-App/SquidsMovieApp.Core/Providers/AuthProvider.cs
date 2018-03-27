@@ -1,4 +1,6 @@
 ﻿using SquidsMovieApp.Data.Context;
+using SquidsMovieApp.DTO;
+using SquidsMovieApp.Logic.Contracts;
 using SquidsMovieApp.Models;
 using System;
 using System.Linq;
@@ -7,21 +9,20 @@ namespace SquidsMovieApp.Core.Providers
 {
     public class AuthProvider
     {
-        private readonly IMovieAppDBContext movieAppDbContext;
-        private User loggedUser;
+        private readonly IUserService userService;
+        private UserModel loggedUser;
 
-        public AuthProvider(IMovieAppDBContext movieAppDbContext)
+        public AuthProvider(IUserService userService)
         {
-            this.movieAppDbContext = movieAppDbContext;
+            this.userService = userService;
             this.LoggedUser = null;
         }
 
-        public User LoggedUser { get => loggedUser; private set => loggedUser = value; }
+        public UserModel LoggedUser { get => loggedUser; private set => loggedUser = value; }
 
         public void Login(string email, string password)
         {
-            var user = this.movieAppDbContext.Users
-                .FirstOrDefault(x => x.Email.Equals(email.ToLower()));
+            var user = this.userService.GetUserByEmail(email);
 
             if (user != null && user.Password.Equals(password))
             {
@@ -30,7 +31,7 @@ namespace SquidsMovieApp.Core.Providers
             else
             {
                 this.LoggedUser = null;
-                throw new ArgumentException();
+                throw new NotImplementedException();
             }
         }
 
