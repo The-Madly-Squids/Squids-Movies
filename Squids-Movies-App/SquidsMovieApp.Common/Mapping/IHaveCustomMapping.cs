@@ -10,6 +10,5 @@ namespace SquidsMovieApp.Common.Mapping
     public interface IHaveCustomMapping
     {
         void CreateMappings(IMapperConfigurationExpression configuration);
-
     }
 }

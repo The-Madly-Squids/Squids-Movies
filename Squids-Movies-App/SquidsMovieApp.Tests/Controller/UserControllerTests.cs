@@ -42,7 +42,6 @@ namespace SquidsMovieApp.Tests.Controller
 
             // Assert
             userServiceMock.Verify(x => x.AddUser(It.IsAny<UserModel>()), Times.Once);
-
         }
     }
 }

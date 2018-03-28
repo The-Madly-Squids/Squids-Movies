@@ -26,6 +26,7 @@ namespace SquidsMovieApp.Logic
             string roleName)
         {
             // use a factory?
+            // map only from POCO TO DTO
             var movie = this.mapper.Map<Movie>(movieModel);
             var participant = this.mapper.Map<Participant>(participantModel);
             var actorRole = new Role()

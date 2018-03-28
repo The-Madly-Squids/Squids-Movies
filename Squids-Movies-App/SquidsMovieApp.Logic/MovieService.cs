@@ -84,6 +84,10 @@ namespace SquidsMovieApp.Logic
 
         public void RemoveMovie(MovieModel movie)
         {
+            // Attach/Detach / EntityState.Attach
+
+            //this.movieAppDbContext.Entry<User>().Entity.
+
             if (movie == null)
             {
                 throw new ArgumentException();
@@ -141,6 +145,7 @@ namespace SquidsMovieApp.Logic
             // create only role and use it to find movies-to-participants? 
             movieObject.Participants.Add(participantObject);
             participantObject.Movies.Add(movieObject);
+            // possibly add to RoleService(AddRole)
             this.movieAppDbContext.Roles.Add(actorRole);
             this.movieAppDbContext.SaveChanges();
         }
