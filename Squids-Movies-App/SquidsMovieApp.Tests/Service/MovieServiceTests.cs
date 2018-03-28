@@ -77,7 +77,17 @@ namespace SquidsMovieApp.Tests.Service
             effortContext.Movies.Add(movieObjectToRemove);
             effortContext.SaveChanges();
 
-            var movieDtoToRemove = Mapper.Map<MovieModel>(movieObjectToRemove);
+            // when testing do not use automapper - you are coupling yourself
+            // to autommaper and if its broken/ or you change it - the test will
+            // also fail - so do it manually
+            //var movieDtoToRemove = Mapper.Map<MovieModel>(movieObjectToRemove);
+
+            var movieDtoToRemove = new MovieModel()
+            {
+                MovieId = movieObjectToRemove.MovieId,
+                Title = movieObjectToRemove.Title,
+                Runtime = movieObjectToRemove.Runtime
+            };
 
             // Act
             var sut = new MovieService(effortContext, mapperMock.Object);
@@ -122,8 +132,18 @@ namespace SquidsMovieApp.Tests.Service
             }
             effortContext.SaveChanges();
 
-            var moviesDTOsListToReturn = Mapper.Map<IList<MovieModel>>(
-                    effortContext.Movies);
+            var moviesDTOsListToReturn = new List<MovieModel>();
+            foreach (var movie in effortContext.Movies)
+            {
+                var movieDto = new MovieModel()
+                {
+                    MovieId = movie.MovieId,
+                    Title = movie.Title,
+                    Runtime = movie.Runtime
+                };
+
+                moviesDTOsListToReturn.Add(movieDto);
+            }
 
             mapperMock.Setup(x => x.Map<IList<MovieModel>>(
                                                     It.IsAny<IList<Movie>>()))
@@ -135,21 +155,16 @@ namespace SquidsMovieApp.Tests.Service
             var result = sut.GetAllMovies();
 
             // Assert
-            foreach (var movieDto in result)
-            {
-                var exists = effortContext.Movies.Any(x => x.MovieId == movieDto.MovieId);
-                Assert.IsTrue(exists);
-            }
+            //foreach (var movieDto in result)
+            //{
+            //    var exists = effortContext.Movies.Any(x => x.MovieId == movieDto.MovieId);
+            //    Assert.IsTrue(exists);
+            //}
 
-            // [OLD]
-            // is this correct? Can you use ProjectTo in test method?
-            // you cant: throws https://github.com/AutoMapper/AutoMapper/issues/2090
-            //var expectedResult = effortContext.Movies.ProjectTo<MovieModel>();
+            // Or Another Assert  - just checks if the count is the same
+            // both work - second is easier
+            Assert.AreEqual(10, result.Count());
 
-            // rethrows https://github.com/AutoMapper/AutoMapper/issues/2090
-            // why?
-            // because of ProjectTo() - how to fix?
-            //Assert.IsTrue(result.FirstOrDefault().Title == movieToAdd.Title);
         }
 
         [TestMethod]
@@ -184,13 +199,25 @@ namespace SquidsMovieApp.Tests.Service
             effort.Participants.Add(participantObject);
             effort.SaveChanges();
 
-            var participantModel = Mapper.Map<ParticipantModel>(participantObject);
-            var movieModel = Mapper.Map<MovieModel>(movieObject);
+            var participantDto = new ParticipantModel()
+            {
+                ParticipantId = participantObject.ParticipantId,
+                FirstName = participantObject.FirstName,
+                LastName = participantObject.LastName
+            };
+
+            var movieDto = new MovieModel()
+            {
+                MovieId = movieObject.MovieId,
+                Title = movieObject.Title,
+                Runtime = movieObject.Runtime
+            };
+
             var roleName = "Actor";
 
             // Act
             var sut = new MovieService(effort, mapperMock.Object);
-            sut.AddMovieParticipant(movieModel, participantModel, roleName);
+            sut.AddMovieParticipant(movieDto, participantDto, roleName);
 
             // Assert
             var participantAddedToMovie = movieObject.Participants.FirstOrDefault();
@@ -228,7 +255,7 @@ namespace SquidsMovieApp.Tests.Service
         [TestMethod]
         public void GetActorsShould_ReturnCorrectValueWhenCalled()
         {
-            // Act
+            // Arrange
             var effort = new MovieAppDBContext(
                 Effort.DbConnectionFactory.CreateTransient());
 
@@ -285,9 +312,57 @@ namespace SquidsMovieApp.Tests.Service
         [TestMethod]
         public void GetDirectorsShould_ReturnCorrectValueWhenCalled()
         {
-            // For Paco - look above test this one will be the same with minor changes
+            // Act
+            var effort = new MovieAppDBContext(
+                Effort.DbConnectionFactory.CreateTransient());
 
-            throw new NotImplementedException();
+            var mapperMock = new Mock<IMapper>();
+
+            var movieObject = new Movie()
+            {
+                Title = "Test Movie",
+                Year = 1990
+            };
+
+            effort.Movies.Add(movieObject);
+
+            for (int i = 0; i < 10; i++)
+            {
+                var participantObject = new Participant()
+                {
+                    FirstName = "Test" + i,
+                    LastName = "Testov"
+                };
+
+                var roleObject = new Role()
+                {
+                    Movie = movieObject,
+                    Participant = participantObject,
+                    RoleName = "Director"
+                };
+
+                effort.Participants.Add(participantObject);
+                effort.Roles.Add(roleObject);
+            }
+            effort.SaveChanges();
+
+            var expectedResult = effort.Roles
+                .Where(x => x.Movie.MovieId == movieObject.MovieId && x.RoleName == "Director")
+                .Select(p => p.Participant).ToList();
+
+            var movieDtoArgument = Mapper.Map<MovieModel>(movieObject);
+
+            // Act
+            var sut = new MovieService(effort, mapperMock.Object);
+            var result = sut.GetDirectors(movieDtoArgument);
+
+            // Assert
+            foreach (var p in expectedResult)
+            {
+                //var exists = result.Movies.Any(x => x.MovieId == movieDto.MovieId);
+                var exists = result.Any(x => x.ParticipantId == p.ParticipantId);
+                Assert.IsTrue(exists);
+            }
         }
 
         [TestMethod]

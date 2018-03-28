@@ -153,15 +153,6 @@ namespace SquidsMovieApp.Logic
 
         public void LikeParticipant(UserModel user, ParticipantModel participant)
         {
-            //// [OLD]
-            //var actorToAdd = mapper.Map<Participant>(actor);
-            //user.LikedActors.Add(actorToAdd);
-            //movieAppDbContext.SaveChanges();
-
-
-            // possibly pass in the argument directly user/participant object
-            // instead of going through GetX() method in controller which returns
-            // DTO and then by ID here?
             var userObject = this.movieAppDbContext.Users
                             .Where(x => x.UserId == user.UserId)
                             .FirstOrDefault();
