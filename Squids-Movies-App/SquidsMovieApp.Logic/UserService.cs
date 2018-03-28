@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SquidsMovieApp.Common.Exceptions;
 
 namespace SquidsMovieApp.Logic
 {
@@ -28,7 +29,7 @@ namespace SquidsMovieApp.Logic
         {
             if (user == null)
             {
-                throw new ArgumentException();
+                throw new UserNotFoundException("User not found!");
             }
 
             var userToAdd = this.mapper.Map<User>(user);
@@ -40,7 +41,7 @@ namespace SquidsMovieApp.Logic
         {
             if (user == null)
             {
-                throw new ArgumentException();
+                throw new UserNotFoundException("User not found!");
             }
 
             var userObject = this.movieAppDbContext.Users
@@ -49,7 +50,7 @@ namespace SquidsMovieApp.Logic
 
             if (userObject == null)
             {
-                throw new ArgumentNullException("No such user!");
+                throw new UserNotFoundException("User not found!");
             }
 
             this.movieAppDbContext.Users.Remove(userObject);
@@ -70,7 +71,7 @@ namespace SquidsMovieApp.Logic
 
             if (user == null)
             {
-                throw new ArgumentNullException("User not found!");
+                throw new UserNotFoundException("No user found with that username!");
             }
 
             var userDto = this.mapper.Map<UserModel>(user);
@@ -86,7 +87,7 @@ namespace SquidsMovieApp.Logic
 
             if (user == null)
             {
-                throw new ArgumentNullException("User not found!");
+                throw new UserNotFoundException("A user with this email does not exist!");
             }
 
             var userDto = this.mapper.Map<UserModel>(user);
@@ -142,7 +143,7 @@ namespace SquidsMovieApp.Logic
 
             if (userObject == null)
             {
-                throw new ArgumentNullException("User not found!");
+                throw new UserNotFoundException("User not found!");
             }
 
             decimal moneyBalance = userObject.MoneyBalance;
@@ -187,12 +188,12 @@ namespace SquidsMovieApp.Logic
 
             if (userObject == null)
             {
-                throw new ArgumentNullException("User that wants to follow not found!");
+                throw new UserNotFoundException("User that wants to follow not found!");
             }
 
             if (userToFollowObject == null)
             {
-                throw new ArgumentNullException("User that will be followed not found!");
+                throw new UserNotFoundException("User that will be followed not found!");
             }
 
             userObject.Following.Add(userToFollowObject);
@@ -213,7 +214,7 @@ namespace SquidsMovieApp.Logic
 
             if (userObject == null)
             {
-                throw new ArgumentNullException("User not found!");
+                throw new UserNotFoundException("User not found!");
             }
 
             if (movieObject == null)

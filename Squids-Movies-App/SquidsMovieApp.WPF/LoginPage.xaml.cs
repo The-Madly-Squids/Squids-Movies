@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Net.Mail;
 using System.Reflection;
 using System.Text;
 using System.Threading;
@@ -17,6 +18,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Autofac;
 using SquidsMovieApp.Common;
+using SquidsMovieApp.Common.Exceptions;
 using SquidsMovieApp.Core;
 using SquidsMovieApp.Core.Providers;
 using SquidsMovieApp.WPF.Controllers;
@@ -28,12 +30,17 @@ namespace SquidsMovieApp.WPF
     {
         private BackgroundWorker worker;
         private LoadingWindow loadingWindow;
+        private readonly StackPanel stackPanel;
+        private string email;
+        private string password;
 
         public LoginPage()
         {
             InitializeComponent();
             EmailLoginTB.Focus();
             RegisterContainer();
+
+            this.stackPanel = new StackPanel();
         }
 
         public IMainController MainController { get; private set; }
@@ -51,41 +58,110 @@ namespace SquidsMovieApp.WPF
 
         private void LoginBtnClicked(object sender, RoutedEventArgs e)
         {
-            //var email = this.EmailLoginTB.Text;
-            //var password = this.PasswordLoginTB.Password.ToString();
+            this.email = this.EmailLoginTB.Text;
+            this.password = this.PasswordLoginTB.Password.ToString();
 
-            //this.NavigationService.Navigate(new ProfilePage(this.MainController, AuthProvider));
-
-            this.worker = new BackgroundWorker();
-
-            worker.DoWork += Worker_DoWork;
-            worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
-
-            this.loadingWindow = new LoadingWindow()
+            if (ValidateFields())
             {
-                Owner = Application.Current.MainWindow,
-            };
+                this.worker = new BackgroundWorker();
 
-            worker.RunWorkerAsync();
-            loadingWindow.ShowDialog();
+                worker.DoWork += Worker_DoWork;
+                worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
+
+                this.loadingWindow = new LoadingWindow()
+                {
+                    Owner = Application.Current.MainWindow,
+                };
+
+                worker.RunWorkerAsync();
+                loadingWindow.ShowDialog();
+            }
+            else
+            {
+                DisplayError(this.stackPanel);
+                this.stackPanel.Children.Clear();
+            }
         }
 
-        private void Worker_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+        private bool ValidateFields()
         {
-            //for (int i = 0; i < 3; i++)
-            //{
-            //    Thread.Sleep(1000);
-            //}
+            bool isValid = true;
+
+            if (string.IsNullOrEmpty(this.email))
+            {
+                stackPanel.Children.Add(CreateErrorTextBlock("Please enter an email."));
+                isValid = false;
+            }
+            else
+            {
+                try
+                {
+                    MailAddress ma = new MailAddress(this.email);
+                }
+                catch (SystemException)
+                {
+                    stackPanel.Children.Add(CreateErrorTextBlock("Invalid e-mail."));
+                    isValid = false;
+                }
+            }
+
+            if (string.IsNullOrEmpty(this.password))
+            {
+                stackPanel.Children.Add(CreateErrorTextBlock("Please enter a password."));
+                isValid = false;
+            }
+
+            return isValid;
         }
 
-        private void Worker_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
+        private void Worker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            AuthProvider.Login(email, password);
+        }
+
+        private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             loadingWindow.Hide();
+
+            if (e.Error != null)
+            {
+                this.stackPanel.Children.Add(CreateErrorTextBlock(e.Error.Message));
+                DisplayError(this.stackPanel);
+            }
+            else
+            {
+                this.NavigationService.Navigate(new ProfilePage(this.MainController, AuthProvider));
+            }
         }
 
         private void RegisterLinkClicked(object sender, RoutedEventArgs e)
         {
             this.NavigationService.Navigate(new RegisterPage(this.MainController, AuthProvider));
+        }
+
+        private TextBlock CreateErrorTextBlock(string errorText)
+        {
+            var errorTextBlock = new TextBlock
+            {
+                Foreground = new SolidColorBrush(Colors.Red),
+                HorizontalAlignment = HorizontalAlignment.Center,
+                FontWeight = FontWeights.Bold,
+                FontSize = 14,
+                Text = errorText
+            };
+
+            return errorTextBlock;
+        }
+
+        private void DisplayError(StackPanel stackPanel)
+        {
+            var errorWindow = new ErrorWindow(stackPanel)
+            {
+                Owner = Application.Current.MainWindow,
+                ErrorName = "Log-in failed."
+            };
+
+            errorWindow.ShowDialog();
         }
     }
 }

@@ -46,6 +46,9 @@
   <ItemGroup>
     <Compile Include="AutomapperConfiguration.cs" />
     <Compile Include="Constants\GlobalConstants.cs" />
+    <Compile Include="Exceptions\UserException.cs" />
+    <Compile Include="Exceptions\UserNotFoundException.cs" />
+    <Compile Include="Exceptions\UserPasswordsDoNotMatchException.cs" />
     <Compile Include="Mapping\IHaveCustomMapping.cs" />
     <Compile Include="Mapping\IMapFrom.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using Bytes2you.Validation;
 using SquidsMovieApp.Common.Constants;
+using SquidsMovieApp.Common.Exceptions;
 using SquidsMovieApp.Core.Providers;
 using SquidsMovieApp.WPF.Controllers;
 using SquidsMovieApp.WPF.Controllers.Contracts;
@@ -28,6 +29,7 @@ namespace SquidsMovieApp.WPF
     {
         private BackgroundWorker worker;
         private LoadingWindow loadingWindow;
+        private readonly StackPanel stackPanel;
         private string email;
         private string username;
         private string password;
@@ -40,6 +42,8 @@ namespace SquidsMovieApp.WPF
             EmailRegisterTB.Focus();
             this.mainController = mainController;
             this.authProvider = authProvider;
+
+            this.stackPanel = new StackPanel();
         }
 
         private void GoBackBtnClicked(object sender, RoutedEventArgs e)
@@ -49,7 +53,6 @@ namespace SquidsMovieApp.WPF
 
         private void RegisterBtnClicked(object sender, RoutedEventArgs e)
         {
-            var stackPanel = new StackPanel();
             this.email = this.EmailRegisterTB.Text;
             this.username = this.UsernameRegisterTB.Text;
             this.password = this.PasswordRegisterPB.Password.ToString();
@@ -72,31 +75,30 @@ namespace SquidsMovieApp.WPF
             }
             else
             {
-                var errorWindow = new ErrorWindow(stackPanel)
-                {
-                    Owner = Application.Current.MainWindow,
-                    ErrorName = "Registration failed."
-                };
-
-                errorWindow.ShowDialog();
-                
+                DisplayError(this.stackPanel);
+                this.stackPanel.Children.Clear();
             }
         }
 
-        private void Worker_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+        private void Worker_DoWork(object sender, DoWorkEventArgs e)
         {
             mainController.UserController.RegisterUser(username, email, password);
-
-            if (!authProvider.Login(email, password))
-            {
-                throw new InvalidOperationException("Could not log-in the registered user");
-            }
+            authProvider.Login(email, password);
         }
 
-        private void Worker_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
+        private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             loadingWindow.Hide();
-            this.NavigationService.Navigate(new ProfilePage(this.mainController, this.authProvider));
+
+            if (e.Error != null)
+            {
+                this.stackPanel.Children.Add(CreateErrorTextBlock(e.Error.Message));
+                DisplayError(this.stackPanel);
+            }
+            else
+            {
+                this.NavigationService.Navigate(new ProfilePage(this.mainController, this.authProvider));
+            }
         }
 
         private bool ValidateFields(StackPanel stackPanel, string email, string username,
@@ -171,6 +173,17 @@ namespace SquidsMovieApp.WPF
             };
 
             return errorTextBlock;
+        }
+
+        private void DisplayError(StackPanel stackPanel)
+        {
+            var errorWindow = new ErrorWindow(stackPanel)
+            {
+                Owner = Application.Current.MainWindow,
+                ErrorName = "Registration failed."
+            };
+
+            errorWindow.ShowDialog();
         }
     }
 }
