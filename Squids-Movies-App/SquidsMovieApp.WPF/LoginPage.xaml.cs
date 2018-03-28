@@ -30,7 +30,6 @@ namespace SquidsMovieApp.WPF
     {
         private BackgroundWorker worker;
         private LoadingWindow loadingWindow;
-        private readonly StackPanel stackPanel;
         private string email;
         private string password;
 
@@ -40,7 +39,9 @@ namespace SquidsMovieApp.WPF
             EmailLoginTB.Focus();
             RegisterContainer();
 
-            this.stackPanel = new StackPanel();
+            this.worker = new BackgroundWorker();
+            worker.DoWork += Worker_DoWork;
+            worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
         }
 
         public IMainController MainController { get; private set; }
@@ -60,14 +61,10 @@ namespace SquidsMovieApp.WPF
         {
             this.email = this.EmailLoginTB.Text;
             this.password = this.PasswordLoginTB.Password.ToString();
+            var stackPanel = new StackPanel();
 
-            if (ValidateFields())
+            if (ValidateFields(stackPanel))
             {
-                this.worker = new BackgroundWorker();
-
-                worker.DoWork += Worker_DoWork;
-                worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
-
                 this.loadingWindow = new LoadingWindow()
                 {
                     Owner = Application.Current.MainWindow,
@@ -78,12 +75,11 @@ namespace SquidsMovieApp.WPF
             }
             else
             {
-                DisplayError(this.stackPanel);
-                this.stackPanel.Children.Clear();
+                DisplayError(stackPanel);
             }
         }
 
-        private bool ValidateFields()
+        private bool ValidateFields(StackPanel stackPanel)
         {
             bool isValid = true;
 
@@ -116,17 +112,25 @@ namespace SquidsMovieApp.WPF
 
         private void Worker_DoWork(object sender, DoWorkEventArgs e)
         {
-            AuthProvider.Login(email, password);
+            try
+            {
+                AuthProvider.Login(email, password);
+            }
+            catch (UserException uex)
+            {
+                throw uex;
+            }
         }
 
         private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            loadingWindow.Hide();
+            loadingWindow.Close();
+            var stackPanel = new StackPanel();
 
             if (e.Error != null)
             {
-                this.stackPanel.Children.Add(CreateErrorTextBlock(e.Error.Message));
-                DisplayError(this.stackPanel);
+                stackPanel.Children.Add(CreateErrorTextBlock(e.Error.Message));
+                DisplayError(stackPanel);
             }
             else
             {

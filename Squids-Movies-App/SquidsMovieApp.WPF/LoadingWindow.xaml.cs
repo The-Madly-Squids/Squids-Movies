@@ -21,8 +21,6 @@ namespace SquidsMovieApp.WPF
     /// </summary>
     public partial class LoadingWindow : Window
     {
-        private BackgroundWorker backgroundWorker1;
-
         public LoadingWindow()
         {
             InitializeComponent();

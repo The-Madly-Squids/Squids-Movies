@@ -29,7 +29,6 @@ namespace SquidsMovieApp.WPF
     {
         private BackgroundWorker worker;
         private LoadingWindow loadingWindow;
-        private readonly StackPanel stackPanel;
         private string email;
         private string username;
         private string password;
@@ -42,8 +41,6 @@ namespace SquidsMovieApp.WPF
             EmailRegisterTB.Focus();
             this.mainController = mainController;
             this.authProvider = authProvider;
-
-            this.stackPanel = new StackPanel();
         }
 
         private void GoBackBtnClicked(object sender, RoutedEventArgs e)
@@ -57,6 +54,7 @@ namespace SquidsMovieApp.WPF
             this.username = this.UsernameRegisterTB.Text;
             this.password = this.PasswordRegisterPB.Password.ToString();
             var repeatedPassword = this.PasswordRepeatRegisterPB.Password.ToString();
+            var stackPanel = new StackPanel();
 
             if (ValidateFields(stackPanel, email, username, password, repeatedPassword))
             {
@@ -75,25 +73,33 @@ namespace SquidsMovieApp.WPF
             }
             else
             {
-                DisplayError(this.stackPanel);
-                this.stackPanel.Children.Clear();
+                DisplayError(stackPanel);
             }
         }
 
         private void Worker_DoWork(object sender, DoWorkEventArgs e)
         {
-            mainController.UserController.RegisterUser(username, email, password);
-            authProvider.Login(email, password);
+            try
+            {
+                mainController.UserController.RegisterUser(username, email, password);
+                authProvider.Login(email, password);
+            }
+            catch (UserException uex)
+            {
+
+                throw uex;
+            }
         }
 
         private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            loadingWindow.Hide();
+            loadingWindow.Close();
+            var stackPanel = new StackPanel();
 
             if (e.Error != null)
             {
-                this.stackPanel.Children.Add(CreateErrorTextBlock(e.Error.Message));
-                DisplayError(this.stackPanel);
+                stackPanel.Children.Add(CreateErrorTextBlock(e.Error.Message));
+                DisplayError(stackPanel);
             }
             else
             {
