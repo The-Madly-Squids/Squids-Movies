@@ -20,8 +20,9 @@ namespace SquidsMovieApp.Core.Providers
 
         public UserModel LoggedUser { get => loggedUser; private set => loggedUser = value; }
 
-        public void Login(string email, string password)
+        public bool Login(string email, string password)
         {
+            var loginSuccessful = true;
             var user = this.userService.GetUserByEmail(email);
 
             if (user != null && user.Password.Equals(password))
@@ -31,8 +32,10 @@ namespace SquidsMovieApp.Core.Providers
             else
             {
                 this.LoggedUser = null;
-                throw new NotImplementedException();
+                loginSuccessful = false;
             }
+
+            return loginSuccessful;
         }
 
         public void Logout()

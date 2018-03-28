@@ -11,14 +11,14 @@ namespace SquidsMovieApp.Core.Factories
     public class UserModelFactory : IUserFactory
     {
         public UserModel CreateUserModel(string firstName, string lastName, int? age,
-            string nickName, string email, string password, bool isAdmin, decimal moneyBalance)
+            string username, string email, string password, bool isAdmin, decimal moneyBalance)
         {
             return new UserModel()
             {
                 FirstName = firstName,
                 LastName = lastName,
                 Age = age,
-                Nickname = nickName,
+                Username = username,
                 Email = email,
                 Password = password,
                 IsAdmin = isAdmin,

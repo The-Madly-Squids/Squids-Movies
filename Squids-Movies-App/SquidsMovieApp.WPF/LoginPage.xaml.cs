@@ -32,6 +32,7 @@ namespace SquidsMovieApp.WPF
         }
 
         public IMainController MainController { get; private set; }
+        public AuthProvider AuthProvider { get; private set; }
 
         private void RegisterContainer()
         {
@@ -40,6 +41,7 @@ namespace SquidsMovieApp.WPF
             builder.RegisterAssemblyModules(Assembly.GetExecutingAssembly());
             var container = builder.Build();
             this.MainController = container.Resolve<IMainController>();
+            this.AuthProvider = container.Resolve<AuthProvider>();
         }
 
         private void LoginBtnClicked(object sender, RoutedEventArgs e)
@@ -47,12 +49,12 @@ namespace SquidsMovieApp.WPF
             var email = this.EmailLoginTB.Text;
             var password = this.PasswordLoginTB.Password.ToString();
 
-            this.NavigationService.Navigate(new ProfilePage(this.MainController));
+            this.NavigationService.Navigate(new ProfilePage(this.MainController, AuthProvider));
         }
 
         private void RegisterLinkClicked(object sender, RoutedEventArgs e)
         {
-            this.NavigationService.Navigate(new RegisterPage(this.MainController, this));
+            this.NavigationService.Navigate(new RegisterPage(this.MainController, AuthProvider));
         }
     }
 }

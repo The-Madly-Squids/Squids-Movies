@@ -27,10 +27,10 @@
                 <TextBox Name="EmailRegisterTB" Margin="0,0,0,5" FontSize="14"></TextBox>
                 <TextBlock Margin="0,0,0,5" FontSize="17">Username*:</TextBlock>
                 <TextBox Name="UsernameRegisterTB" Margin="0,0,0,5" FontSize="14"></TextBox>
-                <TextBlock Margin="0,0,0,5" FontSize="17">First name:</TextBlock>
+                <!--<TextBlock Margin="0,0,0,5" FontSize="17">First name:</TextBlock>
                 <TextBox Name="FirstNamelRegisterTB" Margin="0,0,0,5" FontSize="14"></TextBox>
                 <TextBlock Margin="0,0,0,5" FontSize="17">Last name:</TextBlock>
-                <TextBox Name="LastNameRegisterTB" Margin="0,0,0,5" FontSize="14"></TextBox>
+                <TextBox Name="LastNameRegisterTB" Margin="0,0,0,5" FontSize="14"></TextBox>-->
                 <TextBlock Margin="0,0,0,5" FontSize="17">Password*:</TextBlock>
                 <PasswordBox Name="PasswordRegisterPB" Margin="0,0,0,5" FontSize="14"/>
                 <TextBlock Margin="0,0,0,5" FontSize="17">Repeat password*:</TextBlock>

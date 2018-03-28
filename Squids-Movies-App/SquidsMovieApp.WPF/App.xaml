@@ -4,9 +4,9 @@
              xmlns:local="clr-namespace:SquidsMovieApp.WPF"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <Style TargetType="Grid">
+        <!--<Style TargetType="Grid">
             <Setter Property="Background" Value="GhostWhite"/>
-        </Style>
+        </Style>-->
         <DataTemplate x:Key="NavigationGrid">
             <Grid Grid.Column="0" Grid.Row="0" Background="CornflowerBlue">
                 <Grid.ColumnDefinitions>

@@ -21,7 +21,7 @@ namespace SquidsMovieApp.WPF
 {
     public partial class ProfilePage : Page
     {
-        public ProfilePage(IMainController mainController)
+        public ProfilePage(IMainController mainController, AuthProvider authProvider)
         {
             InitializeComponent();
         }

@@ -26,8 +26,11 @@ namespace SquidsMovieApp.WPF.Controllers
             this.factory = factory;
         }
 
-        public void CreateUser(string firstName, string lastName,
-            string userName, string email, string password, int? age = GlobalConstants.MinUserAge, decimal moneyBalance = GlobalConstants.MinAmount, bool isAdmin = false)
+        public void CreateUser(string userName, string email, string password, 
+            string firstName = null, string lastName = null, 
+            int? age = GlobalConstants.MinUserAge, 
+            decimal moneyBalance = GlobalConstants.MinAmount, 
+            bool isAdmin = false)
         {
             Guard.WhenArgument(firstName, "user firstName")
                 .IsNullOrEmpty()
@@ -56,6 +59,7 @@ namespace SquidsMovieApp.WPF.Controllers
 
             Guard.WhenArgument(userName.Length, "user firstName")
                 .IsGreaterThan(GlobalConstants.MaxUserUsernameLength)
+                .IsLessThan(GlobalConstants.MinUserUsernameLength)
                 .Throw();
 
             if (email.IndexOf('@') == -1 || email.IndexOf('.') == -1)
@@ -73,6 +77,32 @@ namespace SquidsMovieApp.WPF.Controllers
 
             var user = this.factory.CreateUserModel(firstName, lastName, age,
                                 userName, email, password, isAdmin, moneyBalance);
+
+            this.userService.AddUser(user);
+        }
+
+        public void RegisterUser(string userName, string email, string password)
+        {
+            Guard.WhenArgument(userName, "user firstName")
+               .IsNullOrEmpty()
+               .Throw();
+
+            Guard.WhenArgument(userName.Length, "user firstName")
+                .IsGreaterThan(GlobalConstants.MaxUserUsernameLength)
+                .IsLessThan(GlobalConstants.MinUserUsernameLength)
+                .Throw();
+
+            if (email.IndexOf('@') == -1 || email.IndexOf('.') == -1)
+            {
+                throw new ArgumentException("Incorrect email!");
+            }
+
+            Guard.WhenArgument(password.Length, "Too short password")
+                .IsLessThan(GlobalConstants.MinUserPasswordLength)
+                .Throw();
+
+            var user = this.factory.CreateUserModel(null, null, GlobalConstants.MinUserAge,
+                                userName, email, password, false, GlobalConstants.MinAmount);
 
             this.userService.AddUser(user);
         }
