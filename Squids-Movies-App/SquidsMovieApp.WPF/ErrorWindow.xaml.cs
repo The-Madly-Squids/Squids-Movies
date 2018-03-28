@@ -17,13 +17,26 @@ namespace SquidsMovieApp.WPF
     public partial class ErrorWindow : Window
     {
         private StackPanel stackPanel;
+        private string errorName = "Error";
 
         public ErrorWindow(StackPanel stackPanel)
         {
             InitializeComponent();
             this.stackPanel = stackPanel;
-
             this.ErrorContainer.Children.Add(stackPanel);
+            DataContext = this;
+        }
+
+        public string ErrorName
+        {
+            get
+            {
+                return errorName;
+            }
+            set
+            {
+                errorName = value;
+            }
         }
     }
 }

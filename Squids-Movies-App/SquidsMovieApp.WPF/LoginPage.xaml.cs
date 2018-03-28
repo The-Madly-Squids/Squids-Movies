@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -24,6 +26,9 @@ namespace SquidsMovieApp.WPF
 {
     public partial class LoginPage : Page
     {
+        private BackgroundWorker worker;
+        private LoadingWindow loadingWindow;
+
         public LoginPage()
         {
             InitializeComponent();
@@ -46,10 +51,36 @@ namespace SquidsMovieApp.WPF
 
         private void LoginBtnClicked(object sender, RoutedEventArgs e)
         {
-            var email = this.EmailLoginTB.Text;
-            var password = this.PasswordLoginTB.Password.ToString();
+            //var email = this.EmailLoginTB.Text;
+            //var password = this.PasswordLoginTB.Password.ToString();
 
-            this.NavigationService.Navigate(new ProfilePage(this.MainController, AuthProvider));
+            //this.NavigationService.Navigate(new ProfilePage(this.MainController, AuthProvider));
+
+            this.worker = new BackgroundWorker();
+
+            worker.DoWork += Worker_DoWork;
+            worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
+
+            this.loadingWindow = new LoadingWindow()
+            {
+                Owner = Application.Current.MainWindow,
+            };
+
+            worker.RunWorkerAsync();
+            loadingWindow.ShowDialog();
+        }
+
+        private void Worker_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+        {
+            //for (int i = 0; i < 3; i++)
+            //{
+            //    Thread.Sleep(1000);
+            //}
+        }
+
+        private void Worker_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
+        {
+            loadingWindow.Hide();
         }
 
         private void RegisterLinkClicked(object sender, RoutedEventArgs e)
