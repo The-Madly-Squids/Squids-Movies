@@ -7,17 +7,18 @@
       mc:Ignorable="d" 
       d:DesignHeight="800" d:DesignWidth="1200"
       Title="Profile">
-
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition />
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-        <ContentPresenter Grid.Row="0" ContentTemplate="{StaticResource NavigationGrid}" />
-        <ContentPresenter Grid.Row="2" ContentTemplate="{StaticResource Footer}" />
-    </Grid>
+    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition />
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <ContentPresenter Grid.Row="0" ContentTemplate="{StaticResource NavigationGrid}" />
+            <ContentPresenter Grid.Row="2" ContentTemplate="{StaticResource Footer}" />
+        </Grid>
+    </ScrollViewer>
 </Page>

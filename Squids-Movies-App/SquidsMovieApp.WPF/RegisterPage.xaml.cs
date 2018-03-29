@@ -8,6 +8,7 @@ using SquidsMovieApp.WPF.Controllers.Contracts;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Net.Mail;
 using System.Text;
@@ -41,6 +42,36 @@ namespace SquidsMovieApp.WPF
             EmailRegisterTB.Focus();
             this.mainController = mainController;
             this.authProvider = authProvider;
+
+            this.BirthDays = new List<int>();
+            this.BirthMonths = new List<string>();
+            this.BirthYears = new List<int>();
+            FillDateOfBirth();
+
+            DataContext = this;
+        }
+
+        public IList<int> BirthDays { get; private set; }
+        public IList<string> BirthMonths { get; private set; }
+        public IList<int> BirthYears { get; private set; }
+
+        private void FillDateOfBirth()
+        {
+            for (int i = 1; i <= 31; i++)
+            {
+                this.BirthDays.Add(i);
+            }
+
+            for (int i = 0; i < 12; i++)
+            {
+                var currMonth = DateTimeFormatInfo.CurrentInfo.GetMonthName(i+1);
+                BirthMonths.Add(currMonth);
+            }
+
+            for (int i = 1930, j = 0; i <= DateTime.Now.Year; i++, j++)
+            {
+                this.BirthYears.Add(i);
+            }
         }
 
         private void GoBackBtnClicked(object sender, RoutedEventArgs e)

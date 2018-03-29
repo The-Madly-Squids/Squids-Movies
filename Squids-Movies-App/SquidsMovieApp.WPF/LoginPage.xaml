@@ -9,34 +9,31 @@
       d:DesignHeight="800" d:DesignWidth="1200"
       Title="Squids Movies - Login"
       Name="Login">
-
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition />
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-        <ContentPresenter Grid.Column="0" Grid.Row="0" ContentTemplate="{StaticResource LogoHeader}" />
-        <Grid Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+        <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <StackPanel Grid.Column="0">
-                <TextBlock Margin="0,0,0,5" FontSize="17">Email:</TextBlock>
-                <TextBox Name="EmailLoginTB" Margin="0,0,0,5" FontSize="14"></TextBox>
-                <TextBlock Margin="0,0,0,5" FontSize="17">Password:</TextBlock>
-                <PasswordBox Name="PasswordLoginTB" Margin="0,0,0,15" FontSize="14"/>
-                <Button  FontSize="15" Width="50" Margin="0,0,0,15" Content="Login" Click="LoginBtnClicked"/>
-                <TextBlock FontSize="12"><Hyperlink Click="RegisterLinkClicked">Don't have an account? Register.</Hyperlink></TextBlock>
-            </StackPanel>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition />
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <ContentPresenter Grid.Column="0" Grid.Row="0" ContentTemplate="{StaticResource LogoHeader}" />
+            <Grid Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0">
+                    <TextBlock Margin="0,0,0,5" FontSize="17">Email:</TextBlock>
+                    <TextBox Name="EmailLoginTB" Margin="0,0,0,5" FontSize="14"></TextBox>
+                    <TextBlock Margin="0,0,0,5" FontSize="17">Password:</TextBlock>
+                    <PasswordBox Name="PasswordLoginTB" Margin="0,0,0,15" FontSize="14"/>
+                    <Button  FontSize="15" Width="50" Margin="0,0,0,15" Content="Login" Click="LoginBtnClicked"/>
+                    <TextBlock FontSize="12"><Hyperlink Click="RegisterLinkClicked">Don't have an account? Register.</Hyperlink></TextBlock>
+                </StackPanel>
+            </Grid>
+            <ContentPresenter Grid.Column="0" Grid.Row="2" ContentTemplate="{StaticResource Footer}" />
         </Grid>
-        <!--<Viewbox Grid.Column="0" Grid.Row="1" StretchDirection="Both" Margin="10,0,10,0">
-            <TextBlock Text="Some greeting message here or info or something!" FontSize="25"/>
-        </Viewbox>-->
-        <ContentPresenter Grid.Column="0" Grid.Row="2" ContentTemplate="{StaticResource Footer}" />
-    </Grid>
-
+    </ScrollViewer>
 </Page>

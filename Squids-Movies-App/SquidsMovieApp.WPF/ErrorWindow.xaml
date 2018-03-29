@@ -13,7 +13,7 @@
         Background="GhostWhite"
         SizeToContent="WidthAndHeight"
         >
-    <Grid Name="ErrorContainer" Margin="20">
-        
-    </Grid>
+    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+        <Grid Name="ErrorContainer" Margin="20"></Grid>
+    </ScrollViewer>
 </Window>

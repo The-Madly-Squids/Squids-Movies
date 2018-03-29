@@ -24,13 +24,7 @@ namespace SquidsMovieApp.WPF
 
         protected override void OnStartup(StartupEventArgs e)
         {
-            //AutomapperConfiguration.Initialize();
-            //var builder = new ContainerBuilder();
-            //builder.RegisterAssemblyModules(Assembly.GetExecutingAssembly());
-            //var container = builder.Build();
-            //var mainWindow = container.Resolve<MainWindow>();
 
-            //mainWindow.Show();
 
             base.OnStartup(e);
         }
