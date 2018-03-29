@@ -3,6 +3,7 @@ using AutoMapper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using SquidsMovieApp.Core.Factories;
+using SquidsMovieApp.Core.Factories.Contracts;
 using SquidsMovieApp.DTO;
 using SquidsMovieApp.Logic.Contracts;
 using SquidsMovieApp.WPF.Controllers;
@@ -20,7 +21,9 @@ namespace SquidsMovieApp.Tests.Controller
             var userServiceMock = new Mock<IUserService>();
             var participantServiceMock = new Mock<IParticipantService>();
             var mapperMock = new Mock<IMapper>();
-            var factoryMock = new Mock<UserModelFactory>();
+            // : 'Invalid setup on a non-virtual (overridable in VB) member
+            // because the mock was not interface
+            var factoryMock = new Mock<IUserFactory>();
 
             var firstName = "Katerina";
             var lastName = "Bozhilova";
@@ -31,6 +34,7 @@ namespace SquidsMovieApp.Tests.Controller
             var isAdmin = false;
             var moneyBalance = 128382382.255M;
 
+            // Could use It.IsAny<> here aswell
             factoryMock.Setup(x => x.CreateUserModel(firstName, lastName, age, nickName,
                 email, password, isAdmin, moneyBalance))
                 .Returns(new UserModel());
@@ -43,5 +47,31 @@ namespace SquidsMovieApp.Tests.Controller
             // Assert
             userServiceMock.Verify(x => x.AddUser(It.IsAny<UserModel>()), Times.Once);
         }
+
+        [TestMethod]
+        public void RemoveUserShouldCorrectlyInvokeService_WhenCalledWithValidEmail()
+        {
+            // Arrange
+            var userServiceMock = new Mock<IUserService>();
+            var participantServiceMock = new Mock<IParticipantService>();
+            var mapperMock = new Mock<IMapper>();
+            // : 'Invalid setup on a non-virtual (overridable in VB) member
+            // same here
+            var factoryMock = new Mock<IUserFactory>();
+
+
+            userServiceMock.Setup(x => x.GetUser(It.IsAny<string>()))
+                .Returns(new UserModel());
+
+            var sut = new UserController(userServiceMock.Object, participantServiceMock.Object,
+              mapperMock.Object, factoryMock.Object);
+
+            // Act
+            sut.RemoveUser("randomString@abv.com");
+
+            // Assert
+            userServiceMock.Verify(x => x.RemoveUser(It.IsAny<UserModel>()), Times.Once);
+        }
+
     }
 }
