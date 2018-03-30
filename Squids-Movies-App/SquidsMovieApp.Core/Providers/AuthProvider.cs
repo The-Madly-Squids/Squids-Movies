@@ -4,6 +4,7 @@ using SquidsMovieApp.DTO;
 using SquidsMovieApp.Logic.Contracts;
 using SquidsMovieApp.Models;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace SquidsMovieApp.Core.Providers
@@ -12,12 +13,121 @@ namespace SquidsMovieApp.Core.Providers
     {
         private readonly IUserService userService;
         private UserModel loggedUser;
+        private UserModel fakeUser;
 
         public AuthProvider(IUserService userService)
         {
             this.userService = userService;
             this.LoggedUser = null;
+
+            this.fakeUser = new UserModel()
+            {
+                Username = "Test",
+                Email = "test@test.test",
+                FirstName = "Test",
+                LastName = "Testov",
+                MoneyBalance = 12.34m,
+                BoughtMovies = new List<MovieModel>()
+                {
+                    new MovieModel()
+                    {
+                        Title = "TestMovie1",
+                        Plot = "TestMovie1 Plot"
+                    },
+                    new MovieModel()
+                    {
+                        Title = "TestMovie2",
+                        Plot = "TestMovie2 Plottttt"
+                    },
+                    new MovieModel()
+                    {
+                        Title = "TestMovie3",
+                        Plot = "TestMovie3 Plotttttt"
+                    },
+                    new MovieModel()
+                    {
+                        Title = "TestMovie1",
+                        Plot = "TestMovie1 Plot"
+                    },
+                    new MovieModel()
+                    {
+                        Title = "TestMovie2",
+                        Plot = "TestMovie2 Plottttt"
+                    },
+                    new MovieModel()
+                    {
+                        Title = "TestMovie3",
+                        Plot = "TestMovie3 Plotttttt"
+                    },
+                    new MovieModel()
+                    {
+                        Title = "TestMovie1",
+                        Plot = "TestMovie1 Plot"
+                    },
+                    new MovieModel()
+                    {
+                        Title = "TestMovie2",
+                        Plot = "TestMovie2 Plottttt"
+                    },
+                    new MovieModel()
+                    {
+                        Title = "TestMovie3",
+                        Plot = "TestMovie3 Plotttttt"
+                    },
+                    new MovieModel()
+                    {
+                        Title = "TestMovie1",
+                        Plot = "TestMovie1 Plot"
+                    },
+                    new MovieModel()
+                    {
+                        Title = "TestMovie2",
+                        Plot = "TestMovie2 Plottttt"
+                    },
+                    new MovieModel()
+                    {
+                        Title = "TestMovie3",
+                        Plot = "TestMovie3 Plotttttt"
+                    },
+                    new MovieModel()
+                    {
+                        Title = "TestMovie1",
+                        Plot = "TestMovie1 Plot"
+                    },
+                    new MovieModel()
+                    {
+                        Title = "TestMovie2",
+                        Plot = "TestMovie2 Plottttt"
+                    },
+                    new MovieModel()
+                    {
+                        Title = "TestMovie3",
+                        Plot = "TestMovie3 Plotttttt"
+                    },
+                    new MovieModel()
+                    {
+                        Title = "TestMovie1",
+                        Plot = "TestMovie1 Plot"
+                    },
+                    new MovieModel()
+                    {
+                        Title = "TestMovie2",
+                        Plot = "TestMovie2 Plottttt"
+                    },
+                    new MovieModel()
+                    {
+                        Title = "TestMovie3",
+                        Plot = "TestMovie3 Plotttttt"
+                    }
+                },
+                LikedMovies = new List<MovieModel>(),
+                Followers = new List<UserModel>(),
+                Following = new List<UserModel>(),
+                LikedParticipants = new List<ParticipantModel>()                
+            };
         }
+
+        public UserModel FakeUser => this.fakeUser;
 
         public UserModel LoggedUser { get => loggedUser; private set => loggedUser = value; }
 

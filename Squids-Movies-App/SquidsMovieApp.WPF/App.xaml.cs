@@ -17,16 +17,10 @@ namespace SquidsMovieApp.WPF
     /// </summary>
     public partial class App : Application
     {
+        private string username = "Default";
         private void ExitBtnClicked(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
-        }
-
-        protected override void OnStartup(StartupEventArgs e)
-        {
-
-
-            base.OnStartup(e);
         }
     }
 }

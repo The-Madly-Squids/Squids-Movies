@@ -107,7 +107,7 @@ namespace SquidsMovieApp.WPF.Controllers
             this.userService.AddUser(user);
         }
 
-        public void RemoveUser(string email)
+        public void RemoveUser(string username)
         {
             if (username == null)
             {
