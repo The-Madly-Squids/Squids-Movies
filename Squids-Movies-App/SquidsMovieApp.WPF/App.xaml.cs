@@ -1,6 +1,5 @@
 ﻿using Autofac;
 using SquidsMovieApp.Common;
-using SquidsMovieApp.Core.Providers;
 using System;
 using System.Collections.Generic;
 using System.Configuration;

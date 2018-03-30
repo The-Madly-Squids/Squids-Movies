@@ -26,10 +26,10 @@ namespace SquidsMovieApp.WPF.Controllers
             this.factory = factory;
         }
 
-        public void CreateUser(string userName, string email, string password, 
-            string firstName = null, string lastName = null, 
-            int? age = GlobalConstants.MinUserAge, 
-            decimal moneyBalance = GlobalConstants.MinAmount, 
+        public void CreateUser(string userName, string email, string password,
+            string firstName = null, string lastName = null,
+            int? age = GlobalConstants.MinUserAge,
+            decimal moneyBalance = GlobalConstants.MinAmount,
             bool isAdmin = false)
         {
             Guard.WhenArgument(firstName, "user firstName")
@@ -290,6 +290,16 @@ namespace SquidsMovieApp.WPF.Controllers
                 .Throw();
 
             this.userService.EditUserLastName(user, newName);
+        }
+
+        public IEnumerable<UserModel> FindUsersByUsername(string pattern)
+        {
+            if (string.IsNullOrEmpty(pattern) || string.IsNullOrWhiteSpace(pattern))
+            {
+                throw new ArgumentNullException("Invalid search pattern!");
+            }
+
+            return this.userService.FindUsersByUsername(pattern);
         }
     }
 }

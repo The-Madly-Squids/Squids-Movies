@@ -2,7 +2,6 @@
 using Bytes2you.Validation;
 using SquidsMovieApp.Common.Constants;
 using SquidsMovieApp.Common.Exceptions;
-using SquidsMovieApp.Core.Providers;
 using SquidsMovieApp.WPF.Controllers;
 using SquidsMovieApp.WPF.Controllers.Contracts;
 using System;
@@ -34,14 +33,14 @@ namespace SquidsMovieApp.WPF
         private string username;
         private string password;
         private readonly IMainController mainController;
-        private readonly AuthProvider authProvider;
+        private readonly UserContext userContext;
 
-        public RegisterPage(IMainController mainController, AuthProvider authProvider)
+        public RegisterPage(IMainController mainController, UserContext userContext)
         {
             InitializeComponent();
             EmailRegisterTB.Focus();
             this.mainController = mainController;
-            this.authProvider = authProvider;
+            this.userContext = userContext;
 
             this.worker = new BackgroundWorker();
             worker.DoWork += Worker_DoWork;
@@ -114,7 +113,7 @@ namespace SquidsMovieApp.WPF
             try
             {
                 mainController.UserController.RegisterUser(username, email, password);
-                authProvider.Login(email, password);
+                userContext.Login(email, password);
             }
             catch (UserException uex)
             {
@@ -135,7 +134,7 @@ namespace SquidsMovieApp.WPF
             }
             else
             {
-                this.NavigationService.Navigate(new ProfilePage(this.mainController, this.authProvider));
+                this.NavigationService.Navigate(new ProfilePage(this.mainController, this.userContext));
             }
         }
 

@@ -25,6 +25,7 @@ namespace SquidsMovieApp.Logic.Contracts
                             string reviewDescription); //Done
         void EditUserFirstName(UserModel currentUser, string newName);
         void EditUserLastName(UserModel currentUser, string newName);
+        IEnumerable<UserModel> FindUsersByUsername(string pattern);
 
         // admin methods
         void AddUser(UserModel user); //Done

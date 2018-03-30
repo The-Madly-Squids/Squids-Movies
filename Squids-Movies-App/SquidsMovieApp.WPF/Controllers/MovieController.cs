@@ -193,5 +193,17 @@ namespace SquidsMovieApp.WPF.Controllers
 
             return this.movieService.GetAllParticipantsPerMovie(movieModel);
         }
+
+        public IEnumerable<MovieModel> FindMoviesByTitle(string pattern)
+        {
+            Guard.WhenArgument(pattern, "search pattern")
+               .IsNullOrEmpty()
+               .IsNullOrWhiteSpace()
+               .Throw();
+
+            var movies = this.movieService.FindMoviesByTitle(pattern);
+
+            return movies;
+        }
     }
 }

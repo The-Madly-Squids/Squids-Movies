@@ -1,5 +1,4 @@
-﻿using SquidsMovieApp.Core.Providers;
-using SquidsMovieApp.WPF.Controllers;
+﻿using SquidsMovieApp.WPF.Controllers;
 using SquidsMovieApp.WPF.Controllers.Contracts;
 using System;
 using System.Collections.Generic;
@@ -17,20 +16,17 @@ using System.Windows.Shapes;
 
 namespace SquidsMovieApp.WPF
 {
-    /// <summary>
-    /// Interaction logic for AddMoneyToAccountWindow.xaml
-    /// </summary>
     public partial class AddMoneyToAccountWindow : Window
     {
         private readonly IMainController mainController;
-        private readonly AuthProvider authProvider;
+        private readonly UserContext userContext;
 
-        public AddMoneyToAccountWindow(IMainController mainController, AuthProvider authProvider)
+        public AddMoneyToAccountWindow(IMainController mainController, UserContext userContext)
         {
             InitializeComponent();
             DataContext = this;
             this.mainController = mainController;
-            this.authProvider = authProvider;
+            this.userContext = userContext;
 
             this.MoneyTB.Focus();
         }
@@ -51,10 +47,10 @@ namespace SquidsMovieApp.WPF
                 return;
             }
 
-            //this.authProvider.FakeUser.MoneyBalance += moneyToAdd;
-            this.authProvider.LoggedUser.MoneyBalance += moneyToAdd;
 
-            mainController.UserController.AddMoneyToBalance(authProvider.LoggedUser.Username, moneyToAdd);
+            mainController.UserController.AddMoneyToBalance(userContext.LoggedUser.Username, moneyToAdd);
+            //this.userContext.FakeUser.MoneyBalance += moneyToAdd;
+            this.userContext.LoggedUser.MoneyBalance += moneyToAdd;
             this.Close();
         }
 

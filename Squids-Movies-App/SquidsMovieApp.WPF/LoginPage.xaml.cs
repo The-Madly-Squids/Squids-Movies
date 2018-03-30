@@ -20,7 +20,6 @@ using Autofac;
 using SquidsMovieApp.Common;
 using SquidsMovieApp.Common.Exceptions;
 using SquidsMovieApp.Core;
-using SquidsMovieApp.Core.Providers;
 using SquidsMovieApp.WPF.Controllers;
 using SquidsMovieApp.WPF.Controllers.Contracts;
 
@@ -45,7 +44,7 @@ namespace SquidsMovieApp.WPF
         }
 
         public IMainController MainController { get; private set; }
-        public AuthProvider AuthProvider { get; private set; }
+        public UserContext UserContext { get; private set; }
 
         private void RegisterContainer()
         {
@@ -54,30 +53,30 @@ namespace SquidsMovieApp.WPF
             builder.RegisterAssemblyModules(Assembly.GetExecutingAssembly());
             var container = builder.Build();
             this.MainController = container.Resolve<IMainController>();
-            this.AuthProvider = container.Resolve<AuthProvider>();
+            this.UserContext = container.Resolve<UserContext>();
         }
 
         private void LoginBtnClicked(object sender, RoutedEventArgs e)
         {
-            //this.NavigationService.Navigate(new ProfilePage(this.MainController, AuthProvider));
-            this.email = this.EmailLoginTB.Text;
-            this.password = this.PasswordLoginTB.Password.ToString();
-            var stackPanel = new StackPanel();
+            this.NavigationService.Navigate(new ProfilePage(this.MainController, this.UserContext));
+            //this.email = this.EmailLoginTB.Text;
+            //this.password = this.PasswordLoginTB.Password.ToString();
+            //var stackPanel = new StackPanel();
 
-            if (ValidateFields(stackPanel))
-            {
-                this.loadingWindow = new LoadingWindow()
-                {
-                    Owner = Application.Current.MainWindow,
-                };
+            //if (ValidateFields(stackPanel))
+            //{
+            //    this.loadingWindow = new LoadingWindow()
+            //    {
+            //        Owner = Application.Current.MainWindow,
+            //    };
 
-                worker.RunWorkerAsync();
-                loadingWindow.ShowDialog();
-            }
-            else
-            {
-                ErrorDialog.DisplayError(stackPanel, "Log-in failed.");
-            }
+            //    worker.RunWorkerAsync();
+            //    loadingWindow.ShowDialog();
+            //}
+            //else
+            //{
+            //    ErrorDialog.DisplayError(stackPanel, "Log-in failed.");
+            //}
         }
 
         private bool ValidateFields(StackPanel stackPanel)
@@ -115,7 +114,7 @@ namespace SquidsMovieApp.WPF
         {
             try
             {
-                AuthProvider.Login(email, password);
+                this.UserContext.Login(email, password);
             }
             catch (UserException uex)
             {
@@ -135,38 +134,13 @@ namespace SquidsMovieApp.WPF
             }
             else
             {
-                this.NavigationService.Navigate(new ProfilePage(this.MainController, AuthProvider));
+                this.NavigationService.Navigate(new ProfilePage(this.MainController, this.UserContext));
             }
         }
 
         private void RegisterLinkClicked(object sender, RoutedEventArgs e)
         {
-            this.NavigationService.Navigate(new RegisterPage(this.MainController, AuthProvider));
+            this.NavigationService.Navigate(new RegisterPage(this.MainController, this.UserContext));
         }
-
-        //private TextBlock CreateErrorTextBlock(string errorText)
-        //{
-        //    var errorTextBlock = new TextBlock
-        //    {
-        //        Foreground = new SolidColorBrush(Colors.Red),
-        //        HorizontalAlignment = HorizontalAlignment.Center,
-        //        FontWeight = FontWeights.Bold,
-        //        FontSize = 14,
-        //        Text = errorText
-        //    };
-
-        //    return errorTextBlock;
-        //}
-
-        //private void DisplayError(StackPanel stackPanel)
-        //{
-        //    var errorWindow = new ErrorWindow(stackPanel)
-        //    {
-        //        Owner = Application.Current.MainWindow,
-        //        ErrorName = "Log-in failed."
-        //    };
-
-        //    errorWindow.ShowDialog();
-        //}
     }
 }

@@ -235,5 +235,19 @@ namespace SquidsMovieApp.Logic
 
             return users;
         }
+
+        public IEnumerable<MovieModel> FindMoviesByTitle(string pattern)
+        {
+            var moviesPoco = this.movieAppDbContext.Movies
+                                .Where(x => x.Title.Contains(pattern))
+                                .ToList();
+            if (moviesPoco == null)
+            {
+                throw new ArgumentNullException("No movies found!");
+            }
+            
+            var moviesDto = mapper.Map<IList<MovieModel>>(moviesPoco);
+            return moviesDto;
+        }
     }
 }

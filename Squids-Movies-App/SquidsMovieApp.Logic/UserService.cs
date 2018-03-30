@@ -296,5 +296,16 @@ namespace SquidsMovieApp.Logic
             userObject.LastName = newName;
             this.movieAppDbContext.SaveChanges();
         }
+
+        public IEnumerable<UserModel> FindUsersByUsername(string pattern)
+        {
+            var usersPoco = this.movieAppDbContext.Users
+                              .Where(x => x.Username.Contains(pattern))
+                              .ToList();
+
+            var usersDto = mapper.Map<IList<UserModel>>(usersPoco);
+
+            return usersDto;
+        }
     }
 }

@@ -30,14 +30,14 @@
                 <TextBlock Margin="10" HorizontalAlignment="Left" Grid.Column="0" Grid.Row="0" FontWeight="Bold" Foreground="GhostWhite" FontSize="20">SquidFlix</TextBlock>
                 <TextBlock Name="GreetingName" Margin="10" HorizontalAlignment="Right" Grid.Column="1" Grid.Row="0" Text="Hello" FontSize="15"/>
                 <StackPanel Margin="10" Grid.Column="0" Grid.Row="1" Orientation="Horizontal">
-                    <TextBox Margin="0,0,15,0" HorizontalAlignment="Left" Width="250"></TextBox>
-                    <Button Margin="0,0,15,0" HorizontalAlignment="Left" Width="125" Height="25" Content="Search"/>
+                    <TextBox Name="SearchTBox" Margin="0,0,15,0" HorizontalAlignment="Left" Width="250"></TextBox>
+                    <Button Name="SearchBtn" Click="SearchBtnClicked" Margin="0,0,15,0" HorizontalAlignment="Left" Width="125" Height="25" Content="Search"/>
                     <TextBlock VerticalAlignment="Bottom" FontSize="10">Search for movie titles, actors, directors or other users.</TextBlock>
                 </StackPanel>
                 <StackPanel Margin="10" Grid.Column="1" Grid.Row="1" FlowDirection="RightToLeft" Orientation="Horizontal">
                     <TextBlock Name="UserBalanceNav" Text="{Binding MoneyBalance}"/>
                     <Button Margin="15,0,0,0" Width="50" Height="25" Content="Cart"/>
-                    <Button Margin="15,0,0,0" Width="50" Height="25" Content="Profile"/>
+                    <Button Name="UserProfileNav" Margin="15,0,0,0" Width="50" Height="25" Content="Profile"/>
                 </StackPanel>
             </Grid>
             <!--Main-->
@@ -50,6 +50,8 @@
                     <RowDefinition Height="360"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
+                
+                <!--User-->
                 <StackPanel Margin="20,15,0,0" Grid.Column="0" Grid.Row="0">
                     <StackPanel Orientation="Horizontal" Margin="0,0,15,5">
                         <TextBlock Margin="0,0,15,0" FontSize="20">User:</TextBlock>
@@ -79,35 +81,68 @@
                         <Button Name="AddMoneyBtn" Click="AddMoneyClicked" Margin="0,0,15,0">Add money</Button>
                     </StackPanel>
                 </StackPanel>
-                <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="0">
-                    <ListBox BorderThickness="0" Width="270" Margin="20,0,0,0" Name="BoughtMoviesLB" ScrollViewer.VerticalScrollBarVisibility="Auto">
-                        <TextBlock FontWeight="Bold" FontSize="20">Movies you own</TextBlock>
-                    </ListBox>
-                    <ListBox BorderThickness="0" Width="270" Grid.Column="1" Grid.Row="0"  Margin="20,0,0,0" Name="LikedMoviesLB" ScrollViewer.VerticalScrollBarVisibility="Auto">
-                        <TextBlock FontWeight="Bold" FontSize="20" >Movies you like</TextBlock>
-                    </ListBox>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="1">
-                    <ListBox BorderThickness="0" Width="270" Margin="20,0,0,0" Name="FollowingLB" ScrollViewer.VerticalScrollBarVisibility="Auto">
-                        <TextBlock FontWeight="Bold" FontSize="20">People you follow</TextBlock>
-                    </ListBox>
-                    <ListBox BorderThickness="0" Width="270" Grid.Column="1" Grid.Row="0" Margin="20,0,0,0" Name="FollowersLB" ScrollViewer.VerticalScrollBarVisibility="Auto">
-                        <TextBlock FontWeight="Bold" FontSize="20"> Your followers</TextBlock>
-                    </ListBox>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="1">
-                    <ListBox BorderThickness="0" Margin="20,0,0,0" Name="LikedParticipantsLB" ScrollViewer.VerticalScrollBarVisibility="Auto">
-                        <TextBlock FontWeight="Bold" FontSize="20">Actors and directors you follow</TextBlock>
-                    </ListBox>
-                </StackPanel>
-                <!--<ListView  Grid.Column="1" Grid.Row="0"  Height="320" Margin="20,0,0,0" Name="BoughtMoviesLB" ScrollViewer.VerticalScrollBarVisibility="Auto">
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn Header="Owned movies" Width="120"/>
-                            <GridViewColumn Width="50"/>
-                        </GridView>
-                    </ListView.View>
-                </ListView>-->
+
+                <!--Movies-->
+                <Grid Grid.Column="1" Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Column="0" Grid.Row="0" FontWeight="Bold" FontSize="20">Movies you own</TextBlock>
+                    <ScrollViewer Grid.Column="0" Grid.Row="1" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                        <StackPanel Margin="7,0,0,0" Name="BoughtMoviesSP"></StackPanel>
+                    </ScrollViewer>
+                    <TextBlock Grid.Column="1" Grid.Row="0" FontWeight="Bold" FontSize="20" >Movies you like</TextBlock>
+                    <ScrollViewer Grid.Column="1" Grid.Row="1" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                        <StackPanel Margin="7,0,0,0" Name="LikedMoviesSP"></StackPanel>
+                    </ScrollViewer>
+                </Grid>
+
+                <!--Follow-->
+                <Grid Grid.Column="0" Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Column="0" Grid.Row="0" FontWeight="Bold" FontSize="20">Your followers</TextBlock>
+                    <ScrollViewer Grid.Column="0" Grid.Row="1" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                        <StackPanel Margin="7,0,0,0" Name="FollowingSP"></StackPanel>
+                    </ScrollViewer>
+                    <TextBlock Grid.Column="1" Grid.Row="0" FontWeight="Bold" FontSize="20" >People you follow</TextBlock>
+                    <ScrollViewer Grid.Column="1" Grid.Row="1" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                        <StackPanel Margin="7,0,0,0" Name="FollowersSP"></StackPanel>
+                    </ScrollViewer>
+                </Grid>
+
+                <!--AorDAndNewsFeed-->
+                <Grid Grid.Column="1" Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Column="0" Grid.Row="0" FontWeight="Bold" FontSize="20">Actors and directors you follow</TextBlock>
+                    <ScrollViewer Grid.Column="0" Grid.Row="1" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                        <StackPanel Margin="7,0,0,0" Name="LikedParticipantsSP"></StackPanel>
+                    </ScrollViewer>
+                    <TextBlock Grid.Column="1" Grid.Row="0" FontWeight="Bold" FontSize="20">News feed</TextBlock>
+                    <ScrollViewer Grid.Column="1" Grid.Row="1" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                        <StackPanel Margin="7,0,0,0" Name="NewsFeedSP">
+                            <TextBlock Margin="7,0,0,0">Nothing to show</TextBlock>
+                        </StackPanel>
+                    </ScrollViewer>
+                </Grid>
             </Grid>
             <!--Footer-->
             <ContentPresenter Grid.Row="2" ContentTemplate="{StaticResource Footer}" />
