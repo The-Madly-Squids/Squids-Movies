@@ -109,19 +109,12 @@ namespace SquidsMovieApp.WPF.Controllers
 
         public void RemoveUser(string email)
         {
-            if (email == null)
+            if (username == null)
             {
                 throw new ArgumentException("Invalid email!");
             }
 
-            if (email.IndexOf('@') == -1 || email.IndexOf('.') == -1)
-            {
-                throw new ArgumentException("Invali e-mail!");
-            }
-
-            UserModel userToRemove = this.userService.GetAllUsers()
-            .Where(x => x.Email == email)
-            .FirstOrDefault();
+            UserModel userToRemove = this.userService.GetUser(username);
 
             if (userToRemove == null)
             {
