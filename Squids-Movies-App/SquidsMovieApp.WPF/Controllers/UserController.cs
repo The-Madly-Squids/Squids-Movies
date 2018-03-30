@@ -163,7 +163,8 @@ namespace SquidsMovieApp.WPF.Controllers
                 .IsNullOrEmpty()
                 .Throw();
 
-            return this.userService.GetUser(user).Following;
+            UserModel userDto = this.userService.GetUser(user);
+            return this.userService.GetFollowed(userDto);
         }
 
         public decimal GetMoneyBalance(string user)
@@ -214,10 +215,10 @@ namespace SquidsMovieApp.WPF.Controllers
         public void FollowUser(string userName, string userToFollowUsername)
         {
             Guard.WhenArgument(userName, "User who follows")
-                .IsNotNullOrEmpty()
+                .IsNullOrEmpty()
                 .Throw();
             Guard.WhenArgument(userToFollowUsername, "User to be followed")
-            .IsNotNullOrEmpty()
+            .IsNullOrEmpty()
             .Throw();
 
             UserModel userToBeFollowed = this.userService.GetUser(userName);

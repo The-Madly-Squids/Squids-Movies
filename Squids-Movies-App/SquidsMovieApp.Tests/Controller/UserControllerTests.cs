@@ -225,5 +225,115 @@ namespace SquidsMovieApp.Tests.Controller
             // Assert
             userServiceMock.Verify(x => x.GetFollowers(It.IsAny<UserModel>()), Times.Once);
         }
+
+        [TestMethod]
+        public void GetFollowedShouldCorrectlyInvokeService_WhenCalledWithValidUserName()
+        {
+            // Arrange
+            var userServiceMock = new Mock<IUserService>();
+            var participantServiceMock = new Mock<IParticipantService>();
+            var mapperMock = new Mock<IMapper>();
+            var factoryMock = new Mock<IUserFactory>();
+
+            userServiceMock.Setup(x => x.GetFollowed(It.IsAny<UserModel>()))
+                .Returns(new List<UserModel>());
+
+            var sut = new UserController(userServiceMock.Object, participantServiceMock.Object,
+              mapperMock.Object, factoryMock.Object);
+
+            // Act
+            sut.GetFollowed("randomUserName");
+
+            // Assert
+            userServiceMock.Verify(x => x.GetFollowed(It.IsAny<UserModel>()), Times.Once);
+        }
+
+        [TestMethod]
+        public void GetMoneyBalanceShouldCorrectlyInvokeService_WhenCalledWithValidUserName()
+        {
+            // Arrange
+            var userServiceMock = new Mock<IUserService>();
+            var participantServiceMock = new Mock<IParticipantService>();
+            var mapperMock = new Mock<IMapper>();
+            var factoryMock = new Mock<IUserFactory>();
+
+            userServiceMock.Setup(x => x.GetMoneyBalance(It.IsAny<UserModel>()))
+                .Returns(It.IsAny<decimal>());
+
+            var sut = new UserController(userServiceMock.Object, participantServiceMock.Object,
+              mapperMock.Object, factoryMock.Object);
+
+            // Act
+            sut.GetMoneyBalance("randomUserName");
+
+            // Assert
+            userServiceMock.Verify(x => x.GetMoneyBalance(It.IsAny<UserModel>()), Times.Once);
+        }
+
+        [TestMethod]
+        public void AddMoneyToBalanceShouldCorrectlyInvokeService_WhenCalledWithValidUserName()
+        {
+            // Arrange
+            var userServiceMock = new Mock<IUserService>();
+            var participantServiceMock = new Mock<IParticipantService>();
+            var mapperMock = new Mock<IMapper>();
+            var factoryMock = new Mock<IUserFactory>();
+
+            userServiceMock.Setup(x => x.AddMoneyToBalance(It.IsAny<UserModel>(), It.IsAny<decimal>()))
+                .Verifiable();
+
+            var sut = new UserController(userServiceMock.Object, participantServiceMock.Object,
+              mapperMock.Object, factoryMock.Object);
+
+            // Act
+            sut.AddMoneyToBalance("randomUserName", 1000M);
+
+            // Assert
+            userServiceMock.Verify(x => x.AddMoneyToBalance(It.IsAny<UserModel>(), It.IsAny<decimal>()), Times.Once);
+        }
+
+        [TestMethod]
+        public void LikeParticipantShouldCorrectlyInvokeService_WhenCalledWithValidUserName()
+        {
+            // Arrange
+            var userServiceMock = new Mock<IUserService>();
+            var participantServiceMock = new Mock<IParticipantService>();
+            var mapperMock = new Mock<IMapper>();
+            var factoryMock = new Mock<IUserFactory>();
+
+            userServiceMock.Setup(x => x.LikeParticipant(It.IsAny<UserModel>(), It.IsAny<ParticipantModel>()))
+                .Verifiable();
+
+            var sut = new UserController(userServiceMock.Object, participantServiceMock.Object,
+              mapperMock.Object, factoryMock.Object);
+
+            // Act
+            sut.LikeParticipant("randomUserName", "randomFirstNameParticipant", "randomLastName");
+
+            // Assert
+            userServiceMock.Verify(x => x.LikeParticipant(It.IsAny<UserModel>(), It.IsAny<ParticipantModel>()), Times.Once);
+        }
+
+        [TestMethod]
+        public void FollowUserShouldCorrectlyInvokeService_WhenCalledWithValidUserName()
+        {
+            // Arrange
+            var userServiceMock = new Mock<IUserService>();
+            var participantServiceMock = new Mock<IParticipantService>();
+            var mapperMock = new Mock<IMapper>();
+            var factoryMock = new Mock<IUserFactory>();
+
+            userServiceMock.Setup(x => x.FollowUser(It.IsAny<UserModel>(), It.IsAny<UserModel>()))
+                .Verifiable();
+
+            var sut = new UserController(userServiceMock.Object, participantServiceMock.Object,
+              mapperMock.Object, factoryMock.Object);
+
+            // Act
+            sut.FollowUser("randomUserName", "randomUserToFollow");
+
+            // Assert
+            userServiceMock.Verify(x => x.FollowUser(It.IsAny<UserModel>(), It.IsAny<UserModel>()), Times.Once);
+        }
     }
 }
