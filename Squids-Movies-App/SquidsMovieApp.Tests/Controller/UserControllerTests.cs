@@ -153,7 +153,8 @@ namespace SquidsMovieApp.Tests.Controller
               mapperMock.Object, factoryMock.Object);
 
             // Act
-            sut.GetLikedParticipants("randomUserName");
+            IEnumerable<ParticipantModel> participants =
+                sut.GetLikedParticipants("randomUserName");
 
             // Assert
             userServiceMock.Verify(x => x.GetLikedParticipants(It.IsAny<UserModel>()), Times.Once);
@@ -179,6 +180,50 @@ namespace SquidsMovieApp.Tests.Controller
 
             // Assert
             userServiceMock.Verify(x => x.GetLikedMovies(It.IsAny<UserModel>()), Times.Once);
+        }
+
+        [TestMethod]
+        public void GetBoughtMoviesShouldCorrectlyInvokeService_WhenCalledWithValidUserName()
+        {
+            // Arrange
+            var userServiceMock = new Mock<IUserService>();
+            var participantServiceMock = new Mock<IParticipantService>();
+            var mapperMock = new Mock<IMapper>();
+            var factoryMock = new Mock<IUserFactory>();
+
+            userServiceMock.Setup(x => x.GetBoughtMovies(It.IsAny<UserModel>()))
+                .Returns(new List<MovieModel>());
+
+            var sut = new UserController(userServiceMock.Object, participantServiceMock.Object,
+              mapperMock.Object, factoryMock.Object);
+
+            // Act
+            sut.GetBoughtMovies("randomUserName");
+
+            // Assert
+            userServiceMock.Verify(x => x.GetBoughtMovies(It.IsAny<UserModel>()), Times.Once);
+        }
+
+        [TestMethod]
+        public void GetFollowersShouldCorrectlyInvokeService_WhenCalledWithValidUserName()
+        {
+            // Arrange
+            var userServiceMock = new Mock<IUserService>();
+            var participantServiceMock = new Mock<IParticipantService>();
+            var mapperMock = new Mock<IMapper>();
+            var factoryMock = new Mock<IUserFactory>();
+
+            userServiceMock.Setup(x => x.GetFollowers(It.IsAny<UserModel>()))
+                .Returns(new List<UserModel>());
+
+            var sut = new UserController(userServiceMock.Object, participantServiceMock.Object,
+              mapperMock.Object, factoryMock.Object);
+
+            // Act
+            sut.GetFollowers("randomUserName");
+
+            // Assert
+            userServiceMock.Verify(x => x.GetFollowers(It.IsAny<UserModel>()), Times.Once);
         }
     }
 }

@@ -123,7 +123,8 @@ namespace SquidsMovieApp.WPF.Controllers
                 .IsNullOrEmpty()
                 .Throw();
 
-            return this.userService.GetUser(username).LikedParticipants;
+            UserModel user = this.userService.GetUser(username);
+            return this.userService.GetLikedParticipants(user);
         }
 
         public IEnumerable<MovieModel> GetLikedMovies(string username)
@@ -142,7 +143,8 @@ namespace SquidsMovieApp.WPF.Controllers
                 .IsNullOrEmpty()
                 .Throw();
 
-            return this.userService.GetUser(user).BoughtMovies;
+            UserModel userDto = this.userService.GetUser(user);
+            return this.userService.GetBoughtMovies(userDto);
         }
 
         public IEnumerable<UserModel> GetFollowers(string user)
@@ -151,7 +153,8 @@ namespace SquidsMovieApp.WPF.Controllers
                 .IsNullOrEmpty()
                 .Throw();
 
-            return this.userService.GetUser(user).Followers;
+            UserModel userDto = this.userService.GetUser(user);
+            return this.userService.GetFollowers(userDto);
         }
 
         public IEnumerable<UserModel> GetFollowed(string user)
