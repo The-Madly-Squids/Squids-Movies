@@ -76,7 +76,7 @@ namespace SquidsMovieApp.WPF
             }
             else
             {
-                DisplayError(stackPanel);
+                ErrorDialog.DisplayError(stackPanel, "Log-in failed.");
             }
         }
 
@@ -86,7 +86,7 @@ namespace SquidsMovieApp.WPF
 
             if (string.IsNullOrEmpty(this.email))
             {
-                stackPanel.Children.Add(CreateErrorTextBlock("Please enter an email."));
+                stackPanel.Children.Add(ErrorDialog.CreateErrorTextBlock("Please enter an email."));
                 isValid = false;
             }
             else
@@ -97,14 +97,14 @@ namespace SquidsMovieApp.WPF
                 }
                 catch (SystemException)
                 {
-                    stackPanel.Children.Add(CreateErrorTextBlock("Invalid e-mail."));
+                    stackPanel.Children.Add(ErrorDialog.CreateErrorTextBlock("Invalid e-mail."));
                     isValid = false;
                 }
             }
 
             if (string.IsNullOrEmpty(this.password))
             {
-                stackPanel.Children.Add(CreateErrorTextBlock("Please enter a password."));
+                stackPanel.Children.Add(ErrorDialog.CreateErrorTextBlock("Please enter a password."));
                 isValid = false;
             }
 
@@ -130,8 +130,8 @@ namespace SquidsMovieApp.WPF
 
             if (e.Error != null)
             {
-                stackPanel.Children.Add(CreateErrorTextBlock(e.Error.Message));
-                DisplayError(stackPanel);
+                stackPanel.Children.Add(ErrorDialog.CreateErrorTextBlock(e.Error.Message));
+                ErrorDialog.DisplayError(stackPanel, "Log-in failed.");
             }
             else
             {
@@ -144,29 +144,29 @@ namespace SquidsMovieApp.WPF
             this.NavigationService.Navigate(new RegisterPage(this.MainController, AuthProvider));
         }
 
-        private TextBlock CreateErrorTextBlock(string errorText)
-        {
-            var errorTextBlock = new TextBlock
-            {
-                Foreground = new SolidColorBrush(Colors.Red),
-                HorizontalAlignment = HorizontalAlignment.Center,
-                FontWeight = FontWeights.Bold,
-                FontSize = 14,
-                Text = errorText
-            };
+        //private TextBlock CreateErrorTextBlock(string errorText)
+        //{
+        //    var errorTextBlock = new TextBlock
+        //    {
+        //        Foreground = new SolidColorBrush(Colors.Red),
+        //        HorizontalAlignment = HorizontalAlignment.Center,
+        //        FontWeight = FontWeights.Bold,
+        //        FontSize = 14,
+        //        Text = errorText
+        //    };
 
-            return errorTextBlock;
-        }
+        //    return errorTextBlock;
+        //}
 
-        private void DisplayError(StackPanel stackPanel)
-        {
-            var errorWindow = new ErrorWindow(stackPanel)
-            {
-                Owner = Application.Current.MainWindow,
-                ErrorName = "Log-in failed."
-            };
+        //private void DisplayError(StackPanel stackPanel)
+        //{
+        //    var errorWindow = new ErrorWindow(stackPanel)
+        //    {
+        //        Owner = Application.Current.MainWindow,
+        //        ErrorName = "Log-in failed."
+        //    };
 
-            errorWindow.ShowDialog();
-        }
+        //    errorWindow.ShowDialog();
+        //}
     }
 }

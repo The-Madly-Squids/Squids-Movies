@@ -35,7 +35,7 @@
                     <TextBlock VerticalAlignment="Bottom" FontSize="10">Search for movie titles, actors, directors or other users.</TextBlock>
                 </StackPanel>
                 <StackPanel Margin="10" Grid.Column="1" Grid.Row="1" FlowDirection="RightToLeft" Orientation="Horizontal">
-                    <TextBlock Name="UserBalance" Text="{Binding MoneyBalance}"/>
+                    <TextBlock Name="UserBalanceNav" Text="{Binding MoneyBalance}"/>
                     <Button Margin="15,0,0,0" Width="50" Height="25" Content="Cart"/>
                     <Button Margin="15,0,0,0" Width="50" Height="25" Content="Profile"/>
                 </StackPanel>
@@ -75,7 +75,7 @@
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="0,0,15,5">
                         <TextBlock Margin="0,0,15,0" FontSize="20">Wallet:</TextBlock>
-                        <TextBlock Margin="0,0,15,0" Text="{Binding MoneyBalance}" FontSize="20"></TextBlock>
+                        <TextBlock Name="WalletTB" Margin="0,0,15,0" Text="{Binding MoneyBalance}" FontSize="20"></TextBlock>
                         <Button Name="AddMoneyBtn" Click="AddMoneyClicked" Margin="0,0,15,0">Add money</Button>
                     </StackPanel>
                 </StackPanel>

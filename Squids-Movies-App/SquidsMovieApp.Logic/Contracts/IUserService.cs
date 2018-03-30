@@ -31,7 +31,7 @@ namespace SquidsMovieApp.Logic.Contracts
         //void RemoveUser(UserModel user); //Done
         void RemoveUser(UserModel user); //Done
         IEnumerable<UserModel> GetAllUsers(); //Done
-        UserModel GetUser(string userName); // Done
+        UserModel GetUserByUsername(string userName); // Done
         UserModel GetUserByEmail(string email);
     }
 }

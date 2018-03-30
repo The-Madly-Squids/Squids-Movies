@@ -24,6 +24,7 @@ namespace SquidsMovieApp.WPF
     {
         private readonly IMainController mainController;
         private readonly AuthProvider authProvider;
+        private string moneyBalance;
 
         public ProfilePage(IMainController mainController, AuthProvider authProvider)
         {
@@ -32,8 +33,10 @@ namespace SquidsMovieApp.WPF
             DataContext = this;
             this.mainController = mainController;
             this.authProvider = authProvider;
-            GreetingName.Text = string.Format("Hello, {0}!", authProvider.FakeUser.Username);
+            GreetingName.Text = string.Format("Hello, {0}!", authProvider.LoggedUser.Username);
+            //GreetingName.Text = string.Format("Hello, {0}!", authProvider.FakeUser.Username);
             FillUserProfile();
+            //FillFakeUserProfile();
         }
 
         public string Username { get; set; }
@@ -41,7 +44,11 @@ namespace SquidsMovieApp.WPF
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public int? Age { get; set; }
-        public string MoneyBalance { get; set; }
+        public string MoneyBalance
+        {
+            get => string.Format("{0} $", this.moneyBalance);
+            set => this.moneyBalance = value;
+        }
         public IList<ParticipantModel> LikedParticipants { get; set; }
         public IList<MovieModel> LikedMovies { get; set; }
         public IList<MovieModel> BoughtMovies { get; set; }
@@ -53,7 +60,7 @@ namespace SquidsMovieApp.WPF
         {
             this.Username = this.authProvider.FakeUser.Username;
             this.Email = this.authProvider.FakeUser.Email;
-            this.MoneyBalance = this.authProvider.FakeUser.MoneyBalance.ToString() + "$";
+            this.MoneyBalance = this.authProvider.FakeUser.MoneyBalance.ToString();
 
             // Firstname
             if (this.authProvider.FakeUser.FirstName != null)
@@ -185,7 +192,7 @@ namespace SquidsMovieApp.WPF
         {
             this.Username = this.authProvider.LoggedUser.Username;
             this.Email = this.authProvider.LoggedUser.Email;
-            this.MoneyBalance = this.authProvider.LoggedUser.MoneyBalance.ToString() + "$";
+            this.MoneyBalance = this.authProvider.LoggedUser.MoneyBalance.ToString();
 
             // Firstname
             if (this.authProvider.LoggedUser.FirstName != null)
@@ -332,10 +339,11 @@ namespace SquidsMovieApp.WPF
             var newName = EditFirstNameTB.Text;
             if (string.IsNullOrEmpty(newName) || string.IsNullOrWhiteSpace(newName))
             {
+                
                 var stackPanel = new StackPanel();
-                var err = this.CreateErrorTextBlock("First name cannot be empty or whitespace!");
+                var err = ErrorDialog.CreateErrorTextBlock("First name cannot be empty or whitespace!");
                 stackPanel.Children.Add(err);
-                this.DisplayError(stackPanel);
+                ErrorDialog.DisplayError(stackPanel, "Editting failed");
             }
 
             mainController.UserController.EditUserFirstName(authProvider.LoggedUser, newName);
@@ -365,9 +373,9 @@ namespace SquidsMovieApp.WPF
             if (string.IsNullOrEmpty(newName) || string.IsNullOrWhiteSpace(newName))
             {
                 var stackPanel = new StackPanel();
-                var err = this.CreateErrorTextBlock("Last name cannot be empty or whitespace!");
+                var err = ErrorDialog.CreateErrorTextBlock("Last name cannot be empty or whitespace!");
                 stackPanel.Children.Add(err);
-                this.DisplayError(stackPanel);
+                ErrorDialog.DisplayError(stackPanel, "Editting failed");
             }
 
             mainController.UserController.EditUserLastName(authProvider.LoggedUser, newName);
@@ -378,7 +386,14 @@ namespace SquidsMovieApp.WPF
 
         private void AddMoneyClicked(object sender, RoutedEventArgs e)
         {
+            var transferWindow = new AddMoneyToAccountWindow(this.mainController, this.authProvider);
+            transferWindow.Owner = Application.Current.MainWindow;
+            transferWindow.ShowDialog();
 
+            //this.MoneyBalance = authProvider.FakeUser.MoneyBalance.ToString();
+            this.MoneyBalance = authProvider.LoggedUser.MoneyBalance.ToString();
+            this.WalletTB.Text = this.MoneyBalance;
+            this.UserBalanceNav.Text = this.MoneyBalance;
         }
 
         private void ParticipantLinkClicked(object sender, RoutedEventArgs e)
@@ -399,29 +414,29 @@ namespace SquidsMovieApp.WPF
             this.NavigationService.Navigate(new MovieInfoPage(hyperLinkName));
         }
 
-        private void DisplayError(StackPanel stackPanel)
-        {
-            var errorWindow = new ErrorWindow(stackPanel)
-            {
-                Owner = Application.Current.MainWindow,
-                ErrorName = "Editting failed."
-            };
+        //private void DisplayError(StackPanel stackPanel)
+        //{
+        //    var errorWindow = new ErrorWindow(stackPanel)
+        //    {
+        //        Owner = Application.Current.MainWindow,
+        //        ErrorName = "Editting failed."
+        //    };
 
-            errorWindow.ShowDialog();
-        }
+        //    errorWindow.ShowDialog();
+        //}
 
-        private TextBlock CreateErrorTextBlock(string errorText)
-        {
-            var errorTextBlock = new TextBlock
-            {
-                Foreground = new SolidColorBrush(Colors.Red),
-                HorizontalAlignment = HorizontalAlignment.Center,
-                FontWeight = FontWeights.Bold,
-                FontSize = 14,
-                Text = errorText
-            };
+        //private TextBlock CreateErrorTextBlock(string errorText)
+        //{
+        //    var errorTextBlock = new TextBlock
+        //    {
+        //        Foreground = new SolidColorBrush(Colors.Red),
+        //        HorizontalAlignment = HorizontalAlignment.Center,
+        //        FontWeight = FontWeights.Bold,
+        //        FontSize = 14,
+        //        Text = errorText
+        //    };
 
-            return errorTextBlock;
-        }
+        //    return errorTextBlock;
+        //}
     }
 }

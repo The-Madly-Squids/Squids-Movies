@@ -5,7 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SquidsMovieApp.WPF"
         mc:Ignorable="d"
-        Title="SquidFlix" Height="800" Width="1200"
+        Title="SquidFlix" 
+        MinHeight="800" MinWidth="1200"
+                  SizeToContent="WidthAndHeight"
         ShowsNavigationUI="False"
         Source="LoginPage.xaml"
         WindowStyle="ToolWindow">

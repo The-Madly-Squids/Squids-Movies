@@ -63,7 +63,7 @@ namespace SquidsMovieApp.Logic
             return users;
         }
 
-        public UserModel GetUser(string userName)
+        public UserModel GetUserByUsername(string userName)
         {
             var user = this.movieAppDbContext.Users
                 .Where(x => x.Username == userName)
@@ -145,9 +145,8 @@ namespace SquidsMovieApp.Logic
             {
                 throw new UserNotFoundException("User not found!");
             }
-
-            decimal moneyBalance = userObject.MoneyBalance;
-            moneyBalance += amount;
+            
+            userObject.MoneyBalance += amount;
             movieAppDbContext.SaveChanges();
         }
 

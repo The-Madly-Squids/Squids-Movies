@@ -43,6 +43,10 @@ namespace SquidsMovieApp.WPF
             this.mainController = mainController;
             this.authProvider = authProvider;
 
+            this.worker = new BackgroundWorker();
+            worker.DoWork += Worker_DoWork;
+            worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
+
             this.BirthDays = new List<int>();
             this.BirthMonths = new List<string>();
             this.BirthYears = new List<int>();
@@ -89,10 +93,7 @@ namespace SquidsMovieApp.WPF
 
             if (ValidateFields(stackPanel, email, username, password, repeatedPassword))
             {
-                this.worker = new BackgroundWorker();
-
-                worker.DoWork += Worker_DoWork;
-                worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
+               
 
                 this.loadingWindow = new LoadingWindow()
                 {
@@ -104,7 +105,7 @@ namespace SquidsMovieApp.WPF
             }
             else
             {
-                DisplayError(stackPanel);
+                ErrorDialog.DisplayError(stackPanel, "Registration failed.");
             }
         }
 
@@ -129,8 +130,8 @@ namespace SquidsMovieApp.WPF
 
             if (e.Error != null)
             {
-                stackPanel.Children.Add(CreateErrorTextBlock(e.Error.Message));
-                DisplayError(stackPanel);
+                stackPanel.Children.Add(ErrorDialog.CreateErrorTextBlock(e.Error.Message));
+                ErrorDialog.DisplayError(stackPanel, "Registration failed.");
             }
             else
             {
@@ -145,7 +146,7 @@ namespace SquidsMovieApp.WPF
 
             if (string.IsNullOrEmpty(email))
             {
-                stackPanel.Children.Add(CreateErrorTextBlock("Email cannot be empty."));
+                stackPanel.Children.Add(ErrorDialog.CreateErrorTextBlock("Email cannot be empty."));
                 isValid = false;
             }
             else
@@ -156,71 +157,71 @@ namespace SquidsMovieApp.WPF
                 }
                 catch (SystemException)
                 {
-                    stackPanel.Children.Add(CreateErrorTextBlock("Invalid e-mail."));
+                    stackPanel.Children.Add(ErrorDialog.CreateErrorTextBlock("Invalid e-mail."));
                     isValid = false;
                 }
             }
 
             if (string.IsNullOrEmpty(username))
             {
-                stackPanel.Children.Add(CreateErrorTextBlock("Username cannot be empty."));
+                stackPanel.Children.Add(ErrorDialog.CreateErrorTextBlock("Username cannot be empty."));
                 isValid = false;
             }
             else if (username.Length < GlobalConstants.MinUserUsernameLength || GlobalConstants.MaxUserUsernameLength < username.Length)
             {
-                stackPanel.Children.Add(CreateErrorTextBlock($"Username must be between {GlobalConstants.MinUserUsernameLength} and {GlobalConstants.MaxUserUsernameLength} symbols long."));
+                stackPanel.Children.Add(ErrorDialog.CreateErrorTextBlock($"Username must be between {GlobalConstants.MinUserUsernameLength} and {GlobalConstants.MaxUserUsernameLength} symbols long."));
                 isValid = false;
             }
 
             if (string.IsNullOrEmpty(password))
             {
-                stackPanel.Children.Add(CreateErrorTextBlock("Password cannot be empty."));
+                stackPanel.Children.Add(ErrorDialog.CreateErrorTextBlock("Password cannot be empty."));
                 isValid = false;
             }
             else if (password.Length < GlobalConstants.MinUserPasswordLength)
             {
-                stackPanel.Children.Add(CreateErrorTextBlock($"Password must be at least {GlobalConstants.MinUserPasswordLength} symbols."));
+                stackPanel.Children.Add(ErrorDialog.CreateErrorTextBlock($"Password must be at least {GlobalConstants.MinUserPasswordLength} symbols."));
                 isValid = false;
             }
 
             if (string.IsNullOrEmpty(repeatedPassword))
             {
-                stackPanel.Children.Add(CreateErrorTextBlock("Repeated password cannot be empty."));
+                stackPanel.Children.Add(ErrorDialog.CreateErrorTextBlock("Repeated password cannot be empty."));
                 isValid = false;
             }
 
             if (password != repeatedPassword)
             {
-                stackPanel.Children.Add(CreateErrorTextBlock("Passwords do not match."));
+                stackPanel.Children.Add(ErrorDialog.CreateErrorTextBlock("Passwords do not match."));
                 isValid = false;
             }
 
             return isValid;
         }
 
-        private TextBlock CreateErrorTextBlock(string errorText)
-        {
-            var errorTextBlock = new TextBlock
-            {
-                Foreground = new SolidColorBrush(Colors.Red),
-                HorizontalAlignment = HorizontalAlignment.Center,
-                FontWeight = FontWeights.Bold,
-                FontSize = 14,
-                Text = errorText
-            };
+        //private TextBlock CreateErrorTextBlock(string errorText)
+        //{
+        //    var errorTextBlock = new TextBlock
+        //    {
+        //        Foreground = new SolidColorBrush(Colors.Red),
+        //        HorizontalAlignment = HorizontalAlignment.Center,
+        //        FontWeight = FontWeights.Bold,
+        //        FontSize = 14,
+        //        Text = errorText
+        //    };
 
-            return errorTextBlock;
-        }
+        //    return errorTextBlock;
+        //}
 
-        private void DisplayError(StackPanel stackPanel)
-        {
-            var errorWindow = new ErrorWindow(stackPanel)
-            {
-                Owner = Application.Current.MainWindow,
-                ErrorName = "Registration failed."
-            };
+        //private void DisplayError(StackPanel stackPanel)
+        //{
+        //    var errorWindow = new ErrorWindow(stackPanel)
+        //    {
+        //        Owner = Application.Current.MainWindow,
+        //        ErrorName = "Registration failed."
+        //    };
 
-            errorWindow.ShowDialog();
-        }
+        //    errorWindow.ShowDialog();
+        //}
     }
 }

@@ -58,7 +58,7 @@ namespace SquidsMovieApp.Tests.Controller
             var mapperMock = new Mock<IMapper>();
             var factoryMock = new Mock<IUserFactory>();
 
-            userServiceMock.Setup(x => x.GetUser(It.IsAny<string>()))
+            userServiceMock.Setup(x => x.GetUserByUsername(It.IsAny<string>()))
                 .Returns(new UserModel());
 
             var sut = new UserController(userServiceMock.Object, participantServiceMock.Object,
@@ -102,17 +102,17 @@ namespace SquidsMovieApp.Tests.Controller
             var mapperMock = new Mock<IMapper>();
             var factoryMock = new Mock<IUserFactory>();
 
-            userServiceMock.Setup(x => x.GetUser(It.IsAny<string>()))
+            userServiceMock.Setup(x => x.GetUserByUsername(It.IsAny<string>()))
                 .Returns(new UserModel());
 
             var sut = new UserController(userServiceMock.Object, participantServiceMock.Object,
               mapperMock.Object, factoryMock.Object);
 
             // Act
-            sut.GetUser("randomName");
+            sut.GetUserByUsername("randomName");
 
             // Assert
-            userServiceMock.Verify(x => x.GetUser(It.IsAny<string>()), Times.Once);
+            userServiceMock.Verify(x => x.GetUserByUsername(It.IsAny<string>()), Times.Once);
         }
 
         [TestMethod]

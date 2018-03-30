@@ -24,7 +24,7 @@ namespace SquidsMovieApp.Core.Providers
             {
                 Username = "Test",
                 Email = "test@test.test",
-                FirstName = "Test",
+                FirstName = "TesttTesttTesttTesttTesttTestt",
                 LastName = "Testov",
                 MoneyBalance = 12.34m,
                 BoughtMovies = new List<MovieModel>()

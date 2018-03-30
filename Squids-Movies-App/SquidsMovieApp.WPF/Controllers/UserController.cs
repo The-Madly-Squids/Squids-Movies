@@ -114,7 +114,7 @@ namespace SquidsMovieApp.WPF.Controllers
                 throw new ArgumentException("Invalid email!");
             }
 
-            UserModel userToRemove = this.userService.GetUser(username);
+            UserModel userToRemove = this.userService.GetUserByUsername(username);
 
             if (userToRemove == null)
             {
@@ -129,13 +129,13 @@ namespace SquidsMovieApp.WPF.Controllers
             return this.userService.GetAllUsers();
         }
 
-        public UserModel GetUser(string userName)
+        public UserModel GetUserByUsername(string userName)
         {
             Guard.WhenArgument(userName, "username")
                 .IsNullOrEmpty()
                 .Throw();
 
-            return this.userService.GetUser(userName);
+            return this.userService.GetUserByUsername(userName);
         }
 
         public UserModel GetUserByEmail(string email)
@@ -153,7 +153,7 @@ namespace SquidsMovieApp.WPF.Controllers
                 .IsNullOrEmpty()
                 .Throw();
 
-            UserModel user = this.userService.GetUser(username);
+            UserModel user = this.userService.GetUserByUsername(username);
             return this.userService.GetLikedParticipants(user);
         }
 
@@ -163,7 +163,7 @@ namespace SquidsMovieApp.WPF.Controllers
                .IsNullOrEmpty()
                .Throw();
 
-            var userDto = this.userService.GetUser(username);
+            var userDto = this.userService.GetUserByUsername(username);
             return this.userService.GetLikedMovies(userDto);
         }
 
@@ -173,7 +173,7 @@ namespace SquidsMovieApp.WPF.Controllers
                 .IsNullOrEmpty()
                 .Throw();
 
-            UserModel userDto = this.userService.GetUser(user);
+            UserModel userDto = this.userService.GetUserByUsername(user);
             return this.userService.GetBoughtMovies(userDto);
         }
 
@@ -183,7 +183,7 @@ namespace SquidsMovieApp.WPF.Controllers
                 .IsNullOrEmpty()
                 .Throw();
 
-            UserModel userDto = this.userService.GetUser(user);
+            UserModel userDto = this.userService.GetUserByUsername(user);
             return this.userService.GetFollowers(userDto);
         }
 
@@ -193,7 +193,7 @@ namespace SquidsMovieApp.WPF.Controllers
                 .IsNullOrEmpty()
                 .Throw();
 
-            UserModel userDto = this.userService.GetUser(user);
+            UserModel userDto = this.userService.GetUserByUsername(user);
             return this.userService.GetFollowed(userDto);
         }
 
@@ -203,19 +203,19 @@ namespace SquidsMovieApp.WPF.Controllers
                 .IsNullOrEmpty()
                 .Throw();
 
-            UserModel userToGetBalance = this.userService.GetUser(user);
+            UserModel userToGetBalance = this.userService.GetUserByUsername(user);
             return this.userService.GetMoneyBalance(userToGetBalance);
         }
 
-        public void AddMoneyToBalance(string user, decimal amount)
+        public void AddMoneyToBalance(string userName, decimal amount)
         {
-            Guard.WhenArgument(user, "user Name")
+            Guard.WhenArgument(userName, "user Name")
                 .IsNullOrEmpty()
                 .Throw();
             Guard.WhenArgument(amount, "Money Problem!")
                 .IsLessThanOrEqual(0)
                 .Throw();
-            UserModel userToAddMonney = this.userService.GetUser(user);
+            UserModel userToAddMonney = this.userService.GetUserByUsername(userName);
             this.userService.AddMoneyToBalance(userToAddMonney, amount);
         }
 
@@ -226,7 +226,7 @@ namespace SquidsMovieApp.WPF.Controllers
                 .IsNullOrEmpty()
                 .Throw();
 
-            var userDto = this.userService.GetUser(userName);
+            var userDto = this.userService.GetUserByUsername(userName);
 
             Guard.WhenArgument(participantFirstName, "participant first name")
                 .IsNullOrEmpty()
@@ -251,8 +251,8 @@ namespace SquidsMovieApp.WPF.Controllers
             .IsNullOrEmpty()
             .Throw();
 
-            UserModel userToBeFollowed = this.userService.GetUser(userName);
-            UserModel userWhoFollows = this.userService.GetUser(userToFollowUsername);
+            UserModel userToBeFollowed = this.userService.GetUserByUsername(userName);
+            UserModel userWhoFollows = this.userService.GetUserByUsername(userToFollowUsername);
             this.userService.FollowUser(userWhoFollows, userToBeFollowed);
         }
 
