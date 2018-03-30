@@ -150,16 +150,17 @@ namespace SquidsMovieApp.WPF.Controllers
         public IEnumerable<ParticipantModel> GetLikedParticipants(string username)
         {
             Guard.WhenArgument(username, "username")
-                .IsNotNullOrEmpty()
+                .IsNullOrEmpty()
                 .Throw();
 
-            return this.userService.GetUser(username).LikedParticipants;
+            UserModel user = this.userService.GetUser(username);
+            return this.userService.GetLikedParticipants(user);
         }
 
         public IEnumerable<MovieModel> GetLikedMovies(string username)
         {
             Guard.WhenArgument(username, "username")
-               .IsNotNullOrEmpty()
+               .IsNullOrEmpty()
                .Throw();
 
             var userDto = this.userService.GetUser(username);
@@ -172,7 +173,8 @@ namespace SquidsMovieApp.WPF.Controllers
                 .IsNullOrEmpty()
                 .Throw();
 
-            return this.userService.GetUser(user).BoughtMovies;
+            UserModel userDto = this.userService.GetUser(user);
+            return this.userService.GetBoughtMovies(userDto);
         }
 
         public IEnumerable<UserModel> GetFollowers(string user)
@@ -181,7 +183,8 @@ namespace SquidsMovieApp.WPF.Controllers
                 .IsNullOrEmpty()
                 .Throw();
 
-            return this.userService.GetUser(user).Followers;
+            UserModel userDto = this.userService.GetUser(user);
+            return this.userService.GetFollowers(userDto);
         }
 
         public IEnumerable<UserModel> GetFollowed(string user)
@@ -190,7 +193,8 @@ namespace SquidsMovieApp.WPF.Controllers
                 .IsNullOrEmpty()
                 .Throw();
 
-            return this.userService.GetUser(user).Following;
+            UserModel userDto = this.userService.GetUser(user);
+            return this.userService.GetFollowed(userDto);
         }
 
         public decimal GetMoneyBalance(string user)
@@ -241,10 +245,10 @@ namespace SquidsMovieApp.WPF.Controllers
         public void FollowUser(string userName, string userToFollowUsername)
         {
             Guard.WhenArgument(userName, "User who follows")
-                .IsNotNullOrEmpty()
+                .IsNullOrEmpty()
                 .Throw();
             Guard.WhenArgument(userToFollowUsername, "User to be followed")
-            .IsNotNullOrEmpty()
+            .IsNullOrEmpty()
             .Throw();
 
             UserModel userToBeFollowed = this.userService.GetUser(userName);

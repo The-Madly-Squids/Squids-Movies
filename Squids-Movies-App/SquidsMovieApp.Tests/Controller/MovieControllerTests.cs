@@ -29,14 +29,26 @@ namespace SquidsMovieApp.Tests.Controller
             // Act
             controller.AddMovie("TestTitle", "nice movie", 1992, 120);
 
+            //Assert
             mockMovieService.Verify(x => x.AddMovie(It.IsAny<MovieModel>()), Times.Once);
         }
 
         [TestMethod]
         public void AddMovieShouldThrow_WhenCalledWithInvalidParameters()
         {
-            // For Tony
-            throw new NotImplementedException();
+            // Arrange
+            var mockMovieService = new Mock<IMovieService>();
+            var mockRoleService = new Mock<IRoleService>();
+            var mockMapper = new Mock<IMapper>();
+            var mockFactory = new Mock<IMovieModelFactory>();
+
+            var controller = new MovieController(mockMovieService.Object,
+                mockRoleService.Object, mockMapper.Object, mockFactory.Object);
+            mockMovieService.Setup(x => x.AddMovie(It.IsAny<MovieModel>()))
+                .Verifiable();
+
+            //Act & Assert
+            Assert.ThrowsException<ArgumentException>(() => controller.AddMovie("", "nice movie", 1992, 120));
         }
 
         [TestMethod]
