@@ -23,6 +23,9 @@ namespace SquidsMovieApp.Logic.Contracts
         void BuyMovie(UserModel user, MovieModel movie, decimal price); //Done
         void GiveReview(UserModel user, MovieModel movie, int reviewRating,
                             string reviewDescription); //Done
+        void EditUserFirstName(UserModel currentUser, string newName);
+        void EditUserLastName(UserModel currentUser, string newName);
+
         // admin methods
         void AddUser(UserModel user); //Done
         //void RemoveUser(UserModel user); //Done

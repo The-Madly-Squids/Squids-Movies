@@ -267,5 +267,35 @@ namespace SquidsMovieApp.Logic
             this.movieAppDbContext.SaveChanges();
 
         }
+
+        public void EditUserFirstName(UserModel user, string newName)
+        {
+            var userObject = this.movieAppDbContext.Users
+                                .Where(x => x.UserId == user.UserId)
+                                .FirstOrDefault();
+
+            if (userObject == null)
+            {
+                throw new ArgumentNullException("user not found!");
+            }
+
+            userObject.FirstName = newName;
+            this.movieAppDbContext.SaveChanges();
+        }
+
+        public void EditUserLastName(UserModel user, string newName)
+        {
+            var userObject = this.movieAppDbContext.Users
+                                .Where(x => x.UserId == user.UserId)
+                                .FirstOrDefault();
+
+            if (userObject == null)
+            {
+                throw new ArgumentNullException("user not found!");
+            }
+
+            userObject.LastName = newName;
+            this.movieAppDbContext.SaveChanges();
+        }
     }
 }

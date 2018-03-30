@@ -255,6 +255,42 @@ namespace SquidsMovieApp.WPF.Controllers
             UserModel userWhoFollows = this.userService.GetUser(userToFollowUsername);
             this.userService.FollowUser(userWhoFollows, userToBeFollowed);
         }
+
+        public void EditUserFirstName(UserModel user, string newName)
+        {
+            Guard.WhenArgument(user, "user")
+                .IsNull()
+                .Throw();
+
+            Guard.WhenArgument(newName, "new first name")
+                .IsNullOrEmpty()
+                .Throw();
+
+            Guard.WhenArgument(newName.Length, "User first name length")
+                .IsLessThan(GlobalConstants.MinUserFirstNameLength)
+                .IsGreaterThan(GlobalConstants.MaxUserFirstNameLength)
+                .Throw();
+
+            this.userService.EditUserFirstName(user, newName);
+        }
+
+        public void EditUserLastName(UserModel user, string newName)
+        {
+            Guard.WhenArgument(user, "user")
+                .IsNull()
+                .Throw();
+
+            Guard.WhenArgument(newName, "new last name")
+                .IsNullOrEmpty()
+                .Throw();
+
+            Guard.WhenArgument(newName.Length, "User last name length")
+                .IsLessThan(GlobalConstants.MinUserLastNameLength)
+                .IsGreaterThan(GlobalConstants.MaxUserLastNameLength)
+                .Throw();
+
+            this.userService.EditUserLastName(user, newName);
+        }
     }
 }
 

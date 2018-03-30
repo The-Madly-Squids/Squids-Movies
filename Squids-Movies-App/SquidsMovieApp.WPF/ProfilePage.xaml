@@ -61,22 +61,22 @@
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="0,0,15,5">
                         <TextBlock Margin="0,0,15,0" FontSize="20">First name:</TextBlock>
-                        <TextBlock  Margin="0,0,15,0" Text="{Binding FirstName}" FontSize="20"></TextBlock>
-                        <Button Margin="0,0,15,0">Edit</Button>
-                        <TextBox Width="200" Visibility="Hidden"></TextBox>
-                        <Button Margin="0,0,15,0" Visibility="Hidden">Save</Button>
+                        <TextBlock Name="FirstNameTBlock" Margin="0,0,15,0" Text="{Binding FirstName}" FontSize="20"></TextBlock>
+                        <Button Name="EditFirstNameBtn" Click="EditFirstNameClicked" Margin="0,0,15,0">Edit</Button>
+                        <TextBox Name="EditFirstNameTB" Width="200" Visibility="Hidden"></TextBox>
+                        <Button Name="SaveFirstNameBtn" Click="SaveFirstNameClicked" Margin="0,0,15,0" Visibility="Hidden">Save</Button>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="0,0,15,5">
                         <TextBlock Margin="0,0,15,0" FontSize="20">Last name:</TextBlock>
-                        <TextBlock Margin="0,0,15,0" Text="{Binding LastName}" FontSize="20"></TextBlock>
-                        <Button Margin="0,0,15,0">Edit</Button>
-                        <TextBox Width="200" Visibility="Hidden"></TextBox>
-                        <Button Margin="0,0,15,0" Visibility="Hidden">Save</Button>
+                        <TextBlock Name="LastNameTBlock" Margin="0,0,15,0" Text="{Binding LastName}" FontSize="20"></TextBlock>
+                        <Button Name="EditLasttNameBtn" Click="EditLastNameClicked" Margin="0,0,15,0">Edit</Button>
+                        <TextBox Name="EditLastNameTB" Width="200" Visibility="Hidden"></TextBox>
+                        <Button Name="SaveLastNameBtn" Click="SaveLastNameClicked" Margin="0,0,15,0" Visibility="Hidden">Save</Button>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="0,0,15,5">
                         <TextBlock Margin="0,0,15,0" FontSize="20">Wallet:</TextBlock>
                         <TextBlock Margin="0,0,15,0" Text="{Binding MoneyBalance}" FontSize="20"></TextBlock>
-                        <Button Margin="0,0,15,0">Add money</Button>
+                        <Button Name="AddMoneyBtn" Click="AddMoneyClicked" Margin="0,0,15,0">Add money</Button>
                     </StackPanel>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="0">
