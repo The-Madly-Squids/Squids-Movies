@@ -120,7 +120,7 @@ namespace SquidsMovieApp.WPF.Controllers
         public IEnumerable<ParticipantModel> GetLikedParticipants(string username)
         {
             Guard.WhenArgument(username, "username")
-                .IsNotNullOrEmpty()
+                .IsNullOrEmpty()
                 .Throw();
 
             return this.userService.GetUser(username).LikedParticipants;
@@ -129,7 +129,7 @@ namespace SquidsMovieApp.WPF.Controllers
         public IEnumerable<MovieModel> GetLikedMovies(string username)
         {
             Guard.WhenArgument(username, "username")
-               .IsNotNullOrEmpty()
+               .IsNullOrEmpty()
                .Throw();
 
             var userDto = this.userService.GetUser(username);
