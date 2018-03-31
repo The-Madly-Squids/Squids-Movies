@@ -8,7 +8,6 @@ using SquidsMovieApp.Common;
 using SquidsMovieApp.Core.Factories.Contracts;
 using SquidsMovieApp.Data.Context;
 using SquidsMovieApp.DTO;
-using SquidsMovieApp.DTO.Contracts;
 using SquidsMovieApp.Logic;
 using SquidsMovieApp.Logic.Contracts;
 using SquidsMovieApp.Models;
@@ -149,7 +148,7 @@ namespace SquidsMovieApp.Tests.Controller
             var mockRoleService = new Mock<IRoleService>();
             var mockMapper = new Mock<IMapper>();
             var mockFactory = new Mock<IMovieModelFactory>();
-       
+
             var movieObjectToReturn = new Movie()
             {
                 Title = "TestMovie",
@@ -219,14 +218,14 @@ namespace SquidsMovieApp.Tests.Controller
             var mockRoleService = new Mock<IRoleService>();
             var mockMapper = new Mock<IMapper>();
             var mockFactory = new Mock<IMovieModelFactory>();
-            var someMovie = new Mock<IMovieModel>();
-            var someParticipant = new Mock<IParticipantModel>();
+            var someMovie = new Mock<MovieModel>();
+            var someParticipant = new Mock<ParticipantModel>();
 
             var controller = new MovieController(mockMovieService.Object,
                 mockRoleService.Object, mockMapper.Object, mockFactory.Object);
 
-                mockMovieService.Setup(x => x.AddMovieParticipant(It.IsAny<MovieModel>(), It.IsAny<ParticipantModel>(), It.IsAny<string>()))
-                .Verifiable();
+            mockMovieService.Setup(x => x.AddMovieParticipant(It.IsAny<MovieModel>(), It.IsAny<ParticipantModel>(), It.IsAny<string>()))
+            .Verifiable();
 
             //Act & Assert
             Assert.ThrowsException<ArgumentException>(() => controller.AddMovieParticipant("", "", "", ""));

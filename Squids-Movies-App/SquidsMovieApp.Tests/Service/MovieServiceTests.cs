@@ -10,7 +10,6 @@ using SquidsMovieApp.Logic;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using SquidsMovieApp.DTO.Contracts;
 
 namespace SquidsMovieApp.Tests.Service
 {
@@ -277,7 +276,7 @@ namespace SquidsMovieApp.Tests.Service
                 {
                     FirstName = participant.FirstName,
                     LastName = participant.LastName
-                }, 
+                },
                  $"someRole + {i}");
                 effortContext.SaveChanges();
             }
@@ -285,7 +284,7 @@ namespace SquidsMovieApp.Tests.Service
             var participantsDTOsListToReturn = new List<ParticipantModel>();
             //effortContext.SaveChanges();
 
-            
+
 
             mapperMock.Setup(x => x.Map<IList<ParticipantModel>>(
                                                     It.IsAny<IList<Participant>>()))
@@ -294,7 +293,7 @@ namespace SquidsMovieApp.Tests.Service
 
             // Act & Assert
             var result = sut.GetAllParticipantsPerMovie(movieDto);
-            
+
             Assert.AreEqual(10, result.Count());
         }
 
