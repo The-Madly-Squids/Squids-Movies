@@ -138,65 +138,66 @@ namespace SquidsMovieApp.Tests.Controller
             mockMovieService.Verify(x => x.GetAllMovies(), Times.Once);
         }
 
-        //[TestMethod]
-        //public void AddMovieParticipantShouldSucessfullyInvokeService_WhenCalledWithValidParameters()
-        //{
-        //    //Arrange
-        //    var effortContext = new MovieAppDBContext(
-        //                Effort.DbConnectionFactory.CreateTransient());
-        //    var mockMovieService = new Mock<IMovieService>();
-        //    var mockRoleService = new Mock<IRoleService>();
-        //    var mockMapper = new Mock<IMapper>();
-        //    var mockFactory = new Mock<IMovieModelFactory>();
+        [TestMethod]
+        public void AddMovieParticipantShouldSucessfullyInvokeService_WhenCalledWithValidParameters()
+        {
+            //Arrange
+            var effortContext = new MovieAppDBContext(
+                        Effort.DbConnectionFactory.CreateTransient());
+            var mockMovieService = new Mock<IMovieService>();
+            var mockRoleService = new Mock<IRoleService>();
+            var mockMapper = new Mock<IMapper>();
+            var mockFactory = new Mock<IMovieModelFactory>();
 
-        //    var controller = new MovieController(mockMovieService.Object,
-        //        mockRoleService.Object, mockMapper.Object, mockFactory.Object);
-            
-        //    var movieObjectToReturn = new Movie()
-        //    {
-        //        Title = "TestMovie",
-        //        Runtime = 120
-        //    };
+            var movieObjectToReturn = new Movie()
+            {
+                Title = "TestMovie",
+                Runtime = 120
+            };
 
-        //    var movieModelToAdd = new MovieModel()
-        //    {
-        //        Title = "TestMovie",
-        //        Runtime = 120
-        //    };
+            var movieModelToAdd = new MovieModel()
+            {
+                Title = "TestMovie",
+                Runtime = 120
+            };
 
-        //    mockMapper.Setup(x => x.Map<MovieModel>(It.IsAny<Movie>()))
-        //       .Returns(movieModelToAdd);          
+            mockMapper.Setup(x => x.Map<MovieModel>(It.IsAny<Movie>()))
+               .Returns(movieModelToAdd);
 
-        //    var participantModelToAdd = new ParticipantModel()
-        //    {
-        //        FirstName = "Pesho",
-        //        LastName = "Markov",
-        //        Age = 21
-        //    };
+            var participantModelToAdd = new ParticipantModel()
+            {
+                FirstName = "Pesho",
+                LastName = "Markov",
+                Age = 21
+            };
 
-        //    var participantObjectToReturn = new Participant()
-        //    {
-        //        FirstName = "Pesho",
-        //        LastName = "Markov",
-        //        Age = 21
-        //    };
+            var participantObjectToReturn = new Participant()
+            {
+                FirstName = "Pesho",
+                LastName = "Markov",
+                Age = 21
+            };
 
-        //    mockMapper.Setup(x => x.Map<ParticipantModel>(It.IsAny<Participant>()))
-        //       .Returns(participantModelToAdd);
+            mockMapper.Setup(x => x.Map<ParticipantModel>(It.IsAny<Participant>()))
+               .Returns(participantModelToAdd);
 
-        //    mockMovieService.Setup(x => x.AddMovieParticipant(It.IsAny<MovieModel>(), It.IsAny<ParticipantModel>(), It.IsAny<string>()))
-        //        .Verifiable();
+            mockMovieService.Setup(x => x.AddMovieParticipant(It.IsAny<MovieModel>(), It.IsAny<ParticipantModel>(), It.IsAny<string>()))
+                .Verifiable();
 
-        //    effortContext.Participants.Add(participantObjectToReturn);
-        //    effortContext.Movies.Add(movieObjectToReturn);
-        //    effortContext.SaveChanges();
-            
-        //    // Act
-        //    controller.AddMovieParticipant("TestMovie", "Pesho", "Markov", "someRole");
+            effortContext.Participants.Add(participantObjectToReturn);
+            effortContext.Movies.Add(movieObjectToReturn);
+            effortContext.SaveChanges();
 
-        //    // Assert  TODO
-        //    mockMovieService.Verify(x => x.AddMovieParticipant(It.IsAny<MovieModel>(), It.IsAny<ParticipantModel>(), It.IsAny<string>()), Times.Once);
-        //}
+
+
+            // Act
+            var controller = new MovieController(mockMovieService.Object,
+                    mockRoleService.Object, mockMapper.Object, mockFactory.Object);
+            controller.AddMovieParticipant("TestMovie", "Pesho", "Markov", "someRole");
+
+            // Assert  TODO
+            mockMovieService.Verify(x => x.AddMovieParticipant(It.IsAny<MovieModel>(), It.IsAny<ParticipantModel>(), It.IsAny<string>()), Times.Once);
+        }
 
         [TestMethod]
         public void AddMovieParticipantShouldThrow_WhenCalledWithInvalidParameters()
@@ -211,8 +212,8 @@ namespace SquidsMovieApp.Tests.Controller
             var controller = new MovieController(mockMovieService.Object,
                 mockRoleService.Object, mockMapper.Object, mockFactory.Object);
 
-                mockMovieService.Setup(x => x.AddMovieParticipant(It.IsAny<MovieModel>(), It.IsAny<ParticipantModel>(), It.IsAny<string>()))
-                .Verifiable();
+            mockMovieService.Setup(x => x.AddMovieParticipant(It.IsAny<MovieModel>(), It.IsAny<ParticipantModel>(), It.IsAny<string>()))
+            .Verifiable();
 
             //Act & Assert
             Assert.ThrowsException<ArgumentException>(() => controller.AddMovieParticipant("", "", "", ""));

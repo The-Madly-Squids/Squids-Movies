@@ -38,6 +38,8 @@
                     <TextBlock Name="UserBalanceNav" Text="{Binding MoneyBalance}"/>
                     <Button Margin="15,0,0,0" Width="50" Height="25" Content="Cart"/>
                     <Button Name="UserProfileNav" Margin="15,0,0,0" Width="50" Height="25" Content="Profile"/>
+                    <Button Name="MoviesAsPdfNav" Click="MoviePdfBtnClicked" Margin="15,0,0,0" Width="80" Height="25" Content="MoviesPdf"/>
+
                 </StackPanel>
             </Grid>
             <!--Main-->
@@ -50,7 +52,7 @@
                     <RowDefinition Height="360"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                
+
                 <!--User-->
                 <StackPanel Margin="20,15,0,0" Grid.Column="0" Grid.Row="0">
                     <StackPanel Orientation="Horizontal" Margin="0,0,15,5">
