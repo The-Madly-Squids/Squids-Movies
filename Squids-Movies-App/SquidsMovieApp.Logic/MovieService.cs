@@ -219,7 +219,7 @@ namespace SquidsMovieApp.Logic
             {
                 throw new ArgumentNullException("Movie cannot be null!");
             }
-
+            
             var genres = movie.Genres;
 
             return genres;

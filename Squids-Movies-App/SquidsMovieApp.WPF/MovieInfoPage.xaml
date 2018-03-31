@@ -52,41 +52,29 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <StackPanel Margin="15" Grid.Column="0">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Name="MovieTitleTBlock" FontSize="25" FontWeight="Bold" Margin="0,0,15,0">Title</TextBlock>
-                        <TextBlock Name="MovieYearTBlock" FontSize="25" Margin="0,0,15,0">(2000)</TextBlock>
+                    <StackPanel>
+                        <TextBlock TextWrapping="Wrap" Name="MovieTitleTBlock" FontSize="25" FontWeight="Bold" Margin="0,0,15,0">Title (Year)</TextBlock>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Name="MovieImdbRatingTBlock" FontSize="20" Margin="0,0,15,0">Imdb rating: 7,2;</TextBlock>
-                        <TextBlock Name="MovieSquidFlixRatingTBlock" FontSize="20" Margin="0,0,15,0">SquidFlix rating: 8</TextBlock>
+                        <TextBlock Name="MovieImdbRatingTBlock" FontSize="20" Margin="0,0,15,0">Imdb rating: 3</TextBlock>
+                        <TextBlock Name="MovieSquidFlixRatingTBlock" FontSize="20" Margin="0,0,15,0">SquidFlix rating: 3</TextBlock>
                     </StackPanel>
-                    <StackPanel Name="MovieGenresSP" Orientation="Horizontal">
-                        <TextBlock FontSize="20" Margin="0,0,15,0">Drama</TextBlock>
-                        <TextBlock FontSize="20" Margin="0,0,15,0">|</TextBlock>
-                        <TextBlock FontSize="20" Margin="0,0,15,0">Thriller</TextBlock>
-                        <TextBlock FontSize="20" Margin="0,0,15,0">|</TextBlock>
-                        <TextBlock FontSize="20" Margin="0,0,15,0">Action</TextBlock>
-                    </StackPanel>
+                    <StackPanel Name="MovieGenresSP"></StackPanel>
                     <TextBlock Name="MovieRuntimeTBlock" FontSize="20" Margin="0,0,15,0">2h.</TextBlock>
                     <TextBlock Name="MovieRatedTBlock" FontSize="20" Margin="0,0,15,0">Rated: PG</TextBlock>
-                    <TextBlock Name="MoviePlotTBlock" FontStyle="Italic" Margin="0,15" Grid.Column="0" TextWrapping="Wrap">
+                    <TextBlock Name="MoviePlotTBlock" FontSize="20" FontStyle="Italic" Margin="0,15" Grid.Column="0" TextWrapping="Wrap">
                     PLOTPLOTPLOTPLOTPLOTPLOTPLOTPLOTPLOT PLOTPLOTPLOTPLOTPLOTPLOTPLOTPLOT
                     PLOTPLOTPLOTPLOTPLOTPLOTPLOT PLOTPLOTPLOTPLOT PLOTPLOTPLOT PLOTPLOTPLOT
                     LOTPLOTPLOTPLOTPLOTPLOTPLOTPLOTPLOT PLOTPLOTPLOTPLOTPLOTPLOTPLOTPLOT
                     PLOTPLOTPLOTPLOTPLOTPLOTPLOT PLOTPLOTPLOTPLOT PLOTPLOTPLOT PLOTPLOTPLOT
                     LOTPLOTPLOTPLOTPLOTPLOTPLOTPLOTPLOT PLOTPLOTPLOTPLOTPLOTPLOTPLOTPLOT
-                    PLOTPLOTPLOTPLOTPLOTPLOTPLOT PLOTPLOTPLOTPLOT PLOTPLOTPLOT PLOTPLOTPLOT
-                    LOTPLOTPLOTPLOTPLOTPLOTPLOTPLOTPLOT PLOTPLOTPLOTPLOTPLOTPLOTPLOTPLOT
-                    PLOTPLOTPLOTPLOTPLOTPLOTPLOT PLOTPLOTPLOTPLOT PLOTPLOTPLOT PLOTPLOTPLOT
-                    LOTPLOTPLOTPLOTPLOTPLOTPLOTPLOTPLOT PLOTPLOTPLOTPLOTPLOTPLOTPLOTPLOT
-                    PLOTPLOTPLOTPLOTPLOTPLOTPLOT PLOTPLOTPLOTPLOT PLOTPLOTPLOT PLOTPLOTPLOT
                     </TextBlock>
                 </StackPanel>
                 <StackPanel Grid.Column="1" HorizontalAlignment="Center">
                 <Image Name="MoviePosterImg" Width="300" Height="350" Margin="15" ></Image>
                     <StackPanel>
                         <StackPanel Margin="0,5" Orientation="Horizontal">
-                            <TextBlock Name="MoviePriceTBlock" VerticalAlignment="Center" FontSize="20" FontWeight="Bold" Margin="0,0,15,0">30$</TextBlock>
+                            <TextBlock Name="MoviePriceTBlock" VerticalAlignment="Center" FontSize="20" FontWeight="Bold" Margin="0,0,15,0">00$</TextBlock>
                             <Button Padding="10" Margin="0,0,15,0">Add to cart</Button>
                             <Button Padding="10" Margin="0,0,15,0">Like movie</Button>
                             <Button Padding="10" Margin="0,0,15,0">Give a review</Button>

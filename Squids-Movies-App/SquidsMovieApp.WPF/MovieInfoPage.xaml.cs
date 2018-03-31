@@ -40,7 +40,7 @@ namespace SquidsMovieApp.WPF
             this.MoneyBalance = userContext.FakeUser.MoneyBalance.ToString();
             this.SearchTBox.Focus();
             GetMovieToDisplay(movieId);
-            
+
             FillMovieInfoPage();
         }
 
@@ -54,21 +54,28 @@ namespace SquidsMovieApp.WPF
         {
             this.MoviePosterImg.Source = LoadImage(this.movie.Poster.Poster);
 
-            this.MovieTitleTBlock.Text = this.movie.Title;
-            this.MovieYearTBlock.Text = string.Format("({0})", this.movie.Year);
-            this.MovieImdbRatingTBlock.Text = this.movie.ImdbRating.ToString();
-            this.MovieSquidFlixRatingTBlock.Text = squidFlixRating.ToString();
-            var movieGenres = new List<GenreModel>(this.mainController.MovieController.GetMovieGenres(this.movie));
+            this.MovieTitleTBlock.Text = string.Format("{0} ({1})", this.movie.Title, this.movie.Year);
+            this.MovieImdbRatingTBlock.Text = string.Format("Imdb rating: {0}", this.movie.ImdbRating);
+            this.MovieSquidFlixRatingTBlock.Text = string.Format("SquidFlix rating: {0}", squidFlixRating);
+            var movieGenresObjs = mainController.MovieController.GetMovieGenres(this.movie);
+            var movieGenres = new List<string>();
 
-            foreach (var genre in movieGenres)
+            foreach (var genreObj in movieGenresObjs)
             {
-                var tb = new TextBlock()
-                {
-                    Text = genre.GenreType
-                };
-
-                this.MovieGenresSP.Children.Add(tb);
+                movieGenres.Add(genreObj.GenreType);
             }
+
+            var tb = new TextBlock()
+            {
+                Text = string.Join(" | ", movieGenres),
+                FontSize = 20
+            };
+
+            this.MovieGenresSP.Children.Add(tb);
+            this.MovieRuntimeTBlock.Text = string.Format("{0} min.", this.movie.Runtime);
+            this.MovieRatedTBlock.Text = this.movie.Rated;
+            this.MoviePlotTBlock.Text = this.movie.Plot;
+            this.MoviePriceTBlock.Text = string.Format("${0}", this.movie.Price);
         }
 
         private void GetMovieToDisplay(string id)
@@ -76,7 +83,7 @@ namespace SquidsMovieApp.WPF
             var movieId = int.Parse(id.Split('_')[1]);
             this.movie = this.mainController.MovieController.GetMovieById(movieId);
             this.squidFlixRating = this.mainController.MovieController.GetRating(this.movie.Title);
-            
+
         }
 
         private ImageSource LoadImage(byte[] imageData)
