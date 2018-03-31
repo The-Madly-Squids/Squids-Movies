@@ -355,15 +355,98 @@ namespace SquidsMovieApp.Tests.Service
         [TestMethod]
         public void AddMovieParticipantShould_ThrowWhenMovieNotFoundInDataBase()
         {
-            // For Paco
-            throw new NotImplementedException();
+            // Assert
+            var effort = new MovieAppDBContext(
+                Effort.DbConnectionFactory.CreateTransient());
+
+            var mapperMock = new Mock<IMapper>();
+
+            var movieObject = new Movie()
+            {
+                Title = "Test Movie",
+                Year = 1990
+            };
+
+            var participantObject = new Participant()
+            {
+                FirstName = "Arnold",
+                LastName = "Ivanov"
+            };
+
+            //effort.Movies.Add(movieObject);
+            effort.Participants.Add(participantObject);
+            effort.SaveChanges();
+
+            var participantDto = new ParticipantModel()
+            {
+                ParticipantId = participantObject.ParticipantId,
+                FirstName = participantObject.FirstName,
+                LastName = participantObject.LastName
+            };
+
+            var movieDto = new MovieModel()
+            {
+                MovieId = movieObject.MovieId,
+                Title = movieObject.Title,
+                Runtime = movieObject.Runtime
+            };
+
+            var roleName = "Actor";
+
+            // Act
+            var sut = new MovieService(effort, mapperMock.Object);
+
+            // Assert
+            Assert.ThrowsException<NullReferenceException>(() => sut.AddMovieParticipant(movieDto, participantDto, roleName));
         }
 
         [TestMethod]
         public void AddMovieParticipantShould_ThrowWhenParticipantNotFoundInDataBase()
         {
-            // For Toni
-            throw new NotImplementedException();
+            // Assert
+            var effort = new MovieAppDBContext(
+                Effort.DbConnectionFactory.CreateTransient());
+
+            var mapperMock = new Mock<IMapper>();
+
+            var movieObject = new Movie()
+            {
+                Title = "Test Movie",
+                Year = 1990
+            };
+
+            var participantObject = new Participant()
+            {
+                FirstName = "Arnold",
+                LastName = "Ivanov"
+            };
+
+            effort.Movies.Add(movieObject);
+            //effort.Participants.Add(participantObject);
+            effort.SaveChanges();
+
+            var participantDto = new ParticipantModel()
+            {
+                ParticipantId = participantObject.ParticipantId,
+                FirstName = participantObject.FirstName,
+                LastName = participantObject.LastName
+            };
+
+            var movieDto = new MovieModel()
+            {
+                MovieId = movieObject.MovieId,
+                Title = movieObject.Title,
+                Runtime = movieObject.Runtime
+            };
+
+            var roleName = "Actor";
+
+            // Act
+            var sut = new MovieService(effort, mapperMock.Object);
+
+            // Assert
+            Assert.ThrowsException<NullReferenceException>(() => sut.AddMovieParticipant(movieDto, participantDto, roleName));
+
         }
 
         [TestMethod]
