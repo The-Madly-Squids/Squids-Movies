@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -148,7 +149,7 @@ namespace SquidsMovieApp.Tests.Controller
             var mockRoleService = new Mock<IRoleService>();
             var mockMapper = new Mock<IMapper>();
             var mockFactory = new Mock<IMovieModelFactory>();
-
+       
             var movieObjectToReturn = new Movie()
             {
                 Title = "TestMovie",
@@ -178,21 +179,33 @@ namespace SquidsMovieApp.Tests.Controller
                 Age = 21
             };
 
+            var roles = new List<Role>();
+            roles.Add(new Role()
+            {
+                RoleName = "Terminator"
+            });
+
+            var listOfAllParticipants = new List<ParticipantModel>();
+            listOfAllParticipants.Add(participantModelToAdd);
+
             mockMapper.Setup(x => x.Map<ParticipantModel>(It.IsAny<Participant>()))
                .Returns(participantModelToAdd);
-
             mockMovieService.Setup(x => x.AddMovieParticipant(It.IsAny<MovieModel>(), It.IsAny<ParticipantModel>(), It.IsAny<string>()))
                 .Verifiable();
+            mockMovieService.Setup(x => x.GetMovie(It.IsAny<string>()))
+                .Returns(movieModelToAdd);
+            mockMovieService.Setup(x => x.GetAllParticipantsPerMovie(It.IsAny<MovieModel>()))
+                .Returns(listOfAllParticipants);
+            mockRoleService.Setup(x => x.ParticipantRolesPerMovie(It.IsAny<ParticipantModel>(), It.IsAny<MovieModel>()))
+                .Returns(roles);
 
             effortContext.Participants.Add(participantObjectToReturn);
             effortContext.Movies.Add(movieObjectToReturn);
             effortContext.SaveChanges();
-
-
+            var controller = new MovieController(mockMovieService.Object,
+               mockRoleService.Object, mockMapper.Object, mockFactory.Object);
 
             // Act
-            var controller = new MovieController(mockMovieService.Object,
-                    mockRoleService.Object, mockMapper.Object, mockFactory.Object);
             controller.AddMovieParticipant("TestMovie", "Pesho", "Markov", "someRole");
 
             // Assert  TODO
@@ -212,8 +225,8 @@ namespace SquidsMovieApp.Tests.Controller
             var controller = new MovieController(mockMovieService.Object,
                 mockRoleService.Object, mockMapper.Object, mockFactory.Object);
 
-            mockMovieService.Setup(x => x.AddMovieParticipant(It.IsAny<MovieModel>(), It.IsAny<ParticipantModel>(), It.IsAny<string>()))
-            .Verifiable();
+                mockMovieService.Setup(x => x.AddMovieParticipant(It.IsAny<MovieModel>(), It.IsAny<ParticipantModel>(), It.IsAny<string>()))
+                .Verifiable();
 
             //Act & Assert
             Assert.ThrowsException<ArgumentException>(() => controller.AddMovieParticipant("", "", "", ""));

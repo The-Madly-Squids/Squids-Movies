@@ -119,14 +119,64 @@ namespace SquidsMovieApp.Tests.Service
         [TestMethod]
         public void RemoveMovieShould_ThrowWhenCalledWithInvalidData()
         {
-            // For Plamen
-            throw new NotImplementedException();
+
+            // Arrange
+            var effortContext = new MovieAppDBContext(
+                Effort.DbConnectionFactory.CreateTransient());
+
+            var mapperMock = new Mock<IMapper>();
+
+            var movieObjectToRemove = new Movie()
+            {
+                Title = "Test title",
+                Runtime = 120
+            };
+
+            effortContext.Movies.Add(movieObjectToRemove);
+            effortContext.SaveChanges();
+
+            var movieDtoToRemove = new MovieModel()
+            {
+                MovieId = 1000000,
+                Title = movieObjectToRemove.Title,
+                Runtime = movieObjectToRemove.Runtime
+            };
+
+            var sut = new MovieService(effortContext, mapperMock.Object);
+
+            // Act & Assert
+            Assert.ThrowsException<System.ArgumentNullException>(() => sut.RemoveMovie(movieDtoToRemove));
         }
 
         [TestMethod]
         public void RemoveMovieShould_ThrowWhenMovieToRemoveNotFoundInDataBase()
         {
-            
+            // Arrange
+            var effortContext = new MovieAppDBContext(
+                Effort.DbConnectionFactory.CreateTransient());
+
+            var mapperMock = new Mock<IMapper>();
+
+            var movieObjectToRemove = new Movie()
+            {
+                Title = "Test title",
+                Runtime = 120
+            };
+
+            //effortContext.Movies.Add(movieObjectToRemove);
+            //effortContext.SaveChanges();
+
+            var movieDtoToRemove = new MovieModel()
+            {
+                MovieId = movieObjectToRemove.MovieId,
+                Title = movieObjectToRemove.Title,
+                Runtime = movieObjectToRemove.Runtime
+            };
+
+            var sut = new MovieService(effortContext, mapperMock.Object);
+
+            // Act & Assert     
+            Assert.ThrowsException<ArgumentNullException>(() => sut.RemoveMovie(movieDtoToRemove));
         }
 
         [TestMethod]
@@ -143,7 +193,7 @@ namespace SquidsMovieApp.Tests.Service
                 var movieToAdd = new Movie()
                 {
                     Title = "Test title" + i,
-                    Runtime = 120 + i
+                    Runtime = 120
                 };
 
                 effortContext.Movies.Add(movieToAdd);
@@ -188,8 +238,64 @@ namespace SquidsMovieApp.Tests.Service
         [TestMethod]
         public void GetAllParticipantsPerMovieShould_ReturnCorrectParticipants()
         {
-            // For Plamen
-            throw new NotImplementedException();
+
+            // Arrange
+            var effortContext = new MovieAppDBContext(
+                Effort.DbConnectionFactory.CreateTransient());
+            var mapperMock = new Mock<IMapper>();
+            var sut = new MovieService(effortContext, mapperMock.Object);
+
+            var movieToAdd = new Movie()
+            {
+                Title = "Test title",
+                Runtime = 120
+            };
+
+            var movieDto = new MovieModel()
+            {
+                MovieId = movieToAdd.MovieId,
+                Title = movieToAdd.Title,
+                Runtime = movieToAdd.Runtime
+            };
+
+            effortContext.Movies.Add(movieToAdd);
+
+            for (int i = 0; i < 10; i++)
+            {
+                var participant = new Participant()
+                {
+                    FirstName = "FirstName" + i,
+                    LastName = "LastName" + i
+                };
+                effortContext.Participants.Add(participant);
+                participant.Movies.Add(movieToAdd);
+                var participant2 = effortContext.Participants
+                    .Where(x => x.FirstName == "FirstName" + i)
+                    .FirstOrDefault();
+                movieToAdd.Participants.Add(participant2);
+                sut.AddMovieParticipant(movieDto, new ParticipantModel()
+                {
+                    FirstName = participant.FirstName,
+                    LastName = participant.LastName
+                }, 
+                 $"someRole + {i}");
+                effortContext.SaveChanges();
+            }
+
+            var participantsDTOsListToReturn = new List<ParticipantModel>();
+            //effortContext.SaveChanges();
+
+            
+
+            mapperMock.Setup(x => x.Map<IList<ParticipantModel>>(
+                                                    It.IsAny<IList<Participant>>()))
+                .Returns(participantsDTOsListToReturn);
+
+
+            // Act & Assert
+            var result = sut.GetAllParticipantsPerMovie(movieDto);
+            
+            Assert.AreEqual(10, result.Count());
         }
 
         [TestMethod]
