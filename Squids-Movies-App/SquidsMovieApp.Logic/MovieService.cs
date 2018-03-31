@@ -102,6 +102,11 @@ namespace SquidsMovieApp.Logic
                 .Where(x => x.MovieId == movie.MovieId)
                 .FirstOrDefault();
 
+            if (movieToRemoveObject == null)
+            {
+                throw new ArgumentNullException();
+            }
+
             this.movieAppDbContext.Movies.Remove(movieToRemoveObject);
             this.movieAppDbContext.SaveChanges();
         }
