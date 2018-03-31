@@ -90,6 +90,11 @@ namespace SquidsMovieApp.Logic
                 throw new ArgumentException();
             }
 
+            if (movie.Title == null)
+            {
+                throw new ArgumentException();
+            }
+
             var movieToAdd = this.mapper.Map<Movie>(movie);
 
             this.movieAppDbContext.Movies.Add(movieToAdd);
@@ -110,6 +115,11 @@ namespace SquidsMovieApp.Logic
             var movieToRemoveObject = this.movieAppDbContext.Movies
                 .Where(x => x.MovieId == movie.MovieId)
                 .FirstOrDefault();
+
+            if (movieToRemoveObject == null)
+            {
+                throw new ArgumentNullException();
+            }
 
             this.movieAppDbContext.Movies.Remove(movieToRemoveObject);
             this.movieAppDbContext.SaveChanges();

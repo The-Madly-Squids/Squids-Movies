@@ -26,7 +26,6 @@ namespace SquidsMovieApp.Data.Context
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-
             modelBuilder.Entity<User>()
                .HasMany(u => u.BoughtMovies)
                .WithMany(m => m.BoughtBy)

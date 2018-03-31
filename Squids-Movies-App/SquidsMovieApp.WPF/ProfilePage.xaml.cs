@@ -1,10 +1,15 @@
 ﻿using Autofac;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
 using SquidsMovieApp.DTO;
 using SquidsMovieApp.WPF.Controllers;
 using SquidsMovieApp.WPF.Controllers.Contracts;
+using SquidsMovieApp.WPF.PdfReportUtilities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -113,7 +118,7 @@ namespace SquidsMovieApp.WPF
                     hyperLink.Inlines.Add(movie.Title);
 
                     tb.Inlines.Add(hyperLink);
-                    tb.Padding = new Thickness(5);           
+                    tb.Padding = new Thickness(5);
 
                     this.BoughtMoviesSP.Children.Add(tb);
                 }
@@ -180,7 +185,7 @@ namespace SquidsMovieApp.WPF
 
                     hyperLink.Click += new RoutedEventHandler(this.FollowerLinkClicked);
                     hyperLink.Inlines.Add(follower.Username);
-                    
+
                     this.FollowersSP.Children.Add(tb);
                 }
             }
@@ -207,10 +212,10 @@ namespace SquidsMovieApp.WPF
                         TextDecorations = null,
                         FontSize = 15
                     };
-                    
+
                     tb.Inlines.Add(hyperLink);
-                    tb.Padding = new Thickness(5);               
-                    
+                    tb.Padding = new Thickness(5);
+
                     hyperLink.Click += new RoutedEventHandler(this.FollowerLinkClicked);
                     hyperLink.Inlines.Add(follower.Username);
 
@@ -245,8 +250,8 @@ namespace SquidsMovieApp.WPF
                     hyperLink.Inlines.Add(participant.FirstName + " " + participant.LastName);
 
                     tb.Inlines.Add(hyperLink);
-                    tb.Padding = new Thickness(5);                   
-                    
+                    tb.Padding = new Thickness(5);
+
                     this.LikedParticipantsSP.Children.Add(tb);
                 }
             }
@@ -567,8 +572,48 @@ namespace SquidsMovieApp.WPF
             {
                 return;
             }
-            
+
             this.NavigationService.Navigate(new SearchResultPage(this.mainController, this.userContext, searchFieldText));
+        }
+
+        private void MoviePdfBtnClicked(object sender, RoutedEventArgs e)
+        {
+            Document doc = new Document(PageSize.A4);
+
+            try
+            {
+
+                PdfWriter writer = PdfWriter.GetInstance(doc, new FileStream(
+                  Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "/Report.pdf", FileMode.Create));
+                doc.Open();
+                PdfPTable tbl = new PdfPTable(8);
+                DataTable dt = new GlobalData().GetData("SELECT * FROM Movies");
+                foreach (DataColumn c in dt.Columns)
+                {
+                    tbl.AddCell(new Phrase(c.Caption));
+                }
+                BaseFont bf = BaseFont.CreateFont(BaseFont.TIMES_ROMAN, BaseFont.CP1252, false);
+                //var fnt = new iTextSharp.text.Font(bf, 13.0f, 1, BaseColor.BLUE);
+                foreach (DataRow row in dt.Rows)
+                {
+
+                    tbl.AddCell(new Phrase(row[0].ToString()));
+                    tbl.AddCell(new Phrase(row[1].ToString()));
+                    tbl.AddCell(new Phrase(row[2].ToString()));
+                    tbl.AddCell(new Phrase(row[3].ToString()));
+                    tbl.AddCell(new Phrase(row[4].ToString()));
+                    tbl.AddCell(new Phrase(row[5].ToString()));
+                    tbl.AddCell(new Phrase(row[6].ToString()));
+                    tbl.AddCell(new Phrase(row[7].ToString()));
+                }
+                doc.Add(tbl);
+                doc.Close();
+                System.Diagnostics.Process.Start(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "/Report.pdf");
+            }
+            catch (Exception ae)
+            {
+                MessageBox.Show(ae.Message);
+            }
         }
     }
 }
