@@ -34,6 +34,17 @@ namespace SquidsMovieApp.Logic
             this.movieAppDbContext.Participants.Add(participant);
         }
 
+        public IEnumerable<ParticipantModel> FindParticipantsByNames(string pattern)
+        {
+            var participantsPoco = this.movieAppDbContext.Participants
+                               .Where(x => x.FirstName.Contains(pattern) || x.LastName.Contains(pattern))
+                               .ToList();
+
+            var participantDto = mapper.Map<IList<ParticipantModel>>(participantsPoco);
+
+            return participantDto;
+        }
+
         public IEnumerable<MovieModel> GetAllMoviesPerParticipant(ParticipantModel participant)
         {
             throw new NotImplementedException();

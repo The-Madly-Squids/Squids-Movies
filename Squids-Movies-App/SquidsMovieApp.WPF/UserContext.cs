@@ -7,18 +7,20 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace SquidsMovieApp.Core.Providers
+namespace SquidsMovieApp.WPF
 {
-    public class AuthProvider
+    public class UserContext
     {
         private readonly IUserService userService;
         private UserModel loggedUser;
         private UserModel fakeUser;
+        private IList<MovieModel> cart;
 
-        public AuthProvider(IUserService userService)
+        public UserContext(IUserService userService)
         {
             this.userService = userService;
             this.LoggedUser = null;
+            this.cart = new List<MovieModel>();
 
             this.fakeUser = new UserModel()
             {
@@ -127,6 +129,8 @@ namespace SquidsMovieApp.Core.Providers
             };
         }
 
+        public IList<MovieModel> Cart => new List<MovieModel>(this.cart);
+
         public UserModel FakeUser => this.fakeUser;
 
         public UserModel LoggedUser { get => loggedUser; private set => loggedUser = value; }
@@ -154,6 +158,26 @@ namespace SquidsMovieApp.Core.Providers
         public void Logout()
         {
             this.LoggedUser = null;
+        }
+
+        public void AddToCart(MovieModel movie)
+        {
+            if (movie == null)
+            {
+                throw new ArgumentNullException("Invalid movie!");
+            }
+
+            this.cart.Add(movie);
+        }
+
+        public void RemoveFromCart(MovieModel movie)
+        {
+            if (movie == null)
+            {
+                throw new ArgumentNullException("Added movie to cart is null!");
+            }
+
+            this.cart.Remove(movie);
         }
     }
 }

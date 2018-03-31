@@ -28,7 +28,7 @@
                     <TextBlock Margin="0,0,0,5" FontSize="17">Username*:</TextBlock>
                     <TextBox Name="UsernameRegisterTB" Margin="0,0,0,5" FontSize="14"></TextBox>
                     <TextBlock Margin="0,0,0,5" FontSize="17">Date of birth:</TextBlock>
-                    <StackPanel Name="DateOfBirth" Orientation="Horizontal">
+                    <StackPanel Margin="0,0,0,5" Name="DateOfBirth" Orientation="Horizontal">
                         <TextBlock Margin="0,0,5,0">DD</TextBlock>
                         <ComboBox Name="BirthDD" ItemsSource="{Binding BirthDays}" Width="56"/>
 
@@ -41,7 +41,7 @@
                     </StackPanel>
                     <TextBlock Margin="0,0,0,5" FontSize="17">Password*:</TextBlock>
                     <PasswordBox Name="PasswordRegisterPB" Margin="0,0,0,5" FontSize="14"/>
-                    <TextBlock Margin="0,0,0,5" FontSize="17">Repeat password*:</TextBlock>
+                    <TextBlock Margin="0,0,0,5" FontSize="17">Confirm password*:</TextBlock>
                     <PasswordBox Name="PasswordRepeatRegisterPB" Margin="0,0,0,15" FontSize="14"/>
                     <StackPanel Orientation="Horizontal">
                         <Button  FontSize="15" Width="65" Margin="0,0,15,15" Content="Register" Click="RegisterBtnClicked"/>

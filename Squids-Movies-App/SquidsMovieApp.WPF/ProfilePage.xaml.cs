@@ -1,10 +1,10 @@
 ﻿using Autofac;
-using SquidsMovieApp.Core.Providers;
 using SquidsMovieApp.DTO;
 using SquidsMovieApp.WPF.Controllers;
 using SquidsMovieApp.WPF.Controllers.Contracts;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,20 +23,23 @@ namespace SquidsMovieApp.WPF
     public partial class ProfilePage : Page
     {
         private readonly IMainController mainController;
-        private readonly AuthProvider authProvider;
+        private readonly UserContext userContext;
         private string moneyBalance;
 
-        public ProfilePage(IMainController mainController, AuthProvider authProvider)
+        public ProfilePage(IMainController mainController, UserContext userContext)
         {
             InitializeComponent();
 
             DataContext = this;
             this.mainController = mainController;
-            this.authProvider = authProvider;
-            GreetingName.Text = string.Format("Hello, {0}!", authProvider.LoggedUser.Username);
-            //GreetingName.Text = string.Format("Hello, {0}!", authProvider.FakeUser.Username);
-            FillUserProfile();
-            //FillFakeUserProfile();
+            this.userContext = userContext;
+
+            //GreetingName.Text = string.Format("Hello, {0}!", userContext.LoggedUser.Username);
+            this.GreetingName.Text = string.Format("Hello, {0}!", userContext.FakeUser.Username);
+            this.UserProfileNav.IsEnabled = false;
+            this.SearchTBox.Focus();
+            //FillUserProfile();
+            FillFakeUserProfile();
         }
 
         public string Username { get; set; }
@@ -58,14 +61,14 @@ namespace SquidsMovieApp.WPF
 
         private void FillFakeUserProfile()
         {
-            this.Username = this.authProvider.FakeUser.Username;
-            this.Email = this.authProvider.FakeUser.Email;
-            this.MoneyBalance = this.authProvider.FakeUser.MoneyBalance.ToString();
+            this.Username = this.userContext.FakeUser.Username;
+            this.Email = this.userContext.FakeUser.Email;
+            this.MoneyBalance = this.userContext.FakeUser.MoneyBalance.ToString();
 
             // Firstname
-            if (this.authProvider.FakeUser.FirstName != null)
+            if (this.userContext.FakeUser.FirstName != null)
             {
-                this.FirstName = this.authProvider.FakeUser.FirstName;
+                this.FirstName = this.userContext.FakeUser.FirstName;
             }
             else
             {
@@ -73,9 +76,9 @@ namespace SquidsMovieApp.WPF
             }
 
             // Lastname
-            if (this.authProvider.FakeUser.LastName != null)
+            if (this.userContext.FakeUser.LastName != null)
             {
-                this.LastName = this.authProvider.FakeUser.LastName;
+                this.LastName = this.userContext.FakeUser.LastName;
             }
             else
             {
@@ -83,9 +86,9 @@ namespace SquidsMovieApp.WPF
             }
 
             // Age
-            if (this.authProvider.FakeUser.Age != null)
+            if (this.userContext.FakeUser.Age != null)
             {
-                this.Age = this.authProvider.FakeUser.Age;
+                this.Age = this.userContext.FakeUser.Age;
             }
             else
             {
@@ -93,111 +96,181 @@ namespace SquidsMovieApp.WPF
             }
 
             // Bought movies
-            if (this.authProvider.FakeUser.BoughtMovies.Any())
+            if (this.userContext.FakeUser.BoughtMovies.Any())
             {
-                foreach (var movie in this.authProvider.FakeUser.BoughtMovies)
+                foreach (var movie in this.userContext.FakeUser.BoughtMovies)
                 {
-                    var hyperLink = new Hyperlink();
-                    hyperLink.Name = movie.Title;
-                    hyperLink.TextDecorations = null;
+                    var tb = new TextBlock();
+
+                    var hyperLink = new Hyperlink
+                    {
+                        Name = string.Format("Id_{0}", movie.MovieId.ToString()),
+                        TextDecorations = null,
+                        FontSize = 15
+                    };
+
                     hyperLink.Click += new RoutedEventHandler(this.MovieLinkClicked);
                     hyperLink.Inlines.Add(movie.Title);
 
-                    this.BoughtMoviesLB.Items.Add(hyperLink);
+                    tb.Inlines.Add(hyperLink);
+                    tb.Padding = new Thickness(5);           
+
+                    this.BoughtMoviesSP.Children.Add(tb);
                 }
             }
             else
             {
-                this.BoughtMoviesLB.Items.Add("No bought movies to show.");
+                var tb = new TextBlock
+                {
+                    Text = "No bought movies to show."
+                };
+
+                this.BoughtMoviesSP.Children.Add(tb);
             }
 
             // Liked movies
-            if (this.authProvider.FakeUser.LikedMovies.Any())
+            if (this.userContext.FakeUser.LikedMovies.Any())
             {
-                foreach (var movie in this.authProvider.FakeUser.LikedMovies)
+                foreach (var movie in this.userContext.FakeUser.LikedMovies)
                 {
-                    var hyperLink = new Hyperlink();
-                    hyperLink.Name = movie.Title;
-                    hyperLink.TextDecorations = null;
+                    var tb = new TextBlock();
+
+                    var hyperLink = new Hyperlink
+                    {
+                        Name = string.Format("Id_{0}", movie.MovieId.ToString()),
+                        TextDecorations = null,
+                        FontSize = 15
+                    };
+
                     hyperLink.Click += new RoutedEventHandler(this.MovieLinkClicked);
                     hyperLink.Inlines.Add(movie.Title);
 
-                    this.LikedMoviesLB.Items.Add(hyperLink);
+                    tb.Inlines.Add(hyperLink);
+                    tb.Padding = new Thickness(5);
+
+                    this.LikedMoviesSP.Children.Add(tb);
                 }
             }
             else
             {
-                this.LikedMoviesLB.Items.Add("No liked movies to show.");
+                var tb = new TextBlock
+                {
+                    Text = "No liked movies to show."
+                };
+
+                this.LikedMoviesSP.Children.Add(tb);
             }
 
             // Followers
-            if (this.authProvider.FakeUser.Followers.Any())
+            if (this.userContext.FakeUser.Followers.Any())
             {
-                foreach (var follower in this.authProvider.FakeUser.Followers)
+                foreach (var follower in this.userContext.FakeUser.Followers)
                 {
-                    var hyperLink = new Hyperlink();
-                    hyperLink.Name = follower.Username;
-                    hyperLink.TextDecorations = null;
+                    var tb = new TextBlock();
+
+                    var hyperLink = new Hyperlink
+                    {
+                        Name = follower.Username,
+                        TextDecorations = null,
+                        FontSize = 15
+                    };
+
+                    tb.Inlines.Add(hyperLink);
+                    tb.Padding = new Thickness(5);
+
                     hyperLink.Click += new RoutedEventHandler(this.FollowerLinkClicked);
                     hyperLink.Inlines.Add(follower.Username);
-
-                    this.FollowersLB.Items.Add(hyperLink);
+                    
+                    this.FollowersSP.Children.Add(tb);
                 }
             }
             else
             {
-                this.FollowersLB.Items.Add("No followers to show.");
+                var tb = new TextBlock
+                {
+                    Text = "No followers to show."
+                };
+
+                this.FollowersSP.Children.Add(tb);
             }
 
             // Following
-            if (this.authProvider.FakeUser.Following.Any())
+            if (this.userContext.FakeUser.Following.Any())
             {
-                foreach (var follower in this.authProvider.FakeUser.Following)
+                foreach (var follower in this.userContext.FakeUser.Following)
                 {
-                    var hyperLink = new Hyperlink();
-                    hyperLink.Name = follower.Username;
-                    hyperLink.TextDecorations = null;
+                    var tb = new TextBlock();
+
+                    var hyperLink = new Hyperlink
+                    {
+                        Name = follower.Username,
+                        TextDecorations = null,
+                        FontSize = 15
+                    };
+                    
+                    tb.Inlines.Add(hyperLink);
+                    tb.Padding = new Thickness(5);               
+                    
                     hyperLink.Click += new RoutedEventHandler(this.FollowerLinkClicked);
                     hyperLink.Inlines.Add(follower.Username);
 
-                    this.FollowingLB.Items.Add(hyperLink);
+                    this.FollowingSP.Children.Add(tb);
                 }
             }
             else
             {
-                this.FollowingLB.Items.Add("You are not following anyone.");
+                var tb = new TextBlock
+                {
+                    Text = "You are not following anyone."
+                };
+
+                this.FollowingSP.Children.Add(tb);
             }
 
             // Liked participants
-            if (this.authProvider.FakeUser.LikedParticipants.Any())
+            if (this.userContext.FakeUser.LikedParticipants.Any())
             {
-                foreach (var participant in this.authProvider.FakeUser.LikedParticipants)
+                foreach (var participant in this.userContext.FakeUser.LikedParticipants)
                 {
-                    var hyperLink = new Hyperlink();
-                    hyperLink.Name = participant.ParticipantId.ToString();
-                    hyperLink.TextDecorations = null;
+                    var tb = new TextBlock();
+
+                    var hyperLink = new Hyperlink
+                    {
+                        Name = string.Format("Id_{0}", participant.ParticipantId.ToString()),
+                        TextDecorations = null,
+                        FontSize = 15
+                    };
+
                     hyperLink.Click += new RoutedEventHandler(this.ParticipantLinkClicked);
                     hyperLink.Inlines.Add(participant.FirstName + " " + participant.LastName);
 
-                    this.LikedParticipantsLB.Items.Add(hyperLink);
+                    tb.Inlines.Add(hyperLink);
+                    tb.Padding = new Thickness(5);                   
+                    
+                    this.LikedParticipantsSP.Children.Add(tb);
                 }
             }
             else
             {
-                this.LikedParticipantsLB.Items.Add("No actors or directors you like.");
+                var tb = new TextBlock
+                {
+                    Text = "No actors or directors you like."
+                };
+
+                this.LikedParticipantsSP.Children.Add(tb);
             }
         }
 
         private void FillUserProfile()
         {
-            this.Username = this.authProvider.LoggedUser.Username;
-            this.Email = this.authProvider.LoggedUser.Email;
-            this.MoneyBalance = this.authProvider.LoggedUser.MoneyBalance.ToString();
+            this.Username = this.userContext.LoggedUser.Username;
+            this.Email = this.userContext.LoggedUser.Email;
+            this.MoneyBalance = this.userContext.LoggedUser.MoneyBalance.ToString();
 
             // Firstname
-            if (this.authProvider.LoggedUser.FirstName != null)
+            if (this.userContext.LoggedUser.FirstName != null)
             {
-                this.FirstName = this.authProvider.LoggedUser.FirstName;
+                this.FirstName = this.userContext.LoggedUser.FirstName;
             }
             else
             {
@@ -205,9 +278,9 @@ namespace SquidsMovieApp.WPF
             }
 
             // Lastname
-            if (this.authProvider.LoggedUser.LastName != null)
+            if (this.userContext.LoggedUser.LastName != null)
             {
-                this.LastName = this.authProvider.LoggedUser.LastName;
+                this.LastName = this.userContext.LoggedUser.LastName;
             }
             else
             {
@@ -215,9 +288,9 @@ namespace SquidsMovieApp.WPF
             }
 
             // Age
-            if (this.authProvider.LoggedUser.Age != null)
+            if (this.userContext.LoggedUser.Age != null)
             {
-                this.Age = this.authProvider.LoggedUser.Age;
+                this.Age = this.userContext.LoggedUser.Age;
             }
             else
             {
@@ -225,98 +298,168 @@ namespace SquidsMovieApp.WPF
             }
 
             // Bought movies
-            if (this.authProvider.LoggedUser.BoughtMovies.Any())
+            if (this.userContext.LoggedUser.BoughtMovies.Any())
             {
-                foreach (var movie in this.authProvider.LoggedUser.BoughtMovies)
+                foreach (var movie in this.userContext.LoggedUser.BoughtMovies)
                 {
-                    var hyperLink = new Hyperlink();
-                    hyperLink.Name = movie.Title;
-                    hyperLink.TextDecorations = null;
+                    var tb = new TextBlock();
+
+                    var hyperLink = new Hyperlink
+                    {
+                        Name = string.Format("Id_{0}", movie.MovieId.ToString()),
+                        TextDecorations = null,
+                        FontSize = 15
+                    };
+
                     hyperLink.Click += new RoutedEventHandler(this.MovieLinkClicked);
                     hyperLink.Inlines.Add(movie.Title);
 
-                    this.BoughtMoviesLB.Items.Add(hyperLink);
+                    tb.Inlines.Add(hyperLink);
+                    tb.Padding = new Thickness(5);
+
+                    this.BoughtMoviesSP.Children.Add(tb);
                 }
             }
             else
             {
-                this.BoughtMoviesLB.Items.Add("No bought movies to show.");
+                var tb = new TextBlock
+                {
+                    Text = "No bought movies to show."
+                };
+
+                this.BoughtMoviesSP.Children.Add(tb);
             }
 
             // Liked movies
-            if (this.authProvider.LoggedUser.LikedMovies.Any())
+            if (this.userContext.LoggedUser.LikedMovies.Any())
             {
-                foreach (var movie in this.authProvider.LoggedUser.LikedMovies)
+                foreach (var movie in this.userContext.LoggedUser.LikedMovies)
                 {
-                    var hyperLink = new Hyperlink();
-                    hyperLink.Name = movie.Title;
-                    hyperLink.TextDecorations = null;
+                    var tb = new TextBlock();
+
+                    var hyperLink = new Hyperlink
+                    {
+                        Name = string.Format("Id_{0}", movie.MovieId.ToString()),
+                        TextDecorations = null,
+                        FontSize = 15
+                    };
+
                     hyperLink.Click += new RoutedEventHandler(this.MovieLinkClicked);
                     hyperLink.Inlines.Add(movie.Title);
 
-                    this.LikedMoviesLB.Items.Add(hyperLink);
+                    tb.Inlines.Add(hyperLink);
+                    tb.Padding = new Thickness(5);
+
+                    this.LikedMoviesSP.Children.Add(tb);
                 }
             }
             else
             {
-                this.LikedMoviesLB.Items.Add("No liked movies to show.");
+                var tb = new TextBlock
+                {
+                    Text = "No liked movies to show."
+                };
+
+                this.LikedMoviesSP.Children.Add(tb);
             }
 
             // Followers
-            if (this.authProvider.LoggedUser.Followers.Any())
+            if (this.userContext.LoggedUser.Followers.Any())
             {
-                foreach (var follower in this.authProvider.LoggedUser.Followers)
+                foreach (var follower in this.userContext.LoggedUser.Followers)
                 {
-                    var hyperLink = new Hyperlink();
-                    hyperLink.Name = follower.Username;
-                    hyperLink.TextDecorations = null;
+                    var tb = new TextBlock();
+
+                    var hyperLink = new Hyperlink
+                    {
+                        Name = follower.Username,
+                        TextDecorations = null,
+                        FontSize = 15
+                    };
+
+                    tb.Inlines.Add(hyperLink);
+                    tb.Padding = new Thickness(5);
+
                     hyperLink.Click += new RoutedEventHandler(this.FollowerLinkClicked);
                     hyperLink.Inlines.Add(follower.Username);
 
-                    this.FollowersLB.Items.Add(hyperLink);
+                    this.FollowersSP.Children.Add(tb);
                 }
             }
             else
             {
-                this.FollowersLB.Items.Add("No followers to show.");
+                var tb = new TextBlock
+                {
+                    Text = "No followers to show."
+                };
+
+                this.FollowersSP.Children.Add(tb);
             }
 
             // Following
-            if (this.authProvider.LoggedUser.Following.Any())
+            if (this.userContext.LoggedUser.Following.Any())
             {
-                foreach (var follower in this.authProvider.LoggedUser.Following)
+                foreach (var follower in this.userContext.LoggedUser.Following)
                 {
-                    var hyperLink = new Hyperlink();
-                    hyperLink.Name = follower.Username;
-                    hyperLink.TextDecorations = null;
+                    var tb = new TextBlock();
+
+                    var hyperLink = new Hyperlink
+                    {
+                        Name = follower.Username,
+                        TextDecorations = null,
+                        FontSize = 15
+                    };
+
+                    tb.Inlines.Add(hyperLink);
+                    tb.Padding = new Thickness(5);
+
                     hyperLink.Click += new RoutedEventHandler(this.FollowerLinkClicked);
                     hyperLink.Inlines.Add(follower.Username);
 
-                    this.FollowingLB.Items.Add(hyperLink);
+                    this.FollowingSP.Children.Add(tb);
                 }
             }
             else
             {
-                this.FollowingLB.Items.Add("You are not following anyone.");
+                var tb = new TextBlock
+                {
+                    Text = "You are not following anyone."
+                };
+
+                this.FollowingSP.Children.Add(tb);
             }
 
             // Liked participants
-            if (this.authProvider.LoggedUser.LikedParticipants.Any())
+            if (this.userContext.LoggedUser.LikedParticipants.Any())
             {
-                foreach (var participant in this.authProvider.LoggedUser.LikedParticipants)
+                foreach (var participant in this.userContext.LoggedUser.LikedParticipants)
                 {
-                    var hyperLink = new Hyperlink();
-                    hyperLink.Name = participant.ParticipantId.ToString();
-                    hyperLink.TextDecorations = null;
+                    var tb = new TextBlock();
+
+                    var hyperLink = new Hyperlink
+                    {
+                        Name = string.Format("Id_{0}", participant.ParticipantId.ToString()),
+                        TextDecorations = null,
+                        FontSize = 15
+                    };
+
                     hyperLink.Click += new RoutedEventHandler(this.ParticipantLinkClicked);
                     hyperLink.Inlines.Add(participant.FirstName + " " + participant.LastName);
 
-                    this.LikedParticipantsLB.Items.Add(hyperLink);
+                    tb.Inlines.Add(hyperLink);
+                    tb.Padding = new Thickness(5);
+
+                    this.LikedParticipantsSP.Children.Add(tb);
                 }
             }
             else
             {
-                this.LikedParticipantsLB.Items.Add("No actors or directors you like.");
+                var tb = new TextBlock
+                {
+                    Text = "No actors or directors you like."
+                };
+
+                this.LikedParticipantsSP.Children.Add(tb);
             }
         }
 
@@ -339,14 +482,15 @@ namespace SquidsMovieApp.WPF
             var newName = EditFirstNameTB.Text;
             if (string.IsNullOrEmpty(newName) || string.IsNullOrWhiteSpace(newName))
             {
-                
+
                 var stackPanel = new StackPanel();
                 var err = ErrorDialog.CreateErrorTextBlock("First name cannot be empty or whitespace!");
                 stackPanel.Children.Add(err);
                 ErrorDialog.DisplayError(stackPanel, "Editting failed");
+                return;
             }
 
-            mainController.UserController.EditUserFirstName(authProvider.LoggedUser, newName);
+            mainController.UserController.EditUserFirstName(userContext.LoggedUser, newName);
             this.FirstName = newName;
             this.FirstNameTBlock.Text = newName;
             EditFirstNameClicked(sender, e);
@@ -376,9 +520,10 @@ namespace SquidsMovieApp.WPF
                 var err = ErrorDialog.CreateErrorTextBlock("Last name cannot be empty or whitespace!");
                 stackPanel.Children.Add(err);
                 ErrorDialog.DisplayError(stackPanel, "Editting failed");
+                return;
             }
 
-            mainController.UserController.EditUserLastName(authProvider.LoggedUser, newName);
+            mainController.UserController.EditUserLastName(userContext.LoggedUser, newName);
             this.LastName = newName;
             this.LastNameTBlock.Text = newName;
             EditLastNameClicked(sender, e);
@@ -386,12 +531,12 @@ namespace SquidsMovieApp.WPF
 
         private void AddMoneyClicked(object sender, RoutedEventArgs e)
         {
-            var transferWindow = new AddMoneyToAccountWindow(this.mainController, this.authProvider);
+            var transferWindow = new AddMoneyToAccountWindow(this.mainController, this.userContext);
             transferWindow.Owner = Application.Current.MainWindow;
             transferWindow.ShowDialog();
 
-            //this.MoneyBalance = authProvider.FakeUser.MoneyBalance.ToString();
-            this.MoneyBalance = authProvider.LoggedUser.MoneyBalance.ToString();
+            //this.MoneyBalance = userContext.FakeUser.MoneyBalance.ToString();
+            this.MoneyBalance = userContext.LoggedUser.MoneyBalance.ToString();
             this.WalletTB.Text = this.MoneyBalance;
             this.UserBalanceNav.Text = this.MoneyBalance;
         }
@@ -414,29 +559,16 @@ namespace SquidsMovieApp.WPF
             this.NavigationService.Navigate(new MovieInfoPage(hyperLinkName));
         }
 
-        //private void DisplayError(StackPanel stackPanel)
-        //{
-        //    var errorWindow = new ErrorWindow(stackPanel)
-        //    {
-        //        Owner = Application.Current.MainWindow,
-        //        ErrorName = "Editting failed."
-        //    };
+        private void SearchBtnClicked(object sender, RoutedEventArgs e)
+        {
+            var searchFieldText = this.SearchTBox.Text;
 
-        //    errorWindow.ShowDialog();
-        //}
-
-        //private TextBlock CreateErrorTextBlock(string errorText)
-        //{
-        //    var errorTextBlock = new TextBlock
-        //    {
-        //        Foreground = new SolidColorBrush(Colors.Red),
-        //        HorizontalAlignment = HorizontalAlignment.Center,
-        //        FontWeight = FontWeights.Bold,
-        //        FontSize = 14,
-        //        Text = errorText
-        //    };
-
-        //    return errorTextBlock;
-        //}
+            if (string.IsNullOrWhiteSpace(searchFieldText) || string.IsNullOrEmpty(searchFieldText))
+            {
+                return;
+            }
+            
+            this.NavigationService.Navigate(new SearchResultPage(this.mainController, this.userContext, searchFieldText));
+        }
     }
 }

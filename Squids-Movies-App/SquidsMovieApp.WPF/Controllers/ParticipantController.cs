@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Bytes2you.Validation;
 using SquidsMovieApp.Core.Factories.Contracts;
+using SquidsMovieApp.DTO;
 using SquidsMovieApp.Logic.Contracts;
 
 namespace SquidsMovieApp.WPF.Controllers
@@ -43,6 +44,16 @@ namespace SquidsMovieApp.WPF.Controllers
             var participantModel = this.factory.CreateParticipantModel(
                 firstName, lastName, age);
             this.participantService.AddParticipant(participantModel);
+        }
+
+        public IEnumerable<ParticipantModel> FindParticipantsByNames(string pattern)
+        {
+            if (string.IsNullOrEmpty(pattern) || string.IsNullOrWhiteSpace(pattern))
+            {
+                throw new ArgumentNullException("Invalid search pattern!");
+            }
+
+            return this.participantService.FindParticipantsByNames(pattern);
         }
     }
 }

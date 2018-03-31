@@ -24,5 +24,6 @@ namespace SquidsMovieApp.Logic.Contracts
         IEnumerable<string> GetMovieGenres(MovieModel movie);
         IEnumerable<UserModel> GetUsersWhoBoughtIt(MovieModel movie);
         IEnumerable<UserModel> GetUsersWhoLikedtIt(MovieModel movie);
+        IEnumerable<MovieModel> FindMoviesByTitle(string pattern);
     }
 }

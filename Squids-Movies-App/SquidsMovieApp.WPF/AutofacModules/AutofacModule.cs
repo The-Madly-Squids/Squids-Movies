@@ -8,7 +8,6 @@ using AutoMapper;
 using SquidsMovieApp.Core;
 using SquidsMovieApp.Core.Factories;
 using SquidsMovieApp.Core.Factories.Contracts;
-using SquidsMovieApp.Core.Providers;
 using SquidsMovieApp.Data.Context;
 using SquidsMovieApp.Logic;
 using SquidsMovieApp.Logic.Contracts;
@@ -78,7 +77,7 @@ namespace SquidsMovieApp.WPF.AutofacModules
                .InstancePerDependency();
 
             // common
-            builder.RegisterType<AuthProvider>()
+            builder.RegisterType<UserContext>()
                 .AsSelf()
                 .SingleInstance();
 

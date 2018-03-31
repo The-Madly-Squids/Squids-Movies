@@ -13,7 +13,7 @@
         >
     <Grid>
         <StackPanel Margin="20">
-            <TextBlock>Amount to add (For example: 20, 20.00, 20,50)</TextBlock>
+            <TextBlock>Amount to add (For example: 20; 20.00; 20,50;)</TextBlock>
             <StackPanel Orientation="Horizontal">
                 <TextBox Name="MoneyTB" Margin="0,0,5,15" HorizontalAlignment="Left" Width="100"></TextBox>
                 <TextBlock>$</TextBlock>
