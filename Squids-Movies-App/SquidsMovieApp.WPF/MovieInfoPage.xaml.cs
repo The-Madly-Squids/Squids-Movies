@@ -81,6 +81,49 @@ namespace SquidsMovieApp.WPF
             this.MoviePlotTBlock.Text = this.movie.Plot;
             this.MoviePriceTBlock.Text = string.Format("${0}", this.movie.Price);
 
+            foreach (var review in this.movieReviews)
+            {
+                var reviewHolderSP = new StackPanel()
+                {
+                    Margin = new Thickness(10)
+                };
+
+                var nameAndScore = new StackPanel()
+                {
+                    Orientation = Orientation.Horizontal
+                };
+
+                var authorName = new TextBlock()
+                {
+                    Margin = new Thickness(0, 0, 15, 5),
+                    Text = review.User.Username
+                };
+
+                var rating = new TextBlock()
+                {
+                    Margin = new Thickness(0, 0, 15, 5),
+                    Text = review.Rating.ToString()
+                };
+
+                nameAndScore.Children.Add(authorName);
+                nameAndScore.Children.Add(rating);
+
+                reviewHolderSP.Children.Add(nameAndScore);
+
+                if (!string.IsNullOrEmpty(review.Description))
+                {
+                    var comment = new TextBlock()
+                    {
+                        TextWrapping = TextWrapping.Wrap,
+                        Text = review.Description
+                    };
+
+                    reviewHolderSP.Children.Add(comment);
+                }
+
+                this.ReviewsSP.Children.Add(reviewHolderSP);
+            }
+
             // Reviews
             if (this.ReviewsSP.Children.Count < 1)
             {
@@ -91,51 +134,6 @@ namespace SquidsMovieApp.WPF
                 };
 
                 this.ReviewsSP.Children.Add(noReviews);
-            }
-            else
-            {
-                foreach (var review in this.movieReviews)
-                {
-                    var reviewHolderSP = new StackPanel()
-                    {
-                        Margin = new Thickness(10)
-                    };
-
-                    var nameAndScore = new StackPanel()
-                    {
-                        Orientation = Orientation.Horizontal
-                    };
-
-                    var authorName = new TextBlock()
-                    {
-                        Margin = new Thickness(0, 0, 15, 5),
-                        Text = review.User.Username
-                    };
-
-                    var rating = new TextBlock()
-                    {
-                        Margin = new Thickness(0, 0, 15, 5),
-                        Text = review.Rating.ToString()
-                    };
-
-                    nameAndScore.Children.Add(authorName);
-                    nameAndScore.Children.Add(rating);
-
-                    reviewHolderSP.Children.Add(nameAndScore);
-
-                    if (!string.IsNullOrEmpty(review.Description))
-                    {
-                        var comment = new TextBlock()
-                        {
-                            TextWrapping = TextWrapping.Wrap,
-                            Text = review.Description
-                        };
-
-                        reviewHolderSP.Children.Add(comment);
-                    }
-
-                    this.ReviewsSP.Children.Add(reviewHolderSP);
-                }
             }
 
         }
