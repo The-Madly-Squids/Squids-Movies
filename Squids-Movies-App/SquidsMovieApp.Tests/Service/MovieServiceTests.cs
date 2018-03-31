@@ -238,64 +238,61 @@ namespace SquidsMovieApp.Tests.Service
         [TestMethod]
         public void GetAllParticipantsPerMovieShould_ReturnCorrectParticipants()
         {
-
             // Arrange
-            var effortContext = new MovieAppDBContext(
+            var effort = new MovieAppDBContext(
                 Effort.DbConnectionFactory.CreateTransient());
+
             var mapperMock = new Mock<IMapper>();
-            var sut = new MovieService(effortContext, mapperMock.Object);
 
-            var movieToAdd = new Movie()
+            var movieObject = new Movie()
             {
-                Title = "Test title",
-                Runtime = 120
+                Title = "Test Movie",
+                Year = 1990
             };
-
-            var movieDto = new MovieModel()
-            {
-                MovieId = movieToAdd.MovieId,
-                Title = movieToAdd.Title,
-                Runtime = movieToAdd.Runtime
-            };
-
-            effortContext.Movies.Add(movieToAdd);
+            effort.Movies.Add(movieObject);
 
             for (int i = 0; i < 10; i++)
             {
-                var participant = new Participant()
+                var participantObject = new Participant()
                 {
-                    FirstName = "FirstName" + i,
-                    LastName = "LastName" + i
+                    FirstName = "Test" + i,
+                    LastName = "Testov"
                 };
-                effortContext.Participants.Add(participant);
-                participant.Movies.Add(movieToAdd);
-                var participant2 = effortContext.Participants
-                    .Where(x => x.FirstName == "FirstName" + i)
-                    .FirstOrDefault();
-                movieToAdd.Participants.Add(participant2);
-                sut.AddMovieParticipant(movieDto, new ParticipantModel()
+
+                participantObject.Movies.Add(movieObject);
+                movieObject.Participants.Add(participantObject);
+
+                var roleObject = new Role()
                 {
-                    FirstName = participant.FirstName,
-                    LastName = participant.LastName
-                }, 
-                 $"someRole + {i}");
-                effortContext.SaveChanges();
+                    Movie = movieObject,
+                    Participant = participantObject,
+                    RoleName = "Actor"
+                };
+
+                effort.Participants.Add(participantObject);
+                effort.Roles.Add(roleObject);
             }
+            effort.SaveChanges();
 
-            var participantsDTOsListToReturn = new List<ParticipantModel>();
-            //effortContext.SaveChanges();
+            var participantDTOsListToReturn = Mapper.Map<IList<ParticipantModel>>(
+                effort.Participants);
 
-            
+            var movieDtoArgument = Mapper.Map<MovieModel>(movieObject);
 
             mapperMock.Setup(x => x.Map<IList<ParticipantModel>>(
                                                     It.IsAny<IList<Participant>>()))
-                .Returns(participantsDTOsListToReturn);
+                .Returns(participantDTOsListToReturn);
 
+            // Act
+            var sut = new MovieService(effort, mapperMock.Object);
+            var result = sut.GetAllParticipantsPerMovie(movieDtoArgument);
 
-            // Act & Assert
-            var result = sut.GetAllParticipantsPerMovie(movieDto);
-            
-            Assert.AreEqual(10, result.Count());
+            // Assert
+            foreach (var participantPoco in effort.Participants)
+            {
+                var exists = result.Any(x => x.ParticipantId == participantPoco.ParticipantId);
+                Assert.IsTrue(exists);
+            }
         }
 
         [TestMethod]
