@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SquidsMovieApp.WPF"
         mc:Ignorable="d"
-        Title="Give a Review" SizeToContent="WidthAndHeight"
+        Title="Review" SizeToContent="WidthAndHeight"
         WindowStartupLocation="CenterOwner">
     <StackPanel Width="420">
         <StackPanel Orientation="Horizontal">

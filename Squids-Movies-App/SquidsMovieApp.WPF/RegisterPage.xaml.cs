@@ -92,8 +92,6 @@ namespace SquidsMovieApp.WPF
 
             if (ValidateFields(stackPanel, email, username, password, repeatedPassword))
             {
-               
-
                 this.loadingWindow = new LoadingWindow()
                 {
                     Owner = Application.Current.MainWindow,

@@ -80,6 +80,15 @@ namespace SquidsMovieApp.WPF
             this.MovieRatedTBlock.Text = this.movie.Rated;
             this.MoviePlotTBlock.Text = this.movie.Plot;
             this.MoviePriceTBlock.Text = string.Format("${0}", this.movie.Price);
+            DisplayReviews(false);
+        }
+
+        private void DisplayReviews(bool shouldClear)
+        {
+            if (shouldClear)
+            {
+                this.ReviewsSP.Children.Clear();
+            }
 
             foreach (var review in this.movieReviews)
             {
@@ -95,14 +104,16 @@ namespace SquidsMovieApp.WPF
 
                 var authorName = new TextBlock()
                 {
-                    Margin = new Thickness(0, 0, 15, 5),
-                    Text = review.User.Username
+                    Margin = new Thickness(0, 0, 5, 5),
+                    Text = string.Format("{0} - ", review.User.Username),
+                    FontSize = 15
                 };
 
                 var rating = new TextBlock()
                 {
-                    Margin = new Thickness(0, 0, 15, 5),
-                    Text = review.Rating.ToString()
+                    Margin = new Thickness(0, 0, 5, 5),
+                    Text = string.Format("{0}", review.Rating),
+                    FontSize = 15
                 };
 
                 nameAndScore.Children.Add(authorName);
@@ -115,7 +126,9 @@ namespace SquidsMovieApp.WPF
                     var comment = new TextBlock()
                     {
                         TextWrapping = TextWrapping.Wrap,
-                        Text = review.Description
+                        Text = review.Description,
+                        FontSize = 15,
+                        FontStyle = FontStyles.Italic
                     };
 
                     reviewHolderSP.Children.Add(comment);
@@ -124,7 +137,6 @@ namespace SquidsMovieApp.WPF
                 this.ReviewsSP.Children.Add(reviewHolderSP);
             }
 
-            // Reviews
             if (this.ReviewsSP.Children.Count < 1)
             {
                 var noReviews = new TextBlock()
@@ -135,7 +147,6 @@ namespace SquidsMovieApp.WPF
 
                 this.ReviewsSP.Children.Add(noReviews);
             }
-
         }
 
         private void GetMovieToDisplay(string id)
@@ -187,6 +198,10 @@ namespace SquidsMovieApp.WPF
             };
 
             reviewWindow.ShowDialog();
+
+            this.movieReviews = mainController.MovieController.GetMovieReviews(this.movie.Title);
+
+            DisplayReviews(true);
         }
     }
 }
