@@ -76,6 +76,11 @@ namespace SquidsMovieApp.Logic
                 throw new ArgumentException();
             }
 
+            if (movie.Title == null)
+            {
+                throw new ArgumentException();
+            }
+
             var movieToAdd = this.mapper.Map<Movie>(movie);
 
             this.movieAppDbContext.Movies.Add(movieToAdd);

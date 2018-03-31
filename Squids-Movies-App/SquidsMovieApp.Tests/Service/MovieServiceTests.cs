@@ -10,6 +10,7 @@ using SquidsMovieApp.Logic;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using SquidsMovieApp.DTO.Contracts;
 
 namespace SquidsMovieApp.Tests.Service
 {
@@ -55,8 +56,26 @@ namespace SquidsMovieApp.Tests.Service
         [TestMethod]
         public void AddMovieShould_ThrowWhenCalledWithInvalidData()
         {
-            // For Plamen
-            throw new NotImplementedException();
+
+            // arrange
+            var effortContext = new MovieAppDBContext(
+                        Effort.DbConnectionFactory.CreateTransient());
+            var mapperMock = new Mock<IMapper>();
+
+            var movieObjectToReturn = new Movie()
+            {
+                Title = "Test Movie Object",
+                Runtime = 120
+            };
+
+            mapperMock.Setup(x => x.Map<Movie>(It.IsAny<MovieModel>()))
+                .Returns(movieObjectToReturn);
+
+            var movieToAdd = new MovieModel();
+            var sut = new MovieService(effortContext, mapperMock.Object);
+
+            // Act & Assert
+            Assert.ThrowsException<ArgumentException>(() => sut.AddMovie((movieToAdd)));
         }
 
         [TestMethod]
@@ -107,8 +126,7 @@ namespace SquidsMovieApp.Tests.Service
         [TestMethod]
         public void RemoveMovieShould_ThrowWhenMovieToRemoveNotFoundInDataBase()
         {
-            // For Toni
-            throw new NotImplementedException();
+            
         }
 
         [TestMethod]
