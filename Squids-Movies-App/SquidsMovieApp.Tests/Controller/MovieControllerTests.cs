@@ -73,7 +73,7 @@ namespace SquidsMovieApp.Tests.Controller
             var controller = new MovieController(mockMovieService.Object,
                 mockRoleService.Object, mockMapper.Object, mockFactory.Object);
 
-            mockMovieService.Setup(x => x.GetMovie(It.IsAny<String>()))
+            mockMovieService.Setup(x => x.GetMovieByTitle(It.IsAny<String>()))
                 .Returns(new MovieModel());
 
             // Act
@@ -114,10 +114,10 @@ namespace SquidsMovieApp.Tests.Controller
                 mockRoleService.Object, mockMapper.Object, mockFactory.Object);
 
             // Act
-            controller.GetMovie("TestTitle");
+            controller.GetMovieByTitle("TestTitle");
 
             // Assert
-            mockMovieService.Verify(x => x.GetMovie(It.IsAny<String>()), Times.Once);
+            mockMovieService.Verify(x => x.GetMovieByTitle(It.IsAny<String>()), Times.Once);
         }
 
         [TestMethod]
@@ -191,7 +191,7 @@ namespace SquidsMovieApp.Tests.Controller
                .Returns(participantModelToAdd);
             mockMovieService.Setup(x => x.AddMovieParticipant(It.IsAny<MovieModel>(), It.IsAny<ParticipantModel>(), It.IsAny<string>()))
                 .Verifiable();
-            mockMovieService.Setup(x => x.GetMovie(It.IsAny<string>()))
+            mockMovieService.Setup(x => x.GetMovieByTitle(It.IsAny<string>()))
                 .Returns(movieModelToAdd);
             mockMovieService.Setup(x => x.GetAllParticipantsPerMovie(It.IsAny<MovieModel>()))
                 .Returns(listOfAllParticipants);
