@@ -28,6 +28,7 @@ namespace SquidsMovieApp.WPF
         private IEnumerable<MovieModel> foundMovies;
         private IEnumerable<ParticipantModel> foundParticipants;
         private IEnumerable<UserModel> foundUsers;
+        private string moneyBalance;
 
         public SearchResultPage(IMainController mainController, UserContext userContext, string patternToSearch)
         {
@@ -36,9 +37,12 @@ namespace SquidsMovieApp.WPF
             this.mainController = mainController;
             this.userContext = userContext;
             this.patternToSearch = patternToSearch;
-
+            
+            //fix
             this.GreetingName.Text = string.Format("Hello, {0}!", userContext.FakeUser.Username);
             this.SearchResultTBlock.Text = string.Format("\"{0}\"", this.patternToSearch);
+            //fix
+            this.MoneyBalance = userContext.FakeUser.MoneyBalance.ToString();
             this.SearchTBox.Focus();
 
             this.loadingWindow = new LoadingWindow()
@@ -52,6 +56,12 @@ namespace SquidsMovieApp.WPF
 
             worker.RunWorkerAsync();
             loadingWindow.ShowDialog();
+        }
+
+        public string MoneyBalance
+        {
+            get => string.Format("{0} $", this.moneyBalance);
+            set => this.moneyBalance = value;
         }
 
         private void DisplayMoviesSearchResult()
@@ -188,7 +198,7 @@ namespace SquidsMovieApp.WPF
 
         private void Worker_DoWork(object sender, DoWorkEventArgs e)
         {
-            this.foundMovies = mainController.MovieController.FindMoviesByTitle(patternToSearch);
+            this.foundMovies = mainController.MovieController.SearchForMoviesByTitle(patternToSearch);
             this.foundParticipants = mainController.ParticipantController.FindParticipantsByNames(patternToSearch);
             this.foundUsers = mainController.UserController.FindUsersByUsername(patternToSearch);
         }

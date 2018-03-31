@@ -33,16 +33,19 @@ namespace SquidsMovieApp.WPF
                 {
                     new MovieModel()
                     {
+                        MovieId = 1,
                         Title = "TestMovie1",
                         Plot = "TestMovie1 Plot"
                     },
                     new MovieModel()
                     {
+                        MovieId = 2,
                         Title = "TestMovie2",
                         Plot = "TestMovie2 Plottttt"
                     },
                     new MovieModel()
                     {
+                        MovieId = 3,
                         Title = "TestMovie3",
                         Plot = "TestMovie3 Plotttttt"
                     },
@@ -174,7 +177,7 @@ namespace SquidsMovieApp.WPF
         {
             if (movie == null)
             {
-                throw new ArgumentNullException("Added movie to cart is null!");
+                throw new ArgumentNullException("Invalid movie!");
             }
 
             this.cart.Remove(movie);

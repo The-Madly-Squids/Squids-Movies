@@ -34,13 +34,23 @@ namespace SquidsMovieApp.WPF.Controllers
             return movies;
         }
 
-        public MovieModel GetMovie(string movieTitle)
+        public MovieModel GetMovieByTitle(string movieTitle)
         {
             Guard.WhenArgument(movieTitle, "movie name")
                 .IsNullOrEmpty()
                 .Throw();
 
-            var movie = this.movieService.GetMovie(movieTitle);
+            var movie = this.movieService.GetMovieByTitle(movieTitle);
+            return movie;
+        }
+
+        public MovieModel GetMovieById(int id)
+        {
+            Guard.WhenArgument(id, "movie id")
+               .IsLessThan(1)
+               .Throw();
+
+            var movie = this.movieService.GetMovieById(id);
             return movie;
         }
 
@@ -76,7 +86,7 @@ namespace SquidsMovieApp.WPF.Controllers
                 .IsNullOrEmpty()
                 .Throw();
 
-            var movieToDelete = this.movieService.GetMovie(movieName);
+            var movieToDelete = this.movieService.GetMovieByTitle(movieName);
 
             this.movieService.RemoveMovie(movieToDelete);
         }
@@ -100,7 +110,7 @@ namespace SquidsMovieApp.WPF.Controllers
                .IsNullOrEmpty()
                .Throw();
 
-            var movie = this.movieService.GetMovie(movieName);
+            var movie = this.movieService.GetMovieByTitle(movieName);
 
             var movieParticipants = this.movieService.GetAllParticipantsPerMovie(movie);
 
@@ -134,7 +144,7 @@ namespace SquidsMovieApp.WPF.Controllers
                 .IsNotNullOrEmpty()
                 .Throw();
 
-            var movie = this.movieService.GetMovie(movieName);
+            var movie = this.movieService.GetMovieByTitle(movieName);
 
             return this.movieService.GetRating(movie);
         }
@@ -145,7 +155,7 @@ namespace SquidsMovieApp.WPF.Controllers
                 .IsNullOrEmpty()
                 .Throw();
 
-            var movieModel = this.movieService.GetMovie(movieName);
+            var movieModel = this.movieService.GetMovieByTitle(movieName);
 
             return this.movieService.GetActors(movieModel);
         }
@@ -156,7 +166,7 @@ namespace SquidsMovieApp.WPF.Controllers
               .IsNullOrEmpty()
               .Throw();
 
-            var movieModel = this.movieService.GetMovie(movieName);
+            var movieModel = this.movieService.GetMovieByTitle(movieName);
 
             return this.movieService.GetDirectors(movieModel);
         }
@@ -167,7 +177,7 @@ namespace SquidsMovieApp.WPF.Controllers
             .IsNullOrEmpty()
             .Throw();
 
-            var movieModel = this.movieService.GetMovie(movieName);
+            var movieModel = this.movieService.GetMovieByTitle(movieName);
 
             return this.movieService.GetUsersWhoBoughtIt(movieModel);
         }
@@ -178,7 +188,7 @@ namespace SquidsMovieApp.WPF.Controllers
             .IsNullOrEmpty()
             .Throw();
 
-            var movieModel = this.movieService.GetMovie(movieName);
+            var movieModel = this.movieService.GetMovieByTitle(movieName);
 
             return this.movieService.GetUsersWhoLikedtIt(movieModel);
         }
@@ -189,19 +199,19 @@ namespace SquidsMovieApp.WPF.Controllers
             .IsNullOrEmpty()
             .Throw();
 
-            var movieModel = this.movieService.GetMovie(movieName);
+            var movieModel = this.movieService.GetMovieByTitle(movieName);
 
             return this.movieService.GetAllParticipantsPerMovie(movieModel);
         }
 
-        public IEnumerable<MovieModel> FindMoviesByTitle(string pattern)
+        public IEnumerable<MovieModel> SearchForMoviesByTitle(string pattern)
         {
             Guard.WhenArgument(pattern, "search pattern")
                .IsNullOrEmpty()
                .IsNullOrWhiteSpace()
                .Throw();
 
-            var movies = this.movieService.FindMoviesByTitle(pattern);
+            var movies = this.movieService.GetMoviesByTitleSearch(pattern);
 
             return movies;
         }

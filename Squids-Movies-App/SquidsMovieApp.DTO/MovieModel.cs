@@ -20,6 +20,8 @@ namespace SquidsMovieApp.DTO
         public virtual ICollection<ParticipantModel> Participants { get; set; }
         public virtual ICollection<UserModel> BoughtBy { get; set; }
         public virtual ICollection<UserModel> LikedBy { get; set; }
+        public virtual ICollection<GenreModel> Genres { get; set; }
+        public virtual ICollection<ReviewModel> Reviews { get; set; }
 
         public void CreateMappings(IMapperConfigurationExpression configuration)
         {

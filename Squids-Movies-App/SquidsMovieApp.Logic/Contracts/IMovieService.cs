@@ -11,7 +11,8 @@ namespace SquidsMovieApp.Logic.Contracts
     public interface IMovieService
     {
         IEnumerable<MovieModel> GetAllMovies();
-        MovieModel GetMovie(string movieTitle);
+        MovieModel GetMovieByTitle(string movieTitle);
+        MovieModel GetMovieById(int id);
         void AddMovie(MovieModel movie);
         void RemoveMovie(MovieModel movie);
         IEnumerable<ParticipantModel> GetAllParticipantsPerMovie(MovieModel movie);
@@ -24,6 +25,6 @@ namespace SquidsMovieApp.Logic.Contracts
         IEnumerable<string> GetMovieGenres(MovieModel movie);
         IEnumerable<UserModel> GetUsersWhoBoughtIt(MovieModel movie);
         IEnumerable<UserModel> GetUsersWhoLikedtIt(MovieModel movie);
-        IEnumerable<MovieModel> FindMoviesByTitle(string pattern);
+        IEnumerable<MovieModel> GetMoviesByTitleSearch(string pattern);
     }
 }

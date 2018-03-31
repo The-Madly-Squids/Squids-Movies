@@ -55,10 +55,24 @@ namespace SquidsMovieApp.Logic
             return moviesDto;
         }
 
-        public MovieModel GetMovie(string movieTitle)
+        public MovieModel GetMovieByTitle(string movieTitle)
         {
             var movie = this.movieAppDbContext.Movies
                                 .Where(x => x.Title == movieTitle)
+                                .FirstOrDefault();
+            if (movie == null)
+            {
+                throw new ArgumentNullException("Movie not found!");
+            }
+
+            var movieDto = mapper.Map<MovieModel>(movie);
+            return movieDto;
+        }
+
+        public MovieModel GetMovieById(int id)
+        {
+            var movie = this.movieAppDbContext.Movies
+                                .Where(x => x.MovieId == id)
                                 .FirstOrDefault();
             if (movie == null)
             {
@@ -236,7 +250,7 @@ namespace SquidsMovieApp.Logic
             return users;
         }
 
-        public IEnumerable<MovieModel> FindMoviesByTitle(string pattern)
+        public IEnumerable<MovieModel> GetMoviesByTitleSearch(string pattern)
         {
             var moviesPoco = this.movieAppDbContext.Movies
                                 .Where(x => x.Title.Contains(pattern))

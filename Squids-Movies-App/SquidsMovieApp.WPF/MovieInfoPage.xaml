@@ -5,10 +5,100 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:SquidsMovieApp.WPF"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="800" d:DesignWidth="1200"
       Title="MovieInfoPage">
 
-    <Grid>
-        
-    </Grid>
+    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+        <Grid Background="GhostWhite">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition />
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <!--Header-->
+            <Grid Grid.Column="0" Grid.Row="0" Background="CornflowerBlue">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <TextBlock Margin="10" HorizontalAlignment="Left" Grid.Column="0" Grid.Row="0" FontWeight="Bold" Foreground="GhostWhite" FontSize="20">SquidFlix</TextBlock>
+                <TextBlock Name="GreetingName" Margin="10" HorizontalAlignment="Right" Grid.Column="1" Grid.Row="0" Text="Hello" FontSize="15"/>
+                <StackPanel Margin="10" Grid.Column="0" Grid.Row="1" Orientation="Horizontal">
+                    <TextBox Name="SearchTBox" Margin="0,0,15,0" HorizontalAlignment="Left" Width="250"></TextBox>
+                    <Button Name="SearchBtn" Click="SearchBtnClicked" Margin="0,0,15,0" HorizontalAlignment="Left" Width="125" Height="25" Content="Search"/>
+                    <TextBlock VerticalAlignment="Bottom" FontSize="10">Search for movie titles, actors, directors or other users.</TextBlock>
+                </StackPanel>
+                <StackPanel Margin="10" Grid.Column="1" Grid.Row="1" FlowDirection="RightToLeft" Orientation="Horizontal">
+                    <TextBlock Name="UserBalanceNav" Text="{Binding MoneyBalance}"/>
+                    <Button Margin="15,0,0,0" Width="50" Height="25" Content="Cart"/>
+                    <Button Name="UserProfileNav" Click="ProfileBtnClicked" Margin="15,0,0,0" Width="50" Height="25" Content="Profile"/>
+                </StackPanel>
+            </Grid>
+            <!--Main-->
+            <Grid Grid.Column="0" Grid.Row="1" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="360"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <StackPanel Margin="15" Grid.Column="0">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Name="MovieTitleTBlock" FontSize="25" FontWeight="Bold" Margin="0,0,15,0">Title</TextBlock>
+                        <TextBlock Name="MovieYearTBlock" FontSize="25" Margin="0,0,15,0">(2000)</TextBlock>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Name="MovieImdbRatingTBlock" FontSize="20" Margin="0,0,15,0">Imdb rating: 7,2;</TextBlock>
+                        <TextBlock Name="MovieSquidFlixRatingTBlock" FontSize="20" Margin="0,0,15,0">SquidFlix rating: 8</TextBlock>
+                    </StackPanel>
+                    <StackPanel Name="MovieGenresSP" Orientation="Horizontal">
+                        <TextBlock FontSize="20" Margin="0,0,15,0">Drama</TextBlock>
+                        <TextBlock FontSize="20" Margin="0,0,15,0">|</TextBlock>
+                        <TextBlock FontSize="20" Margin="0,0,15,0">Thriller</TextBlock>
+                        <TextBlock FontSize="20" Margin="0,0,15,0">|</TextBlock>
+                        <TextBlock FontSize="20" Margin="0,0,15,0">Action</TextBlock>
+                    </StackPanel>
+                    <TextBlock Name="MovieRuntimeTBlock" FontSize="20" Margin="0,0,15,0">2h.</TextBlock>
+                    <TextBlock Name="MovieRatedTBlock" FontSize="20" Margin="0,0,15,0">Rated: PG</TextBlock>
+                    <TextBlock Name="MoviePlotTBlock" FontStyle="Italic" Margin="0,15" Grid.Column="0" TextWrapping="Wrap">
+                    PLOTPLOTPLOTPLOTPLOTPLOTPLOTPLOTPLOT PLOTPLOTPLOTPLOTPLOTPLOTPLOTPLOT
+                    PLOTPLOTPLOTPLOTPLOTPLOTPLOT PLOTPLOTPLOTPLOT PLOTPLOTPLOT PLOTPLOTPLOT
+                    LOTPLOTPLOTPLOTPLOTPLOTPLOTPLOTPLOT PLOTPLOTPLOTPLOTPLOTPLOTPLOTPLOT
+                    PLOTPLOTPLOTPLOTPLOTPLOTPLOT PLOTPLOTPLOTPLOT PLOTPLOTPLOT PLOTPLOTPLOT
+                    LOTPLOTPLOTPLOTPLOTPLOTPLOTPLOTPLOT PLOTPLOTPLOTPLOTPLOTPLOTPLOTPLOT
+                    PLOTPLOTPLOTPLOTPLOTPLOTPLOT PLOTPLOTPLOTPLOT PLOTPLOTPLOT PLOTPLOTPLOT
+                    LOTPLOTPLOTPLOTPLOTPLOTPLOTPLOTPLOT PLOTPLOTPLOTPLOTPLOTPLOTPLOTPLOT
+                    PLOTPLOTPLOTPLOTPLOTPLOTPLOT PLOTPLOTPLOTPLOT PLOTPLOTPLOT PLOTPLOTPLOT
+                    LOTPLOTPLOTPLOTPLOTPLOTPLOTPLOTPLOT PLOTPLOTPLOTPLOTPLOTPLOTPLOTPLOT
+                    PLOTPLOTPLOTPLOTPLOTPLOTPLOT PLOTPLOTPLOTPLOT PLOTPLOTPLOT PLOTPLOTPLOT
+                    </TextBlock>
+                </StackPanel>
+                <StackPanel Grid.Column="1" HorizontalAlignment="Center">
+                <Image Name="MoviePosterImg" Width="300" Height="350" Margin="15" ></Image>
+                    <StackPanel>
+                        <StackPanel Margin="0,5" Orientation="Horizontal">
+                            <TextBlock Name="MoviePriceTBlock" VerticalAlignment="Center" FontSize="20" FontWeight="Bold" Margin="0,0,15,0">30$</TextBlock>
+                            <Button Padding="10" Margin="0,0,15,0">Add to cart</Button>
+                            <Button Padding="10" Margin="0,0,15,0">Like movie</Button>
+                            <Button Padding="10" Margin="0,0,15,0">Give a review</Button>
+                        </StackPanel>
+                        <StackPanel Margin="0,5">
+                            <Button Padding="10" Margin="50,0">Watch</Button>
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+            <!--Footer-->
+            <ContentPresenter Grid.Column="0" Grid.Row="2" ContentTemplate="{StaticResource Footer}" />
+        </Grid>
+    </ScrollViewer>
 </Page>

@@ -556,7 +556,7 @@ namespace SquidsMovieApp.WPF
         private void MovieLinkClicked(object sender, RoutedEventArgs e)
         {
             var hyperLinkName = (sender as Hyperlink).Name;
-            this.NavigationService.Navigate(new MovieInfoPage(hyperLinkName));
+            this.NavigationService.Navigate(new MovieInfoPage(this.mainController, this.userContext, hyperLinkName));
         }
 
         private void SearchBtnClicked(object sender, RoutedEventArgs e)

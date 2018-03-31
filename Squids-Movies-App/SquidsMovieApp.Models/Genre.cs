@@ -14,9 +14,7 @@ namespace SquidsMovieApp.Models
         }
 
         public int Id { get; set; }
-
         public string GenreType { get; set; }
-
         public virtual ICollection<Movie> Movies { get; set; }
     }
 }

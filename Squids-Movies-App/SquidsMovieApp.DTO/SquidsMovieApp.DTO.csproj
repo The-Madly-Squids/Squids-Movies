@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="Contracts\IMovieModel.cs" />
     <Compile Include="Contracts\IParticipantModel.cs" />
+    <Compile Include="GenreModel.cs" />
     <Compile Include="MovieModel.cs" />
     <Compile Include="ParticipantModel.cs" />
     <Compile Include="MoviePosterModel.cs" />

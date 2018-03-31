@@ -9,6 +9,7 @@ namespace SquidsMovieApp.DTO
     public class MoviePosterModel
     {
         public int Id { get; set; }
+        public byte[] Poster { get; set; }
         public virtual MovieModel Movie { get; set; }
     }
 }
