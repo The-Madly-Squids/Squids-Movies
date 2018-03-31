@@ -213,17 +213,17 @@ namespace SquidsMovieApp.Logic
             return actorsRoles;
         }
 
-        public IEnumerable<string> GetMovieGenres(MovieModel movie)
+        public IEnumerable<GenreModel> GetMovieGenres(MovieModel movie)
         {
             if (movie == null)
             {
                 throw new ArgumentNullException("Movie cannot be null!");
             }
 
-            // doesnt exist yet - implement it
-            //var movieGenres = movie.Genres;
+            var genres = movie.Genres;
 
-            throw new NotImplementedException();
+            return genres;
+           
         }
 
         public IEnumerable<UserModel> GetUsersWhoBoughtIt(MovieModel movie)

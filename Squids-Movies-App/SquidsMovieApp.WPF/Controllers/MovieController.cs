@@ -141,7 +141,7 @@ namespace SquidsMovieApp.WPF.Controllers
         public double GetRating(string movieName)
         {
             Guard.WhenArgument(movieName, "movie name")
-                .IsNotNullOrEmpty()
+                .IsNullOrEmpty()
                 .Throw();
 
             var movie = this.movieService.GetMovieByTitle(movieName);
@@ -214,6 +214,18 @@ namespace SquidsMovieApp.WPF.Controllers
             var movies = this.movieService.GetMoviesByTitleSearch(pattern);
 
             return movies;
+        }
+
+        public IEnumerable<GenreModel> GetMovieGenres(MovieModel movie)
+        {
+            if (movie == null)
+            {
+                throw new ArgumentNullException("Movie cannot be null!");
+            }
+
+            var genres = this.movieService.GetMovieGenres(movie);
+
+            return genres;
         }
     }
 }

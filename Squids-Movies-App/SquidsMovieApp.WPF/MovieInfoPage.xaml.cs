@@ -26,7 +26,6 @@ namespace SquidsMovieApp.WPF
         private MovieModel movie;
         private readonly string movieId;
         private double squidFlixRating;
-        private IList<string> movieGenres;
 
         public MovieInfoPage(IMainController mainController, UserContext userContext, string movieId)
         {
@@ -35,13 +34,13 @@ namespace SquidsMovieApp.WPF
             this.mainController = mainController;
             this.userContext = userContext;
             this.movieId = movieId;
-            this.movieGenres = new List<string>();
 
             this.GreetingName.Text = string.Format("Hello, {0}!", userContext.FakeUser.Username);
             //fix
             this.MoneyBalance = userContext.FakeUser.MoneyBalance.ToString();
             this.SearchTBox.Focus();
             GetMovieToDisplay(movieId);
+            
             FillMovieInfoPage();
         }
 
@@ -59,6 +58,17 @@ namespace SquidsMovieApp.WPF
             this.MovieYearTBlock.Text = string.Format("({0})", this.movie.Year);
             this.MovieImdbRatingTBlock.Text = this.movie.ImdbRating.ToString();
             this.MovieSquidFlixRatingTBlock.Text = squidFlixRating.ToString();
+            var movieGenres = new List<GenreModel>(this.mainController.MovieController.GetMovieGenres(this.movie));
+
+            foreach (var genre in movieGenres)
+            {
+                var tb = new TextBlock()
+                {
+                    Text = genre.GenreType
+                };
+
+                this.MovieGenresSP.Children.Add(tb);
+            }
         }
 
         private void GetMovieToDisplay(string id)

@@ -20,9 +20,9 @@ namespace SquidsMovieApp.Logic.Contracts
             string roleName);
         double GetRating(MovieModel movie);
         //IEnumerable<ReviewModel> GetReviews(MovieModel movie);
+        IEnumerable<GenreModel> GetMovieGenres(MovieModel movie);
         IEnumerable<ParticipantModel> GetActors(MovieModel movie);
         IEnumerable<ParticipantModel> GetDirectors(MovieModel movie);
-        IEnumerable<string> GetMovieGenres(MovieModel movie);
         IEnumerable<UserModel> GetUsersWhoBoughtIt(MovieModel movie);
         IEnumerable<UserModel> GetUsersWhoLikedtIt(MovieModel movie);
         IEnumerable<MovieModel> GetMoviesByTitleSearch(string pattern);
