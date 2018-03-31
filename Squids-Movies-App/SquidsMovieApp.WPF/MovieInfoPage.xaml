@@ -49,8 +49,9 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="650"/>
                 </Grid.RowDefinitions>
+                <!--Movie info-->
                 <StackPanel Margin="15" Grid.Column="0">
                     <StackPanel>
                         <TextBlock TextWrapping="Wrap" Name="MovieTitleTBlock" FontSize="25" FontWeight="Bold" Margin="0,0,15,0">Title (Year)</TextBlock>
@@ -66,24 +67,38 @@
                     PLOTPLOTPLOTPLOTPLOTPLOTPLOTPLOTPLOT PLOTPLOTPLOTPLOTPLOTPLOTPLOTPLOT
                     PLOTPLOTPLOTPLOTPLOTPLOTPLOT PLOTPLOTPLOTPLOT PLOTPLOTPLOT PLOTPLOTPLOT
                     LOTPLOTPLOTPLOTPLOTPLOTPLOTPLOTPLOT PLOTPLOTPLOTPLOTPLOTPLOTPLOTPLOT
-                    PLOTPLOTPLOTPLOTPLOTPLOTPLOT PLOTPLOTPLOTPLOT PLOTPLOTPLOT PLOTPLOTPLOT
-                    LOTPLOTPLOTPLOTPLOTPLOTPLOTPLOTPLOT PLOTPLOTPLOTPLOTPLOTPLOTPLOTPLOT
                     </TextBlock>
                 </StackPanel>
+                <!--Image+Buttons-->
                 <StackPanel Grid.Column="1" HorizontalAlignment="Center">
-                <Image Name="MoviePosterImg" Width="300" Height="350" Margin="15" ></Image>
+                    <Image Name="MoviePosterImg" Width="300" Height="350" Margin="15" ></Image>
                     <StackPanel>
                         <StackPanel Margin="0,5" Orientation="Horizontal">
                             <TextBlock Name="MoviePriceTBlock" VerticalAlignment="Center" FontSize="20" FontWeight="Bold" Margin="0,0,15,0">00$</TextBlock>
                             <Button Padding="10" Margin="0,0,15,0">Add to cart</Button>
                             <Button Padding="10" Margin="0,0,15,0">Like movie</Button>
-                            <Button Padding="10" Margin="0,0,15,0">Give a review</Button>
+                            <Button Click="GiveReviewBtnClicked" Padding="10" Margin="0,0,15,0">Give a review</Button>
                         </StackPanel>
                         <StackPanel Margin="0,5">
                             <Button Padding="10" Margin="50,0">Watch</Button>
                         </StackPanel>
                     </StackPanel>
                 </StackPanel>
+                <!--User Reviews-->
+                <Grid Grid.Column="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="350"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Row="0" Margin="0,10" FontSize="20" FontWeight="Bold" Text="User reviews:"/>
+                    <ScrollViewer Grid.Row="1"  ScrollViewer.VerticalScrollBarVisibility="Auto">
+                        <StackPanel Name="ReviewsSP">
+                        </StackPanel>
+                    </ScrollViewer>
+                </Grid>
             </Grid>
             <!--Footer-->
             <ContentPresenter Grid.Column="0" Grid.Row="2" ContentTemplate="{StaticResource Footer}" />

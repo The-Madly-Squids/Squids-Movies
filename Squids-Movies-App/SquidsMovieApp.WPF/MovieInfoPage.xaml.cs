@@ -26,6 +26,8 @@ namespace SquidsMovieApp.WPF
         private MovieModel movie;
         private readonly string movieId;
         private double squidFlixRating;
+        private IEnumerable<GenreModel> movieGenresObjs;
+        private IEnumerable<ReviewModel> movieReviews;
 
         public MovieInfoPage(IMainController mainController, UserContext userContext, string movieId)
         {
@@ -35,9 +37,9 @@ namespace SquidsMovieApp.WPF
             this.userContext = userContext;
             this.movieId = movieId;
 
-            this.GreetingName.Text = string.Format("Hello, {0}!", userContext.FakeUser.Username);
+            this.GreetingName.Text = string.Format("Hello, {0}!", userContext.LoggedUser.Username);
             //fix
-            this.MoneyBalance = userContext.FakeUser.MoneyBalance.ToString();
+            this.MoneyBalance = userContext.LoggedUser.MoneyBalance.ToString();
             this.SearchTBox.Focus();
             GetMovieToDisplay(movieId);
 
@@ -52,15 +54,17 @@ namespace SquidsMovieApp.WPF
 
         private void FillMovieInfoPage()
         {
+            // Image
             this.MoviePosterImg.Source = LoadImage(this.movie.Poster.Poster);
 
+            // Basic info
             this.MovieTitleTBlock.Text = string.Format("{0} ({1})", this.movie.Title, this.movie.Year);
             this.MovieImdbRatingTBlock.Text = string.Format("Imdb rating: {0}", this.movie.ImdbRating);
             this.MovieSquidFlixRatingTBlock.Text = string.Format("SquidFlix rating: {0}", squidFlixRating);
-            var movieGenresObjs = mainController.MovieController.GetMovieGenres(this.movie);
+
             var movieGenres = new List<string>();
 
-            foreach (var genreObj in movieGenresObjs)
+            foreach (var genreObj in this.movieGenresObjs)
             {
                 movieGenres.Add(genreObj.GenreType);
             }
@@ -76,14 +80,73 @@ namespace SquidsMovieApp.WPF
             this.MovieRatedTBlock.Text = this.movie.Rated;
             this.MoviePlotTBlock.Text = this.movie.Plot;
             this.MoviePriceTBlock.Text = string.Format("${0}", this.movie.Price);
+
+            // Reviews
+            if (this.ReviewsSP.Children.Count < 1)
+            {
+                var noReviews = new TextBlock()
+                {
+                    Text = "No reviews yet",
+                    Margin = new Thickness(10)
+                };
+
+                this.ReviewsSP.Children.Add(noReviews);
+            }
+            else
+            {
+                foreach (var review in this.movieReviews)
+                {
+                    var reviewHolderSP = new StackPanel()
+                    {
+                        Margin = new Thickness(10)
+                    };
+
+                    var nameAndScore = new StackPanel()
+                    {
+                        Orientation = Orientation.Horizontal
+                    };
+
+                    var authorName = new TextBlock()
+                    {
+                        Margin = new Thickness(0, 0, 15, 5),
+                        Text = review.User.Username
+                    };
+
+                    var rating = new TextBlock()
+                    {
+                        Margin = new Thickness(0, 0, 15, 5),
+                        Text = review.Rating.ToString()
+                    };
+
+                    nameAndScore.Children.Add(authorName);
+                    nameAndScore.Children.Add(rating);
+
+                    reviewHolderSP.Children.Add(nameAndScore);
+
+                    if (!string.IsNullOrEmpty(review.Description))
+                    {
+                        var comment = new TextBlock()
+                        {
+                            TextWrapping = TextWrapping.Wrap,
+                            Text = review.Description
+                        };
+
+                        reviewHolderSP.Children.Add(comment);
+                    }
+
+                    this.ReviewsSP.Children.Add(reviewHolderSP);
+                }
+            }
+
         }
 
         private void GetMovieToDisplay(string id)
         {
             var movieId = int.Parse(id.Split('_')[1]);
             this.movie = this.mainController.MovieController.GetMovieById(movieId);
-            this.squidFlixRating = this.mainController.MovieController.GetRating(this.movie.Title);
-
+            this.squidFlixRating = this.mainController.MovieController.GetAverageRating(this.movie.Title);
+            this.movieGenresObjs = mainController.MovieController.GetMovieGenres(this.movie);
+            this.movieReviews = mainController.MovieController.GetMovieReviews(this.movie.Title);
         }
 
         private ImageSource LoadImage(byte[] imageData)
@@ -115,6 +178,17 @@ namespace SquidsMovieApp.WPF
         private void ProfileBtnClicked(object sender, RoutedEventArgs e)
         {
             this.NavigationService.Navigate(new ProfilePage(this.mainController, this.userContext));
+        }
+
+        private void GiveReviewBtnClicked(object sender, RoutedEventArgs e)
+        {
+            var reviewWindow = new ReviewWindow(this.mainController, this.userContext, this.movie)
+            {
+                Owner = Application.Current.MainWindow,
+                Title = this.movie.Title
+            };
+
+            reviewWindow.ShowDialog();
         }
     }
 }

@@ -58,25 +58,25 @@ namespace SquidsMovieApp.WPF
 
         private void LoginBtnClicked(object sender, RoutedEventArgs e)
         {
-            this.NavigationService.Navigate(new ProfilePage(this.MainController, this.UserContext));
-            //this.email = this.EmailLoginTB.Text;
-            //this.password = this.PasswordLoginTB.Password.ToString();
-            //var stackPanel = new StackPanel();
+            //this.NavigationService.Navigate(new ProfilePage(this.MainController, this.UserContext));
+            this.email = this.EmailLoginTB.Text;
+            this.password = this.PasswordLoginTB.Password.ToString();
+            var stackPanel = new StackPanel();
 
-            //if (ValidateFields(stackPanel))
-            //{
-            //    this.loadingWindow = new LoadingWindow()
-            //    {
-            //        Owner = Application.Current.MainWindow,
-            //    };
+            if (ValidateFields(stackPanel))
+            {
+                this.loadingWindow = new LoadingWindow()
+                {
+                    Owner = Application.Current.MainWindow,
+                };
 
-            //    worker.RunWorkerAsync();
-            //    loadingWindow.ShowDialog();
-            //}
-            //else
-            //{
-            //    ErrorDialog.DisplayError(stackPanel, "Log-in failed.");
-            //}
+                worker.RunWorkerAsync();
+                loadingWindow.ShowDialog();
+            }
+            else
+            {
+                ErrorDialog.DisplayError(stackPanel, "Log-in failed.");
+            }
         }
 
         private bool ValidateFields(StackPanel stackPanel)

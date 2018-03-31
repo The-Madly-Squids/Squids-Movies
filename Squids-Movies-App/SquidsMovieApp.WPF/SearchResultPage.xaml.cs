@@ -176,7 +176,8 @@ namespace SquidsMovieApp.WPF
 
         private void MovieLinkClicked(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            var hyperLinkName = (sender as Hyperlink).Name;
+            this.NavigationService.Navigate(new MovieInfoPage(this.mainController, this.userContext, hyperLinkName));
         }
 
         private void ProfileBtnClicked(object sender, RoutedEventArgs e)

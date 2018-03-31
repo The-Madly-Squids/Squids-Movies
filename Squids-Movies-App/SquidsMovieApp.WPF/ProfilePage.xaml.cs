@@ -39,12 +39,12 @@ namespace SquidsMovieApp.WPF
             this.mainController = mainController;
             this.userContext = userContext;
 
-            //GreetingName.Text = string.Format("Hello, {0}!", userContext.LoggedUser.Username);
-            this.GreetingName.Text = string.Format("Hello, {0}!", userContext.FakeUser.Username);
+            GreetingName.Text = string.Format("Hello, {0}!", userContext.LoggedUser.Username);
+            //this.GreetingName.Text = string.Format("Hello, {0}!", userContext.FakeUser.Username);
+            FillUserProfile();
+            //FillFakeUserProfile();
             this.UserProfileNav.IsEnabled = false;
             this.SearchTBox.Focus();
-            //FillUserProfile();
-            FillFakeUserProfile();
         }
 
         public string Username { get; set; }

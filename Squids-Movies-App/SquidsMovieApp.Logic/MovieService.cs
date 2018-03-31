@@ -174,7 +174,7 @@ namespace SquidsMovieApp.Logic
             this.movieAppDbContext.SaveChanges();
         }
 
-        public double GetRating(MovieModel movie)
+        public double GetAverageRating(MovieModel movie)
         {
             if (movie == null)
             {
@@ -188,6 +188,18 @@ namespace SquidsMovieApp.Logic
                  ratingCollection.Average(x => x.Rating) : 0.0;
 
             return averageRating;
+        }
+
+        public IEnumerable<ReviewModel> GetMovieReviews(string title)
+        {
+            var movie = this.GetMovieByTitle(title);
+
+            var reviews = this.movieAppDbContext.Reviews
+                .Where(x => x.Movie.MovieId == movie.MovieId).ToList();
+
+            var reviewsDto = mapper.Map<IList<ReviewModel>>(reviews);
+
+            return reviewsDto;
         }
 
         public IEnumerable<ParticipantModel> GetActors(MovieModel movie)
@@ -272,6 +284,39 @@ namespace SquidsMovieApp.Logic
             
             var moviesDto = mapper.Map<IList<MovieModel>>(moviesPoco);
             return moviesDto;
+        }
+
+        public void PostMovieReview(ReviewModel review, int movieId, int userId)
+        {
+            if (review == null)
+            {
+                throw new ArgumentNullException();
+            }
+            
+            var reviewFor = this.movieAppDbContext.Movies
+                .Where(x => x.MovieId == movieId)
+                .FirstOrDefault();
+
+            if (reviewFor == null)
+            {
+                throw new ArgumentNullException("Movie not found");
+            }
+
+            var reviewFrom = this.movieAppDbContext.Users
+                .Where(x => x.UserId == userId)
+                .FirstOrDefault();
+
+            if (reviewFrom == null)
+            {
+                throw new ArgumentNullException("User not found");
+            }
+
+            var reviewPoco = mapper.Map<Review>(review);
+
+            reviewFor.Reviews.Add(reviewPoco);
+            reviewFrom.Reviews.Add(reviewPoco);
+            
+            this.movieAppDbContext.SaveChanges();
         }
     }
 }

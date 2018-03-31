@@ -18,13 +18,15 @@ namespace SquidsMovieApp.Logic.Contracts
         IEnumerable<ParticipantModel> GetAllParticipantsPerMovie(MovieModel movie);
         void AddMovieParticipant(MovieModel movie, ParticipantModel participant,
             string roleName);
-        double GetRating(MovieModel movie);
+        double GetAverageRating(MovieModel movie);
         //IEnumerable<ReviewModel> GetReviews(MovieModel movie);
+        IEnumerable<ReviewModel> GetMovieReviews(string title);
         IEnumerable<GenreModel> GetMovieGenres(MovieModel movie);
         IEnumerable<ParticipantModel> GetActors(MovieModel movie);
         IEnumerable<ParticipantModel> GetDirectors(MovieModel movie);
         IEnumerable<UserModel> GetUsersWhoBoughtIt(MovieModel movie);
         IEnumerable<UserModel> GetUsersWhoLikedtIt(MovieModel movie);
         IEnumerable<MovieModel> GetMoviesByTitleSearch(string pattern);
+        void PostMovieReview(ReviewModel review, int movieId, int userId);
     }
 }

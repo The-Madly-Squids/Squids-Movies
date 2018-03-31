@@ -138,7 +138,7 @@ namespace SquidsMovieApp.WPF.Controllers
             this.movieService.AddMovieParticipant(movie, participant, role);
         }
 
-        public double GetRating(string movieName)
+        public double GetAverageRating(string movieName)
         {
             Guard.WhenArgument(movieName, "movie name")
                 .IsNullOrEmpty()
@@ -146,7 +146,14 @@ namespace SquidsMovieApp.WPF.Controllers
 
             var movie = this.movieService.GetMovieByTitle(movieName);
 
-            return this.movieService.GetRating(movie);
+            return this.movieService.GetAverageRating(movie);
+        }
+
+        public IEnumerable<ReviewModel> GetMovieReviews(string title)
+        {
+            var reviews = this.movieService.GetMovieReviews(title);
+
+            return reviews;
         }
 
         public IEnumerable<ParticipantModel> GetActors(string movieName)
@@ -226,6 +233,26 @@ namespace SquidsMovieApp.WPF.Controllers
             var genres = this.movieService.GetMovieGenres(movie);
 
             return genres;
+        }
+
+        public void PostMovieReview(ReviewModel review, int movieId, int userId)
+        {
+            if (review == null)
+            {
+                throw new ArgumentNullException("Review is null");
+            }
+
+            if (movieId < 1)
+            {
+                throw new ArgumentException("Invalid movie id");
+            }
+
+            if (userId < 1)
+            {
+                throw new ArgumentException("Invalid movie id");
+            }
+
+            this.movieService.PostMovieReview(review, movieId, userId);
         }
     }
 }
