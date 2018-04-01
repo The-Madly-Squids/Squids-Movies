@@ -63,6 +63,10 @@
                     <StackPanel Name="MovieGenresSP"></StackPanel>
                     <TextBlock Name="MovieRuntimeTBlock" FontSize="20" Margin="0,0,15,0">0h.</TextBlock>
                     <TextBlock Name="MovieRatedTBlock" FontSize="20" Margin="0,0,15,0">Rated: PG</TextBlock>
+                    <TextBlock FontSize="20" Margin="0,0,15,0">Directed by:</TextBlock>
+                    <StackPanel Name="MovieDirectorsSP"></StackPanel>
+                    <TextBlock  FontSize="20" Margin="0,0,15,0">Cast:</TextBlock>
+                    <StackPanel Name="MovieActorsSP"></StackPanel>
                     <TextBlock Name="MoviePlotTBlock" FontSize="20" FontStyle="Italic" Margin="0,15" Grid.Column="0" TextWrapping="Wrap">
                     PLOT
                     </TextBlock>

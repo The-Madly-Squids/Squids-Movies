@@ -28,6 +28,8 @@ namespace SquidsMovieApp.WPF
         private int movieId;
         private double squidFlixRating;
         private IEnumerable<GenreModel> movieGenresObjs;
+        private IEnumerable<ParticipantModel> movieActors;
+        private IEnumerable<ParticipantModel> movieDirectors;
         private IEnumerable<ReviewModel> movieReviews;
         private LoadingWindow loadingWindow;
         private BackgroundWorker worker;
@@ -71,6 +73,11 @@ namespace SquidsMovieApp.WPF
             this.MovieTitleTBlock.Text = string.Format("{0} ({1})", this.movie.Title, this.movie.Year);
             this.MovieImdbRatingTBlock.Text = string.Format("Imdb rating: {0}", this.movie.ImdbRating);
             this.MovieSquidFlixRatingTBlock.Text = string.Format("SquidFlix rating: {0}", squidFlixRating);
+            this.MovieRuntimeTBlock.Text = string.Format("{0} min.", this.movie.Runtime);
+            this.MovieRatedTBlock.Text = this.movie.Rated;
+            this.MoviePlotTBlock.Text = this.movie.Plot;
+            this.MoviePriceTBlock.Text = string.Format("${0}", this.movie.Price);
+            this.WatchMovieBtn.IsEnabled = false;
 
             // Genres
             var movieGenres = new List<string>();
@@ -80,18 +87,49 @@ namespace SquidsMovieApp.WPF
                 movieGenres.Add(genreObj.GenreType);
             }
 
-            var tb = new TextBlock()
+            var tbGenres = new TextBlock()
             {
                 Text = string.Join(" | ", movieGenres),
-                FontSize = 20
+                FontSize = 20,
+                TextWrapping = TextWrapping.Wrap
             };
 
-            this.MovieGenresSP.Children.Add(tb);
-            this.MovieRuntimeTBlock.Text = string.Format("{0} min.", this.movie.Runtime);
-            this.MovieRatedTBlock.Text = this.movie.Rated;
-            this.MoviePlotTBlock.Text = this.movie.Plot;
-            this.MoviePriceTBlock.Text = string.Format("${0}", this.movie.Price);
-            this.WatchMovieBtn.IsEnabled = false;
+            this.MovieGenresSP.Children.Add(tbGenres);
+
+            // Director
+
+            var movieDirectorsTemp = new List<string>();
+
+            foreach (var director in this.movieDirectors)
+            {
+                movieDirectorsTemp.Add(string.Format("{0} {1}", director.FirstName, director.LastName));
+            }
+
+            var tbDirectors = new TextBlock()
+            {
+                Text = string.Join(", ", movieDirectorsTemp),
+                FontSize = 20,
+                TextWrapping = TextWrapping.Wrap
+            };
+
+            this.MovieDirectorsSP.Children.Add(tbDirectors);
+
+            // Actors
+            var movieActorsTemp = new List<string>();
+
+            foreach (var actor in this.movieActors)
+            {
+                movieActorsTemp.Add(string.Format("{0} {1}", actor.FirstName, actor.LastName));
+            }
+
+            var tbActors = new TextBlock()
+            {
+                Text = string.Join(", ", movieActorsTemp),
+                FontSize = 20,
+                TextWrapping = TextWrapping.Wrap
+            };
+
+            this.MovieActorsSP.Children.Add(tbActors);
 
             // Reviews
             DisplayReviews(false);
@@ -100,7 +138,7 @@ namespace SquidsMovieApp.WPF
             UpdateLikeCount();
 
             // Add to cart btn
-            if (this.userContext.Cart.Any(x=>x.MovieId == this.movie.MovieId))
+            if (this.userContext.Cart.Any(x => x.MovieId == this.movie.MovieId))
             {
                 this.AddToCartBtn.IsEnabled = false;
             }
@@ -174,7 +212,7 @@ namespace SquidsMovieApp.WPF
                     Margin = new Thickness(10)
                 };
 
-                this.ReviewsSP.Children.Add(noReviews);                
+                this.ReviewsSP.Children.Add(noReviews);
             }
         }
 
@@ -271,6 +309,8 @@ namespace SquidsMovieApp.WPF
             this.movie = this.mainController.MovieController.GetMovieById(this.movieId);
             this.squidFlixRating = this.mainController.MovieController.GetAverageRating(this.movie.Title);
             this.movieGenresObjs = mainController.MovieController.GetMovieGenres(this.movie);
+            this.movieActors = mainController.MovieController.GetActors(this.movie.Title);
+            this.movieDirectors = mainController.MovieController.GetDirectors(this.movie.Title);
             this.movieReviews = mainController.MovieController.GetMovieReviews(this.movie.Title);
         }
 

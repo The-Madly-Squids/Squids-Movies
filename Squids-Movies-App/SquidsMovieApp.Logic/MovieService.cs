@@ -231,13 +231,15 @@ namespace SquidsMovieApp.Logic
                 throw new ArgumentNullException("No such movie!");
             }
 
-            var actorsRoles = this.movieAppDbContext.Roles
+            var directors = this.movieAppDbContext.Roles
                 .Where(x => x.Movie.MovieId == movie.MovieId &&
                                 x.RoleName == "Director")
-                .Select(a => a.Participant).ProjectTo<ParticipantModel>()
+                .Select(a => a.Participant)
                 .ToList();
 
-            return actorsRoles;
+            var directorsDtos = this.mapper.Map<IList<ParticipantModel>>(directors);
+
+            return directorsDtos;
         }
 
         public IEnumerable<GenreModel> GetMovieGenres(MovieModel movie)
