@@ -97,11 +97,29 @@ namespace SquidsMovieApp.WPF
             {
                 this.Age = -1;
             }
-
             // Bought movies
-            if (this.userContext.LoggedUser.BoughtMovies.Any())
+            GetBoughtMovies();
+
+            // Liked movies
+            GetLikedMovies();
+
+            // Followers
+            GetFollowers();
+
+            // Following
+            GetFollowing();
+
+            // Liked participants
+            GetLikedParticipants();
+        }
+
+        private void GetBoughtMovies()
+        {
+            var boughtMovies = this.mainController.UserController.GetBoughtMovies(this.userContext.LoggedUser.Username);
+
+            if (boughtMovies.Any())
             {
-                foreach (var movie in this.userContext.LoggedUser.BoughtMovies)
+                foreach (var movie in boughtMovies)
                 {
                     var tb = new TextBlock();
 
@@ -130,11 +148,15 @@ namespace SquidsMovieApp.WPF
 
                 this.BoughtMoviesSP.Children.Add(tb);
             }
+        }
 
-            // Liked movies
-            if (this.userContext.LoggedUser.LikedMovies.Any())
+        private void GetLikedMovies()
+        {
+            var likedMovies = this.mainController.UserController.GetLikedMovies(this.userContext.LoggedUser.Username);
+
+            if (likedMovies.Any())
             {
-                foreach (var movie in this.userContext.LoggedUser.LikedMovies)
+                foreach (var movie in likedMovies)
                 {
                     var tb = new TextBlock();
 
@@ -163,11 +185,15 @@ namespace SquidsMovieApp.WPF
 
                 this.LikedMoviesSP.Children.Add(tb);
             }
+        }
 
-            // Followers
-            if (this.userContext.LoggedUser.Followers.Any())
+        private void GetFollowers()
+        {
+            var followers = this.mainController.UserController.GetFollowers(this.userContext.LoggedUser.Username);
+
+            if (followers.Any())
             {
-                foreach (var follower in this.userContext.LoggedUser.Followers)
+                foreach (var follower in followers)
                 {
                     var tb = new TextBlock();
 
@@ -196,11 +222,15 @@ namespace SquidsMovieApp.WPF
 
                 this.FollowersSP.Children.Add(tb);
             }
+        }
 
-            // Following
-            if (this.userContext.LoggedUser.Following.Any())
+        private void GetFollowing()
+        {
+            var following = this.mainController.UserController.GetFollowed(this.userContext.LoggedUser.Username);
+
+            if (following.Any())
             {
-                foreach (var follower in this.userContext.LoggedUser.Following)
+                foreach (var follower in following)
                 {
                     var tb = new TextBlock();
 
@@ -229,11 +259,15 @@ namespace SquidsMovieApp.WPF
 
                 this.FollowingSP.Children.Add(tb);
             }
+        }
 
-            // Liked participants
-            if (this.userContext.LoggedUser.LikedParticipants.Any())
+        private void GetLikedParticipants()
+        {
+            var likedParticipants = this.mainController.UserController.GetLikedParticipants(this.userContext.LoggedUser.Username);
+
+            if (likedParticipants.Any())
             {
-                foreach (var participant in this.userContext.LoggedUser.LikedParticipants)
+                foreach (var participant in likedParticipants)
                 {
                     var tb = new TextBlock();
 
