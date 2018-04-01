@@ -49,7 +49,7 @@
                 </Grid.RowDefinitions>
                 <StackPanel Grid.Row="0" Orientation="Horizontal">
                     <TextBlock Margin="20,5" FontSize="15">Search results for:</TextBlock>
-                    <TextBlock Margin="20,5" FontSize="15" Name="SearchResultTBlock"></TextBlock>
+                    <TextBlock Margin="10,5" FontSize="15" Name="SearchResultTBlock"></TextBlock>
                 </StackPanel>
                 <ScrollViewer Grid.Row="1" >
                     <Grid Margin="20,5">

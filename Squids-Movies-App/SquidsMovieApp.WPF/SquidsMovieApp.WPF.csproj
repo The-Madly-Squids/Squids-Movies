@@ -114,6 +114,9 @@
       <DependentUpon>SearchResultPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserContext.cs" />
+    <Compile Include="UserPreviewPage.xaml.cs">
+      <DependentUpon>UserPreviewPage.xaml</DependentUpon>
+    </Compile>
     <Page Include="AddMoneyToAccountWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -166,6 +169,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SearchResultPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserPreviewPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

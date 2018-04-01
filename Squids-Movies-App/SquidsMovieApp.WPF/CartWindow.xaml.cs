@@ -150,6 +150,7 @@ namespace SquidsMovieApp.WPF
                 this.BuyBtn.IsEnabled = false;
                 this.TotalPriceTBlock.Text = "$0";
                 this.userContext.RemoveAllFromCart();
+                this.Close();
             }
         }
 

@@ -398,7 +398,7 @@ namespace SquidsMovieApp.Logic
             this.movieAppDbContext.SaveChanges();
         }
 
-        public IEnumerable<UserModel> FindUsersByUsername(string pattern)
+        public IEnumerable<UserModel> SearchUsersByUsername(string pattern)
         {
             var usersPoco = this.movieAppDbContext.Users
                               .Where(x => x.Username.Contains(pattern))

@@ -129,7 +129,7 @@ namespace SquidsMovieApp.WPF
             }
         }
 
-        private void DispkayUsersSearchResult()
+        private void DisplayUsersSearchResult()
         {
             if (this.foundUsers.Any())
             {
@@ -139,7 +139,7 @@ namespace SquidsMovieApp.WPF
 
                     var hyperLink = new Hyperlink
                     {
-                        Name = string.Format("Id_{0}", user.UserId.ToString()),
+                        Name = string.Format("{0}", user.Username),
                         TextDecorations = null,
                         FontSize = 15
                     };
@@ -169,7 +169,8 @@ namespace SquidsMovieApp.WPF
 
         private void UserLinkClicked(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            var hyperLinkName = (sender as Hyperlink).Name;
+            this.NavigationService.Navigate(new UserPreviewPage(this.mainController, this.userContext, hyperLinkName));
         }
 
         private void MovieLinkClicked(object sender, RoutedEventArgs e)
@@ -209,7 +210,7 @@ namespace SquidsMovieApp.WPF
         {
             this.foundMovies = mainController.MovieController.SearchForMoviesByTitle(patternToSearch);
             this.foundParticipants = mainController.ParticipantController.FindParticipantsByNames(patternToSearch);
-            this.foundUsers = mainController.UserController.FindUsersByUsername(patternToSearch);
+            this.foundUsers = mainController.UserController.SearchForUsersByUsername(patternToSearch);
         }
 
         private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -226,7 +227,7 @@ namespace SquidsMovieApp.WPF
             {
                 DisplayMoviesSearchResult();
                 DisplayParticipantsSearchResult();
-                DispkayUsersSearchResult();
+                DisplayUsersSearchResult();
             }
         }
     }

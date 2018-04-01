@@ -359,14 +359,14 @@ namespace SquidsMovieApp.WPF.Controllers
             this.userService.EditUserLastName(user, newName);
         }
 
-        public IEnumerable<UserModel> FindUsersByUsername(string pattern)
+        public IEnumerable<UserModel> SearchForUsersByUsername(string pattern)
         {
             if (string.IsNullOrEmpty(pattern) || string.IsNullOrWhiteSpace(pattern))
             {
                 throw new ArgumentNullException("Invalid search pattern!");
             }
 
-            return this.userService.FindUsersByUsername(pattern);
+            return this.userService.SearchUsersByUsername(pattern);
         }
     }
 }
