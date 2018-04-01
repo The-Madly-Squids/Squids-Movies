@@ -195,6 +195,16 @@ namespace SquidsMovieApp.WPF
             this.NavigationService.Navigate(new SearchResultPage(this.mainController, this.userContext, searchFieldText));
         }
 
+        private void CartBtnClicked(object sender, RoutedEventArgs e)
+        {
+            var cart = new CartWindow(this.mainController, this.userContext)
+            {
+                Owner = Application.Current.MainWindow
+            };
+
+            cart.ShowDialog();
+        }
+
         private void Worker_DoWork(object sender, DoWorkEventArgs e)
         {
             this.foundMovies = mainController.MovieController.SearchForMoviesByTitle(patternToSearch);

@@ -24,8 +24,7 @@ namespace SquidsMovieApp.WPF.AutofacModules
             // Instance per lifetimescope - stop EF caching
             builder.RegisterType<MovieAppDBContext>()
                 .As<IMovieAppDBContext>()
-                .InstancePerDependency()
-                .InstancePerLifetimeScope();
+                .InstancePerDependency();
 
             // services 
             builder.RegisterType<MovieService>()

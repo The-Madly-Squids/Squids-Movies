@@ -36,7 +36,7 @@
                 </StackPanel>
                 <StackPanel Margin="10" Grid.Column="1" Grid.Row="1" FlowDirection="RightToLeft" Orientation="Horizontal">
                     <TextBlock Name="UserBalanceNav" Text="{Binding MoneyBalance}"/>
-                    <Button Margin="15,0,0,0" Width="50" Height="25" Content="Cart"/>
+                    <Button Click="CartBtnClicked" Margin="15,0,0,0" Width="50" Height="25" Content="Cart"/>
                     <Button Name="UserProfileNav" Margin="15,0,0,0" Width="50" Height="25" Content="Profile"/>
                     <Button Name="MoviesAsPdfNav" Click="MoviePdfBtnClicked" Margin="15,0,0,0" Width="80" Height="25" Content="MoviesPdf"/>
 

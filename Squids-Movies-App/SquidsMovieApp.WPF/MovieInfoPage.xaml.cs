@@ -72,6 +72,7 @@ namespace SquidsMovieApp.WPF
             this.MovieImdbRatingTBlock.Text = string.Format("Imdb rating: {0}", this.movie.ImdbRating);
             this.MovieSquidFlixRatingTBlock.Text = string.Format("SquidFlix rating: {0}", squidFlixRating);
 
+            // Genres
             var movieGenres = new List<string>();
 
             foreach (var genreObj in this.movieGenresObjs)
@@ -94,8 +95,14 @@ namespace SquidsMovieApp.WPF
             // Reviews
             DisplayReviews(false);
 
-            // Likes
+            // Likes + btn
             UpdateLikeCount();
+
+            // Add to cart btn
+            if (this.userContext.Cart.Any(x=>x.MovieId == this.movie.MovieId))
+            {
+                this.AddToCartBtn.IsEnabled = false;
+            }
         }
 
         private void DisplayReviews(bool shouldClear)
@@ -210,6 +217,22 @@ namespace SquidsMovieApp.WPF
             DisplayReviews(true);
         }
 
+        private void AddToCartBtbClicked(object sender, RoutedEventArgs e)
+        {
+            this.userContext.AddToCart(this.movie);
+            this.AddToCartBtn.IsEnabled = false;
+        }
+
+        private void CartBtnClicked(object sender, RoutedEventArgs e)
+        {
+            var cart = new CartWindow(this.mainController, this.userContext)
+            {
+                Owner = Application.Current.MainWindow
+            };
+
+            cart.ShowDialog();
+        }
+
         private void UpdateLikeCount()
         {
             this.MovieLikesTBlock.Text = this.movie.LikedBy.Count().ToString();
@@ -249,7 +272,7 @@ namespace SquidsMovieApp.WPF
             if (e.Error != null)
             {
                 stackPanel.Children.Add(ErrorDialog.CreateErrorTextBlock(e.Error.Message));
-                ErrorDialog.DisplayError(stackPanel, "Search failed.");
+                ErrorDialog.DisplayError(stackPanel, "Finding a movie failed.");
             }
             else
             {

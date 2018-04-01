@@ -37,7 +37,7 @@
                 </StackPanel>
                 <StackPanel Margin="10" Grid.Column="1" Grid.Row="1" FlowDirection="RightToLeft" Orientation="Horizontal">
                     <TextBlock Name="UserBalanceNav" Text="{Binding MoneyBalance}"/>
-                    <Button Margin="15,0,0,0" Width="50" Height="25" Content="Cart"/>
+                    <Button Click="CartBtnClicked" Margin="15,0,0,0" Width="50" Height="25" Content="Cart"/>
                     <Button Name="UserProfileNav" Click="ProfileBtnClicked" Margin="15,0,0,0" Width="50" Height="25" Content="Profile"/>
                 </StackPanel>
             </Grid>
@@ -78,7 +78,7 @@
                             <TextBlock DockPanel.Dock="Right" VerticalAlignment="Center" FontSize="20" FontWeight="Bold" Margin="0,0,15,0">Likes:</TextBlock>
                         </DockPanel>
                         <StackPanel Margin="0,5" Orientation="Horizontal">
-                            <Button Padding="10" Margin="0,0,15,0">Add to cart</Button>
+                            <Button Name="AddToCartBtn" Click="AddToCartBtbClicked" Padding="10" Margin="0,0,15,0">Add to cart</Button>
                             <Button Name="LikeBtn" Click="LikeBtnClicked" Padding="10" Margin="0,0,15,0">Like</Button>
                             <Button Click="GiveReviewBtnClicked" Padding="10" Margin="0,0,15,0">Give a review</Button>
                         </StackPanel>

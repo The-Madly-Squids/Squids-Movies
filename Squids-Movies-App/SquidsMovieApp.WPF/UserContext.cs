@@ -173,14 +173,21 @@ namespace SquidsMovieApp.WPF
             this.cart.Add(movie);
         }
 
-        public void RemoveFromCart(MovieModel movie)
+        public void RemoveFromCart(int movieIdToRemove)
         {
-            if (movie == null)
+            if (movieIdToRemove < 1)
+            {
+                throw new ArgumentNullException("Invalid movie id!");
+            }
+
+            var movieToRemove = this.cart.Where(x => x.MovieId == movieIdToRemove).FirstOrDefault();
+
+            if (movieToRemove == null)
             {
                 throw new ArgumentNullException("Invalid movie!");
             }
 
-            this.cart.Remove(movie);
+            this.cart.Remove(movieToRemove);
         }
     }
 }
