@@ -415,46 +415,6 @@ namespace SquidsMovieApp.WPF
             cart.ShowDialog();
         }
 
-        private void MoviePdfBtnClicked(object sender, RoutedEventArgs e)
-        {
-            Document doc = new Document(PageSize.A4);
-
-            try
-            {
-
-                PdfWriter writer = PdfWriter.GetInstance(doc, new FileStream(
-                  Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "/Report.pdf", FileMode.Create));
-                doc.Open();
-                PdfPTable tbl = new PdfPTable(8);
-                DataTable dt = new GlobalData().GetData("SELECT * FROM Movies");
-                foreach (DataColumn c in dt.Columns)
-                {
-                    tbl.AddCell(new Phrase(c.Caption));
-                }
-                BaseFont bf = BaseFont.CreateFont(BaseFont.TIMES_ROMAN, BaseFont.CP1252, false);
-                //var fnt = new iTextSharp.text.Font(bf, 13.0f, 1, BaseColor.BLUE);
-                foreach (DataRow row in dt.Rows)
-                {
-
-                    tbl.AddCell(new Phrase(row[0].ToString()));
-                    tbl.AddCell(new Phrase(row[1].ToString()));
-                    tbl.AddCell(new Phrase(row[2].ToString()));
-                    tbl.AddCell(new Phrase(row[3].ToString()));
-                    tbl.AddCell(new Phrase(row[4].ToString()));
-                    tbl.AddCell(new Phrase(row[5].ToString()));
-                    tbl.AddCell(new Phrase(row[6].ToString()));
-                    tbl.AddCell(new Phrase(row[7].ToString()));
-                }
-                doc.Add(tbl);
-                doc.Close();
-                System.Diagnostics.Process.Start(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "/Report.pdf");
-            }
-            catch (Exception ae)
-            {
-                MessageBox.Show(ae.Message);
-            }
-        }
-
         private void BrowseBtnClicked(object sender, RoutedEventArgs e)
         {
             this.NavigationService.Navigate(new BrowseMoviesPage(this.mainController, this.userContext));
