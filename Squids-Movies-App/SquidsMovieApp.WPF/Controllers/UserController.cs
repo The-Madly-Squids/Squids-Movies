@@ -62,9 +62,14 @@ namespace SquidsMovieApp.WPF.Controllers
                 .IsLessThan(GlobalConstants.MinUserUsernameLength)
                 .Throw();
 
-            if (email.IndexOf('@') == -1 || email.IndexOf('.') == -1)
+            if (email.IndexOf('.') == -1)
             {
-                throw new ArgumentException("Incorrect email!");
+                throw new ArgumentException("Incorrect email! no dot");
+            }
+
+            if (email.IndexOf('@') == -1)
+            {
+                throw new ArgumentException("Incorrect email! '@' ");
             }
 
             Guard.WhenArgument(password.Length, "Too short password")

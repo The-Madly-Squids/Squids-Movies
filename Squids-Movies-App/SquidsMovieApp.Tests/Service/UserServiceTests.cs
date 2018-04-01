@@ -53,15 +53,72 @@ namespace SquidsMovieApp.Tests.Service
         [TestMethod]
         public void AddUserShould_ThrowWhenCalledWithInvalidParameters()
         {
-            // for Paco
-            throw new NotImplementedException();
+            // Arrange
+            var effort = new MovieAppDBContext(
+                                Effort.DbConnectionFactory.CreateTransient());
+            var mapperMock = new Mock<IMapper>();
+
+
+            var userDtoArgument = new UserModel()
+            {
+                FirstName = "John",
+                LastName = "Johnson",
+                //Email = "partypooper1992@gmail.com",
+                Password = "nikoganqmadapoznaesh"
+            };
+
+            var userObjectToReturn = new User()
+            {
+                FirstName = "John",
+                LastName = "Johnson",
+                //Email = "partypooper1992@gmail.com",
+                Password = "nikoganqmadapoznaesh"
+            };
+
+            mapperMock.Setup(x => x.Map<User>(It.IsAny<UserModel>()))
+                        .Returns(userObjectToReturn);
+
+            var sut = new UserService(effort, mapperMock.Object);
+
+            // Act & Assert
+            Assert.ThrowsException<System.Data.Entity.Validation.DbEntityValidationException>(() => sut.AddUser(userDtoArgument));
         }
 
         [TestMethod]
         public void RemoveUserShould_CorrectlyRemoveUserFromDbWhenCalleWithValidData()
         {
-            // for Toni
-            throw new NotImplementedException();
+            // Arrange
+            var effort = new MovieAppDBContext(
+                                Effort.DbConnectionFactory.CreateTransient());
+            var mapperMock = new Mock<IMapper>();
+
+
+            var userDtoArgument = new UserModel()
+            {
+                FirstName = "John",
+                LastName = "Johnson",
+                Email = "partypooper1992@gmail.com",
+                Password = "nikoganqmadapoznaesh"
+            };
+
+            var userObjectToReturn = new User()
+            {
+                FirstName = "John",
+                LastName = "Johnson",
+                Email = "partypooper1992@gmail.com",
+                Password = "nikoganqmadapoznaesh"
+            };
+
+            mapperMock.Setup(x => x.Map<User>(It.IsAny<UserModel>()))
+                        .Returns(userObjectToReturn);
+
+            // Act
+            var sut = new UserService(effort, mapperMock.Object);
+            sut.AddUser(userDtoArgument);
+            sut.RemoveUser(userDtoArgument);
+
+            // Assert
+            Assert.AreEqual(0, effort.Users.Count());
         }
 
         [TestMethod]

@@ -43,7 +43,7 @@ namespace SquidsMovieApp.Tests.Controller
             // Act
             var sut = new UserController(userServiceMock.Object, participantServiceMock.Object,
                 mapperMock.Object, factoryMock.Object);
-            sut.CreateUser(firstName, lastName, nickName, email, password, age, moneyBalance, isAdmin);
+            sut.CreateUser(nickName, email, password, firstName, lastName, age, moneyBalance, isAdmin);
 
             // Assert
             userServiceMock.Verify(x => x.AddUser(It.IsAny<UserModel>()), Times.Once);
