@@ -79,7 +79,7 @@ namespace SquidsMovieApp.Tests.Service
                 //Email = "partypooper1992@gmail.com",
                 Password = "nikoganqmadapoznaesh"
             };
-           
+
             mapperMock.Setup(x => x.Map<User>(It.IsAny<UserModel>()))
                         .Returns(userObjectToReturn);
 
@@ -284,49 +284,386 @@ namespace SquidsMovieApp.Tests.Service
         [TestMethod]
         public void GetUserShould_ReturnCorrectDataWhenCalledWithValidParmeters()
         {
-            throw new NotImplementedException();
+            // Act
+            var effort = new MovieAppDBContext(
+                                Effort.DbConnectionFactory.CreateTransient());
+            var mapperMock = new Mock<IMapper>();
+
+            var userObject = new User()
+            {
+                FirstName = "Test",
+                LastName = "Testove",
+                Username = "Test",
+                Email = "Test@abv.com",
+                Password = "12345678"
+            };
+
+            effort.Users.Add(userObject);
+            effort.SaveChanges();
+
+            var userDtoArgument = Mapper.Map<UserModel>(userObject);
+            mapperMock.Setup(x => x.Map<UserModel>(It.IsAny<User>()))
+              .Returns(userDtoArgument);
+
+            // Act
+            var sut = new UserService(effort, mapperMock.Object);
+            var result = sut.GetUserByUsername("Test");
+
+            // Assert
+            Assert.AreEqual("Test", result.Username);
+
         }
 
         [TestMethod]
         public void GetUserShould_ThrowWhenCalledWithInvalidParmeters()
         {
-            throw new NotImplementedException();
+            // Act
+            var effort = new MovieAppDBContext(
+                                Effort.DbConnectionFactory.CreateTransient());
+            var mapperMock = new Mock<IMapper>();
+
+            var userObject = new User()
+            {
+                FirstName = "Test",
+                LastName = "Testove",
+                Username = "Test",
+                Email = "Test@abv.com",
+                Password = "12345678"
+            };
+
+            effort.Users.Add(userObject);
+            effort.SaveChanges();
+
+            var userDtoArgument = Mapper.Map<UserModel>(userObject);
+            mapperMock.Setup(x => x.Map<UserModel>(It.IsAny<User>()))
+              .Returns(userDtoArgument);
+
+            // Act
+            var sut = new UserService(effort, mapperMock.Object);
+
+            // Assert
+            Assert.ThrowsException<NullReferenceException>(() => sut.GetUserByUsername("Test_wrong"));
         }
 
         [TestMethod]
         public void GetLikedMovies_ShouldReturnCorrectDataWhenCaledWithValidParameters()
         {
-            throw new NotImplementedException();
+            // Act
+            var effort = new MovieAppDBContext(
+                                Effort.DbConnectionFactory.CreateTransient());
+            var mapperMock = new Mock<IMapper>();
+
+            var userObject = new User()
+            {
+                FirstName = "Test",
+                LastName = "Testove",
+                Username = "Test",
+                Email = "Test@abv.com",
+                Password = "12345678"
+            };
+
+            effort.Users.Add(userObject);
+            effort.SaveChanges();
+
+            List<Movie> likedMovies = new List<Movie>();
+            for (int i = 0; i < 10; i++)
+            {
+                var movie = new Movie()
+                {
+                    Title = "Terminator" + i,
+                    Runtime = 150
+                };
+                userObject.LikedMovies.Add(movie);
+                effort.SaveChanges();
+                likedMovies.Add(movie);
+            }
+            var userDtoArgument = Mapper.Map<UserModel>(userObject);
+            mapperMock.Setup(x => x.Map<UserModel>(It.IsAny<User>()))
+              .Returns(userDtoArgument);
+
+            // Act
+            var sut = new UserService(effort, mapperMock.Object);
+            var result = sut.GetLikedMovies(userDtoArgument);
+            // Assert
+            foreach (var movie in result)
+            {
+                bool areSame = likedMovies.Any(x => x.Title == movie.Title);
+                Assert.IsTrue(areSame);
+            }
         }
 
         [TestMethod]
         public void GetBoughtMovies_ShouldReturnCorrectDataWhenCaledWithValidParameters()
         {
-            throw new NotImplementedException();
+            // Act
+            var effort = new MovieAppDBContext(
+                                Effort.DbConnectionFactory.CreateTransient());
+            var mapperMock = new Mock<IMapper>();
+
+            var userObject = new User()
+            {
+                FirstName = "Test",
+                LastName = "Testove",
+                Username = "Test",
+                Email = "Test@abv.com",
+                Password = "12345678"
+            };
+
+            effort.Users.Add(userObject);
+            effort.SaveChanges();
+
+            List<Movie> boughtMovies = new List<Movie>();
+            for (int i = 0; i < 10; i++)
+            {
+                var movie = new Movie()
+                {
+                    Title = "Terminator" + i,
+                    Runtime = 150
+                };
+                userObject.BoughtMovies.Add(movie);
+                effort.SaveChanges();
+                boughtMovies.Add(movie);
+            }
+            var userDtoArgument = Mapper.Map<UserModel>(userObject);
+            mapperMock.Setup(x => x.Map<UserModel>(It.IsAny<User>()))
+              .Returns(userDtoArgument);
+
+            // Act
+            var sut = new UserService(effort, mapperMock.Object);
+            var result = sut.GetBoughtMovies(userDtoArgument);
+            // Assert
+            foreach (var movie in result)
+            {
+                bool areSame = boughtMovies.Any(x => x.Title == movie.Title);
+                Assert.IsTrue(areSame);
+            }
         }
 
         [TestMethod]
         public void GetFollowers_ShouldReturnCorrectDataWhenCaledWithValidParameters()
         {
-            throw new NotImplementedException();
+            // Act
+            var effort = new MovieAppDBContext(
+                                Effort.DbConnectionFactory.CreateTransient());
+            var mapperMock = new Mock<IMapper>();
+
+            var userObject = new User()
+            {
+                FirstName = "Test",
+                LastName = "Testove",
+                Username = "TestOne",
+                Email = "Test@abv.com",
+                Password = "12345678"
+            };
+
+
+            effort.Users.Add(userObject);
+            effort.SaveChanges();
+
+            var userIdToAdd = effort.Users
+                .Where(x => x.Username == "TestOne")
+                .FirstOrDefault()
+                .UserId;
+
+            var userDtoArgument = new UserModel()
+            {
+                UserId = userIdToAdd,
+                FirstName = "Test",
+                LastName = "Testove",
+                Username = "Test",
+                Email = "Test@abv.com",
+                Password = "12345678"
+            };
+
+            List<User> followersList = new List<User>();
+            for (int i = 0; i < 10; i++)
+            {
+                var user = new User()
+                {
+                    FirstName = "Test" + i,
+                    LastName = "Testove" + i,
+                    Username = "Test" + i,
+                    Email = "Test" + i + "@abv.com",
+                    Password = "12345678"
+                };
+
+                effort.Users.Add(user);
+                userObject.Followers.Add(user);
+                followersList.Add(user);
+                effort.SaveChanges();
+            }
+            //var userDtoArgument = Mapper.Map<UserModel>(userObject);
+            //mapperMock.Setup(x => x.Map<UserModel>(It.IsAny<User>()))
+            //  .Returns(userDtoArgument);
+
+            // Act
+            var sut = new UserService(effort, mapperMock.Object);
+            var results = sut.GetFollowers(userDtoArgument);
+            // Assert
+            foreach (var user in results)
+            {
+                bool areSame = followersList.Any(x => x.Username == user.Username);
+                Assert.IsTrue(areSame);
+            }
         }
 
         [TestMethod]
         public void GetFollowed_ShouldReturnCorrectDataWhenCaledWithValidParameters()
         {
-            throw new NotImplementedException();
+            // Act
+            var effort = new MovieAppDBContext(
+                                Effort.DbConnectionFactory.CreateTransient());
+            var mapperMock = new Mock<IMapper>();
+
+            var userObject = new User()
+            {
+                FirstName = "Test",
+                LastName = "Testove",
+                Username = "TestOne",
+                Email = "Test@abv.com",
+                Password = "12345678"
+            };
+
+
+            effort.Users.Add(userObject);
+            effort.SaveChanges();
+
+            var userIdToAdd = effort.Users
+                .Where(x => x.Username == "TestOne")
+                .FirstOrDefault()
+                .UserId;
+
+            var userDtoArgument = new UserModel()
+            {
+                UserId = userIdToAdd,
+                FirstName = "Test",
+                LastName = "Testove",
+                Username = "Test",
+                Email = "Test@abv.com",
+                Password = "12345678"
+            };
+
+            List<User> followedList = new List<User>();
+            for (int i = 0; i < 10; i++)
+            {
+                var user = new User()
+                {
+                    FirstName = "Test" + i,
+                    LastName = "Testove" + i,
+                    Username = "Test" + i,
+                    Email = "Test" + i + "@abv.com",
+                    Password = "12345678"
+                };
+
+                effort.Users.Add(user);
+                userObject.Following.Add(user);
+                followedList.Add(user);
+                effort.SaveChanges();
+            }
+            //var userDtoArgument = Mapper.Map<UserModel>(userObject);
+            //mapperMock.Setup(x => x.Map<UserModel>(It.IsAny<User>()))
+            //  .Returns(userDtoArgument);
+
+            // Act
+            var sut = new UserService(effort, mapperMock.Object);
+            var results = sut.GetFollowed(userDtoArgument);
+            // Assert
+            foreach (var user in results)
+            {
+                bool areSame = followedList.Any(x => x.Username == user.Username);
+                Assert.IsTrue(areSame);
+            }
         }
 
         [TestMethod]
         public void GetMoneyBalance_ShouldReturnCorrectDataWhenCaledWithValidParameters()
         {
-            throw new NotImplementedException();
+            // Act
+            var effort = new MovieAppDBContext(
+                                Effort.DbConnectionFactory.CreateTransient());
+            var mapperMock = new Mock<IMapper>();
+
+            var userObject = new User()
+            {
+                FirstName = "Test",
+                LastName = "Testove",
+                Username = "TestOne",
+                Email = "Test@abv.com",
+                Password = "12345678",
+                MoneyBalance = 1000
+            };
+
+
+            effort.Users.Add(userObject);
+            effort.SaveChanges();
+
+            var userIdToAdd = effort.Users
+                .Where(x => x.Username == "TestOne")
+                .FirstOrDefault()
+                .UserId;
+
+            var userDtoArgument = new UserModel()
+            {
+                UserId = userIdToAdd,
+                FirstName = "Test",
+                LastName = "Testove",
+                Username = "Test",
+                Email = "Test@abv.com",
+                Password = "12345678",
+                MoneyBalance = 1000
+            };
+
+            // Act
+            var sut = new UserService(effort, mapperMock.Object);
+            var result = sut.GetMoneyBalance(userDtoArgument);
+            // Assert
+            Assert.AreEqual(result, userDtoArgument.MoneyBalance);
         }
 
         [TestMethod]
         public void AddMoneyToBalanceShould_CorrectlyAddMoneyToUserWhenInvokedWithValidParameters()
         {
-            throw new NotImplementedException();
+            // Act
+            var effort = new MovieAppDBContext(
+                                Effort.DbConnectionFactory.CreateTransient());
+            var mapperMock = new Mock<IMapper>();
+
+            var userObject = new User()
+            {
+                FirstName = "Test",
+                LastName = "Testove",
+                Username = "TestOne",
+                Email = "Test@abv.com",
+                Password = "12345678",
+                MoneyBalance = 1000
+            };
+
+
+            effort.Users.Add(userObject);
+            effort.SaveChanges();
+
+            var userIdToAdd = effort.Users
+                .Where(x => x.Username == "TestOne")
+                .FirstOrDefault()
+                .UserId;
+
+            var userDtoArgument = new UserModel()
+            {
+                UserId = userIdToAdd,
+                FirstName = "Test",
+                LastName = "Testove",
+                Username = "Test",
+                Email = "Test@abv.com",
+                Password = "12345678",
+                MoneyBalance = 1000
+            };
+
+            // Act
+            var sut = new UserService(effort, mapperMock.Object);
+            sut.AddMoneyToBalance(userDtoArgument, 5000M);
+            //var money = sut.GetMoneyBalance(userDtoArgument);
+            // Assert
+            Assert.AreEqual(6000M, userObject.MoneyBalance);
         }
 
         [TestMethod]
