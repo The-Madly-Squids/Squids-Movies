@@ -27,6 +27,7 @@ namespace SquidsMovieApp.Tests.Service
             {
                 FirstName = "John",
                 LastName = "Johnson",
+                Username = "HackMan",
                 Email = "partypooper1992@gmail.com",
                 Password = "nikoganqmadapoznaesh"
             };
@@ -35,6 +36,7 @@ namespace SquidsMovieApp.Tests.Service
             {
                 FirstName = "John",
                 LastName = "Johnson",
+                Username = "HackMan",
                 Email = "partypooper1992@gmail.com",
                 Password = "nikoganqmadapoznaesh"
             };
@@ -63,6 +65,7 @@ namespace SquidsMovieApp.Tests.Service
             {
                 FirstName = "John",
                 LastName = "Johnson",
+                Username = "HackMan",
                 //Email = "partypooper1992@gmail.com",
                 Password = "nikoganqmadapoznaesh"
             };
@@ -71,10 +74,11 @@ namespace SquidsMovieApp.Tests.Service
             {
                 FirstName = "John",
                 LastName = "Johnson",
+                Username = "HackMan",
                 //Email = "partypooper1992@gmail.com",
                 Password = "nikoganqmadapoznaesh"
             };
-
+           
             mapperMock.Setup(x => x.Map<User>(It.IsAny<UserModel>()))
                         .Returns(userObjectToReturn);
 
@@ -92,19 +96,28 @@ namespace SquidsMovieApp.Tests.Service
                                 Effort.DbConnectionFactory.CreateTransient());
             var mapperMock = new Mock<IMapper>();
 
-
-            var userDtoArgument = new UserModel()
-            {
-                FirstName = "John",
-                LastName = "Johnson",
-                Email = "partypooper1992@gmail.com",
-                Password = "nikoganqmadapoznaesh"
-            };
-
             var userObjectToReturn = new User()
             {
                 FirstName = "John",
                 LastName = "Johnson",
+                Username = "HackMan",
+                Email = "partypooper1992@gmail.com",
+                Password = "nikoganqmadapoznaesh"
+            };
+
+            effort.Users.Add(userObjectToReturn);
+            effort.SaveChanges();
+            var userID = effort.Users
+                .Where(x => x.Username == "HackMan")
+                .FirstOrDefault()
+                .UserId;
+
+            var userDtoArgument = new UserModel()
+            {
+                UserId = userID,
+                FirstName = "John",
+                LastName = "Johnson",
+                Username = "HackMan",
                 Email = "partypooper1992@gmail.com",
                 Password = "nikoganqmadapoznaesh"
             };
@@ -114,8 +127,8 @@ namespace SquidsMovieApp.Tests.Service
 
             // Act
             var sut = new UserService(effort, mapperMock.Object);
-            sut.AddUser(userDtoArgument);
             sut.RemoveUser(userDtoArgument);
+            effort.SaveChanges();
 
             // Assert
             Assert.AreEqual(0, effort.Users.Count());
@@ -124,8 +137,45 @@ namespace SquidsMovieApp.Tests.Service
         [TestMethod]
         public void RemoveUserShould_ThrowWhenUserNotFoundInDataBase()
         {
-            // for Paco
-            throw new NotImplementedException();
+            // Arrange
+            var effort = new MovieAppDBContext(
+                                Effort.DbConnectionFactory.CreateTransient());
+            var mapperMock = new Mock<IMapper>();
+
+            var userObjectToReturn = new User()
+            {
+                FirstName = "John",
+                LastName = "Johnson",
+                Username = "HackMan",
+                Email = "partypooper1992@gmail.com",
+                Password = "nikoganqmadapoznaesh"
+            };
+
+            //effort.Users.Add(userObjectToReturn);
+            //effort.SaveChanges();
+            var userID = effort.Users
+                .Where(x => x.Username == "HackMan")
+                .FirstOrDefault()
+                .UserId;
+
+            var userDtoArgument = new UserModel()
+            {
+                //UserId = userID,
+                FirstName = "John",
+                LastName = "Johnson",
+                Username = "HackMan",
+                Email = "partypooper1992@gmail.com",
+                Password = "nikoganqmadapoznaesh"
+            };
+
+            mapperMock.Setup(x => x.Map<User>(It.IsAny<UserModel>()))
+                        .Returns(userObjectToReturn);
+
+            // Act
+            var sut = new UserService(effort, mapperMock.Object);
+
+            // Assert
+            Assert.ThrowsException<System.NullReferenceException>(() => sut.RemoveUser(userDtoArgument));
         }
 
         [TestMethod]
