@@ -491,22 +491,162 @@ namespace SquidsMovieApp.Tests.Service
         [TestMethod]
         public void GetMovieGenresShould_ReturnCorrectValueWhenCalled()
         {
-            // for Toni
-            throw new NotImplementedException();
+            // Act
+            var effort = new MovieAppDBContext(
+                Effort.DbConnectionFactory.CreateTransient());
+            var mapperMock = new Mock<IMapper>();
+
+            var movieObject = new Movie()
+            {
+                Title = "Test Movie",
+                Year = 1990
+            };
+
+            effort.Movies.Add(movieObject);
+
+            for (int i = 0; i < 10; i++)
+            {
+                var genre = new Genre()
+                {
+                    GenreType = "SomeGenre" + i
+                };
+                effort.Genres.Add(genre);
+                movieObject.Genres.Add(genre);
+            }
+
+            effort.SaveChanges();
+
+            var expectedResult = effort.Movies
+                .Where(x => x.Title == "Test Movie")
+                .FirstOrDefault()
+                .Genres
+                .ToList();
+
+            var movieDtoArgument = Mapper.Map<MovieModel>(movieObject);
+
+            // Act
+            var sut = new MovieService(effort, mapperMock.Object);
+            var result = sut.GetMovieGenres(movieDtoArgument);
+
+            // Assert
+
+            //Assert.AreEqual(10, result.Count()); Also works OK
+
+            foreach (var p in expectedResult)
+            {
+                var exists = result.Any(x => x.GenreType == p.GenreType);
+                Assert.IsTrue(exists);
+            }
         }
 
         [TestMethod]
         public void GetUsersWhoBoughtMovieShould_ReturnCorrectValueWhenCalled()
         {
-            // for Paco
-            throw new NotImplementedException();
+            // Act
+            var effort = new MovieAppDBContext(
+                Effort.DbConnectionFactory.CreateTransient());
+            var mapperMock = new Mock<IMapper>();
+
+            var movieObject = new Movie()
+            {
+                Title = "Test Movie",
+                Year = 1990
+            };
+
+            effort.Movies.Add(movieObject);
+
+            for (int i = 0; i < 10; i++)
+            {
+                var user = new User()
+                {
+                    FirstName = "Pesho" + i,
+                    LastName = "Peshev" + i,
+                    Username = "UserName" + i,
+                    Email = $"someMail{i}@mail.com",
+                    Password = $"somepassword{i}"
+                };
+                effort.Users.Add(user);
+                movieObject.BoughtBy.Add(user);
+            }
+
+            effort.SaveChanges();
+
+            var expectedResult = effort.Movies
+                .Where(x => x.Title == "Test Movie")
+                .FirstOrDefault()
+                .BoughtBy
+                .ToList();
+
+            var movieDtoArgument = Mapper.Map<MovieModel>(movieObject);
+
+            // Act
+            var sut = new MovieService(effort, mapperMock.Object);
+            var result = sut.GetUsersWhoBoughtIt(movieDtoArgument);
+
+            // Assert
+
+            //Assert.AreEqual(10, result.Count()); Also works OK
+
+            foreach (var p in expectedResult)
+            {
+                var exists = result.Any(x => x.Username == p.Username);
+                Assert.IsTrue(exists);
+            }
         }
 
         [TestMethod]
         public void GetUsersWhoLikedMovieShould_ReturnCorrectValueWhenCalled()
         {
-            // for Toni
-            throw new NotImplementedException();
+            // Act
+            var effort = new MovieAppDBContext(
+                Effort.DbConnectionFactory.CreateTransient());
+            var mapperMock = new Mock<IMapper>();
+
+            var movieObject = new Movie()
+            {
+                Title = "Test Movie",
+                Year = 1990
+            };
+
+            effort.Movies.Add(movieObject);
+
+            for (int i = 0; i < 10; i++)
+            {
+                var user = new User()
+                {
+                    FirstName = "Pesho" + i,
+                    LastName = "Peshev" + i,
+                    Username = "UserName" + i,
+                    Email = $"someMail{i}@mail.com",
+                    Password = $"somepassword{i}"
+                };
+                effort.Users.Add(user);
+                movieObject.LikedBy.Add(user);
+            }
+
+            effort.SaveChanges();
+
+            var expectedResult = effort.Movies
+                .Where(x => x.Title == "Test Movie")
+                .FirstOrDefault()
+                .LikedBy
+                .ToList();
+
+            var movieDtoArgument = Mapper.Map<MovieModel>(movieObject);
+
+            // Act
+            var sut = new MovieService(effort, mapperMock.Object);
+            var result = sut.GetUsersWhoLikedtIt(movieDtoArgument);
+
+            // Assert
+
+            //Assert.AreEqual(10, result.Count()); Also works OK
+
+            foreach (var p in expectedResult)
+            {
+                var exists = result.Any(x => x.Username == p.Username);
+                Assert.IsTrue(exists);
+            }
         }
     }
 }
