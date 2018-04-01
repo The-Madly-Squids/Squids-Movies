@@ -1,4 +1,5 @@
-﻿using SquidsMovieApp.WPF.Controllers.Contracts;
+﻿using SquidsMovieApp.DTO;
+using SquidsMovieApp.WPF.Controllers.Contracts;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -24,6 +25,8 @@ namespace SquidsMovieApp.WPF
         private LoadingWindow loadingWindow;
         private BackgroundWorker worker;
         private string moneyBalance;
+        private IEnumerable<GenreModel> allGenres;
+        private IEnumerable<MovieModel> allMovies;
 
         public BrowseMoviesPage(IMainController mainController, UserContext userContext)
         {
@@ -35,19 +38,17 @@ namespace SquidsMovieApp.WPF
             this.MoneyBalance = userContext.LoggedUser.MoneyBalance.ToString();
             this.SearchTBox.Focus();
 
-            //this.loadingWindow = new LoadingWindow()
-            //{
-            //    Owner = Application.Current.MainWindow,
-            //};
+            this.loadingWindow = new LoadingWindow()
+            {
+                Owner = Application.Current.MainWindow,
+            };
 
-            //this.worker = new BackgroundWorker();
-            //worker.DoWork += Worker_DoWork;
-            //worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
+            this.worker = new BackgroundWorker();
+            worker.DoWork += Worker_DoWork;
+            worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
 
-            //worker.RunWorkerAsync();
-            //loadingWindow.ShowDialog();
-
-            FillGenres();
+            worker.RunWorkerAsync();
+            loadingWindow.ShowDialog();
         }
 
         public string MoneyBalance
@@ -58,12 +59,55 @@ namespace SquidsMovieApp.WPF
 
         private void FillGenres()
         {
-            var genres = this.mainController.GenreController.GetAllGenres();
-
-            foreach (var genre in genres)
+            foreach (var genre in this.allGenres)
             {
                 this.GenresFilterCB.Items.Add(genre.GenreType);
             }
+        }
+
+        private void FillMovieGrid()
+        {
+            int gridCol = 0;
+            int gridRow = 1;
+
+            var stack = new StackPanel();
+
+            foreach (var movie in this.allMovies)
+            {
+                var tb = new TextBlock();
+
+                var hyperLink = new Hyperlink
+                {
+                    Name = string.Format("Id_{0}", movie.MovieId.ToString()),
+                    TextDecorations = null,
+                    FontSize = 15
+                };
+
+                hyperLink.Click += new RoutedEventHandler(this.MovieLinkClicked);
+                hyperLink.Inlines.Add(movie.Title);
+
+                tb.Inlines.Add(hyperLink);
+                tb.Padding = new Thickness(5);
+                tb.SetValue(Grid.RowProperty, gridRow);
+                tb.SetValue(Grid.ColumnProperty, gridCol);
+
+                this.MovieDisplayGrid.Children.Add(tb);
+
+                gridCol++;
+
+                if (gridCol > 2)
+                {
+                    this.MovieDisplayGrid.RowDefinitions.Add(new RowDefinition());
+                    gridRow++;
+                    gridCol = 0;
+                }
+                
+            }
+        }
+
+        private void MovieLinkClicked(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         private void ProfileBtnClicked(object sender, RoutedEventArgs e)
@@ -95,7 +139,8 @@ namespace SquidsMovieApp.WPF
 
         private void Worker_DoWork(object sender, DoWorkEventArgs e)
         {
-
+            this.allGenres = this.mainController.GenreController.GetAllGenres();
+            this.allMovies = this.mainController.MovieController.GetAllMovies();
         }
 
         private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -110,7 +155,8 @@ namespace SquidsMovieApp.WPF
             }
             else
             {
-
+                FillGenres();
+                FillMovieGrid();
             }
         }
 
