@@ -15,6 +15,7 @@ namespace SquidsMovieApp.DTO
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public int? Age { get; set; }
+        public string Bio { get; set; }
         public virtual ICollection<MovieModel> Movies { get; set; }
         public virtual ICollection<UserModel> ParticipantLikedByUser { get; set; }
         public virtual ICollection<RoleModel> Roles { get; set; }

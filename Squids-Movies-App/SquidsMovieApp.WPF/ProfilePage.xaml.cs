@@ -377,8 +377,8 @@ namespace SquidsMovieApp.WPF
 
         private void ParticipantLinkClicked(object sender, RoutedEventArgs e)
         {
-            var hyperLinkName = int.Parse((sender as Hyperlink).Name);
-            //this.NavigationService.Navigate(new MovieInfoPage(hyperLinkName));
+            var hyperLinkName = (sender as Hyperlink).Name;
+            this.NavigationService.Navigate(new ParticipantPreviewPage(this.mainController, this.userContext, hyperLinkName));
         }
 
         private void FollowerLinkClicked(object sender, RoutedEventArgs e)

@@ -264,7 +264,7 @@ namespace SquidsMovieApp.WPF.Controllers
                 .IsNullOrEmpty()
                 .Throw();
 
-            var participantDto = this.participantService.GetParticipant(
+            var participantDto = this.participantService.GetParticipantByNames(
                 participantFirstName, participantLastName);
 
             this.userService.LikeParticipant(userDto, participantDto);

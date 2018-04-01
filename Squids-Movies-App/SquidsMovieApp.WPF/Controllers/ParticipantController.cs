@@ -23,7 +23,6 @@ namespace SquidsMovieApp.WPF.Controllers
             this.mapper = mapper;
             this.participantService = participantService;
             this.factory = factory;
-
         }
 
         public void AddParticipant(string firstName, string lastName, int age)
@@ -53,7 +52,52 @@ namespace SquidsMovieApp.WPF.Controllers
                 throw new ArgumentNullException("Invalid search pattern!");
             }
 
-            return this.participantService.FindParticipantsByNames(pattern);
+            return this.participantService.SearchForParticipantsByNames(pattern);
+        }
+
+        public ParticipantModel GetParticipantByFirstAndLastNames(string firstName, string lastName)
+        {
+            if (string.IsNullOrEmpty(firstName) || string.IsNullOrWhiteSpace(firstName))
+            {
+                throw new ArgumentNullException("Invalid participant first name!");
+            }
+
+            if (string.IsNullOrEmpty(lastName) || string.IsNullOrWhiteSpace(lastName))
+            {
+                throw new ArgumentNullException("Invalid participant last name!");
+            }
+            
+            return this.participantService.GetParticipantByNames(firstName, lastName);
+        }
+
+        public ParticipantModel GetParticipantById(int id)
+        {           
+            if (id < 1)
+            {
+                throw new ArgumentException("Invalid participant id!");
+            }
+
+            return this.participantService.GetParticipantById(id);
+        }
+
+        public IEnumerable<RoleModel> GetAllMoviesPerParticipantById(int id)
+        {
+            if (id < 1)
+            {
+                throw new ArgumentException("Invalid participant id!");
+            }
+            
+            return this.participantService.GetAllMoviesPerParticipant(id);
+        }
+
+        public IEnumerable<UserModel> GetParticipantFollowers(int id)
+        {
+            if (id < 1)
+            {
+                throw new ArgumentException("Invalid participant id!");
+            }
+
+            return this.participantService.GetParticipantFollowers(id);
         }
     }
 }

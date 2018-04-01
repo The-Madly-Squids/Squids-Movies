@@ -1,0 +1,101 @@
+﻿<Page x:Class="SquidsMovieApp.WPF.ParticipantPreviewPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:SquidsMovieApp.WPF"
+      mc:Ignorable="d" 
+      d:DesignHeight="800" d:DesignWidth="1200"
+      Title="ParticipantPreviewPage">
+
+    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+        <Grid Background="White">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition />
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <!--Header-->
+            <Grid Grid.Column="0" Grid.Row="0" Background="CornflowerBlue">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <TextBlock Margin="10" HorizontalAlignment="Left" Grid.Column="0" Grid.Row="0" FontWeight="Bold" Foreground="GhostWhite" FontSize="20">SquidFlix</TextBlock>
+                <TextBlock Name="GreetingName" Margin="10" HorizontalAlignment="Right" Grid.Column="1" Grid.Row="0" Text="Hello" FontSize="15"/>
+                <StackPanel Margin="10" Grid.Column="0" Grid.Row="1" Orientation="Horizontal">
+                    <TextBox Name="SearchTBox" Margin="0,0,15,0" HorizontalAlignment="Left" Width="250"></TextBox>
+                    <Button Name="SearchBtn" Click="SearchBtnClicked" Margin="0,0,15,0" HorizontalAlignment="Left" Width="125" Height="25" Content="Search"/>
+                    <TextBlock VerticalAlignment="Bottom" FontSize="10">Search for movie titles, actors, directors or other users.</TextBlock>
+                </StackPanel>
+                <StackPanel Margin="10" Grid.Column="1" Grid.Row="1" FlowDirection="RightToLeft" Orientation="Horizontal">
+                    <TextBlock Name="UserBalanceNav" Text="{Binding MoneyBalance}"/>
+                    <Button Click="CartBtnClicked" Margin="15,0,0,0" Width="50" Height="25" Content="Cart"/>
+                    <Button Click="ProfileBtnClicked" Name="UserProfileNav" Margin="15,0,0,0" Width="50" Height="25" Content="Profile"/>
+                </StackPanel>
+            </Grid>
+            <!--Main-->
+            <Grid Grid.Column="0" Grid.Row="1" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <!--Participant-->
+                <Grid Grid.Column="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock FontWeight="Bold" FontSize="20">Basic Info</TextBlock>
+                    <ScrollViewer Grid.Column="0" Grid.Row="1" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto">
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0,0,15,5">
+                                <TextBlock Margin="0,0,15,0" FontSize="20">Name:</TextBlock>
+                                <TextBlock Name="FullnameTBlock" TextWrapping="Wrap" Margin="0,0,15,0" Text="Fullname" FontSize="20"></TextBlock>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0,0,15,5">
+                                <TextBlock Margin="0,0,15,0" FontSize="20">Bio:</TextBlock>
+                                <TextBlock Name="BioTBlock" TextWrapping="Wrap" Margin="0,0,15,0" Text="Bio" FontSize="20"></TextBlock>
+                            </StackPanel>
+                            <Button Name="FollowBtn" Click="FollowBtnClicked" Margin="20" Padding="5">Follow</Button>
+                        </StackPanel>
+                    </ScrollViewer>
+                </Grid>
+
+                <!--Movies-->
+                <Grid Grid.Column="1" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Name="MovieLikedTBlock" FontWeight="Bold" FontSize="20" >Movies</TextBlock>
+                    <ScrollViewer Grid.Column="0" Grid.Row="1" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto">
+                        <StackPanel Margin="7,0,0,0" Name="MoviesSP"></StackPanel>
+                    </ScrollViewer>
+                </Grid>
+
+                <!--Following-->
+                <Grid Grid.Column="3">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Name="FollowsTBlock" Grid.Column="1" Grid.Row="0" FontWeight="Bold" FontSize="20" >Followed by</TextBlock>
+                    <ScrollViewer Grid.Column="0" Grid.Row="1" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                        <StackPanel Margin="7,0,0,0" Name="FollowersSP"></StackPanel>
+                    </ScrollViewer>
+                </Grid>
+            </Grid>
+            <!--Footer-->
+            <ContentPresenter Grid.Row="2" ContentTemplate="{StaticResource Footer}" />
+        </Grid>
+    </ScrollViewer>
+</Page>

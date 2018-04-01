@@ -188,10 +188,24 @@ namespace SquidsMovieApp.Logic
                             .Where(x => x.UserId == user.UserId)
                             .FirstOrDefault();
 
+            if (userObject == null)
+            {
+                throw new ArgumentNullException("User not found!");
+            }
+
             var participantObject = this.movieAppDbContext.Participants
                               .Where(x => x.ParticipantId == participant.ParticipantId)
                               .FirstOrDefault();
 
+            if (userObject == null)
+            {
+                throw new ArgumentNullException("Participant not found!");
+            }
+
+            if (userObject.LikedParticipants.Any(p => p.ParticipantId == participantObject.ParticipantId))
+            {
+                throw new ArgumentException("Participant already liked!");
+            }
 
             userObject.LikedParticipants.Add(participantObject);
             participantObject.ParticipantLikedByUser.Add(userObject);

@@ -103,6 +103,9 @@
     <Compile Include="MovieInfoPage.xaml.cs">
       <DependentUpon>MovieInfoPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ParticipantPreviewPage.xaml.cs">
+      <DependentUpon>ParticipantPreviewPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PdfReportUtilities\GlobalData.cs" />
     <Compile Include="RegisterPage.xaml.cs">
       <DependentUpon>RegisterPage.xaml</DependentUpon>
@@ -153,6 +156,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="MovieInfoPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ParticipantPreviewPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

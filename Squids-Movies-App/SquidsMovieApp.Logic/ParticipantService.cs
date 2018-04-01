@@ -34,7 +34,7 @@ namespace SquidsMovieApp.Logic
             this.movieAppDbContext.Participants.Add(participant);
         }
 
-        public IEnumerable<ParticipantModel> FindParticipantsByNames(string pattern)
+        public IEnumerable<ParticipantModel> SearchForParticipantsByNames(string pattern)
         {
             var participantsPoco = this.movieAppDbContext.Participants
                                .Where(x => x.FirstName.Contains(pattern) || x.LastName.Contains(pattern))
@@ -45,15 +45,42 @@ namespace SquidsMovieApp.Logic
             return participantDto;
         }
 
-        public IEnumerable<MovieModel> GetAllMoviesPerParticipant(ParticipantModel participant)
+        public IEnumerable<RoleModel> GetAllMoviesPerParticipant(int id)
         {
-            throw new NotImplementedException();
+            var participant = this.movieAppDbContext.Participants
+                              .Where(x => x.ParticipantId == id).FirstOrDefault();
+            if (participant == null)
+            {
+                throw new ArgumentNullException("Participant not found!");
+            }
+
+            var participantMovies = this.movieAppDbContext.Roles.Where(r => r.Participant.ParticipantId == participant.ParticipantId).ToList();
+
+            var participantMoviesDto = mapper.Map<IList<RoleModel>>(participantMovies);
+
+            return participantMoviesDto;
         }
 
-        public ParticipantModel GetParticipant(string firstName, string lastName)
+        public ParticipantModel GetParticipantByNames(string firstName, string lastName)
         {
             var participant = this.movieAppDbContext.Participants.
                 Where(x => x.FirstName == firstName && x.LastName == lastName)
+                .FirstOrDefault();
+
+            if (participant == null)
+            {
+                throw new ArgumentNullException("Participant not found!");
+            }
+
+            var participantDto = mapper.Map<ParticipantModel>(participant);
+
+            return participantDto;
+        }
+
+        public ParticipantModel GetParticipantById(int id)
+        {
+            var participant = this.movieAppDbContext.Participants.
+                Where(x => x.ParticipantId == id)
                 .FirstOrDefault();
 
             if (participant == null)
@@ -74,6 +101,23 @@ namespace SquidsMovieApp.Logic
         public void RemoveParticipant(ParticipantModel participantModel)
         {
             throw new NotImplementedException();
+        }
+
+        public IEnumerable<UserModel> GetParticipantFollowers(int id)
+        {
+            var participant = this.movieAppDbContext.Participants
+                             .Where(x => x.ParticipantId == id).FirstOrDefault();
+
+            if (participant == null)
+            {
+                throw new ArgumentNullException("Participant not found!");
+            }
+
+            var participantFollowers = participant.ParticipantLikedByUser.ToList();
+
+            var participantFollowersDto = mapper.Map<IList<UserModel>>(participantFollowers);
+
+            return participantFollowersDto;
         }
     }
 }
