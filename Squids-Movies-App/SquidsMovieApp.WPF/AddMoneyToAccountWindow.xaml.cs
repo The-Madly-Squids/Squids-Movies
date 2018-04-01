@@ -49,7 +49,6 @@ namespace SquidsMovieApp.WPF
 
 
             mainController.UserController.AddMoneyToBalance(userContext.LoggedUser.Username, moneyToAdd);
-            //this.userContext.FakeUser.MoneyBalance += moneyToAdd;
             this.userContext.LoggedUser.MoneyBalance += moneyToAdd;
             this.Close();
         }

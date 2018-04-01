@@ -38,10 +38,8 @@ namespace SquidsMovieApp.WPF
             this.userContext = userContext;
             this.patternToSearch = patternToSearch;
             
-            //fix
             this.GreetingName.Text = string.Format("Hello, {0}!", userContext.FakeUser.Username);
             this.SearchResultTBlock.Text = string.Format("\"{0}\"", this.patternToSearch);
-            //fix
             this.MoneyBalance = userContext.FakeUser.MoneyBalance.ToString();
             this.SearchTBox.Focus();
 

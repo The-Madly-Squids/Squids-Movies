@@ -166,6 +166,41 @@ namespace SquidsMovieApp.Logic
             this.movieAppDbContext.SaveChanges();
         }
 
+        public void LikeMovie(UserModel user, MovieModel movie)
+        {
+            var userObject = this.movieAppDbContext.Users
+                            .Where(x => x.UserId == user.UserId)
+                            .FirstOrDefault();
+
+            if (userObject == null)
+            {
+                throw new ArgumentNullException("User not found");
+            }
+
+            var movieObject = this.movieAppDbContext.Movies
+                              .Where(x => x.MovieId == movie.MovieId)
+                              .FirstOrDefault();
+
+            if (movieObject == null)
+            {
+                throw new ArgumentNullException("Movie not found");
+            }
+
+            var movieAlreadyLiked = userObject.LikedMovies
+                .Where(x => x.MovieId == movieObject.MovieId)
+                .FirstOrDefault();
+
+            if (movieAlreadyLiked != null)
+            {
+                throw new ArgumentNullException("Movie already liked");
+            }
+
+
+            userObject.LikedMovies.Add(movieObject);
+            movieObject.LikedBy.Add(userObject);
+            this.movieAppDbContext.SaveChanges();
+        }
+
         public void FollowUser(UserModel user, UserModel userToFollow)
         {
             var userObject = this.movieAppDbContext.Users

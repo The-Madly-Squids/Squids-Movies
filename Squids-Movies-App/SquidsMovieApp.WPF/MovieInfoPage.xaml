@@ -44,7 +44,7 @@
             <!--Main-->
             <Grid Grid.Column="0" Grid.Row="1" >
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="360"/>
+                    <ColumnDefinition Width="370"/>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
@@ -57,30 +57,33 @@
                         <TextBlock TextWrapping="Wrap" Name="MovieTitleTBlock" FontSize="25" FontWeight="Bold" Margin="0,0,15,0">Title (Year)</TextBlock>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Name="MovieImdbRatingTBlock" FontSize="20" Margin="0,0,15,0">Imdb rating: 3</TextBlock>
-                        <TextBlock Name="MovieSquidFlixRatingTBlock" FontSize="20" Margin="0,0,15,0">SquidFlix rating: 3</TextBlock>
+                        <TextBlock Name="MovieImdbRatingTBlock" FontSize="20" Margin="0,0,15,0">Imdb rating: 0</TextBlock>
+                        <TextBlock Name="MovieSquidFlixRatingTBlock" FontSize="20" Margin="0,0,15,0">SquidFlix rating: 0</TextBlock>
                     </StackPanel>
                     <StackPanel Name="MovieGenresSP"></StackPanel>
-                    <TextBlock Name="MovieRuntimeTBlock" FontSize="20" Margin="0,0,15,0">2h.</TextBlock>
+                    <TextBlock Name="MovieRuntimeTBlock" FontSize="20" Margin="0,0,15,0">0h.</TextBlock>
                     <TextBlock Name="MovieRatedTBlock" FontSize="20" Margin="0,0,15,0">Rated: PG</TextBlock>
                     <TextBlock Name="MoviePlotTBlock" FontSize="20" FontStyle="Italic" Margin="0,15" Grid.Column="0" TextWrapping="Wrap">
-                    PLOTPLOTPLOTPLOTPLOTPLOTPLOTPLOTPLOT PLOTPLOTPLOTPLOTPLOTPLOTPLOTPLOT
-                    PLOTPLOTPLOTPLOTPLOTPLOTPLOT PLOTPLOTPLOTPLOT PLOTPLOTPLOT PLOTPLOTPLOT
-                    LOTPLOTPLOTPLOTPLOTPLOTPLOTPLOTPLOT PLOTPLOTPLOTPLOTPLOTPLOTPLOTPLOT
+                    PLOT
                     </TextBlock>
                 </StackPanel>
                 <!--Image+Buttons-->
                 <StackPanel Grid.Column="1" HorizontalAlignment="Center">
                     <Image Name="MoviePosterImg" Width="300" Height="350" Margin="15" ></Image>
                     <StackPanel>
+                        <DockPanel Margin="0,5" LastChildFill="False">
+                            <TextBlock DockPanel.Dock="Left" VerticalAlignment="Center" FontSize="20" FontWeight="Bold" Margin="0,0,15,0">Price:</TextBlock>
+                            <TextBlock Name="MoviePriceTBlock" DockPanel.Dock="Left" VerticalAlignment="Center" FontSize="20" FontWeight="Bold" Margin="0,0,15,0">00$</TextBlock>
+                            <TextBlock Name="MovieLikesTBlock" DockPanel.Dock="Right" VerticalAlignment="Center" FontSize="20" FontWeight="Bold" Margin="0,0,15,0">0</TextBlock>
+                            <TextBlock DockPanel.Dock="Right" VerticalAlignment="Center" FontSize="20" FontWeight="Bold" Margin="0,0,15,0">Likes:</TextBlock>
+                        </DockPanel>
                         <StackPanel Margin="0,5" Orientation="Horizontal">
-                            <TextBlock Name="MoviePriceTBlock" VerticalAlignment="Center" FontSize="20" FontWeight="Bold" Margin="0,0,15,0">00$</TextBlock>
                             <Button Padding="10" Margin="0,0,15,0">Add to cart</Button>
-                            <Button Padding="10" Margin="0,0,15,0">Like movie</Button>
+                            <Button Name="LikeBtn" Click="LikeBtnClicked" Padding="10" Margin="0,0,15,0">Like</Button>
                             <Button Click="GiveReviewBtnClicked" Padding="10" Margin="0,0,15,0">Give a review</Button>
                         </StackPanel>
                         <StackPanel Margin="0,5">
-                            <Button Padding="10" Margin="50,0">Watch</Button>
+                            <Button Padding="10" Margin="0,0">Watch</Button>
                         </StackPanel>
                     </StackPanel>
                 </StackPanel>

@@ -242,6 +242,21 @@ namespace SquidsMovieApp.WPF.Controllers
             this.userService.LikeParticipant(userDto, participantDto);
         }
 
+        public void LikeMovie(UserModel user, MovieModel movie)
+        {
+            if (user == null)
+            {
+                throw new ArgumentNullException("User is invalid");
+            }
+            
+            if (movie == null)
+            {
+                throw new ArgumentNullException("Movie is invalid");
+            }
+            
+            this.userService.LikeMovie(user, movie);
+        }
+
         public void FollowUser(string userName, string userToFollowUsername)
         {
             Guard.WhenArgument(userName, "User who follows")

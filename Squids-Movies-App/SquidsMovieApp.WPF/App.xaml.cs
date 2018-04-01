@@ -11,12 +11,8 @@ using System.Windows;
 
 namespace SquidsMovieApp.WPF
 {
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
     public partial class App : Application
     {
-        private string username = "Default";
         private void ExitBtnClicked(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();

@@ -254,5 +254,10 @@ namespace SquidsMovieApp.WPF.Controllers
 
             this.movieService.PostMovieReview(review, movieId, userId);
         }
+
+        public int GetMovieLikedCount(int id)
+        {
+            return this.movieService.GetMovieLikedCount(id);
+        }
     }
 }

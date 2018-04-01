@@ -20,10 +20,12 @@ namespace SquidsMovieApp.WPF.AutofacModules
     {
         protected override void Load(ContainerBuilder builder)
         {
-            // cant be single instance - multiple users acces the DB at the same time
+            // cant be single instance - multiple users acces the DB at the same time;
+            // Instance per lifetimescope - stop EF caching
             builder.RegisterType<MovieAppDBContext>()
                 .As<IMovieAppDBContext>()
-                .InstancePerDependency();
+                .InstancePerDependency()
+                .InstancePerLifetimeScope();
 
             // services 
             builder.RegisterType<MovieService>()
@@ -82,13 +84,6 @@ namespace SquidsMovieApp.WPF.AutofacModules
                 .SingleInstance();
 
             builder.Register(x => Mapper.Instance);
-
-            // wpf
-            //builder.RegisterType<MainWindow>().AsSelf();
-            //builder.RegisterType<RegisterPage>().AsSelf();
-            //builder.RegisterType<LoginPage>().AsSelf();
-            //builder.RegisterType<ErrorWindow>().AsSelf();
-            //builder.RegisterType<ProfilePage>().AsSelf();
         }
     }
 }

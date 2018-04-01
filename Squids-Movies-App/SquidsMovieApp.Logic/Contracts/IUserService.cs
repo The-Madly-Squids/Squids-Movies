@@ -19,6 +19,7 @@ namespace SquidsMovieApp.Logic.Contracts
         decimal GetMoneyBalance(UserModel user); //Done
         void AddMoneyToBalance(UserModel user, decimal amount); //Done
         void LikeParticipant(UserModel user, ParticipantModel participant); //Done
+        void LikeMovie(UserModel user, MovieModel movie);
         void FollowUser(UserModel user, UserModel userToFollow); //Done
         void BuyMovie(UserModel user, MovieModel movie, decimal price); //Done
         void GiveReview(UserModel user, MovieModel movie, int reviewRating,

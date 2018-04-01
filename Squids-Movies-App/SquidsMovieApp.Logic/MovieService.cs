@@ -10,6 +10,7 @@ using SquidsMovieApp.Data.Context;
 using SquidsMovieApp.Models;
 using SquidsMovieApp.DTO;
 using SquidsMovieApp.Logic.Contracts;
+using System.Data.Entity;
 
 namespace SquidsMovieApp.Logic
 {
@@ -60,6 +61,7 @@ namespace SquidsMovieApp.Logic
             var movie = this.movieAppDbContext.Movies
                                 .Where(x => x.Title == movieTitle)
                                 .FirstOrDefault();
+
             if (movie == null)
             {
                 throw new ArgumentNullException("Movie not found!");
@@ -74,6 +76,7 @@ namespace SquidsMovieApp.Logic
             var movie = this.movieAppDbContext.Movies
                                 .Where(x => x.MovieId == id)
                                 .FirstOrDefault();
+            
             if (movie == null)
             {
                 throw new ArgumentNullException("Movie not found!");
@@ -187,7 +190,9 @@ namespace SquidsMovieApp.Logic
             var averageRating = ratingCollection.Count() > 0 ?
                  ratingCollection.Average(x => x.Rating) : 0.0;
 
-            return averageRating;
+            var finalAverage = Math.Round(averageRating, 2);
+
+            return finalAverage;
         }
 
         public IEnumerable<ReviewModel> GetMovieReviews(string title)
@@ -241,11 +246,11 @@ namespace SquidsMovieApp.Logic
             {
                 throw new ArgumentNullException("Movie cannot be null!");
             }
-            
+
             var genres = movie.Genres;
 
             return genres;
-           
+
         }
 
         public IEnumerable<UserModel> GetUsersWhoBoughtIt(MovieModel movie)
@@ -281,7 +286,7 @@ namespace SquidsMovieApp.Logic
             {
                 throw new ArgumentNullException("No movies found!");
             }
-            
+
             var moviesDto = mapper.Map<IList<MovieModel>>(moviesPoco);
             return moviesDto;
         }
@@ -292,7 +297,7 @@ namespace SquidsMovieApp.Logic
             {
                 throw new ArgumentNullException();
             }
-            
+
             var reviewFor = this.movieAppDbContext.Movies
                 .Where(x => x.MovieId == movieId)
                 .FirstOrDefault();
@@ -315,8 +320,15 @@ namespace SquidsMovieApp.Logic
 
             reviewFor.Reviews.Add(reviewPoco);
             reviewFrom.Reviews.Add(reviewPoco);
-            
+
             this.movieAppDbContext.SaveChanges();
+        }
+
+        public int GetMovieLikedCount(int id)
+        {
+            var moviePoco = this.movieAppDbContext.Movies.Where(x => x.MovieId == id).FirstOrDefault();
+
+            return moviePoco.LikedBy.Count();
         }
     }
 }

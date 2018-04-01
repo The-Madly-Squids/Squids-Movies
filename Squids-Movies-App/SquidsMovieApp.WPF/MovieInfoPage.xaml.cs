@@ -2,6 +2,7 @@
 using SquidsMovieApp.WPF.Controllers.Contracts;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -24,10 +25,12 @@ namespace SquidsMovieApp.WPF
         private UserContext userContext;
         private string moneyBalance;
         private MovieModel movie;
-        private readonly string movieId;
+        private int movieId;
         private double squidFlixRating;
         private IEnumerable<GenreModel> movieGenresObjs;
         private IEnumerable<ReviewModel> movieReviews;
+        private LoadingWindow loadingWindow;
+        private BackgroundWorker worker;
 
         public MovieInfoPage(IMainController mainController, UserContext userContext, string movieId)
         {
@@ -35,15 +38,22 @@ namespace SquidsMovieApp.WPF
             DataContext = this;
             this.mainController = mainController;
             this.userContext = userContext;
-            this.movieId = movieId;
 
             this.GreetingName.Text = string.Format("Hello, {0}!", userContext.LoggedUser.Username);
-            //fix
             this.MoneyBalance = userContext.LoggedUser.MoneyBalance.ToString();
             this.SearchTBox.Focus();
-            GetMovieToDisplay(movieId);
+            this.movieId = int.Parse(movieId.Split('_')[1]);
 
-            FillMovieInfoPage();
+            this.loadingWindow = new LoadingWindow()
+            {
+                Owner = Application.Current.MainWindow,
+            };
+
+            this.worker = new BackgroundWorker();
+            worker.DoWork += Worker_DoWork;
+            worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
+            worker.RunWorkerAsync();
+            loadingWindow.ShowDialog();
         }
 
         public string MoneyBalance
@@ -80,7 +90,12 @@ namespace SquidsMovieApp.WPF
             this.MovieRatedTBlock.Text = this.movie.Rated;
             this.MoviePlotTBlock.Text = this.movie.Plot;
             this.MoviePriceTBlock.Text = string.Format("${0}", this.movie.Price);
+
+            // Reviews
             DisplayReviews(false);
+
+            // Likes
+            UpdateLikeCount();
         }
 
         private void DisplayReviews(bool shouldClear)
@@ -145,17 +160,8 @@ namespace SquidsMovieApp.WPF
                     Margin = new Thickness(10)
                 };
 
-                this.ReviewsSP.Children.Add(noReviews);
+                this.ReviewsSP.Children.Add(noReviews);                
             }
-        }
-
-        private void GetMovieToDisplay(string id)
-        {
-            var movieId = int.Parse(id.Split('_')[1]);
-            this.movie = this.mainController.MovieController.GetMovieById(movieId);
-            this.squidFlixRating = this.mainController.MovieController.GetAverageRating(this.movie.Title);
-            this.movieGenresObjs = mainController.MovieController.GetMovieGenres(this.movie);
-            this.movieReviews = mainController.MovieController.GetMovieReviews(this.movie.Title);
         }
 
         private ImageSource LoadImage(byte[] imageData)
@@ -170,7 +176,6 @@ namespace SquidsMovieApp.WPF
 
             return imgSrc;
         }
-
 
         private void SearchBtnClicked(object sender, RoutedEventArgs e)
         {
@@ -199,9 +204,57 @@ namespace SquidsMovieApp.WPF
 
             reviewWindow.ShowDialog();
 
-            this.movieReviews = mainController.MovieController.GetMovieReviews(this.movie.Title);
-
+            this.movieReviews = this.mainController.MovieController.GetMovieReviews(this.movie.Title);
+            this.squidFlixRating = this.mainController.MovieController.GetAverageRating(this.movie.Title);
+            this.MovieSquidFlixRatingTBlock.Text = string.Format("SquidFlix rating: {0}", squidFlixRating);
             DisplayReviews(true);
+        }
+
+        private void UpdateLikeCount()
+        {
+            this.MovieLikesTBlock.Text = this.movie.LikedBy.Count().ToString();
+
+            if (this.userContext.LoggedUser.LikedMovies.Any(m => m.MovieId == this.movieId))
+            {
+                this.LikeBtn.IsEnabled = false;
+            }
+        }
+
+        private void LikeBtnClicked(object sender, RoutedEventArgs e)
+        {
+            this.LikeBtn.IsEnabled = false;
+            this.mainController.UserController.LikeMovie(this.userContext.LoggedUser, this.movie);
+
+            this.userContext.LoggedUser.LikedMovies.Add(this.movie);
+            this.movie.LikedBy.Add(this.userContext.LoggedUser);
+
+            this.movie = this.mainController.MovieController.GetMovieByTitle(this.movie.Title);
+
+            UpdateLikeCount();
+        }
+
+        private void Worker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            this.movie = this.mainController.MovieController.GetMovieById(this.movieId);
+            this.squidFlixRating = this.mainController.MovieController.GetAverageRating(this.movie.Title);
+            this.movieGenresObjs = mainController.MovieController.GetMovieGenres(this.movie);
+            this.movieReviews = mainController.MovieController.GetMovieReviews(this.movie.Title);
+        }
+
+        private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            loadingWindow.Close();
+            var stackPanel = new StackPanel();
+
+            if (e.Error != null)
+            {
+                stackPanel.Children.Add(ErrorDialog.CreateErrorTextBlock(e.Error.Message));
+                ErrorDialog.DisplayError(stackPanel, "Search failed.");
+            }
+            else
+            {
+                FillMovieInfoPage();
+            }
         }
     }
 }
