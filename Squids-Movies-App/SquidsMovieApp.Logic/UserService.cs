@@ -115,20 +115,36 @@ namespace SquidsMovieApp.Logic
 
         public IEnumerable<UserModel> GetFollowers(UserModel user)
         {
-            var followers = user.Followers;
+            var userPoco = Mapper.Map<User>(user);
+
+            List<UserModel> followers = new List<UserModel>();
+            foreach (var follower in userPoco.Followers)
+            {
+                var mediumFollower = Mapper.Map<UserModel>(follower);
+                followers.Add(mediumFollower);
+            }  
             return followers;
         }
 
         public IEnumerable<UserModel> GetFollowed(UserModel user)
         {
-            var followedUsers = user.Following;
-            return followedUsers;
+            var userPoco = Mapper.Map<User>(user);
+
+            List<UserModel> followed = new List<UserModel>();
+            foreach (var follow in userPoco.Following)
+            {
+                var mediumFollow = Mapper.Map<UserModel>(followed);
+                followed.Add(mediumFollow);
+            }
+            return followed;
         }
 
         public decimal GetMoneyBalance(UserModel user)
         {
-            decimal moneyBallance = user.MoneyBalance;
-            return moneyBallance;
+            var userPoco = Mapper.Map<User>(user);
+
+            decimal moneyBalance = userPoco.MoneyBalance;
+            return moneyBalance;
         }
 
         public void AddMoneyToBalance(UserModel user, decimal amount)
