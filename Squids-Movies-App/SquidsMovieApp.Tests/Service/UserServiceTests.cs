@@ -8,6 +8,7 @@ using SquidsMovieApp.DTO;
 using SquidsMovieApp.Logic;
 using System.Linq;
 using SquidsMovieApp.Models;
+using System.Collections.Generic;
 
 namespace SquidsMovieApp.Tests.Service
 {
@@ -190,6 +191,8 @@ namespace SquidsMovieApp.Tests.Service
                                 Effort.DbConnectionFactory.CreateTransient());
             var mapperMock = new Mock<IMapper>();
 
+            List<UserModel> userList = new List<UserModel>();
+
             for (int i = 0; i < 10; i++)
             {
                 var userObject = new User()
@@ -202,19 +205,33 @@ namespace SquidsMovieApp.Tests.Service
                 };
 
                 effort.Users.Add(userObject);
+
+                var userToList = new UserModel()
+                {
+                    FirstName = "Test" + i,
+                    LastName = "Testove" + i,
+                    Username = "Test" + i,
+                    Email = "Test" + i + "@abv.com",
+                    Password = "12345678"
+                };
+
+                userList.Add(userToList);
             }
 
             effort.SaveChanges();
+
+
             // Act
             var sut = new UserService(effort, mapperMock.Object);
             var result = sut.GetAllUsers();
 
             // Assert
-            foreach (var user in effort.Users)
-            {
-                var exists = result.Any(x => x.UserId == user.UserId);
-                Assert.IsTrue(exists);
-            }
+            //foreach (var user in result)
+            //{
+            //    var exists = userList.Any(x => x.Username == user.Username);
+            //    Assert.IsTrue(exists);
+            //}
+            Assert.AreEqual(10, result.Count());
 
         }
 
