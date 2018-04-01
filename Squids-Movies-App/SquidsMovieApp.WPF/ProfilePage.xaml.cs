@@ -40,9 +40,7 @@ namespace SquidsMovieApp.WPF
             this.userContext = userContext;
 
             GreetingName.Text = string.Format("Hello, {0}!", userContext.LoggedUser.Username);
-            //this.GreetingName.Text = string.Format("Hello, {0}!", userContext.FakeUser.Username);
             FillUserProfile();
-            //FillFakeUserProfile();
             this.UserProfileNav.IsEnabled = false;
             this.SearchTBox.Focus();
         }
@@ -63,208 +61,6 @@ namespace SquidsMovieApp.WPF
         public IList<ReviewModel> Reviews { get; set; }
         public IList<UserModel> Following { get; set; }
         public IList<UserModel> Followers { get; set; }
-
-        private void FillFakeUserProfile()
-        {
-            this.Username = this.userContext.FakeUser.Username;
-            this.Email = this.userContext.FakeUser.Email;
-            this.MoneyBalance = this.userContext.FakeUser.MoneyBalance.ToString();
-
-            // Firstname
-            if (this.userContext.FakeUser.FirstName != null)
-            {
-                this.FirstName = this.userContext.FakeUser.FirstName;
-            }
-            else
-            {
-                this.FirstName = "N/A";
-            }
-
-            // Lastname
-            if (this.userContext.FakeUser.LastName != null)
-            {
-                this.LastName = this.userContext.FakeUser.LastName;
-            }
-            else
-            {
-                this.LastName = "N/A";
-            }
-
-            // Age
-            if (this.userContext.FakeUser.Age != null)
-            {
-                this.Age = this.userContext.FakeUser.Age;
-            }
-            else
-            {
-                this.Age = -1;
-            }
-
-            // Bought movies
-            if (this.userContext.FakeUser.BoughtMovies.Any())
-            {
-                foreach (var movie in this.userContext.FakeUser.BoughtMovies)
-                {
-                    var tb = new TextBlock();
-
-                    var hyperLink = new Hyperlink
-                    {
-                        Name = string.Format("Id_{0}", movie.MovieId.ToString()),
-                        TextDecorations = null,
-                        FontSize = 15
-                    };
-
-                    hyperLink.Click += new RoutedEventHandler(this.MovieLinkClicked);
-                    hyperLink.Inlines.Add(movie.Title);
-
-                    tb.Inlines.Add(hyperLink);
-                    tb.Padding = new Thickness(5);
-
-                    this.BoughtMoviesSP.Children.Add(tb);
-                }
-            }
-            else
-            {
-                var tb = new TextBlock
-                {
-                    Text = "No bought movies to show."
-                };
-
-                this.BoughtMoviesSP.Children.Add(tb);
-            }
-
-            // Liked movies
-            if (this.userContext.FakeUser.LikedMovies.Any())
-            {
-                foreach (var movie in this.userContext.FakeUser.LikedMovies)
-                {
-                    var tb = new TextBlock();
-
-                    var hyperLink = new Hyperlink
-                    {
-                        Name = string.Format("Id_{0}", movie.MovieId.ToString()),
-                        TextDecorations = null,
-                        FontSize = 15
-                    };
-
-                    hyperLink.Click += new RoutedEventHandler(this.MovieLinkClicked);
-                    hyperLink.Inlines.Add(movie.Title);
-
-                    tb.Inlines.Add(hyperLink);
-                    tb.Padding = new Thickness(5);
-
-                    this.LikedMoviesSP.Children.Add(tb);
-                }
-            }
-            else
-            {
-                var tb = new TextBlock
-                {
-                    Text = "No liked movies to show."
-                };
-
-                this.LikedMoviesSP.Children.Add(tb);
-            }
-
-            // Followers
-            if (this.userContext.FakeUser.Followers.Any())
-            {
-                foreach (var follower in this.userContext.FakeUser.Followers)
-                {
-                    var tb = new TextBlock();
-
-                    var hyperLink = new Hyperlink
-                    {
-                        Name = follower.Username,
-                        TextDecorations = null,
-                        FontSize = 15
-                    };
-
-                    tb.Inlines.Add(hyperLink);
-                    tb.Padding = new Thickness(5);
-
-                    hyperLink.Click += new RoutedEventHandler(this.FollowerLinkClicked);
-                    hyperLink.Inlines.Add(follower.Username);
-
-                    this.FollowersSP.Children.Add(tb);
-                }
-            }
-            else
-            {
-                var tb = new TextBlock
-                {
-                    Text = "No followers to show."
-                };
-
-                this.FollowersSP.Children.Add(tb);
-            }
-
-            // Following
-            if (this.userContext.FakeUser.Following.Any())
-            {
-                foreach (var follower in this.userContext.FakeUser.Following)
-                {
-                    var tb = new TextBlock();
-
-                    var hyperLink = new Hyperlink
-                    {
-                        Name = follower.Username,
-                        TextDecorations = null,
-                        FontSize = 15
-                    };
-
-                    tb.Inlines.Add(hyperLink);
-                    tb.Padding = new Thickness(5);
-
-                    hyperLink.Click += new RoutedEventHandler(this.FollowerLinkClicked);
-                    hyperLink.Inlines.Add(follower.Username);
-
-                    this.FollowingSP.Children.Add(tb);
-                }
-            }
-            else
-            {
-                var tb = new TextBlock
-                {
-                    Text = "You are not following anyone."
-                };
-
-                this.FollowingSP.Children.Add(tb);
-            }
-
-            // Liked participants
-            if (this.userContext.FakeUser.LikedParticipants.Any())
-            {
-                foreach (var participant in this.userContext.FakeUser.LikedParticipants)
-                {
-                    var tb = new TextBlock();
-
-                    var hyperLink = new Hyperlink
-                    {
-                        Name = string.Format("Id_{0}", participant.ParticipantId.ToString()),
-                        TextDecorations = null,
-                        FontSize = 15
-                    };
-
-                    hyperLink.Click += new RoutedEventHandler(this.ParticipantLinkClicked);
-                    hyperLink.Inlines.Add(participant.FirstName + " " + participant.LastName);
-
-                    tb.Inlines.Add(hyperLink);
-                    tb.Padding = new Thickness(5);
-
-                    this.LikedParticipantsSP.Children.Add(tb);
-                }
-            }
-            else
-            {
-                var tb = new TextBlock
-                {
-                    Text = "No actors or directors you like."
-                };
-
-                this.LikedParticipantsSP.Children.Add(tb);
-            }
-        }
 
         private void FillUserProfile()
         {
@@ -539,8 +335,7 @@ namespace SquidsMovieApp.WPF
             var transferWindow = new AddMoneyToAccountWindow(this.mainController, this.userContext);
             transferWindow.Owner = Application.Current.MainWindow;
             transferWindow.ShowDialog();
-
-            //this.MoneyBalance = userContext.FakeUser.MoneyBalance.ToString();
+            
             this.MoneyBalance = userContext.LoggedUser.MoneyBalance.ToString();
             this.WalletTB.Text = this.MoneyBalance;
             this.UserBalanceNav.Text = this.MoneyBalance;

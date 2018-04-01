@@ -20,6 +20,7 @@ namespace SquidsMovieApp.WPF
     {
         private readonly IMainController mainController;
         private readonly UserContext userContext;
+        private decimal totalPrice;
 
         public CartWindow(IMainController mainController, UserContext userContext)
         {
@@ -33,7 +34,7 @@ namespace SquidsMovieApp.WPF
 
         private void FillCart(bool shouldClearItems)
         {
-            double totalPrice = 0;
+            this.totalPrice = 0;
 
             if (shouldClearItems)
             {
@@ -44,7 +45,7 @@ namespace SquidsMovieApp.WPF
             {
                 foreach (var item in this.userContext.Cart)
                 {
-                    totalPrice += item.Price;
+                    totalPrice += (decimal)item.Price;
                     CreateCartElement(item);
                 }
 
@@ -111,7 +112,18 @@ namespace SquidsMovieApp.WPF
 
         private void BuyBtnClicked(object sender, RoutedEventArgs e)
         {
-
+            if (this.userContext.LoggedUser.MoneyBalance < this.totalPrice)
+            {
+                var errorPanel = new StackPanel();
+                errorPanel.Children.Add(ErrorDialog.CreateErrorTextBlock("Insufficient money"));
+                ErrorDialog.DisplayError(errorPanel, "Transaction failed.");
+            }
+            else
+            {
+                this.userContext.LoggedUser.MoneyBalance -= this.totalPrice;
+                this.CartItemsMainSP.Children.Clear();
+                this.userContext.RemoveAllFromCart();
+            }
         }
 
         private void RemoveMovieItemClicked(object sender, RoutedEventArgs e)

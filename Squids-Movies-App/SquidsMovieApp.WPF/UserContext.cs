@@ -21,115 +21,6 @@ namespace SquidsMovieApp.WPF
             this.userService = userService;
             this.LoggedUser = null;
             this.cart = new List<MovieModel>();
-
-            this.fakeUser = new UserModel()
-            {
-                Username = "Test",
-                Email = "test@test.test",
-                FirstName = "TesttTesttTesttTesttTesttTestt",
-                LastName = "Testov",
-                MoneyBalance = 12.34m,
-                BoughtMovies = new List<MovieModel>()
-                {
-                    new MovieModel()
-                    {
-                        MovieId = 1,
-                        Title = "TestMovie1",
-                        Plot = "TestMovie1 Plot"
-                    },
-                    new MovieModel()
-                    {
-                        MovieId = 2,
-                        Title = "TestMovie2",
-                        Plot = "TestMovie2 Plottttt"
-                    },
-                    new MovieModel()
-                    {
-                        MovieId = 3,
-                        Title = "TestMovie3",
-                        Plot = "TestMovie3 Plotttttt"
-                    },
-                    new MovieModel()
-                    {
-                        Title = "TestMovie1",
-                        Plot = "TestMovie1 Plot"
-                    },
-                    new MovieModel()
-                    {
-                        Title = "TestMovie2",
-                        Plot = "TestMovie2 Plottttt"
-                    },
-                    new MovieModel()
-                    {
-                        Title = "TestMovie3",
-                        Plot = "TestMovie3 Plotttttt"
-                    },
-                    new MovieModel()
-                    {
-                        Title = "TestMovie1",
-                        Plot = "TestMovie1 Plot"
-                    },
-                    new MovieModel()
-                    {
-                        Title = "TestMovie2",
-                        Plot = "TestMovie2 Plottttt"
-                    },
-                    new MovieModel()
-                    {
-                        Title = "TestMovie3",
-                        Plot = "TestMovie3 Plotttttt"
-                    },
-                    new MovieModel()
-                    {
-                        Title = "TestMovie1",
-                        Plot = "TestMovie1 Plot"
-                    },
-                    new MovieModel()
-                    {
-                        Title = "TestMovie2",
-                        Plot = "TestMovie2 Plottttt"
-                    },
-                    new MovieModel()
-                    {
-                        Title = "TestMovie3",
-                        Plot = "TestMovie3 Plotttttt"
-                    },
-                    new MovieModel()
-                    {
-                        Title = "TestMovie1",
-                        Plot = "TestMovie1 Plot"
-                    },
-                    new MovieModel()
-                    {
-                        Title = "TestMovie2",
-                        Plot = "TestMovie2 Plottttt"
-                    },
-                    new MovieModel()
-                    {
-                        Title = "TestMovie3",
-                        Plot = "TestMovie3 Plotttttt"
-                    },
-                    new MovieModel()
-                    {
-                        Title = "TestMovie1",
-                        Plot = "TestMovie1 Plot"
-                    },
-                    new MovieModel()
-                    {
-                        Title = "TestMovie2",
-                        Plot = "TestMovie2 Plottttt"
-                    },
-                    new MovieModel()
-                    {
-                        Title = "TestMovie3",
-                        Plot = "TestMovie3 Plotttttt"
-                    }
-                },
-                LikedMovies = new List<MovieModel>(),
-                Followers = new List<UserModel>(),
-                Following = new List<UserModel>(),
-                LikedParticipants = new List<ParticipantModel>()                
-            };
         }
 
         public IList<MovieModel> Cart => new List<MovieModel>(this.cart);
@@ -188,6 +79,11 @@ namespace SquidsMovieApp.WPF
             }
 
             this.cart.Remove(movieToRemove);
+        }
+
+        public void RemoveAllFromCart()
+        {
+            this.cart.Clear();
         }
     }
 }

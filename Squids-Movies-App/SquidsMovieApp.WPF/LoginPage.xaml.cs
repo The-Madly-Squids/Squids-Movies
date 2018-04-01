@@ -1,27 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Net.Mail;
-using System.Reflection;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using Autofac;
+﻿using Autofac;
 using SquidsMovieApp.Common;
 using SquidsMovieApp.Common.Exceptions;
-using SquidsMovieApp.Core;
-using SquidsMovieApp.WPF.Controllers;
 using SquidsMovieApp.WPF.Controllers.Contracts;
+using System;
+using System.ComponentModel;
+using System.Net.Mail;
+using System.Reflection;
+using System.Windows;
+using System.Windows.Controls;
 
 namespace SquidsMovieApp.WPF
 {
@@ -58,7 +44,6 @@ namespace SquidsMovieApp.WPF
 
         private void LoginBtnClicked(object sender, RoutedEventArgs e)
         {
-            //this.NavigationService.Navigate(new ProfilePage(this.MainController, this.UserContext));
             this.email = this.EmailLoginTB.Text;
             this.password = this.PasswordLoginTB.Password.ToString();
             var stackPanel = new StackPanel();

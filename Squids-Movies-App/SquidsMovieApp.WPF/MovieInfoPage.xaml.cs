@@ -103,6 +103,11 @@ namespace SquidsMovieApp.WPF
             {
                 this.AddToCartBtn.IsEnabled = false;
             }
+
+            if (this.mainController.UserController.GetBoughtMovies(this.userContext.LoggedUser.Username).Any(m => m.MovieId == this.movie.MovieId))
+            {
+                this.AddToCartBtn.IsEnabled = false;
+            }
         }
 
         private void DisplayReviews(bool shouldClear)
