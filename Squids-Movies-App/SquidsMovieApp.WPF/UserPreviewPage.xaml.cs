@@ -87,6 +87,14 @@ namespace SquidsMovieApp.WPF
 
             // Liked participants
             GetLikedParticipants();
+
+            //Follow button
+            if (this.userContext.LoggedUser.UserId == userToShow.UserId ||
+                this.userContext.LoggedUser.Following.Any(x => x.UserId == this.userToShow.UserId) ||
+                this.mainController.UserController.GetUserByUsername(this.userContext.LoggedUser.Username).Following.Any(x => x.UserId == this.userToShow.UserId))
+            {
+                this.FollowBtn.IsEnabled = false;
+            }
         }
 
         private void SearchBtnClicked(object sender, RoutedEventArgs e)
@@ -114,6 +122,13 @@ namespace SquidsMovieApp.WPF
             };
 
             cart.ShowDialog();
+        }
+
+        private void FollowBtnClicked(object sender, RoutedEventArgs e)
+        {
+            this.FollowBtn.IsEnabled = false;
+
+            this.mainController.UserController.FollowUser(this.userContext.LoggedUser.Username, this.userToShow.Username);
         }
 
         private void GetLikedMovies()

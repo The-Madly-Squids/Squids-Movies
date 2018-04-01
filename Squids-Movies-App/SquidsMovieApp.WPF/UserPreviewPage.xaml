@@ -71,7 +71,7 @@
                                 <TextBlock Margin="0,0,15,0" FontSize="20">Last name:</TextBlock>
                                 <TextBlock Name="LastNameTBlock" Margin="0,0,15,0" Text="{Binding LastName}" FontSize="20"></TextBlock>
                             </StackPanel>
-                            <Button Margin="20" Padding="5">Follow</Button>
+                            <Button Name="FollowBtn" Click="FollowBtnClicked" Margin="20" Padding="5">Follow</Button>
                         </StackPanel>
                     </ScrollViewer>
                 </Grid>
