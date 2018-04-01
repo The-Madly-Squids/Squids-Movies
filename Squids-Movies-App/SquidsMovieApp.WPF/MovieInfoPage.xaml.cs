@@ -91,6 +91,7 @@ namespace SquidsMovieApp.WPF
             this.MovieRatedTBlock.Text = this.movie.Rated;
             this.MoviePlotTBlock.Text = this.movie.Plot;
             this.MoviePriceTBlock.Text = string.Format("${0}", this.movie.Price);
+            this.WatchMovieBtn.IsEnabled = false;
 
             // Reviews
             DisplayReviews(false);
@@ -107,6 +108,7 @@ namespace SquidsMovieApp.WPF
             if (this.mainController.UserController.GetBoughtMovies(this.userContext.LoggedUser.Username).Any(m => m.MovieId == this.movie.MovieId))
             {
                 this.AddToCartBtn.IsEnabled = false;
+                this.WatchMovieBtn.IsEnabled = true;
             }
         }
 
@@ -236,6 +238,9 @@ namespace SquidsMovieApp.WPF
             };
 
             cart.ShowDialog();
+
+            this.MoneyBalance = userContext.LoggedUser.MoneyBalance.ToString();
+            this.UserBalanceNav.Text = this.MoneyBalance;
         }
 
         private void UpdateLikeCount()

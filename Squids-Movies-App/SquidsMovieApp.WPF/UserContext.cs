@@ -13,7 +13,6 @@ namespace SquidsMovieApp.WPF
     {
         private readonly IUserService userService;
         private UserModel loggedUser;
-        private UserModel fakeUser;
         private IList<MovieModel> cart;
 
         public UserContext(IUserService userService)
@@ -24,9 +23,7 @@ namespace SquidsMovieApp.WPF
         }
 
         public IList<MovieModel> Cart => new List<MovieModel>(this.cart);
-
-        public UserModel FakeUser => this.fakeUser;
-
+        
         public UserModel LoggedUser { get => loggedUser; private set => loggedUser = value; }
 
         public void Login(string email, string password)

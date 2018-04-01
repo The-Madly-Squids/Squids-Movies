@@ -9,7 +9,6 @@ namespace SquidsMovieApp.Logic.Contracts
 {
     public interface IUserService
     {
-
         IEnumerable<ParticipantModel> GetLikedParticipants(UserModel user); //Done
         IEnumerable<MovieModel> GetLikedMovies(UserModel user); //Done
         IEnumerable<MovieModel> GetBoughtMovies(UserModel user); //Done
@@ -18,8 +17,10 @@ namespace SquidsMovieApp.Logic.Contracts
         IEnumerable<UserModel> GetFollowed(UserModel user); //Done
         decimal GetMoneyBalance(UserModel user); //Done
         void AddMoneyToBalance(UserModel user, decimal amount); //Done
+        void RemoveMoneyFromBalance(UserModel user, decimal amount);
         void LikeParticipant(UserModel user, ParticipantModel participant); //Done
         void LikeMovie(UserModel user, MovieModel movie);
+        void BuyMovie(UserModel user, MovieModel movie);
         void FollowUser(UserModel user, UserModel userToFollow); //Done
         void BuyMovie(UserModel user, MovieModel movie, decimal price); //Done
         void GiveReview(UserModel user, MovieModel movie, int reviewRating,

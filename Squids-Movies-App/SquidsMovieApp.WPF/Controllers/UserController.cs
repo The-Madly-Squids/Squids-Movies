@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Bytes2you.Validation;
 using SquidsMovieApp.Common.Constants;
+using SquidsMovieApp.Common.Exceptions;
 using SquidsMovieApp.Core.Factories.Contracts;
 using SquidsMovieApp.DTO;
 using SquidsMovieApp.Logic.Contracts;
@@ -219,6 +220,28 @@ namespace SquidsMovieApp.WPF.Controllers
             this.userService.AddMoneyToBalance(userToAddMonney, amount);
         }
 
+        public void RemoveMoneyFromBalance(UserModel user, decimal amount)
+        {
+            if (amount < GlobalConstants.MinAmountToAdd)
+            {
+                throw new ArgumentException($"Amount cannot be less than {GlobalConstants.MinAmountToAdd}!");
+            }
+
+            if (user == null)
+            {
+                throw new UserNotFoundException("User not found!");
+            }
+
+            var moneyAfterBuying = user.MoneyBalance - amount;
+
+            if (moneyAfterBuying < 0)
+            {
+                throw new InvalidOperationException("Insufficient money!");
+            }
+
+            this.userService.RemoveMoneyFromBalance(user, amount);
+        }
+
         public void LikeParticipant(string userName, string participantFirstName,
             string participantLastName)
         {
@@ -246,15 +269,39 @@ namespace SquidsMovieApp.WPF.Controllers
         {
             if (user == null)
             {
-                throw new ArgumentNullException("User is invalid");
+                throw new ArgumentNullException("User is invalid!");
             }
             
             if (movie == null)
             {
-                throw new ArgumentNullException("Movie is invalid");
+                throw new ArgumentNullException("Movie is invalid!");
             }
             
             this.userService.LikeMovie(user, movie);
+        }
+
+        public void BuyMovie(UserModel user, MovieModel movie)
+        {
+            if (user == null)
+            {
+                throw new ArgumentNullException("Invalid user!");
+            }
+
+            if (movie == null)
+            {
+                throw new ArgumentNullException("Invalid movie!");
+            }
+
+            var movieAlreadyBought = user.BoughtMovies
+                .Where(x => x.MovieId == movie.MovieId)
+                .FirstOrDefault();
+
+            if (movieAlreadyBought != null)
+            {
+                throw new ArgumentNullException("Movie already bought!");
+            }
+
+            this.userService.BuyMovie(user, movie);
         }
 
         public void FollowUser(string userName, string userToFollowUsername)

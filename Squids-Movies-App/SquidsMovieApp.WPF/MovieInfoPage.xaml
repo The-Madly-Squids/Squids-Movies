@@ -83,7 +83,7 @@
                             <Button Click="GiveReviewBtnClicked" Padding="10" Margin="0,0,15,0">Give a review</Button>
                         </StackPanel>
                         <StackPanel Margin="0,5">
-                            <Button Padding="10" Margin="0,0">Watch</Button>
+                            <Button Name="WatchMovieBtn" Padding="10" Margin="0,0">Watch</Button>
                         </StackPanel>
                     </StackPanel>
                 </StackPanel>

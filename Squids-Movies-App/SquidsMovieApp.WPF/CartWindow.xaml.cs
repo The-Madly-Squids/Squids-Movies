@@ -74,7 +74,7 @@ namespace SquidsMovieApp.WPF
                 BorderBrush = Brushes.LightGray,
                 BorderThickness = new Thickness(1),
                 Padding = new Thickness(10),
-                Margin = new Thickness(0,0,0,10)
+                Margin = new Thickness(0, 0, 0, 10)
             };
 
             var stackPanelInfo = new StackPanel();
@@ -120,8 +120,35 @@ namespace SquidsMovieApp.WPF
             }
             else
             {
+                try
+                {
+                    this.mainController.UserController.RemoveMoneyFromBalance(this.userContext.LoggedUser, this.totalPrice);
+                }
+                catch (Exception ex)
+                {
+                    var errorPanel = new StackPanel();
+                    errorPanel.Children.Add(ErrorDialog.CreateErrorTextBlock(ex.Message));
+                    ErrorDialog.DisplayError(errorPanel, "Transaction failed.");
+                }
+
+                try
+                {
+                    foreach (var movie in this.userContext.Cart)
+                    {
+                        this.mainController.UserController.BuyMovie(this.userContext.LoggedUser, movie);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    var errorPanel = new StackPanel();
+                    errorPanel.Children.Add(ErrorDialog.CreateErrorTextBlock(ex.Message));
+                    ErrorDialog.DisplayError(errorPanel, "Transaction failed.");
+                }
+
                 this.userContext.LoggedUser.MoneyBalance -= this.totalPrice;
                 this.CartItemsMainSP.Children.Clear();
+                this.BuyBtn.IsEnabled = false;
+                this.TotalPriceTBlock.Text = "$0";
                 this.userContext.RemoveAllFromCart();
             }
         }
