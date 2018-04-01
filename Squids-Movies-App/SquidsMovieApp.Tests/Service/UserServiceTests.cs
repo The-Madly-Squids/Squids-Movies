@@ -284,13 +284,65 @@ namespace SquidsMovieApp.Tests.Service
         [TestMethod]
         public void GetUserShould_ReturnCorrectDataWhenCalledWithValidParmeters()
         {
-            throw new NotImplementedException();
+            // Act
+            var effort = new MovieAppDBContext(
+                                Effort.DbConnectionFactory.CreateTransient());
+            var mapperMock = new Mock<IMapper>();
+
+            var userObject = new User()
+            {
+                FirstName = "Test",
+                LastName = "Testove",
+                Username = "Test",
+                Email = "Test@abv.com",
+                Password = "12345678"
+            };
+
+            effort.Users.Add(userObject);
+            effort.SaveChanges();
+          
+            var userDtoArgument = Mapper.Map<UserModel>(userObject);
+            mapperMock.Setup(x => x.Map<UserModel>(It.IsAny<User>()))
+              .Returns(userDtoArgument);
+
+            // Act
+            var sut = new UserService(effort, mapperMock.Object);
+            var result = sut.GetUserByUsername("Test");
+
+            // Assert
+            Assert.AreEqual("Test", result.Username);
+            
         }
 
         [TestMethod]
         public void GetUserShould_ThrowWhenCalledWithInvalidParmeters()
         {
-            throw new NotImplementedException();
+            // Act
+            var effort = new MovieAppDBContext(
+                                Effort.DbConnectionFactory.CreateTransient());
+            var mapperMock = new Mock<IMapper>();
+
+            var userObject = new User()
+            {
+                FirstName = "Test",
+                LastName = "Testove",
+                Username = "Test",
+                Email = "Test@abv.com",
+                Password = "12345678"
+            };
+
+            effort.Users.Add(userObject);
+            effort.SaveChanges();
+
+            var userDtoArgument = Mapper.Map<UserModel>(userObject);
+            mapperMock.Setup(x => x.Map<UserModel>(It.IsAny<User>()))
+              .Returns(userDtoArgument);
+
+            // Act
+            var sut = new UserService(effort, mapperMock.Object);
+
+            // Assert
+            Assert.ThrowsException<NullReferenceException>(() => sut.GetUserByUsername("Test_wrong"));
         }
 
         [TestMethod]

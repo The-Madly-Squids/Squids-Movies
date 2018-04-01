@@ -71,7 +71,7 @@ namespace SquidsMovieApp.Logic
 
             if (user == null)
             {
-                throw new UserNotFoundException("No user found with that username!");
+                throw new NullReferenceException("No user found with that username!");
             }
 
             var userDto = this.mapper.Map<UserModel>(user);
@@ -127,12 +127,7 @@ namespace SquidsMovieApp.Logic
 
         public decimal GetMoneyBalance(UserModel user)
         {
-            var userPoco = this.movieAppDbContext.Users
-                           .Where(x => x.UserId == user.UserId)
-                           .FirstOrDefault();
-
-            decimal moneyBallance = userPoco.MoneyBalance;
-
+            decimal moneyBallance = user.MoneyBalance;
             return moneyBallance;
         }
 
@@ -155,33 +150,6 @@ namespace SquidsMovieApp.Logic
             movieAppDbContext.SaveChanges();
         }
 
-        public void RemoveMoneyFromBalance(UserModel user, decimal amount)
-        {
-            if (amount < GlobalConstants.MinAmountToAdd)
-            {
-                throw new ArgumentException($"Amount cannot be less than {GlobalConstants.MinAmountToAdd}!");
-            }
-
-            var userPoco = this.movieAppDbContext.Users
-                                .Where(x => x.UserId == user.UserId)
-                                .FirstOrDefault();
-
-            if (userPoco == null)
-            {
-                throw new UserNotFoundException("User not found!");
-            }
-
-            var moneyAfterBuying = userPoco.MoneyBalance - amount;
-
-            if (moneyAfterBuying < 0)
-            {
-                throw new InvalidOperationException("Insufficient money!");
-            }
-
-            userPoco.MoneyBalance = moneyAfterBuying;
-            movieAppDbContext.SaveChanges();
-        }
-
         public void LikeParticipant(UserModel user, ParticipantModel participant)
         {
             var userObject = this.movieAppDbContext.Users
@@ -195,75 +163,6 @@ namespace SquidsMovieApp.Logic
 
             userObject.LikedParticipants.Add(participantObject);
             participantObject.ParticipantLikedByUser.Add(userObject);
-            this.movieAppDbContext.SaveChanges();
-        }
-
-        public void LikeMovie(UserModel user, MovieModel movie)
-        {
-            var userObject = this.movieAppDbContext.Users
-                            .Where(x => x.UserId == user.UserId)
-                            .FirstOrDefault();
-
-            if (userObject == null)
-            {
-                throw new ArgumentNullException("User not found");
-            }
-
-            var movieObject = this.movieAppDbContext.Movies
-                              .Where(x => x.MovieId == movie.MovieId)
-                              .FirstOrDefault();
-
-            if (movieObject == null)
-            {
-                throw new ArgumentNullException("Movie not found");
-            }
-
-            var movieAlreadyLiked = userObject.LikedMovies
-                .Where(x => x.MovieId == movieObject.MovieId)
-                .FirstOrDefault();
-
-            if (movieAlreadyLiked != null)
-            {
-                throw new ArgumentNullException("Movie already liked");
-            }
-
-
-            userObject.LikedMovies.Add(movieObject);
-            movieObject.LikedBy.Add(userObject);
-            this.movieAppDbContext.SaveChanges();
-        }
-
-        public void BuyMovie(UserModel user, MovieModel movie)
-        {
-            var userObject = this.movieAppDbContext.Users
-                           .Where(x => x.UserId == user.UserId)
-                           .FirstOrDefault();
-
-            if (userObject == null)
-            {
-                throw new ArgumentNullException("User not found!");
-            }
-
-            var movieObject = this.movieAppDbContext.Movies
-                              .Where(x => x.MovieId == movie.MovieId)
-                              .FirstOrDefault();
-
-            if (movieObject == null)
-            {
-                throw new ArgumentNullException("Movie not found!");
-            }
-
-            var movieAlreadyBought = userObject.BoughtMovies
-                .Where(x => x.MovieId == movieObject.MovieId)
-                .FirstOrDefault();
-
-            if (movieAlreadyBought != null)
-            {
-                throw new ArgumentNullException("Movie already bought!");
-            }
-
-            userObject.BoughtMovies.Add(movieObject);
-            movieObject.BoughtBy.Add(userObject);
             this.movieAppDbContext.SaveChanges();
         }
 
@@ -407,6 +306,21 @@ namespace SquidsMovieApp.Logic
             var usersDto = mapper.Map<IList<UserModel>>(usersPoco);
 
             return usersDto;
+        }
+
+        public void RemoveMoneyFromBalance(UserModel user, decimal amount)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void LikeMovie(UserModel user, MovieModel movie)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void BuyMovie(UserModel user, MovieModel movie)
+        {
+            throw new NotImplementedException();
         }
     }
 }
