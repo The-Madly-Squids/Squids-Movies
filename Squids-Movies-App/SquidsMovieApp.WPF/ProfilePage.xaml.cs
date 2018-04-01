@@ -455,6 +455,11 @@ namespace SquidsMovieApp.WPF
             }
         }
 
+        private void BrowseBtnClicked(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new BrowseMoviesPage(this.mainController, this.userContext));
+        }
+
         private void LogoutBtnClicked(object sender, RoutedEventArgs e)
         {
             this.userContext.Logout();

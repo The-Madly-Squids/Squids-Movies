@@ -66,11 +66,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Contracts\IGenreService.cs" />
     <Compile Include="Contracts\IMovieService.cs" />
     <Compile Include="Contracts\IParticipantService.cs" />
     <Compile Include="Contracts\IReviewService.cs" />
     <Compile Include="Contracts\IRoleService.cs" />
     <Compile Include="Contracts\IUserService.cs" />
+    <Compile Include="GenreService.cs" />
     <Compile Include="MovieService.cs" />
     <Compile Include="ParticipantService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

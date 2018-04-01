@@ -44,6 +44,10 @@ namespace SquidsMovieApp.WPF.AutofacModules
                 .As<IParticipantService>()
                 .InstancePerDependency();
 
+            builder.RegisterType<GenreService>()
+               .As<IGenreService>()
+               .InstancePerDependency();
+
             // controllers
             builder.RegisterType<MovieController>()
                 .AsSelf()
@@ -60,6 +64,10 @@ namespace SquidsMovieApp.WPF.AutofacModules
             builder.RegisterType<ParticipantController>()
                 .AsSelf()
                 .InstancePerDependency();
+
+            builder.RegisterType<GenreController>()
+               .AsSelf()
+               .InstancePerDependency();
 
             builder.RegisterType<MainController>()
                 .As<IMainController>()

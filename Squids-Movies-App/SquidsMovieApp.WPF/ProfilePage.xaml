@@ -39,7 +39,7 @@
                     <Button Click="CartBtnClicked" Margin="15,0,0,0" Width="50" Height="25" Content="Cart"/>
                     <Button Name="UserProfileNav" Margin="15,0,0,0" Width="50" Height="25" Content="Profile"/>
                     <Button Name="MoviesAsPdfNav" Click="MoviePdfBtnClicked" Margin="15,0,0,0" Width="80" Height="25" Content="MoviesPdf"/>
-
+                    <Button Name="BrowseMovies" Click="BrowseBtnClicked" Margin="15,0,0,0" Width="80" Height="25" Content="Browse"/>
                 </StackPanel>
             </Grid>
             <!--Main-->

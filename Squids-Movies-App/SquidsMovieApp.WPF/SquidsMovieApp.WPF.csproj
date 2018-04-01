@@ -84,10 +84,14 @@
       <DependentUpon>AddMoneyToAccountWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="AutofacModules\AutofacModule.cs" />
+    <Compile Include="BrowseMoviesPage.xaml.cs">
+      <DependentUpon>BrowseMoviesPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CartWindow.xaml.cs">
       <DependentUpon>CartWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controllers\Contracts\IMainController.cs" />
+    <Compile Include="Controllers\GenreController.cs" />
     <Compile Include="Controllers\MainController.cs" />
     <Compile Include="Controllers\MovieController.cs" />
     <Compile Include="Controllers\ParticipantController.cs" />
@@ -121,6 +125,10 @@
       <DependentUpon>UserPreviewPage.xaml</DependentUpon>
     </Compile>
     <Page Include="AddMoneyToAccountWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="BrowseMoviesPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

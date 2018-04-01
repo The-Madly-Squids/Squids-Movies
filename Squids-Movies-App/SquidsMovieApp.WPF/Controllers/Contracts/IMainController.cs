@@ -12,5 +12,6 @@ namespace SquidsMovieApp.WPF.Controllers.Contracts
         ParticipantController ParticipantController { get; }
         RoleController RoleController { get; }
         UserController UserController { get; }
+        GenreController GenreController { get; }
     }
 }
