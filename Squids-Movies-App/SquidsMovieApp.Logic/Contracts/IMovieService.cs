@@ -29,5 +29,6 @@ namespace SquidsMovieApp.Logic.Contracts
         IEnumerable<MovieModel> GetMoviesByTitleSearch(string pattern);
         void PostMovieReview(ReviewModel review, int movieId, int userId);
         int GetMovieLikedCount(int id);
+        IEnumerable<MovieModel> GetMoviesByGenre(GenreModel genre);
     }
 }

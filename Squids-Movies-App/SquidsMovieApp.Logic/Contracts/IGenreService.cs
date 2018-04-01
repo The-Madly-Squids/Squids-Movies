@@ -10,5 +10,6 @@ namespace SquidsMovieApp.Logic.Contracts
     public interface IGenreService
     {
         IEnumerable<GenreModel> GetAllGenres();
+        GenreModel GetGenreDto(string genreName);
     }
 }

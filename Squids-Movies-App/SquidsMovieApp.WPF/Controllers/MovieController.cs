@@ -259,5 +259,15 @@ namespace SquidsMovieApp.WPF.Controllers
         {
             return this.movieService.GetMovieLikedCount(id);
         }
+
+        public IEnumerable<MovieModel> GetMoviesByGenre(GenreModel genre)
+        {            
+            if (genre == null)
+            {
+                throw new ArgumentNullException("Invalid genre!");
+            }
+            
+            return this.movieService.GetMoviesByGenre(genre);
+        }
     }
 }

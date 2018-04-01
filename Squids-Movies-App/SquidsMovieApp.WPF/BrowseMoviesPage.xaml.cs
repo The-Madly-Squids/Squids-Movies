@@ -65,14 +65,16 @@ namespace SquidsMovieApp.WPF
             }
         }
 
-        private void FillMovieGrid()
+        private void FillMovieGrid(IEnumerable<MovieModel> movies)
         {
+            this.MovieDisplayGrid.Children.Clear();
+
             int gridCol = 0;
-            int gridRow = 1;
+            int gridRow = 0;
 
             var stack = new StackPanel();
 
-            foreach (var movie in this.allMovies)
+            foreach (var movie in movies)
             {
                 var tb = new TextBlock();
 
@@ -101,13 +103,13 @@ namespace SquidsMovieApp.WPF
                     gridRow++;
                     gridCol = 0;
                 }
-                
             }
         }
 
         private void MovieLinkClicked(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            var hyperLinkName = (sender as Hyperlink).Name;
+            this.NavigationService.Navigate(new MovieInfoPage(this.mainController, this.userContext, hyperLinkName));
         }
 
         private void ProfileBtnClicked(object sender, RoutedEventArgs e)
@@ -156,7 +158,7 @@ namespace SquidsMovieApp.WPF
             else
             {
                 FillGenres();
-                FillMovieGrid();
+                FillMovieGrid(this.allMovies);
             }
         }
 
@@ -169,6 +171,22 @@ namespace SquidsMovieApp.WPF
         private void ExitBtnClicked(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
+        }
+
+        private void FilterBtnClicked(object sender, RoutedEventArgs e)
+        {
+            string genreName = this.GenresFilterCB.Text;
+
+            if (genreName == "All")
+            {
+                this.FillMovieGrid(this.allMovies);
+            }
+            else
+            {
+                var genre = this.mainController.GenreController.GetGenreDto(genreName);
+                var filteredMovies = this.mainController.MovieController.GetMoviesByGenre(genre);
+                this.FillMovieGrid(filteredMovies);
+            }
         }
 
     }

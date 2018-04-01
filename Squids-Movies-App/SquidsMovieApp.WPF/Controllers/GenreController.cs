@@ -21,5 +21,15 @@ namespace SquidsMovieApp.WPF.Controllers
         {
             return this.genreService.GetAllGenres();
         }
+
+        public GenreModel GetGenreDto(string genreName)
+        {
+            if (string.IsNullOrEmpty(genreName) || string.IsNullOrWhiteSpace(genreName))
+            {
+                throw new ArgumentNullException("Invalid genre name!");
+            }
+
+            return this.genreService.GetGenreDto(genreName);
+        }
     }
 }

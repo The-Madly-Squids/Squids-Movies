@@ -29,5 +29,19 @@ namespace SquidsMovieApp.Logic
 
             return genresDto;
         }
+
+        public GenreModel GetGenreDto(string genreName)
+        {
+            var genre = this.movieAppDbContext.Genres.Where(g => g.GenreType == genreName).FirstOrDefault();
+
+            if (genre == null)
+            {
+                throw new ArgumentNullException("Genre not found!");
+            }
+
+            var genreDto = this.mapper.Map<GenreModel>(genre);
+
+            return genreDto;
+        }
     }
 }

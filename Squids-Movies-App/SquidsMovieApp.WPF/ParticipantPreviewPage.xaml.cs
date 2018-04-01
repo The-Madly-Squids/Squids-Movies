@@ -197,5 +197,10 @@ namespace SquidsMovieApp.WPF
         {
             Application.Current.Shutdown();
         }
+
+        private void BrowseBtnClicked(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new BrowseMoviesPage(this.mainController, this.userContext));
+        }
     }
 }

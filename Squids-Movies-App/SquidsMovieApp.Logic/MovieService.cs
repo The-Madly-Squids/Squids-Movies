@@ -76,7 +76,7 @@ namespace SquidsMovieApp.Logic
             var movie = this.movieAppDbContext.Movies
                                 .Where(x => x.MovieId == id)
                                 .FirstOrDefault();
-            
+
             if (movie == null)
             {
                 throw new ArgumentNullException("Movie not found!");
@@ -331,6 +331,20 @@ namespace SquidsMovieApp.Logic
             var moviePoco = this.movieAppDbContext.Movies.Where(x => x.MovieId == id).FirstOrDefault();
 
             return moviePoco.LikedBy.Count();
+        }
+
+        public IEnumerable<MovieModel> GetMoviesByGenre(GenreModel genre)
+        {
+            var moviesByGenre = this.movieAppDbContext.Movies
+                                .Where(x => x.Genres.Any(m => m.Id == genre.Id))
+                                .ToList();
+            if (moviesByGenre == null)
+            {
+                throw new ArgumentNullException("No movies found!");
+            }
+
+            var moviesDto = mapper.Map<IList<MovieModel>>(moviesByGenre);
+            return moviesDto;
         }
     }
 }

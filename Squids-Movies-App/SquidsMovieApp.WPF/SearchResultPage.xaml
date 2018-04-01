@@ -39,6 +39,7 @@
                     <TextBlock Name="UserBalanceNav" Text="{Binding MoneyBalance}"/>
                     <Button Click="CartBtnClicked" Margin="15,0,0,0" Width="50" Height="25" Content="Cart"/>
                     <Button Name="UserProfileNav" Click="ProfileBtnClicked" Margin="15,0,0,0" Width="50" Height="25" Content="Profile"/>
+                    <Button Name="BrowseMovies" Click="BrowseBtnClicked" Margin="15,0,0,0" Width="80" Height="25" Content="Browse"/>
                 </StackPanel>
             </Grid>
             <!--Main-->

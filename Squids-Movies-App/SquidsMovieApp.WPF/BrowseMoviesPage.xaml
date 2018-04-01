@@ -43,29 +43,41 @@
             </Grid>
             <!--Main-->
             <ScrollViewer Grid.Column="0" Grid.Row="1">
-                <Grid Name="MovieDisplayGrid" Margin="20,5">
+                <Grid Margin="20,5">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <StackPanel HorizontalAlignment="Left" Grid.Row="0" Grid.Column="0">
-                        <TextBlock Margin="0,0,0,10" FontWeight="Bold" FontSize="17">Filter by genres</TextBlock>
-                        <ComboBox Margin="0,0,0,10" Name="GenresFilterCB" Width="150">
-                            <ComboBoxItem IsSelected="True">All</ComboBoxItem>
-                        </ComboBox>
-                        <Button HorizontalAlignment="Left" Width="150" Margin="0,0,0,10" Content="Filter"/>
-                    </StackPanel>
-                    <StackPanel Grid.Row="0" Grid.Column="1">
-                        <TextBlock FontWeight="Bold" FontSize="20">PDF</TextBlock>
-                    </StackPanel>
-                    <StackPanel Grid.Row="0" Grid.Column="2">
-                        <TextBlock FontWeight="Bold" FontSize="20">Something</TextBlock>
-                    </StackPanel>
+                    <Grid Grid.Row="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel HorizontalAlignment="Left" Grid.Row="0" Grid.Column="0">
+                            <TextBlock Margin="0,0,0,10" FontWeight="Bold" FontSize="17">Filter by genres</TextBlock>
+                            <ComboBox Margin="0,0,0,10" Name="GenresFilterCB" Width="150">
+                                <ComboBoxItem IsSelected="True">All</ComboBoxItem>
+                            </ComboBox>
+                            <Button Click="FilterBtnClicked" HorizontalAlignment="Left" Width="150" Margin="0,0,0,10" Content="Filter"/>
+                        </StackPanel>
+                        <StackPanel Grid.Row="0" Grid.Column="1">
+                            <TextBlock FontWeight="Bold" FontSize="20">PDF</TextBlock>
+                        </StackPanel>
+                    </Grid>
+                    <Grid Name="MovieDisplayGrid" Grid.Row="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                    </Grid>
                 </Grid>
             </ScrollViewer>
             <!--Footer-->
