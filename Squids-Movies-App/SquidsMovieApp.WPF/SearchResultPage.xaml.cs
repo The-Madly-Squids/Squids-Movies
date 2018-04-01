@@ -231,5 +231,16 @@ namespace SquidsMovieApp.WPF
                 DisplayUsersSearchResult();
             }
         }
+
+        private void LogoutBtnClicked(object sender, RoutedEventArgs e)
+        {
+            this.userContext.Logout();
+            this.NavigationService.Navigate(new LoginPage());
+        }
+
+        private void ExitBtnClicked(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
     }
 }

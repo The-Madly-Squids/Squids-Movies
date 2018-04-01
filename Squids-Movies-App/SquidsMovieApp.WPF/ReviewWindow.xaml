@@ -24,7 +24,7 @@
             </ComboBox>
         </StackPanel>
         <StackPanel>
-            <TextBlock Margin="15,0">Write a review. Must be between 10 and 200 in length. (optional) </TextBlock>
+            <TextBlock Margin="15,0">Write a review. Must be between 10 and 200 characters.</TextBlock>
             <TextBox Name="ReviewTBox" Margin="15" HorizontalAlignment="Left" Width="365" Height="128" TextWrapping="Wrap" AcceptsReturn="True" AcceptsTab="True" SpellCheck.IsEnabled="True"></TextBox>
         </StackPanel>
         <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">

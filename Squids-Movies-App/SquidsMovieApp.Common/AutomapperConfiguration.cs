@@ -11,8 +11,12 @@ namespace SquidsMovieApp.Common
 {
     public static class AutomapperConfiguration
     {
+        public static bool ShouldInitialize { get; set; }
+
         public static void Initialize()
         {
+            ShouldInitialize = true;
+
             var types = AppDomain.CurrentDomain
                 .GetAssemblies()
                 .Where(x => !x.IsDynamic)

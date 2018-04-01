@@ -34,7 +34,11 @@ namespace SquidsMovieApp.WPF
 
         private void RegisterContainer()
         {
-            AutomapperConfiguration.Initialize();
+            if (!AutomapperConfiguration.ShouldInitialize)
+            {
+                AutomapperConfiguration.Initialize();
+            }
+
             var builder = new ContainerBuilder();
             builder.RegisterAssemblyModules(Assembly.GetExecutingAssembly());
             var container = builder.Build();

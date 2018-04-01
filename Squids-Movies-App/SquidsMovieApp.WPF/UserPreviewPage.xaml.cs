@@ -296,5 +296,16 @@ namespace SquidsMovieApp.WPF
             var hyperLinkName = (sender as Hyperlink).Name;
             this.NavigationService.Navigate(new MovieInfoPage(this.mainController, this.userContext, hyperLinkName));
         }
+
+        private void LogoutBtnClicked(object sender, RoutedEventArgs e)
+        {
+            this.userContext.Logout();
+            this.NavigationService.Navigate(new LoginPage());
+        }
+
+        private void ExitBtnClicked(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
     }
 }
