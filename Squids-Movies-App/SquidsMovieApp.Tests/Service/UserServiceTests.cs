@@ -8,6 +8,7 @@ using SquidsMovieApp.DTO;
 using SquidsMovieApp.Logic;
 using System.Linq;
 using SquidsMovieApp.Models;
+using System.Collections.Generic;
 
 namespace SquidsMovieApp.Tests.Service
 {
@@ -27,6 +28,7 @@ namespace SquidsMovieApp.Tests.Service
             {
                 FirstName = "John",
                 LastName = "Johnson",
+                Username = "HackMan",
                 Email = "partypooper1992@gmail.com",
                 Password = "nikoganqmadapoznaesh"
             };
@@ -35,6 +37,7 @@ namespace SquidsMovieApp.Tests.Service
             {
                 FirstName = "John",
                 LastName = "Johnson",
+                Username = "HackMan",
                 Email = "partypooper1992@gmail.com",
                 Password = "nikoganqmadapoznaesh"
             };
@@ -53,22 +56,127 @@ namespace SquidsMovieApp.Tests.Service
         [TestMethod]
         public void AddUserShould_ThrowWhenCalledWithInvalidParameters()
         {
-            // for Paco
-            throw new NotImplementedException();
+            // Arrange
+            var effort = new MovieAppDBContext(
+                                Effort.DbConnectionFactory.CreateTransient());
+            var mapperMock = new Mock<IMapper>();
+
+
+            var userDtoArgument = new UserModel()
+            {
+                FirstName = "John",
+                LastName = "Johnson",
+                Username = "HackMan",
+                //Email = "partypooper1992@gmail.com",
+                Password = "nikoganqmadapoznaesh"
+            };
+
+            var userObjectToReturn = new User()
+            {
+                FirstName = "John",
+                LastName = "Johnson",
+                Username = "HackMan",
+                //Email = "partypooper1992@gmail.com",
+                Password = "nikoganqmadapoznaesh"
+            };
+           
+            mapperMock.Setup(x => x.Map<User>(It.IsAny<UserModel>()))
+                        .Returns(userObjectToReturn);
+
+            var sut = new UserService(effort, mapperMock.Object);
+
+            // Act & Assert
+            Assert.ThrowsException<System.Data.Entity.Validation.DbEntityValidationException>(() => sut.AddUser(userDtoArgument));
         }
 
         [TestMethod]
         public void RemoveUserShould_CorrectlyRemoveUserFromDbWhenCalleWithValidData()
         {
-            // for Toni
-            throw new NotImplementedException();
+            // Arrange
+            var effort = new MovieAppDBContext(
+                                Effort.DbConnectionFactory.CreateTransient());
+            var mapperMock = new Mock<IMapper>();
+
+            var userObjectToReturn = new User()
+            {
+                FirstName = "John",
+                LastName = "Johnson",
+                Username = "HackMan",
+                Email = "partypooper1992@gmail.com",
+                Password = "nikoganqmadapoznaesh"
+            };
+
+            effort.Users.Add(userObjectToReturn);
+            effort.SaveChanges();
+            var userID = effort.Users
+                .Where(x => x.Username == "HackMan")
+                .FirstOrDefault()
+                .UserId;
+
+            var userDtoArgument = new UserModel()
+            {
+                UserId = userID,
+                FirstName = "John",
+                LastName = "Johnson",
+                Username = "HackMan",
+                Email = "partypooper1992@gmail.com",
+                Password = "nikoganqmadapoznaesh"
+            };
+
+            mapperMock.Setup(x => x.Map<User>(It.IsAny<UserModel>()))
+                        .Returns(userObjectToReturn);
+
+            // Act
+            var sut = new UserService(effort, mapperMock.Object);
+            sut.RemoveUser(userDtoArgument);
+            effort.SaveChanges();
+
+            // Assert
+            Assert.AreEqual(0, effort.Users.Count());
         }
 
         [TestMethod]
         public void RemoveUserShould_ThrowWhenUserNotFoundInDataBase()
         {
-            // for Paco
-            throw new NotImplementedException();
+            // Arrange
+            var effort = new MovieAppDBContext(
+                                Effort.DbConnectionFactory.CreateTransient());
+            var mapperMock = new Mock<IMapper>();
+
+            var userObjectToReturn = new User()
+            {
+                FirstName = "John",
+                LastName = "Johnson",
+                Username = "HackMan",
+                Email = "partypooper1992@gmail.com",
+                Password = "nikoganqmadapoznaesh"
+            };
+
+            //effort.Users.Add(userObjectToReturn);
+            //effort.SaveChanges();
+            var userID = effort.Users
+                .Where(x => x.Username == "HackMan")
+                .FirstOrDefault()
+                .UserId;
+
+            var userDtoArgument = new UserModel()
+            {
+                //UserId = userID,
+                FirstName = "John",
+                LastName = "Johnson",
+                Username = "HackMan",
+                Email = "partypooper1992@gmail.com",
+                Password = "nikoganqmadapoznaesh"
+            };
+
+            mapperMock.Setup(x => x.Map<User>(It.IsAny<UserModel>()))
+                        .Returns(userObjectToReturn);
+
+            // Act
+            var sut = new UserService(effort, mapperMock.Object);
+
+            // Assert
+            Assert.ThrowsException<System.NullReferenceException>(() => sut.RemoveUser(userDtoArgument));
         }
 
         [TestMethod]
@@ -83,6 +191,8 @@ namespace SquidsMovieApp.Tests.Service
                                 Effort.DbConnectionFactory.CreateTransient());
             var mapperMock = new Mock<IMapper>();
 
+            List<UserModel> userList = new List<UserModel>();
+
             for (int i = 0; i < 10; i++)
             {
                 var userObject = new User()
@@ -95,19 +205,33 @@ namespace SquidsMovieApp.Tests.Service
                 };
 
                 effort.Users.Add(userObject);
+
+                var userToList = new UserModel()
+                {
+                    FirstName = "Test" + i,
+                    LastName = "Testove" + i,
+                    Username = "Test" + i,
+                    Email = "Test" + i + "@abv.com",
+                    Password = "12345678"
+                };
+
+                userList.Add(userToList);
             }
 
             effort.SaveChanges();
+
+
             // Act
             var sut = new UserService(effort, mapperMock.Object);
             var result = sut.GetAllUsers();
 
             // Assert
-            foreach (var user in effort.Users)
-            {
-                var exists = result.Any(x => x.UserId == user.UserId);
-                Assert.IsTrue(exists);
-            }
+            //foreach (var user in result)
+            //{
+            //    var exists = userList.Any(x => x.Username == user.Username);
+            //    Assert.IsTrue(exists);
+            //}
+            Assert.AreEqual(10, result.Count());
 
         }
 

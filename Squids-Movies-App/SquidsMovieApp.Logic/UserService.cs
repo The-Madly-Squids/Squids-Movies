@@ -41,7 +41,7 @@ namespace SquidsMovieApp.Logic
         {
             if (user == null)
             {
-                throw new UserNotFoundException("User not found!");
+                throw new UserNotFoundException("User argument not found!");
             }
 
             var userObject = this.movieAppDbContext.Users
@@ -50,7 +50,7 @@ namespace SquidsMovieApp.Logic
 
             if (userObject == null)
             {
-                throw new UserNotFoundException("User not found!");
+                throw new UserNotFoundException("User not found in DB!");
             }
 
             this.movieAppDbContext.Users.Remove(userObject);
