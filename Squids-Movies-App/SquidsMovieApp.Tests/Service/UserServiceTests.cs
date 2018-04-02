@@ -818,13 +818,104 @@ namespace SquidsMovieApp.Tests.Service
         [TestMethod]
         public void BuyMovieShouldCorrectlyAddSelectedMovieToUserBoughtMoviesCollection_WhenInvokedWithValidParameters()
         {
-            throw new NotImplementedException();
+            // Act
+            var effort = new MovieAppDBContext(
+                                Effort.DbConnectionFactory.CreateTransient());
+            var mapperMock = new Mock<IMapper>();
+
+            var userObject = new User()
+            {
+                FirstName = "Test",
+                LastName = "Testove",
+                Username = "Test",
+                Email = "Test@abv.com",
+                Password = "12345678"
+            };
+
+            effort.Users.Add(userObject);
+            effort.SaveChanges();
+
+            List<Movie> boughtMovies = new List<Movie>();
+            for (int i = 0; i < 10; i++)
+            {
+                var movie = new Movie()
+                {
+                    Title = "Terminator" + i,
+                    Runtime = 150
+                };
+                userObject.BoughtMovies.Add(movie);
+                effort.SaveChanges();
+                boughtMovies.Add(movie);
+            }
+            var userDtoArgument = Mapper.Map<UserModel>(userObject);
+            mapperMock.Setup(x => x.Map<UserModel>(It.IsAny<User>()))
+              .Returns(userDtoArgument);
+
+            // Act
+            var sut = new UserService(effort, mapperMock.Object);
+            var result = sut.GetBoughtMovies(userDtoArgument);
+            // Assert
+            foreach (var movie in result)
+            {
+                bool areSame = boughtMovies.Any(x => x.Title == movie.Title);
+                Assert.IsTrue(areSame);
+            }
         }
 
         [TestMethod]
         public void GiveReviewShouldCorrectlyAddReview_WhenInvokedWithValidParameters()
         {
-            throw new NotImplementedException();
+            // Act
+            var effort = new MovieAppDBContext(
+                                Effort.DbConnectionFactory.CreateTransient());
+            var mapperMock = new Mock<IMapper>();
+
+            var userObject = new User()
+            {
+                FirstName = "Test",
+                LastName = "Testove",
+                Username = "Test",
+                Email = "Test@abv.com",
+                Password = "12345678"
+            };
+
+            effort.Users.Add(userObject);
+            effort.SaveChanges();
+
+            var userIdToAdd = effort.Users
+               .Where(x => x.Username == "Test")
+               .FirstOrDefault()
+               .UserId;
+
+            var userDtoArgument = new UserModel()
+            {
+                UserId = userIdToAdd,
+                FirstName = "Test",
+                LastName = "Testove",
+                Username = "Test",
+                Email = "Test@abv.com",
+                Password = "12345678"
+            };
+
+            var movie = new Movie()
+                {
+                    Title = "Terminator",
+                    Runtime = 150
+                };
+                userObject.BoughtMovies.Add(movie);
+                effort.SaveChanges();
+         
+            //var userDtoArgument = Mapper.Map<UserModel>(userObject);
+            var movieDtoArgument = Mapper.Map<MovieModel>(movie);
+            mapperMock.Setup(x => x.Map<UserModel>(It.IsAny<User>()))
+              .Returns(userDtoArgument);
+
+            // Act
+            var sut = new UserService(effort, mapperMock.Object);
+            sut.GiveReview(userDtoArgument, movieDtoArgument, 10, "Very good movie!");
+            // Assert
+            var review = effort.Reviews.FirstOrDefault();
+            Assert.AreEqual(review.UserId, userDtoArgument.UserId);
         }
     }
 }
