@@ -4,9 +4,9 @@
              xmlns:local="clr-namespace:SquidsMovieApp.WPF"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <!--<Style TargetType="Grid">
+        <Style TargetType="Grid">
             <Setter Property="Background" Value="GhostWhite"/>
-        </Style>-->
+        </Style>
         <DataTemplate x:Key="LogoHeader">
             <Border Height="55" Padding="10" Background="CornflowerBlue">
                 <Label VerticalAlignment="Center" FontWeight="Bold" Foreground="GhostWhite" FontSize="20">SquidFlix</Label>
